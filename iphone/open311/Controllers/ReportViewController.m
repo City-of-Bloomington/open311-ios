@@ -99,7 +99,8 @@
 {
     // If the user has changed servers, the previous service they were using is no longer valid
     NSString *currentServerURL = [[[Settings sharedSettings] currentServer] objectForKey:@"URL"];
-    if (![self.previousServerURL isEqualToString:currentServerURL]) {
+    if (![self.previousServerURL isEqualToString:currentServerURL]
+        || !self.currentService) {
         self.currentService = nil;
         self.service_definition = nil;
         self.previousServerURL = currentServerURL;
@@ -136,6 +137,7 @@
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
     self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:data options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
     [self.reportForm setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    
     /*
      // Load the iPhone's Device ID
      [self.reportForm setObject:@"" forKey:@"device_id"];
@@ -295,6 +297,8 @@
         
         // Clear the report form
         [self initReportForm];
+        self.currentService = nil;
+        self.service_definition = nil;
         
         self.tabBarController.selectedIndex = 2;
     }
