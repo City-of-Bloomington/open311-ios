@@ -1081,7 +1081,7 @@
 		<string>IDESCMStatusFilteringEnabled</string>
 		<string>IDESelectedObjects</string>
 		<string>IDEExpandedItemsSet</string>
-		<string>{{0, 0}, {259, 882}}</string>
+		<string>{{0, 0}, {244, 882}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1229,7 +1229,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>Models</string>
+		<string>Images</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1484,7 +1484,7 @@
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>16</integer>
+					<integer>27</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -2283,8 +2283,8 @@
     s = 0;
 }</string>
 		</dict>
-		<real>340054986.21715599</real>
-		<string>{11538, 2837}</string>
+		<real>340055253.88249302</real>
+		<string>{11538, 1575}</string>
 		<string>{13510, 0}</string>
 		<string>-handlePostReportFailure:</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
@@ -2329,7 +2329,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {1016, 926}}</string>
+		<string>{{0, 0}, {1016, 426}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -10682,8 +10682,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>340054986.21617198</real>
-		<string>{11538, 2837}</string>
+		<real>340055253.88153499</real>
+		<string>{11538, 1575}</string>
 		<string>{13510, 0}</string>
 		<dict>
 			<key>$class</key>
@@ -22038,8 +22038,8 @@
 		</dict>
 		<string>IDEDeviceLocation</string>
 		<string>IDEDeviceArchitecture</string>
-		<string>dvtdevice-iphone:c8433a47034530195bfaf33d265ac54a051607f8</string>
-		<string>armv7</string>
+		<string>dvtdevice-iphonesimulator:/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk-iPhone</string>
+		<string>i386</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -22350,7 +22350,7 @@
 				<integer>1565</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>340054872.85197997</real>
+			<real>340055210.47090101</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -22361,7 +22361,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 3:41 PM</string>
+		<string>Today at 3:46 PM</string>
 		<integer>234</integer>
 		<string>Open311</string>
 		<dict>
