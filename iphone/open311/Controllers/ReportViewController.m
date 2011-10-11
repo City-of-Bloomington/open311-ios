@@ -77,7 +77,7 @@
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setTitle:@"New Issue"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Service" style:UIBarButtonItemStylePlain target:self action:@selector(chooseService)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(postReport)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(postReport)];
 
     // If the user hasn't chosen a server yet, send them to the MyServers tab
     if (![[Settings sharedSettings] currentServer]) {
