@@ -500,7 +500,30 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [[self.reportForm objectForKey:@"data"] setObject:image forKey:@"media"];
+
+	//resize the image that will be sent to city webservice
+	CGFloat originalWidth = image.size.width;
+	CGFloat originalHeight = image.size.height;
+	CGFloat smallerDimensionMultiplier;
+	CGFloat newWidth;
+	CGFloat newHeight;
+	if (originalWidth > originalHeight) {
+		smallerDimensionMultiplier = originalHeight / originalWidth;
+		newWidth = 800;
+		newHeight = newWidth * smallerDimensionMultiplier;
+	}
+	else {
+		smallerDimensionMultiplier = originalWidth / originalHeight;
+		newHeight =  800;
+		newWidth = newHeight * smallerDimensionMultiplier;
+	}
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
+    [image drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+	UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    [[self.reportForm objectForKey:@"data"] setObject:resizedImage forKey:@"media"];
 
     [[picker parentViewController] dismissModalViewControllerAnimated:YES];
     [picker release];
