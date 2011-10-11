@@ -12,9 +12,9 @@
 @interface HomeViewController : UIViewController {
     
     UINavigationItem *navigationBar;
+    UIImageView *splashImage;
 }
 @property (nonatomic, retain) IBOutlet UINavigationItem *navigationBar;
-- (IBAction)goToNewReport:(id)sender;
-- (IBAction)goToIssues:(id)sender;
+@property (nonatomic, retain) IBOutlet UIImageView *splashImage;
 
 @end

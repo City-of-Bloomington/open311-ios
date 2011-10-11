@@ -11,6 +11,7 @@
 
 @implementation HomeViewController
 @synthesize navigationBar;
+@synthesize splashImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,6 +25,7 @@
 - (void)dealloc
 {
     [navigationBar release];
+    [splashImage release];
     [super dealloc];
 }
 
@@ -49,6 +51,7 @@
 - (void)viewDidUnload
 {
     [self setNavigationBar:nil];
+    [self setSplashImage:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -64,14 +67,6 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (IBAction)goToNewReport:(id)sender {
-    self.tabBarController.selectedIndex = 1;
-}
-
-- (IBAction)goToIssues:(id)sender {
-    self.tabBarController.selectedIndex = 2;
 }
 
 @end
