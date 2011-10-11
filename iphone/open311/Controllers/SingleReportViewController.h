@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ASIHTTPRequest.h"
 
-@interface SingleReportViewController : UIViewController <UIAlertViewDelegate> {
+@interface SingleReportViewController : UIViewController <UIAlertViewDelegate,ASIHTTPRequestDelegate> {
     NSString *service_request_id;
     
     UILabel *serviceName;
@@ -27,5 +28,8 @@
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 
 - (id)initWithServiceRequestId:(NSString *)request_id;
+- (void)handleReportInfoSuccess:(ASIHTTPRequest *)request;
+- (void)handleReportInfoFailure:(ASIHTTPRequest *)request;
+- (void)handleImageDownloadSuccess:(ASIHTTPRequest *)request;
 
 @end

@@ -24,8 +24,6 @@
 #import "Settings.h"
 #import "Open311.h"
 #import "ActionSheetPicker.h"
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
 #import "SBJson.h"
 #import "LocationChooserViewController.h"
 #import "TextFieldViewController.h"
@@ -53,6 +51,7 @@
 
 - (void)dealloc
 {
+    [busyController release];
     [reportForm release];
     [service_definition release];
     [currentService release];
@@ -194,27 +193,45 @@
         NSURL *url = [[[[Open311 sharedOpen311] baseURL] URLByAppendingPathComponent:@"services"] URLByAppendingPathComponent:[service_code stringByAppendingString:@".json"]];
         DLog(@"Loading URL: %@",[url absoluteString]);
         ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-        [request startSynchronous];
-        if (![request error] && [request responseStatusCode]==200) {
-            self.service_definition = [[request responseString] JSONValue];
-            for (NSDictionary *attribute in [self.service_definition objectForKey:@"attributes"]) {
-                NSString *code = [attribute objectForKey:@"code"];
-                DLog(@"Attribute found: %@",code);
-                [[self.reportForm objectForKey:@"fields"] addObject:code];
-                [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
-                [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
-                
-                NSDictionary *values = [attribute objectForKey:@"values"];
-                if (values) {
-                    [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
-                    DLog(@"Added values for %@",code);
-                }
-                
-            }
-            // The fields the user needs to report on have changed
-            [reportTableView reloadData];
-        }
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(handleServiceDefinitionSuccess:)];
+        [request setDidFailSelector:@selector(handleServiceDefinitionFailure:)];
+        [request startAsynchronous];
     }
+}
+
+/**
+ * Reads the service definition and starts up a new report
+ */
+- (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request
+{
+    self.service_definition = [[request responseString] JSONValue];
+    for (NSDictionary *attribute in [self.service_definition objectForKey:@"attributes"]) {
+        NSString *code = [attribute objectForKey:@"code"];
+        DLog(@"Attribute found: %@",code);
+        [[self.reportForm objectForKey:@"fields"] addObject:code];
+        [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
+        [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
+        
+        NSDictionary *values = [attribute objectForKey:@"values"];
+        if (values) {
+            [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
+            DLog(@"Added values for %@",code);
+        }
+        
+    }
+    // The fields the user needs to report on have changed
+    [reportTableView reloadData];
+}
+
+/**
+ * Just displays a generic error message
+ */
+- (void)handleServiceDefinitionFailure:(ASIHTTPRequest *)request
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load service" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 
 /**
@@ -226,6 +243,9 @@
  */
 - (void)postReport
 {
+    busyController = [[BusyViewController alloc] init];
+    [self.view.superview.superview addSubview:busyController.view];
+    
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
     Open311 *open311 = [Open311 sharedOpen311];
     NSURL *url = [[NSURL URLWithString:[open311.endpoint objectForKey:@"url"]] URLByAppendingPathComponent:@"requests.json"];
@@ -270,57 +290,77 @@
     // Todo:
     
     // Send in the POST
-    [post startSynchronous];
-    if (![post error] && [post responseStatusCode]==200) {
+    [post setDelegate:self];
+    [post setDidFinishSelector:@selector(handlePostReportSuccess:)];
+    [post setDidFailSelector:@selector(handlePostReportFailure:)];
+    [post startAsynchronous];
+}
+
+/**
+ * Saves the report to My Reports, empties the current report,
+ * then sends the user to My Reports, so they can see what they posted
+ */
+- (void)handlePostReportSuccess:(ASIFormDataRequest *)post
+{
+    [busyController.view removeFromSuperview];
+    busyController = nil;
+    
+    DLog(@"%@",[post responseString]);
+    
+    // Save the request into MyRequests.plist, so we can display it later.
+    // We'll need to include enough information so we ask the Open311 
+    // server for new information later on.
+    NSArray *service_requests = [[post responseString] JSONValue];
+    if (service_requests != nil) {
+        NSDictionary *request = [service_requests objectAtIndex:0];
+        NSArray *storedData = [NSArray arrayWithObjects:
+                               [[Settings sharedSettings] currentServer],
+                               self.currentService,
+                               [request objectForKey:@"service_request_id"], 
+                               [NSDate date], nil];
+        NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"date", nil];
+        [[[Settings sharedSettings] myRequests] addObject:[NSDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
+        DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
+    }
+    
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    
+    // Clear the report form
+    [self initReportForm];
+    self.currentService = nil;
+    self.service_definition = nil;
+    
+    self.tabBarController.selectedIndex = 2;
+}
+
+/**
+ * Tries to display any Open311 error message that might be in the response
+ */
+- (void)handlePostReportFailure:(ASIFormDataRequest *)post
+{
+    [busyController.view removeFromSuperview];
+    busyController = nil;
+    
+    if ([post error]) {
+        DLog(@"Error reported %@",[[post error] description]);
+    }
+    NSString *status = [NSString stringWithFormat:@"%d",[post responseStatusCode]];
+    DLog(@"Status code was %@", status);
+    NSString *message = [NSString stringWithFormat:@"An error occurred while sending your report to the server.   You might try again later."];
+    if ([post responseString]) {
         DLog(@"%@",[post responseString]);
-        
-        // Save the request into MyRequests.plist, so we can display it later.
-        // We'll need to include enough information so we ask the Open311 
-        // server for new information later on.
-        NSArray *service_requests = [[post responseString] JSONValue];
-        if (service_requests != nil) {
-            NSDictionary *request = [service_requests objectAtIndex:0];
-            NSArray *storedData = [NSArray arrayWithObjects:
-                                   [[Settings sharedSettings] currentServer],
-                                   self.currentService,
-                                   [request objectForKey:@"service_request_id"], 
-                                   [NSDate date], nil];
-            NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"date", nil];
-            [[[Settings sharedSettings] myRequests] addObject:[NSDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
-            DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
+        NSArray *errors = [[post responseString] JSONValue];
+        NSString *description = [[errors objectAtIndex:0] objectForKey:@"description"];
+        if (description) {
+            message = description;
         }
-        
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        
-        // Clear the report form
-        [self initReportForm];
-        self.currentService = nil;
-        self.service_definition = nil;
-        
-        self.tabBarController.selectedIndex = 2;
     }
-    else {
-        if ([post error]) {
-            DLog(@"Error reported %@",[[post error] description]);
-        }
-        NSString *status = [NSString stringWithFormat:@"%d",[post responseStatusCode]];
-        DLog(@"Status code was %@", status);
-        NSString *message = [NSString stringWithFormat:@"An error occurred while sending your report to the server.   You might try again later."];
-        if ([post responseString]) {
-            DLog(@"%@",[post responseString]);
-            NSArray *errors = [[post responseString] JSONValue];
-            NSString *description = [[errors objectAtIndex:0] objectForKey:@"description"];
-            if (description) {
-                message = description;
-            }
-        }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sending Failed" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sending Failed" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 
 

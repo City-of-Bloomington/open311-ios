@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ASIHTTPRequest.h"
 
 
-@interface Open311 : NSObject {
+@interface Open311 : NSObject <ASIHTTPRequestDelegate> {
 @public
     NSDictionary *endpoint;
     NSURL *baseURL;
@@ -23,5 +24,8 @@
 
 - (void)reload:(NSURL *)url;
 - (void)chooseServiceForView:(UIView *)view target:(id)target action:(SEL)action;
+
+- (void)handleDiscoverySuccess:(ASIHTTPRequest *)request;
+- (void)handleServicesSuccess:(ASIHTTPRequest *)request;
 
 @end

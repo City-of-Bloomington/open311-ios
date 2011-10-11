@@ -9,7 +9,6 @@
 #import "SingleReportViewController.h"
 #import "Settings.h"
 #import "Open311.h"
-#import "ASIHTTPRequest.h"
 #import "SBJson.h"
 
 @implementation SingleReportViewController
@@ -57,50 +56,77 @@
     // Do any additional setup after loading the view from its nib.
     NSString *path = [NSString stringWithFormat:@"requests/%@.json",service_request_id];
     NSURL *url = [[NSURL URLWithString:[[[Open311 sharedOpen311] endpoint] objectForKey:@"url"]] URLByAppendingPathComponent:path];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     DLog(@"Loading %@", url);
-    [request startSynchronous];
-    if (![request error] && [request responseStatusCode]==200) {
-        DLog(@"Loaded single report %@", [request responseString]);
-        NSArray *data = [[request responseString] JSONValue];
-        NSDictionary *service_request = [data objectAtIndex:0];
-        if (service_request) {
-            [self.navigationItem setTitle:[service_request objectForKey:@"service_name"]];
-            serviceName.text = [service_request objectForKey:@"service_name"];
-            submissionDate.text = [service_request objectForKey:@"requested_datetime"];
-            status.text = [service_request objectForKey:@"status"];
-            address.text = [service_request objectForKey:@"address"];
-            department.text = [service_request objectForKey:@"agency_responsible"];
-            
-            NSString *media_url = [service_request objectForKey:@"media_url"];
-            if (media_url) {
-                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:media_url]];
-                if (data) {
-                    imageView.image = [UIImage imageWithData:data];
-                }
-            }
-        }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report was garbled" message:[url absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            [alert release];
+
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(handleReportInfoSuccess:)];
+    [request setDidFailSelector:@selector(handleReportInfoFailure:)];
+    [request startAsynchronous];
+}
+
+/**
+ * Updates the view with information from the report
+ */
+- (void)handleReportInfoSuccess:(ASIHTTPRequest *)request;
+{
+    DLog(@"Loaded single report %@", [request responseString]);
+    NSArray *data = [[request responseString] JSONValue];
+    NSDictionary *service_request = [data objectAtIndex:0];
+    if (service_request) {
+        [self.navigationItem setTitle:[service_request objectForKey:@"service_name"]];
+        serviceName.text = [service_request objectForKey:@"service_name"];
+        submissionDate.text = [service_request objectForKey:@"requested_datetime"];
+        status.text = [service_request objectForKey:@"status"];
+        address.text = [service_request objectForKey:@"address"];
+        department.text = [service_request objectForKey:@"agency_responsible"];
+        
+        NSString *media_url = [service_request objectForKey:@"media_url"];
+        if (media_url) {
+            ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:media_url]];
+            [request setDelegate:self];
+            [request setDidFinishSelector:@selector(handleImageDownloadSuccess:)];
+            // We're just going to ignore image download errors for now
+            [request startAsynchronous];
         }
     }
     else {
-        NSString *message = [url absoluteString];
-        if ([request responseString]) {
-            DLog(@"%@",[request responseString]);
-            NSArray *errors = [[request responseString] JSONValue];
-            NSString *description = [[errors objectAtIndex:0] objectForKey:@"description"];
-            if (description) {
-                message = description;
-            }
-        }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load report" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report was garbled" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         [alert release];
     }
 }
+
+/**
+ * Tries to display any Open311 error that might be in the response
+ */
+- (void)handleReportInfoFailure:(ASIHTTPRequest *)request
+{
+    NSString *message = [[request url] absoluteString];
+    if ([request responseString]) {
+        DLog(@"%@",[request responseString]);
+        NSArray *errors = [[request responseString] JSONValue];
+        NSString *description = [[errors objectAtIndex:0] objectForKey:@"description"];
+        if (description) {
+            message = description;
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load report" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}
+
+/**
+ * Updates the view with the downloaded image
+ */
+- (void)handleImageDownloadSuccess:(ASIHTTPRequest *)request
+{
+    UIImage *image = [UIImage imageWithData:[request responseData]];
+    if (image) {
+        imageView.image = image;
+    }
+}
+
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

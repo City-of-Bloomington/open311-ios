@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
+#import "BusyViewController.h"
 
 @interface ReportViewController : UIViewController <UINavigationControllerDelegate,
                                                     UITableViewDelegate,
@@ -16,6 +19,7 @@
                                                     MKReverseGeocoderDelegate> {
     
     IBOutlet UITableView *reportTableView;
+    BusyViewController *busyController;
 }
 @property (nonatomic, retain) NSString *previousServerURL;
 @property (nonatomic, retain) NSDictionary *currentService;
@@ -25,6 +29,11 @@
 - (void)chooseService;
 - (void)initReportForm;
 - (void)didSelectService:(NSNumber *)selectedIndex:(id)element;
+
 - (void)loadServiceDefinition:(NSString *)service_code;
+- (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request;
+- (void)handleServiceDefinitionFailure:(ASIHTTPRequest *)request;
+- (void)handlePostReportSuccess:(ASIFormDataRequest *)post;
+- (void)handlePostReportFailure:(ASIFormDataRequest *)post;
 
 @end

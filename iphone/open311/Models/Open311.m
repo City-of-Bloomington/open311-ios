@@ -7,7 +7,6 @@
 //
 
 #import "Open311.h"
-#import "ASIHTTPRequest.h"
 #import "SBJson.h"
 #import "SynthesizeSingleton.h"
 #import "Settings.h"
@@ -53,39 +52,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Open311);
     NSURL *discoveryURL = [url URLByAppendingPathComponent:@"discovery.json"];
     DLog(@"Loading URL: %@",discoveryURL);
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:discoveryURL];
-    [request startSynchronous];
-    if (![request error] && [request responseStatusCode]==200) {
-        NSDictionary *discovery = [[request responseString] JSONValue];
-        for (NSDictionary *ep in [discovery objectForKey:@"endpoints"]) {
-            if ([[ep objectForKey:@"specification"] isEqualToString:@"http://wiki.open311.org/GeoReport_v2"]) {
-                self.endpoint = ep; 
-                self.baseURL = [NSURL URLWithString:[ep objectForKey:@"url"]];
-            }
-        }
-    }
-    else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load discovery" message:[discoveryURL absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-    }
-    
-    // Load all the service definitions
-    if (self.baseURL) {
-        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:@"services.json"];
-        DLog(@"Loading URL: %@", servicesURL);
-        request = [ASIHTTPRequest requestWithURL:servicesURL];
-        [request startSynchronous];
-        if (![request error]) {
-            self.services = [[request responseString] JSONValue];
-        }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load services" message:[servicesURL absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            [alert release];
-        }
-        DLog(@"Loaded %u services",[self.services count]);
-    }
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(handleDiscoverySuccess:)];
+    [request startAsynchronous];
 }
+
 /**
  * Opens the picker for the user to choose a service from the current server
  *
@@ -108,5 +79,38 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Open311);
     }
 }
 
+#pragma mark - ASIHTTPRequest Handlers
+- (void)handleDiscoverySuccess:(ASIHTTPRequest *)request
+{
+    NSDictionary *discovery = [[request responseString] JSONValue];
+    for (NSDictionary *ep in [discovery objectForKey:@"endpoints"]) {
+        if ([[ep objectForKey:@"specification"] isEqualToString:@"http://wiki.open311.org/GeoReport_v2"]) {
+            self.endpoint = ep; 
+            self.baseURL = [NSURL URLWithString:[ep objectForKey:@"url"]];
+        }
+    }
+    // Load all the service definitions
+    if (self.baseURL) {
+        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:@"services.json"];
+        DLog(@"Loading URL: %@", servicesURL);
+        request = [ASIHTTPRequest requestWithURL:servicesURL];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(handleServicesSuccess:)];
+        [request startAsynchronous];
+    }
+}
+
+- (void)handleServicesSuccess:(ASIHTTPRequest *)request
+{
+    self.services = [[request responseString] JSONValue];
+    DLog(@"Loaded %u services",[self.services count]);
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load url" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}
 
 @end
