@@ -45,5 +45,11 @@
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>open311_app_icon.png</string>
+		<string>open311_retina_icon.png</string>
+		<string>open311_store_icon.png</string>
+	</array>
 </dict>
 </plist>
