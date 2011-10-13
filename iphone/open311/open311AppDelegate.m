@@ -36,15 +36,17 @@
     MyServersViewController* servers = [[MyServersViewController alloc] init];
     //MapViewController* map = [[MapViewController alloc] init];
     
+    UINavigationController* homeNav = [[UINavigationController alloc] initWithRootViewController:home];
     UINavigationController* reportNav = [[UINavigationController alloc] initWithRootViewController:report];
     UINavigationController* serverNav = [[UINavigationController alloc] initWithRootViewController:servers];
     UINavigationController* issueNav = [[UINavigationController alloc] initWithRootViewController:myReports];
+    homeNav.navigationBar.barStyle = UIBarStyleBlack;
     issueNav.navigationBar.barStyle = UIBarStyleBlack;
     reportNav.navigationBar.barStyle = UIBarStyleBlack;
     serverNav.navigationBar.barStyle = UIBarStyleBlack;
 
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:home, reportNav, issueNav, serverNav, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNav, reportNav, issueNav, serverNav, nil];
 
     if (![[Settings sharedSettings] currentServer]) {
         self.tabBarController.selectedViewController = serverNav;

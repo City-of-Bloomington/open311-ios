@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		691A7573144635DD0054B222 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691A7571144635DD0054B222 /* SettingsViewController.m */; };
+		691A7574144635DD0054B222 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 691A7572144635DD0054B222 /* SettingsViewController.xib */; };
 		6924825F143209CD00EBBD16 /* SelectMultipleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6924825D143209CD00EBBD16 /* SelectMultipleViewController.m */; };
 		69248260143209CD00EBBD16 /* SelectMultipleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6924825E143209CD00EBBD16 /* SelectMultipleViewController.xib */; };
 		693028771443920500A8EFB2 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 693028761443920500A8EFB2 /* splash.png */; };
@@ -104,6 +106,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		691A7570144635DD0054B222 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		691A7571144635DD0054B222 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		691A7572144635DD0054B222 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		6924825C143209CD00EBBD16 /* SelectMultipleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectMultipleViewController.h; sourceTree = "<group>"; };
 		6924825D143209CD00EBBD16 /* SelectMultipleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectMultipleViewController.m; sourceTree = "<group>"; };
 		6924825E143209CD00EBBD16 /* SelectMultipleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectMultipleViewController.xib; sourceTree = "<group>"; };
@@ -518,6 +523,9 @@
 				69A92DE5143E43900065FD8D /* SingleReportViewController.h */,
 				69A92DE6143E43900065FD8D /* SingleReportViewController.m */,
 				69A92DE7143E43900065FD8D /* SingleReportViewController.xib */,
+				691A7570144635DD0054B222 /* SettingsViewController.h */,
+				691A7571144635DD0054B222 /* SettingsViewController.m */,
+				691A7572144635DD0054B222 /* SettingsViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -653,6 +661,7 @@
 				696D2EEB1445F820002C07E9 /* open311_app_icon.png in Resources */,
 				696D2EEC1445F820002C07E9 /* open311_retina_icon.png in Resources */,
 				696D2EED1445F820002C07E9 /* open311_store_icon.png in Resources */,
+				691A7574144635DD0054B222 /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,6 +718,7 @@
 				69A92DE2143E0A3C0065FD8D /* MyReportsViewController.m in Sources */,
 				69A92DE8143E43900065FD8D /* SingleReportViewController.m in Sources */,
 				6948D1C41444A28500E26059 /* BusyViewController.m in Sources */,
+				691A7573144635DD0054B222 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

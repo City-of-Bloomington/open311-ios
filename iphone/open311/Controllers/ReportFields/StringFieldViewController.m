@@ -34,7 +34,13 @@
 {
     input.text = [[self.reportForm objectForKey:@"data"] objectForKey:self.fieldname];
     [super viewWillAppear:animated];
+    [input becomeFirstResponder];
 }
 
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self done];
+    return FALSE;
+}
 @end

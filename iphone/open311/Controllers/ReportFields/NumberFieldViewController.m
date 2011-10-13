@@ -13,18 +13,13 @@
 - (void)dealloc
 {
     [input release];
-    [input release];
     [super dealloc];
 }
 
 #pragma mark - Button handling functions
 - (void)done
 {
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:0 error:&error];
-    NSString *cleanedString = [regex stringByReplacingMatchesInString:input.text options:0 range:NSMakeRange(0, input.text.length) withTemplate:@""];
-
-    [[self.reportForm objectForKey:@"data"] setObject:cleanedString forKey:self.fieldname];
+    [[self.reportForm objectForKey:@"data"] setObject:input.text forKey:self.fieldname];
     [super done];
 }
 
@@ -34,8 +29,6 @@
 {
     [input release];
     input = nil;
-    [input release];
-    input = nil;
     [super viewDidUnload];
 }
 
@@ -43,6 +36,14 @@
 {
     input.text = [[self.reportForm objectForKey:@"data"] objectForKey:self.fieldname];
     [super viewWillAppear:animated];
+    [input becomeFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self done];
+    return FALSE;
 }
 
 @end

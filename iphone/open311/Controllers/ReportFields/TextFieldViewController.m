@@ -32,6 +32,7 @@
 {
     textarea.text = [[self.reportForm objectForKey:@"data"] objectForKey:self.fieldname];
     [super viewWillAppear:animated];
+    [textarea becomeFirstResponder];
 }
 
 

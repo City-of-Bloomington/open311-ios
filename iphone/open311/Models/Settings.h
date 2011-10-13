@@ -20,6 +20,10 @@
 @property (nonatomic, retain) NSMutableArray *myRequests;
 
 @property (nonatomic, retain) NSDictionary *currentServer;
+@property (nonatomic, retain) NSString *first_name;
+@property (nonatomic, retain) NSString *last_name;
+@property (nonatomic, retain) NSString *email;
+@property (nonatomic, retain) NSString *phone;
 
 + (Settings *) sharedSettings;
 
@@ -27,6 +31,9 @@
 - (void)save;
 - (void)switchToServer:(NSDictionary *)server;
 
-- (void)loadPlistIntoArray:(NSMutableArray *)array plistFilename:(NSString *)plistFilename;
+- (void)loadAvailableServers;
+- (void)loadMyServers;
+- (void)loadMyRequests;
+- (void)loadStandardUserDefaults;
 
 @end

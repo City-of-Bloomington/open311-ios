@@ -133,22 +133,19 @@
 {
     NSError *error = nil;
     NSPropertyListFormat format;
-    NSData *data = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
-    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:data options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
-    [self.reportForm setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    NSData *reportPlist = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
     
-    /*
-     // Load the iPhone's Device ID
-     [self.reportForm setObject:@"" forKey:@"device_id"];
-     */
+    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:reportPlist options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
     
-    /*
+    NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
+    [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    
      // Load the user's firstname, lastname, email, and phone number
-     [self.reportForm setObject:NULL forKey:@"first_name"];
-     [self.reportForm setObject:NULL forKey:@"last_name"];
-     [self.reportForm setObject:NULL forKey:@"email"];
-     [self.reportForm setObject:NULL forKey:@"phone"];
-     */
+    Settings *settings = [Settings sharedSettings];
+    [data setObject:settings.first_name forKey:@"first_name"];
+    [data setObject:settings.last_name forKey:@"last_name"];
+    [data setObject:settings.email forKey:@"email"];
+    [data setObject:settings.phone forKey:@"phone"];
     
     [reportTableView reloadData];
 }
@@ -254,10 +251,15 @@
     
     // Handle all the normal arguments
     [post setPostValue:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    [post setPostValue:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"device_id"];
     [post setPostValue:[data objectForKey:@"lat"] forKey:@"lat"];
     [post setPostValue:[data objectForKey:@"long"] forKey:@"long"];
     [post setPostValue:[data objectForKey:@"address_string"] forKey:@"address_string"];
     [post setPostValue:[data objectForKey:@"description"] forKey:@"description"];
+    [post setPostValue:[data objectForKey:@"first_name"] forKey:@"first_name"];
+    [post setPostValue:[data objectForKey:@"last_name"] forKey:@"last_name"];
+    [post setPostValue:[data objectForKey:@"email"] forKey:@"email"];
+    [post setPostValue:[data objectForKey:@"phone"] forKey:@"phone"];
     
     UIImage *image = [data objectForKey:@"media"];
     if (image) {
@@ -347,8 +349,7 @@
     if ([post error]) {
         DLog(@"Error reported %@",[[post error] description]);
     }
-    NSString *status = [NSString stringWithFormat:@"%d",[post responseStatusCode]];
-    DLog(@"Status code was %@", status);
+    DLog(@"Status code was %@", [NSString stringWithFormat:@"%d",[post responseStatusCode]]);
     NSString *message = [NSString stringWithFormat:@"An error occurred while sending your report to the server.   You might try again later."];
     if ([post responseString]) {
         DLog(@"%@",[post responseString]);

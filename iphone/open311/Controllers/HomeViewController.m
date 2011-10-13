@@ -8,9 +8,9 @@
 
 #import "HomeViewController.h"
 #import "Settings.h"
+#import "SettingsViewController.h"
 
 @implementation HomeViewController
-@synthesize navigationBar;
 @synthesize splashImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -24,7 +24,6 @@
 
 - (void)dealloc
 {
-    [navigationBar release];
     [splashImage release];
     [super dealloc];
 }
@@ -46,11 +45,11 @@
     if (![[Settings sharedSettings] currentServer]) {
         self.tabBarController.selectedIndex = 3;
     }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(gotoSettings)];
 }
 
 - (void)viewDidUnload
 {
-    [self setNavigationBar:nil];
     [self setSplashImage:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -59,7 +58,7 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    self.navigationBar.title = [[[Settings sharedSettings] currentServer] objectForKey:@"Name"];
+    self.navigationItem.title = [[[Settings sharedSettings] currentServer] objectForKey:@"Name"];
     [super viewWillAppear:animated];
 }
 
@@ -67,6 +66,11 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+     
+- (void)gotoSettings
+{
+    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
 }
 
 @end

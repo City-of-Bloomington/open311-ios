@@ -4,11 +4,17 @@
 <dict>
 	<key>data</key>
 	<dict>
+		<key>first_name</key>
+		<string></string>
+		<key>last_name</key>
+		<string></string>
+		<key>email</key>
+		<string></string>
+		<key>phone</key>
+		<string></string>
 		<key>address_string</key>
 		<string></string>
 		<key>description</key>
-		<string></string>
-		<key>device_id</key>
 		<string></string>
 		<key>jurisdiction_id</key>
 		<string></string>
@@ -24,6 +30,10 @@
 		<string>media</string>
 		<string>address_string</string>
 		<string>description</string>
+		<string>first_name</string>
+		<string>last_name</string>
+		<string>email</string>
+		<string>phone</string>
 	</array>
 	<key>labels</key>
 	<dict>
@@ -33,9 +43,25 @@
 		<string>Description</string>
 		<key>media</key>
 		<string>Take a Photo</string>
+		<key>first_name</key>
+		<string>Firstname</string>
+		<key>last_name</key>
+		<string>Lastname</string>
+		<key>email</key>
+		<string>Email</string>
+		<key>phone</key>
+		<string>Phone</string>
 	</dict>
 	<key>types</key>
 	<dict>
+		<key>first_name</key>
+		<string>string</string>
+		<key>last_name</key>
+		<string>string</string>
+		<key>email</key>
+		<string>string</string>
+		<key>phone</key>
+		<string>number</string>
 		<key>address_string</key>
 		<string>location</string>
 		<key>description</key>

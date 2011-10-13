@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseFieldViewController.h"
 
-@interface NumberFieldViewController : BaseFieldViewController {
+@interface NumberFieldViewController : BaseFieldViewController <UITextFieldDelegate> {
     IBOutlet UITextField *input;
 }
 @end

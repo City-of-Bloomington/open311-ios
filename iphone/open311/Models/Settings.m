@@ -15,6 +15,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Settings);
 
 @synthesize availableServers,myServers,myRequests;
 @synthesize currentServer;
+@synthesize first_name, last_name, email, phone;
 
 
 - (id) init
@@ -28,6 +29,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Settings);
 
 - (void) dealloc
 {
+    [first_name release];
+    [last_name release];
+    [email release];
+    [phone release];
     [myRequests release];
     [myServers release];
     [availableServers release];
@@ -35,13 +40,25 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Settings);
     [super dealloc];
 }
 
+#pragma mark - Loading functions
 /**
  * Loads all the stored data
  */
 - (void) load
 {
+    [self loadAvailableServers];
+    [self loadMyServers];
+    [self loadMyRequests];
+    [self loadStandardUserDefaults];
+}
+
+- (void)loadAvailableServers
+{
     self.availableServers = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AvailableServers" ofType:@"plist"]];
-    
+}
+
+- (void)loadMyServers
+{
     NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"MyServers.plist"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
         self.myServers = [[NSMutableArray alloc] init];
@@ -49,35 +66,27 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Settings);
     else {
         self.myServers = [NSMutableArray arrayWithContentsOfFile:plistPath];
     }
-    
-    plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"MyRequests.plist"];
+}
+
+- (void)loadMyRequests
+{
+    NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"MyRequests.plist"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
         self.myRequests = [[NSMutableArray alloc] init];
     }
     else {
         self.myRequests = [NSMutableArray arrayWithContentsOfFile:plistPath];
     }
-    
-    self.currentServer = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentServer"];
 }
 
-/**
- * Helper function for populating data
- *
- * Will load data from the given plist if the file exists.
- * Otherwise, it just creates an empty NSMutableArray that can later
- * be saved as the desired filename, so it's ready next time
- */
-- (void)loadPlistIntoArray:(NSMutableArray *)array plistFilename:(NSString *)plistFilename
+- (void)loadStandardUserDefaults
 {
-    NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:plistFilename];
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        array = [[NSMutableArray alloc] init];
-    }
-    else {
-        array = [NSMutableArray arrayWithContentsOfFile:plistPath];
-    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.currentServer = [defaults objectForKey:@"currentServer"];
+    self.first_name = [defaults objectForKey:@"first_name"];
+    self.last_name = [defaults objectForKey:@"last_name"];
+    self.email = [defaults objectForKey:@"email"];
+    self.phone = [defaults objectForKey:@"phone"];
 }
 
 /**
@@ -90,8 +99,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Settings);
     [self.myServers writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"MyServers.plist"] atomically:TRUE];
     [self.myRequests writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"MyRequests.plist"] atomically:TRUE];
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.currentServer forKey:@"currentServer"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.currentServer forKey:@"currentServer"];
+    [defaults setObject:self.first_name forKey:@"first_name"];
+    [defaults setObject:self.last_name forKey:@"last_name"];
+    [defaults setObject:self.email forKey:@"email"];
+    [defaults setObject:self.phone forKey:@"phone"];
+    [defaults synchronize];
 }
 
 /**

@@ -10,11 +10,10 @@
 
 
 @interface HomeViewController : UIViewController {
-    
-    UINavigationItem *navigationBar;
     UIImageView *splashImage;
 }
-@property (nonatomic, retain) IBOutlet UINavigationItem *navigationBar;
 @property (nonatomic, retain) IBOutlet UIImageView *splashImage;
+
+- (void)gotoSettings;
 
 @end
