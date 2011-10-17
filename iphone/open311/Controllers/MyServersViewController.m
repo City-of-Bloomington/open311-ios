@@ -45,6 +45,10 @@
     [self.navigationItem setTitle:@"My Servers"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAvailableServers)];
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    if ([[[Settings sharedSettings] myServers] count] == 0) {
+        [self goToAvailableServers];
+    }
 }
 
 - (void)viewDidUnload
