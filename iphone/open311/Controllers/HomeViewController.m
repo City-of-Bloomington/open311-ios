@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "Settings.h"
 #import "SettingsViewController.h"
+#import "ReportViewController.h"
 
 @implementation HomeViewController
 @synthesize splashImage;
@@ -71,6 +72,12 @@
 - (void)gotoSettings
 {
     [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
+}
+
+- (IBAction)gotoNewReport:(id)sender
+{
+    DLog(@"Sending to new report");
+    [self.navigationController pushViewController:[[ReportViewController alloc] init] animated:YES];
 }
 
 @end

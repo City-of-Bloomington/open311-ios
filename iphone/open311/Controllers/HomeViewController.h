@@ -15,5 +15,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView *splashImage;
 
 - (void)gotoSettings;
+- (IBAction)gotoNewReport:(id)sender;
 
 @end
