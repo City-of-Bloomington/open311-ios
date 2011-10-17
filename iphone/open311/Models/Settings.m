@@ -83,10 +83,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Settings);
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.currentServer = [defaults objectForKey:@"currentServer"];
-    self.first_name = [defaults objectForKey:@"first_name"];
-    self.last_name = [defaults objectForKey:@"last_name"];
-    self.email = [defaults objectForKey:@"email"];
-    self.phone = [defaults objectForKey:@"phone"];
+    self.first_name = [defaults objectForKey:@"first_name"] ? [defaults objectForKey:@"first_name"] : @"";
+    self.last_name = [defaults objectForKey:@"last_name"] ? [defaults objectForKey:@"last_name"] : @"";
+    self.email = [defaults objectForKey:@"email"] ? [defaults objectForKey:@"email"] : @"";
+    self.phone = [defaults objectForKey:@"phone"] ? [defaults objectForKey:@"phone"] : @"";
 }
 
 /**

@@ -12,6 +12,12 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>open311_app_icon.png</string>
+		<string>open311_retina_icon.png</string>
+		<string>open311_store_icon.png</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>gov.in.bloomington.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -27,7 +33,7 @@
 	<key>CFBundleURLTypes</key>
 	<array/>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
@@ -45,11 +51,5 @@
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>open311_app_icon.png</string>
-		<string>open311_retina_icon.png</string>
-		<string>open311_store_icon.png</string>
-	</array>
 </dict>
 </plist>

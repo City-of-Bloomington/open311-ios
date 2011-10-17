@@ -98,6 +98,8 @@
 		69B07FD31416B30E008DD4E0 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FCF1416B30E008DD4E0 /* settings.png */; };
 		69B715231445D55D00C4ACA7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69B715221445D55D00C4ACA7 /* Settings.bundle */; };
 		69BAA102141FB86C00D03396 /* Report.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69BAA101141FB86C00D03396 /* Report.plist */; };
+		69BB1D92144C7FF100907B1A /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = 69BB1D90144C7FF000907B1A /* COPYING.txt */; };
+		69BB1D93144C7FF100907B1A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 69BB1D91144C7FF000907B1A /* LICENSE.txt */; };
 		69E58237141E87550038C910 /* ChooseServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E58235141E87550038C910 /* ChooseServiceViewController.m */; };
 		69E58238141E87550038C910 /* ChooseServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E58236141E87550038C910 /* ChooseServiceViewController.xib */; };
 		69F08B7B142A6E910019C816 /* cross-hairs-small-black-cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F08B79142A6E910019C816 /* cross-hairs-small-black-cropped.png */; };
@@ -250,6 +252,8 @@
 		69B07FCF1416B30E008DD4E0 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		69B715221445D55D00C4ACA7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		69BAA101141FB86C00D03396 /* Report.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Report.plist; sourceTree = "<group>"; };
+		69BB1D90144C7FF000907B1A /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
+		69BB1D91144C7FF000907B1A /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		69E58234141E87550038C910 /* ChooseServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServiceViewController.h; sourceTree = "<group>"; };
 		69E58235141E87550038C910 /* ChooseServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServiceViewController.m; sourceTree = "<group>"; };
 		69E58236141E87550038C910 /* ChooseServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseServiceViewController.xib; sourceTree = "<group>"; };
@@ -464,6 +468,8 @@
 		69B07FA01416AFEC008DD4E0 /* open311 */ = {
 			isa = PBXGroup;
 			children = (
+				69BB1D90144C7FF000907B1A /* COPYING.txt */,
+				69BB1D91144C7FF000907B1A /* LICENSE.txt */,
 				69B07FB51416B050008DD4E0 /* Controllers */,
 				69B07FB61416B050008DD4E0 /* Images */,
 				69B07FB71416B050008DD4E0 /* Models */,
@@ -662,6 +668,8 @@
 				696D2EEC1445F820002C07E9 /* open311_retina_icon.png in Resources */,
 				696D2EED1445F820002C07E9 /* open311_store_icon.png in Resources */,
 				691A7574144635DD0054B222 /* SettingsViewController.xib in Resources */,
+				69BB1D92144C7FF100907B1A /* COPYING.txt in Resources */,
+				69BB1D93144C7FF100907B1A /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
