@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "Settings.h"
+#import "Open311.h"
 #import "SettingsViewController.h"
 #import "ReportViewController.h"
 
@@ -43,8 +44,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if (![[Settings sharedSettings] currentServer]) {
+    Settings *settings = [Settings sharedSettings];
+    if (!settings.currentServer) {
         self.tabBarController.selectedIndex = 3;
+    }
+    else {
+        [[Open311 sharedOpen311] reload:[NSURL URLWithString:[settings.currentServer objectForKey:@"URL"]]];
     }
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(gotoSettings)];
 }
