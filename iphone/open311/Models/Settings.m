@@ -1,10 +1,15 @@
-//
-//  Settings.m
-//  open311
-//
-//  Created by Cliff Ingham on 8/31/11.
-//  Copyright 2011 City of Bloomington. All rights reserved.
-//
+/**
+ * Handles loading and saving of all data from storage on the phone
+ *
+ * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
 
 #import "Settings.h"
 #import "SynthesizeSingleton.h"

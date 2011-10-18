@@ -1,23 +1,27 @@
-//
-//  ReportViewController.m
-//  open311
-//
-//  Created by Cliff Ingham on 9/6/11.
-//  Copyright 2011 City of Bloomington. All rights reserved.
-//
-// This is the screen where the user is creating a report to send to
-// an open311 server.  We need to know what service the user wants to
-// report to on that server.  We'll get the list of attributes for that
-// service and let the user enter data for each one of the attributes.
-//
-// We start by creating an empty report from Report.plist
-// Then, we query the service_definition and add all the attributes
-// defined in the service_defition.
-// Each of the types declared in reportForm has a custom view
-// that opens when the user edits that field.  User responses
-// get saved as strings in reportForm[data].
-// When we're ready to POST, we just have to read through 
-// reportForm[data] for the data to submit.
+/**
+ * This is the screen where the user is creating a report to send to
+ * an open311 server.  We need to know what service the user wants to
+ * report to on that server.  We'll get the list of attributes for that
+ * service and let the user enter data for each one of the attributes.
+ *
+ * We start by creating an empty report from Report.plist
+ * Then, we query the service_definition and add all the attributes
+ * defined in the service_defition.
+ * Each of the types declared in reportForm has a custom view
+ * that opens when the user edits that field.  User responses
+ * get saved as strings in reportForm[data].
+ * When we're ready to POST, we just have to read through 
+ * reportForm[data] for the data to submit.
+ *
+ * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
 
 #import <AddressBook/AddressBook.h>
 #import "ReportViewController.h"
