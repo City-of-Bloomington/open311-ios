@@ -103,13 +103,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    NSDictionary *myReport = [[[Settings sharedSettings] myRequests] objectAtIndex:indexPath.row];
-    DLog(@"myReport %@", myReport);
+    Settings *settings = [Settings sharedSettings];
+    NSDictionary *myReport = [settings.myRequests objectAtIndex:indexPath.row];
     NSString *service_request_id = [myReport objectForKey:@"service_request_id"];
-    DLog(@"User chose id %@", service_request_id);
-    SingleReportViewController *report = [[SingleReportViewController alloc] initWithServiceRequestId:service_request_id];
-    [self.navigationController pushViewController:report animated:YES];
-    [report release];
+
+    [self.navigationController pushViewController:[[SingleReportViewController alloc] initWithServiceRequestId:service_request_id] animated:YES];
 }
 
 

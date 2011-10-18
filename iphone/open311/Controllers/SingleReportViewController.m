@@ -10,7 +10,6 @@
  */
 
 #import "SingleReportViewController.h"
-#import "Settings.h"
 #import "Open311.h"
 #import "SBJson.h"
 
