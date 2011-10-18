@@ -28,6 +28,7 @@
 
 - (void)dealloc
 {
+    [busyController release];
     [splashImage release];
     [super dealloc];
 }
@@ -42,18 +43,26 @@
 
 #pragma mark - View lifecycle
 
+/**
+ * Does a fresh reload of the Open311 discovery information
+ *
+ * This could take a while.  Remember to display a Busy view
+ * until we get something back.
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    Settings *settings = [Settings sharedSettings];
-    if (!settings.currentServer) {
-        self.tabBarController.selectedIndex = 3;
-    }
-    else {
-        [[Open311 sharedOpen311] reload:[NSURL URLWithString:[settings.currentServer objectForKey:@"URL"]]];
-    }
+    DLog(@"viewDidLoad");
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(gotoSettings)];
+    
+}
+
+- (void)discoveryFinishedLoading:(NSNotification *)notification
+{
+    DLog(@"Finished Loading Discovery");
+    [busyController.view removeFromSuperview];
+    busyController = nil;
 }
 
 - (void)viewDidUnload
@@ -66,7 +75,24 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    self.navigationItem.title = [[[Settings sharedSettings] currentServer] objectForKey:@"Name"];
+    Settings *settings = [Settings sharedSettings];
+    
+    // If the user hasn't chosen a server, send them to the MyServer screen
+    if (!settings.currentServer) {
+        self.tabBarController.selectedIndex = 3;
+    }
+    // The user has chosen a server.
+    else {
+        self.navigationItem.title = [settings.currentServer objectForKey:@"Name"];
+        
+        // Show a busy screen and start up a full reload of discovery information
+        busyController = [[BusyViewController alloc] init];
+        [self.view addSubview:busyController.view];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(discoveryFinishedLoading:) name:@"discoveryFinishedLoading" object:nil];
+        
+        [[Open311 sharedOpen311] reload:[NSURL URLWithString:[settings.currentServer objectForKey:@"URL"]]];
+    }
+
     [super viewWillAppear:animated];
 }
 

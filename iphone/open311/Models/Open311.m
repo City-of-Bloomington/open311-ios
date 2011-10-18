@@ -26,9 +26,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Open311);
 {
     self = [super init];
     if (self) {
-        if ([[Settings sharedSettings] currentServer]) {
-            [self reload:[NSURL URLWithString:[[[Settings sharedSettings] currentServer] objectForKey:@"URL"]]];
-        }
     }
     return self;
 }
@@ -107,6 +104,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Open311);
 {
     self.services = [[request responseString] JSONValue];
     DLog(@"Loaded %u services",[self.services count]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request

@@ -13,6 +13,7 @@
 #import "Settings.h"
 #import "AvailableServers.h"
 #import "Open311.h"
+#import "BusyViewController.h"
 
 @implementation MyServersViewController
 @synthesize myServersTableView;
@@ -112,7 +113,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     Settings *settings = [Settings sharedSettings];
-    [settings switchToServer:[[settings myServers] objectAtIndex:indexPath.row]];
+    settings.currentServer = [settings.myServers objectAtIndex:indexPath.row];
     
     self.tabBarController.selectedIndex = 0;
 }

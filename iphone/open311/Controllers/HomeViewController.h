@@ -9,14 +9,16 @@
  * (at your option) any later version.
  */
 #import <UIKit/UIKit.h>
-
+#import "BusyViewController.h"
 
 @interface HomeViewController : UIViewController {
     UIImageView *splashImage;
+    BusyViewController *busyController;
 }
 @property (nonatomic, retain) IBOutlet UIImageView *splashImage;
 
 - (void)gotoSettings;
 - (IBAction)gotoNewReport:(id)sender;
+- (void)discoveryFinishedLoading:(NSNotification *)notification;
 
 @end

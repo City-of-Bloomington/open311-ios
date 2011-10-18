@@ -32,7 +32,6 @@
 
 - (void)load;
 - (void)save;
-- (void)switchToServer:(NSDictionary *)server;
 
 - (void)loadAvailableServers;
 - (void)loadMyServers;
