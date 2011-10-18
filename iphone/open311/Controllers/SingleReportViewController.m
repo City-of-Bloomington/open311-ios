@@ -76,20 +76,26 @@
     NSArray *data = [[request responseString] JSONValue];
     NSDictionary *service_request = [data objectAtIndex:0];
     if (service_request) {
-        [self.navigationItem setTitle:[service_request objectForKey:@"service_name"]];
-        serviceName.text = [service_request objectForKey:@"service_name"];
-        submissionDate.text = [service_request objectForKey:@"requested_datetime"];
-        status.text = [service_request objectForKey:@"status"];
-        address.text = [service_request objectForKey:@"address"];
-        department.text = [service_request objectForKey:@"agency_responsible"];
-        
-        NSString *media_url = [service_request objectForKey:@"media_url"];
-        if (media_url) {
-            ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:media_url]];
-            [request setDelegate:self];
-            [request setDidFinishSelector:@selector(handleImageDownloadSuccess:)];
-            // We're just going to ignore image download errors for now
-            [request startAsynchronous];
+        NSString *service_name = [service_request objectForKey:@"service_name"];
+        if (service_name) {
+            [self.navigationItem setTitle:service_name];
+            serviceName.text = service_name;
+            submissionDate.text = [service_request objectForKey:@"requested_datetime"];
+            status.text = [service_request objectForKey:@"status"];
+            address.text = [service_request objectForKey:@"address"];
+            department.text = [service_request objectForKey:@"agency_responsible"];
+            
+            NSString *media_url = [service_request objectForKey:@"media_url"];
+            if (media_url) {
+                ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:media_url]];
+                [request setDelegate:self];
+                [request setDidFinishSelector:@selector(handleImageDownloadSuccess:)];
+                // We're just going to ignore image download errors for now
+                [request startAsynchronous];
+            }
+        }
+        else {
+            [self handleReportInfoFailure:request];
         }
     }
     else {
