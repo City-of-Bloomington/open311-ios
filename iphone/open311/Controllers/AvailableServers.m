@@ -70,19 +70,42 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *server = [[[[Settings sharedSettings] availableServers] objectForKey:@"Servers"] objectAtIndex:indexPath.row];
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"] autorelease];
     }
-    cell.textLabel.text = [[[[[Settings sharedSettings] availableServers] objectForKey:@"Servers"] objectAtIndex:indexPath.row] objectForKey:@"Name"];
-    cell.detailTextLabel.text = [[[[[Settings sharedSettings] availableServers] objectForKey:@"Servers"] objectAtIndex:indexPath.row] objectForKey:@"URL"];
+    cell.textLabel.text = [server objectForKey:@"Name"];
+    cell.detailTextLabel.text = [server objectForKey:@"URL"];
     return cell;
 }
 
+/**
+ * Adds tha chosen server to MyServers
+ *
+ * We want to make sure that the server isn't already there.  Otherwise,
+ * people will fill up their MyServers list with a bunch of the same one.
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [[[Settings sharedSettings] myServers] addObject:[[[[Settings sharedSettings] availableServers] objectForKey:@"Servers"] objectAtIndex:indexPath.row]];
+    Settings *settings = [Settings sharedSettings];
+    NSDictionary *chosenServer = [[settings.availableServers objectForKey:@"Servers"] objectAtIndex:indexPath.row];
+    
+    // Make sure the server we're about to add isn't already in MyServers
+    BOOL alreadyExists = FALSE;
+    for (NSDictionary *server in settings.myServers) {
+        if ([[server objectForKey:@"URL"] isEqualToString:[chosenServer objectForKey:@"URL"]]) {
+            alreadyExists = TRUE;
+            break;
+        }
+    }
+    
+    if (!alreadyExists) {
+        [settings.myServers addObject:chosenServer];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
