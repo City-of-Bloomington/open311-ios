@@ -14,6 +14,7 @@
 		693028771443920500A8EFB2 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 693028761443920500A8EFB2 /* splash.png */; };
 		6948D1C41444A28500E26059 /* BusyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6948D1C21444A28500E26059 /* BusyViewController.m */; };
 		6948D1C51444A28500E26059 /* BusyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6948D1C31444A28500E26059 /* BusyViewController.xib */; };
+		6958413A144DF6D00068642E /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 69584139144DF6D00068642E /* about.html */; };
 		696D2EEB1445F820002C07E9 /* open311_app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696D2EE81445F820002C07E9 /* open311_app_icon.png */; };
 		696D2EEC1445F820002C07E9 /* open311_retina_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696D2EE91445F820002C07E9 /* open311_retina_icon.png */; };
 		696D2EED1445F820002C07E9 /* open311_store_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696D2EEA1445F820002C07E9 /* open311_store_icon.png */; };
@@ -118,6 +119,7 @@
 		6948D1C11444A28500E26059 /* BusyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusyViewController.h; sourceTree = "<group>"; };
 		6948D1C21444A28500E26059 /* BusyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusyViewController.m; sourceTree = "<group>"; };
 		6948D1C31444A28500E26059 /* BusyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusyViewController.xib; sourceTree = "<group>"; };
+		69584139144DF6D00068642E /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		696D2EE81445F820002C07E9 /* open311_app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open311_app_icon.png; sourceTree = "<group>"; };
 		696D2EE91445F820002C07E9 /* open311_retina_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open311_retina_icon.png; sourceTree = "<group>"; };
 		696D2EEA1445F820002C07E9 /* open311_store_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open311_store_icon.png; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				69B07FA61416AFEC008DD4E0 /* open311-Prefix.pch */,
 				69B07FA71416AFEC008DD4E0 /* main.m */,
 				69B715221445D55D00C4ACA7 /* Settings.bundle */,
+				69584139144DF6D00068642E /* about.html */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				691A7574144635DD0054B222 /* SettingsViewController.xib in Resources */,
 				69BB1D92144C7FF100907B1A /* COPYING.txt in Resources */,
 				69BB1D93144C7FF100907B1A /* LICENSE.txt in Resources */,
+				6958413A144DF6D00068642E /* about.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
