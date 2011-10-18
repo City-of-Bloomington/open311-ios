@@ -135,6 +135,7 @@
  */
 - (void)initReportForm
 {
+    DLog(@"initReportForm called");
     NSError *error = nil;
     NSPropertyListFormat format;
     NSData *reportPlist = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
@@ -150,6 +151,7 @@
     [data setObject:settings.last_name forKey:@"last_name"];
     [data setObject:settings.email forKey:@"email"];
     [data setObject:settings.phone forKey:@"phone"];
+    DLog(@"%@", data);
     
     [reportTableView reloadData];
 }
@@ -403,12 +405,11 @@
     }
     else if ([fieldname isEqualToString:@"address_string"]) {
         NSString *address = [data objectForKey:@"address_string"];
+        DLog(@"Table sees address as %@", address);
         NSString *latitude = [data objectForKey:@"lat"];
         NSString *longitude = [data objectForKey:@"long"];
-        if ([address length]!=0) {
-            cell.detailTextLabel.text = address;
-        }
-        else if ([latitude length]!=0 && [longitude length]!=0) {
+        cell.detailTextLabel.text = address;
+        if ([address length]==0 && [latitude length]!=0 && [longitude length]!=0) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",latitude,longitude];
             CLLocation *location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longitude doubleValue]];
             MKReverseGeocoder *geocoder = [[MKReverseGeocoder alloc] initWithCoordinate:location.coordinate];
