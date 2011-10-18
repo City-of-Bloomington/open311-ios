@@ -22,6 +22,7 @@
                                                     MKReverseGeocoderDelegate> {
     
     IBOutlet UITableView *reportTableView;
+    IBOutlet UILabel *serviceDescriptionLabel;
     BusyViewController *busyController;
 }
 @property (nonatomic, retain) NSString *previousServerURL;

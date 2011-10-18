@@ -61,6 +61,7 @@
     [currentService release];
     [previousServerURL release];
     [reportTableView release];
+    [serviceDescriptionLabel release];
     [super dealloc];
 }
 
@@ -93,6 +94,8 @@
     [reportForm release];
     [reportTableView release];
     reportTableView = nil;
+    [serviceDescriptionLabel release];
+    serviceDescriptionLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -135,7 +138,6 @@
  */
 - (void)initReportForm
 {
-    DLog(@"initReportForm called");
     NSError *error = nil;
     NSPropertyListFormat format;
     NSData *reportPlist = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
@@ -151,7 +153,6 @@
     [data setObject:settings.last_name forKey:@"last_name"];
     [data setObject:settings.email forKey:@"email"];
     [data setObject:settings.phone forKey:@"phone"];
-    DLog(@"%@", data);
     
     [reportTableView reloadData];
 }
@@ -175,6 +176,13 @@
 - (void)didSelectService:(NSNumber *)selectedIndex :(id)element
 {
     self.currentService = [[[Open311 sharedOpen311] services] objectAtIndex:[selectedIndex integerValue]];
+    
+    NSString *serviceDescription = [self.currentService objectForKey:@"description"];
+    if (!serviceDescription) {
+        serviceDescription = [NSString stringWithFormat:@"Report %@",[self.currentService objectForKey:@"service_name"]];
+    }
+    [serviceDescriptionLabel setText:serviceDescription];
+    
     [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
     [self initReportForm];
     [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
