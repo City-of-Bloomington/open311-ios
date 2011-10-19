@@ -12,10 +12,11 @@
 #import "BusyViewController.h"
 
 @interface HomeViewController : UIViewController {
-    UIImageView *splashImage;
     BusyViewController *busyController;
+    UIButton *splashImageButton;
 }
-@property (nonatomic, retain) IBOutlet UIImageView *splashImage;
+
+@property (nonatomic, retain) IBOutlet UIButton *splashImageButton;
 
 - (void)gotoSettings;
 - (IBAction)gotoNewReport:(id)sender;

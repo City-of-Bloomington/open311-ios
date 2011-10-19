@@ -15,7 +15,7 @@
 #import "ReportViewController.h"
 
 @implementation HomeViewController
-@synthesize splashImage;
+@synthesize splashImageButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,7 +29,7 @@
 - (void)dealloc
 {
     [busyController release];
-    [splashImage release];
+    [splashImageButton release];
     [super dealloc];
 }
 
@@ -58,16 +58,9 @@
     
 }
 
-- (void)discoveryFinishedLoading:(NSNotification *)notification
-{
-    DLog(@"Finished Loading Discovery");
-    [busyController.view removeFromSuperview];
-    busyController = nil;
-}
-
 - (void)viewDidUnload
 {
-    [self setSplashImage:nil];
+    [self setSplashImageButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -91,10 +84,26 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(discoveryFinishedLoading:) name:@"discoveryFinishedLoading" object:nil];
         
         [[Open311 sharedOpen311] reload:[NSURL URLWithString:[settings.currentServer objectForKey:@"URL"]]];
+        
+        // If we have a splash screen for the server, swap it in
+        NSString *serverName = [settings.currentServer objectForKey:@"Name"];
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:serverName ofType:@"png"];
+        if (!imagePath) {
+            imagePath = [[NSBundle mainBundle] pathForResource:@"splash" ofType:@"png"];
+        }
+        [splashImageButton setImage:[[UIImage alloc] initWithContentsOfFile:imagePath] forState:UIControlStateNormal];
     }
 
     [super viewWillAppear:animated];
 }
+
+- (void)discoveryFinishedLoading:(NSNotification *)notification
+{
+    DLog(@"Finished Loading Discovery");
+    [busyController.view removeFromSuperview];
+    busyController = nil;
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
