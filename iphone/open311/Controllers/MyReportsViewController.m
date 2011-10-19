@@ -88,6 +88,8 @@
     NSDictionary *request = [[[Settings sharedSettings] myRequests] objectAtIndex:indexPath.row];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:kCFDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    DLog(@"Formatting date %@", [request objectForKey:@"date"]);
     
     cell.textLabel.text = [[request objectForKey:@"service"] objectForKey:@"service_name"];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@",
