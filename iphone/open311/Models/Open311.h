@@ -26,7 +26,6 @@
 + (Open311 *) sharedOpen311;
 
 - (void)reload:(NSURL *)url;
-- (void)chooseServiceForView:(UIView *)view target:(id)target action:(SEL)action;
 
 - (void)handleDiscoverySuccess:(ASIHTTPRequest *)request;
 - (void)handleServicesSuccess:(ASIHTTPRequest *)request;

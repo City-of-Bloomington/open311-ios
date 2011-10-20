@@ -19,20 +19,26 @@
                                                     UITableViewDelegate,
                                                     UITableViewDataSource,
                                                     UIImagePickerControllerDelegate,
+                                                    UIActionSheetDelegate,
+                                                    UIPickerViewDelegate,
+                                                    UIPickerViewDataSource,
                                                     MKReverseGeocoderDelegate> {
     
     IBOutlet UITableView *reportTableView;
     IBOutlet UILabel *serviceDescriptionLabel;
     BusyViewController *busyController;
+    UIActionSheet *serviceChooserActionSheet;
+    UIPickerView *servicePicker;
 }
 @property (nonatomic, retain) NSString *previousServerURL;
 @property (nonatomic, retain) NSDictionary *currentService;
 @property (nonatomic, retain) NSDictionary *service_definition;
 @property (nonatomic, retain) NSMutableDictionary *reportForm;
 
-- (void)chooseService;
 - (void)initReportForm;
-- (void)didSelectService:(NSNumber *)selectedIndex:(id)element;
+
+- (void)chooseService;
+- (void)didSelectService:(NSInteger)selectedIndex;
 
 - (void)loadServiceDefinition:(NSString *)service_code;
 - (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request;

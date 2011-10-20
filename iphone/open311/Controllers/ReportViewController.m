@@ -27,7 +27,6 @@
 #import "ReportViewController.h"
 #import "Settings.h"
 #import "Open311.h"
-#import "ActionSheetPicker.h"
 #import "SBJson.h"
 #import "LocationChooserViewController.h"
 #import "TextFieldViewController.h"
@@ -55,6 +54,8 @@
 
 - (void)dealloc
 {
+    [servicePicker release];
+    [serviceChooserActionSheet release];
     [busyController release];
     [reportForm release];
     [service_definition release];
@@ -123,7 +124,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Report functions
 /**
  * Wipes and reloads the reportForm
  *
@@ -165,7 +165,45 @@
     self.currentService = nil;
     self.service_definition = nil;
     
-    [[Open311 sharedOpen311] chooseServiceForView:self.view target:self action:@selector(didSelectService::)];
+    serviceChooserActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Service" delegate:self cancelButtonTitle:@"Done" destructiveButtonTitle:nil otherButtonTitles:nil];
+    [serviceChooserActionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
+    
+    servicePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 100, 320, 216)];
+    [servicePicker setDelegate:self];
+    [servicePicker setDataSource:self];
+    [servicePicker setShowsSelectionIndicator:YES];
+    
+    [serviceChooserActionSheet addSubview:servicePicker];
+    
+    [serviceChooserActionSheet showFromTabBar:self.tabBarController.tabBar];
+    [serviceChooserActionSheet setBounds:CGRectMake(0, 0, 320, 610)];
+    
+    //[[Open311 sharedOpen311] chooseServiceForView:self.view target:self action:@selector(didSelectService::)];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [[[Open311 sharedOpen311] services] count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [[[[Open311 sharedOpen311] services] objectAtIndex:row] objectForKey:@"service_name"];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self didSelectService:[servicePicker selectedRowInComponent:0]];
 }
 
 /**
@@ -173,9 +211,9 @@
  *
  * Sets the user-chosen service and loads it's service definition
  */
-- (void)didSelectService:(NSNumber *)selectedIndex :(id)element
+- (void)didSelectService:(NSInteger)selectedIndex
 {
-    self.currentService = [[[Open311 sharedOpen311] services] objectAtIndex:[selectedIndex integerValue]];
+    self.currentService = [[[Open311 sharedOpen311] services] objectAtIndex:selectedIndex];
     
     NSString *serviceDescription = [self.currentService objectForKey:@"description"];
     if (!serviceDescription) {
