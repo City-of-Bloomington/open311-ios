@@ -85,6 +85,13 @@
             address.text = [service_request objectForKey:@"address"];
             department.text = [service_request objectForKey:@"agency_responsible"];
             
+            if ([status.text isEqualToString:@"closed"]) {
+                status.textColor = [UIColor greenColor];
+            }
+            else {
+                status.textColor = [UIColor redColor];
+            }
+            
             NSString *media_url = [service_request objectForKey:@"media_url"];
             if (media_url) {
                 ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:media_url]];
