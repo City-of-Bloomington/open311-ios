@@ -55,7 +55,6 @@
 - (void)dealloc
 {
     [servicePicker release];
-    [serviceChooserActionSheet release];
     [busyController release];
     [reportForm release];
     [service_definition release];
@@ -165,7 +164,7 @@
     self.currentService = nil;
     self.service_definition = nil;
     
-    serviceChooserActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Service" delegate:self cancelButtonTitle:@"Done" destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *serviceChooserActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Service" delegate:self cancelButtonTitle:@"Done" destructiveButtonTitle:nil otherButtonTitles:nil];
     [serviceChooserActionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
     
     servicePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 100, 320, 216)];
@@ -177,8 +176,7 @@
     
     [serviceChooserActionSheet showFromTabBar:self.tabBarController.tabBar];
     [serviceChooserActionSheet setBounds:CGRectMake(0, 0, 320, 610)];
-    
-    //[[Open311 sharedOpen311] chooseServiceForView:self.view target:self action:@selector(didSelectService::)];
+    [serviceChooserActionSheet release];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -204,6 +202,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     [self didSelectService:[servicePicker selectedRowInComponent:0]];
+    [servicePicker release];
 }
 
 /**

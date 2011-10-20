@@ -27,7 +27,6 @@
     IBOutlet UITableView *reportTableView;
     IBOutlet UILabel *serviceDescriptionLabel;
     BusyViewController *busyController;
-    UIActionSheet *serviceChooserActionSheet;
     UIPickerView *servicePicker;
 }
 @property (nonatomic, retain) NSString *previousServerURL;
