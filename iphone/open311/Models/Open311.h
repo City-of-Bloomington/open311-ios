@@ -26,6 +26,7 @@
 + (Open311 *) sharedOpen311;
 
 - (void)reload:(NSURL *)url;
+- (void)reset;
 
 - (void)handleDiscoverySuccess:(ASIHTTPRequest *)request;
 - (void)handleServicesSuccess:(ASIHTTPRequest *)request;

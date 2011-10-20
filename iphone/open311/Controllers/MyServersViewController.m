@@ -98,13 +98,31 @@
 {
     [super setEditing:editing animated:animated];
     [self.myServersTableView setEditing:editing animated:animated];
+    if (!editing) {
+        if ([[[Settings sharedSettings] myServers] count]==0) {
+            [self goToAvailableServers];
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [[[Settings sharedSettings] myServers] removeObjectAtIndex:indexPath.row];
+        Settings *settings = [Settings sharedSettings];
+        if ([[settings.currentServer objectForKey:@"URL"] isEqualToString:[[settings.myServers objectAtIndex:indexPath.row] objectForKey:@"URL"]]) {
+            [settings setCurrentServer:nil];
+            [[Open311 sharedOpen311] reset];
+            DLog(@"MyServer deleted currentServer %@", settings.currentServer);
+        }
+        [settings.myServers removeObjectAtIndex:indexPath.row];
         [self.myServersTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[[Settings sharedSettings] myServers] count]==0) {
+        [self goToAvailableServers];
     }
 }
 

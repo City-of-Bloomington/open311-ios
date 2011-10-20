@@ -69,13 +69,9 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     Settings *settings = [Settings sharedSettings];
-    
-    // If the user hasn't chosen a server, send them to the MyServer screen
-    if (!settings.currentServer) {
-        self.tabBarController.selectedIndex = 3;
-    }
-    // The user has chosen a server.
-    else {
+    NSString *defaultSplash = [[NSBundle mainBundle] pathForResource:@"splash" ofType:@"png"];
+
+    if (settings.currentServer) {
         self.navigationItem.title = [settings.currentServer objectForKey:@"Name"];
         
         // Show a busy screen and start up a full reload of discovery information
@@ -89,9 +85,15 @@
         NSString *serverName = [settings.currentServer objectForKey:@"Name"];
         NSString *imagePath = [[NSBundle mainBundle] pathForResource:serverName ofType:@"png"];
         if (!imagePath) {
-            imagePath = [[NSBundle mainBundle] pathForResource:@"splash" ofType:@"png"];
+            imagePath = defaultSplash;
         }
         [splashImageButton setImage:[[UIImage alloc] initWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+    }
+    // If the user hasn't chosen a server, send them to the MyServer screen
+    else {
+        self.navigationItem.title = @"Unknown Server";
+        [splashImageButton setImage:[[UIImage alloc] initWithContentsOfFile:defaultSplash] forState:UIControlStateNormal];
+        [self.tabBarController setSelectedIndex:3];
     }
 
     [super viewWillAppear:animated];

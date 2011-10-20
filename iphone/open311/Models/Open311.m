@@ -42,10 +42,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Open311);
  */
 - (void)reload:(NSURL *)url
 {
-    self.endpoint = nil;
-    self.baseURL = nil;
-    self.services = nil;
-
+    [self reset];
+    
     // Load the discovery data
     DLog(@"Open311:reload:%@",[url absoluteString]);
     NSURL *discoveryURL = [url URLByAppendingPathComponent:@"discovery.json"];
@@ -54,6 +52,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Open311);
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(handleDiscoverySuccess:)];
     [request startAsynchronous];
+}
+
+- (void)reset
+{
+    self.endpoint = nil;
+    self.baseURL = nil;
+    self.services = nil;
 }
 
 #pragma mark - ASIHTTPRequest Handlers
