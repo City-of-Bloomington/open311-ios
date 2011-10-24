@@ -61,7 +61,6 @@
     [currentService release];
     [previousServerURL release];
     [reportTableView release];
-    [serviceDescriptionLabel release];
     [super dealloc];
 }
 
@@ -94,8 +93,6 @@
     [reportForm release];
     [reportTableView release];
     reportTableView = nil;
-    [serviceDescriptionLabel release];
-    serviceDescriptionLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -213,12 +210,6 @@
 - (void)didSelectService:(NSInteger)selectedIndex
 {
     self.currentService = [[[Open311 sharedOpen311] services] objectAtIndex:selectedIndex];
-    
-    NSString *serviceDescription = [self.currentService objectForKey:@"description"];
-    if (!serviceDescription) {
-        serviceDescription = [NSString stringWithFormat:@"Report %@",[self.currentService objectForKey:@"service_name"]];
-    }
-    [serviceDescriptionLabel setText:serviceDescription];
     
     [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
     [self initReportForm];
@@ -417,6 +408,20 @@
 
 
 #pragma mark - Table View Handlers
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *serviceDescription = [self.currentService objectForKey:@"description"];
+    if (!serviceDescription) {
+        serviceDescription = [NSString stringWithFormat:@"Report %@",[self.currentService objectForKey:@"service_name"]];
+    }
+    return serviceDescription;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[self.reportForm objectForKey:@"fields"] count];
