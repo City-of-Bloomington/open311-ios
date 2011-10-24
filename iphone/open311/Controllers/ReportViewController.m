@@ -437,9 +437,10 @@
     
     NSString *fieldname = [[self.reportForm objectForKey:@"fields"] objectAtIndex:indexPath.row];
     NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:fieldname];
-
+    
     cell.textLabel.text = [[self.reportForm objectForKey:@"labels"] objectForKey:fieldname];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.imageView.image = nil;
     
     // Populate the user-provided data
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
@@ -450,7 +451,6 @@
     }
     else if ([fieldname isEqualToString:@"address_string"]) {
         NSString *address = [data objectForKey:@"address_string"];
-        DLog(@"Table sees address as %@", address);
         NSString *latitude = [data objectForKey:@"lat"];
         NSString *longitude = [data objectForKey:@"long"];
         cell.detailTextLabel.text = address;
@@ -500,6 +500,7 @@
             picker.allowsEditing = NO;
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             [self presentModalViewController:picker animated:YES];
+            [picker release];
         }
     }
     if ([type isEqualToString:@"location"]) {
@@ -544,8 +545,7 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [[picker parentViewController] dismissModalViewControllerAnimated:YES];
-    [picker release];
+    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -573,11 +573,9 @@
 	UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    
     [[self.reportForm objectForKey:@"data"] setObject:resizedImage forKey:@"media"];
 
-    [[picker parentViewController] dismissModalViewControllerAnimated:YES];
-    [picker release];
+    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - Reverse Geocoder Delegate Functions
