@@ -10,15 +10,26 @@
  */
 
 #import "Locator.h"
-#import "SynthesizeSingleton.h"
 
 @implementation Locator
-SYNTHESIZE_SINGLETON_FOR_CLASS(Locator);
+
+static id _sharedLocator = nil;
 
 @synthesize locationManager;
 @synthesize locationAvailable;
 @synthesize currentLocation;
 
++ (void)initialize
+{
+    if (self == [Locator class]) {
+        _sharedLocator = [[self alloc] init];
+    }
+}
+
++ (id)sharedLocator
+{
+    return _sharedLocator;
+}
 
 - (id) init
 {
@@ -29,7 +40,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Locator);
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-        [self start];
+        [self startLocationServices];
     }
     return self;
 }
@@ -41,12 +52,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Locator);
     [super dealloc];
 }
 
-- (void)start
+- (void)startLocationServices
 {
     [self.locationManager startUpdatingLocation];
 }
 
-- (void)stop
+- (void)stopLocationServices
 {
     [self.locationManager stopUpdatingLocation];
 }
@@ -58,7 +69,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Locator);
         self.locationAvailable = YES;
         
         if (newLocation.horizontalAccuracy <= locationManager.desiredAccuracy) {
-            [self stop];
+            [self stopLocationServices];
         }
     }
 }

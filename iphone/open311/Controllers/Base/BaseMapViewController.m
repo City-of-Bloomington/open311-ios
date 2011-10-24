@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[Locator sharedLocator] start];
+    [[Locator sharedLocator] startLocationServices];
 }
 
 - (void)viewDidUnload

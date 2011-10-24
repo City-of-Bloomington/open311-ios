@@ -23,7 +23,7 @@
 @property (nonatomic, retain) NSURL *baseURL;
 @property (nonatomic, retain) NSArray *services;
 
-+ (Open311 *) sharedOpen311;
++ (id)sharedOpen311;
 
 - (void)reload:(NSURL *)url;
 - (void)reset;

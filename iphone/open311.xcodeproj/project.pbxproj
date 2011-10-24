@@ -37,11 +37,9 @@
 		698166C61417A83800E0B9E7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 698166B71417A83800E0B9E7 /* Reachability.m */; };
 		698166C71417A83800E0B9E7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 698166B81417A83800E0B9E7 /* LICENSE */; };
 		698166C81417A83800E0B9E7 /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = 698166B91417A83800E0B9E7 /* README.textile */; };
-		698166C91417A83800E0B9E7 /* strict.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 698166BA1417A83800E0B9E7 /* strict.xcconfig */; };
 		698166CC1417A8BB00E0B9E7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698166CB1417A8BB00E0B9E7 /* CFNetwork.framework */; };
 		698166CE1417A8CB00E0B9E7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698166CD1417A8CB00E0B9E7 /* SystemConfiguration.framework */; };
 		698166D01417A8D700E0B9E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698166CF1417A8D700E0B9E7 /* MobileCoreServices.framework */; };
-		698166D21417A8EC00E0B9E7 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 698166D11417A8EC00E0B9E7 /* libz.1.2.3.dylib */; };
 		698166D61417A9AF00E0B9E7 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 698166D41417A9AF00E0B9E7 /* Settings.m */; };
 		698166D81417A9F400E0B9E7 /* AvailableServers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 698166D71417A9F400E0B9E7 /* AvailableServers.plist */; };
 		698166EC1417B3D000E0B9E7 /* AvailableServers.m in Sources */ = {isa = PBXBuildFile; fileRef = 698166EA1417B3D000E0B9E7 /* AvailableServers.m */; };
@@ -71,6 +69,7 @@
 		69A867C61430CD5A0069560C /* NumberFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A867C41430CD590069560C /* NumberFieldViewController.xib */; };
 		69A867CA1430F5700069560C /* SelectSingleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A867C81430F5700069560C /* SelectSingleViewController.m */; };
 		69A867CB1430F5700069560C /* SelectSingleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A867C91430F5700069560C /* SelectSingleViewController.xib */; };
+		69A905FC1455BBDB006B132B /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A905FB1455BBDB006B132B /* libz.1.2.5.dylib */; };
 		69A92DE2143E0A3C0065FD8D /* MyReportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A92DE0143E0A3C0065FD8D /* MyReportsViewController.m */; };
 		69A92DE3143E0A3C0065FD8D /* MyReportsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69A92DE1143E0A3C0065FD8D /* MyReportsViewController.xib */; };
 		69A92DE8143E43900065FD8D /* SingleReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A92DE6143E43900065FD8D /* SingleReportViewController.m */; };
@@ -163,10 +162,8 @@
 		698166CB1417A8BB00E0B9E7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		698166CD1417A8CB00E0B9E7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		698166CF1417A8D700E0B9E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		698166D11417A8EC00E0B9E7 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		698166D31417A9AF00E0B9E7 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		698166D41417A9AF00E0B9E7 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		698166D51417A9AF00E0B9E7 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		698166D71417A9F400E0B9E7 /* AvailableServers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AvailableServers.plist; sourceTree = "<group>"; };
 		698166E91417B3D000E0B9E7 /* AvailableServers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableServers.h; sourceTree = "<group>"; };
 		698166EA1417B3D000E0B9E7 /* AvailableServers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableServers.m; sourceTree = "<group>"; };
@@ -216,6 +213,7 @@
 		69A867C71430F56F0069560C /* SelectSingleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectSingleViewController.h; sourceTree = "<group>"; };
 		69A867C81430F5700069560C /* SelectSingleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectSingleViewController.m; sourceTree = "<group>"; };
 		69A867C91430F5700069560C /* SelectSingleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectSingleViewController.xib; sourceTree = "<group>"; };
+		69A905FB1455BBDB006B132B /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		69A92DDF143E0A3C0065FD8D /* MyReportsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReportsViewController.h; sourceTree = "<group>"; };
 		69A92DE0143E0A3C0065FD8D /* MyReportsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyReportsViewController.m; sourceTree = "<group>"; };
 		69A92DE1143E0A3C0065FD8D /* MyReportsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyReportsViewController.xib; sourceTree = "<group>"; };
@@ -273,9 +271,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69A905FC1455BBDB006B132B /* libz.1.2.5.dylib in Frameworks */,
 				697DF9F414226952005C8EB5 /* MapKit.framework in Frameworks */,
 				697DF9E11422617E005C8EB5 /* CoreLocation.framework in Frameworks */,
-				698166D21417A8EC00E0B9E7 /* libz.1.2.3.dylib in Frameworks */,
 				698166D01417A8D700E0B9E7 /* MobileCoreServices.framework in Frameworks */,
 				698166CE1417A8CB00E0B9E7 /* SystemConfiguration.framework in Frameworks */,
 				698166CC1417A8BB00E0B9E7 /* CFNetwork.framework in Frameworks */,
@@ -456,7 +454,6 @@
 			isa = PBXGroup;
 			children = (
 				697DF9F314226952005C8EB5 /* MapKit.framework */,
-				698166D11417A8EC00E0B9E7 /* libz.1.2.3.dylib */,
 				697DF9E01422617E005C8EB5 /* CoreLocation.framework */,
 				698166CF1417A8D700E0B9E7 /* MobileCoreServices.framework */,
 				698166CD1417A8CB00E0B9E7 /* SystemConfiguration.framework */,
@@ -464,6 +461,7 @@
 				69B07F9A1416AFEC008DD4E0 /* UIKit.framework */,
 				69B07F9C1416AFEC008DD4E0 /* Foundation.framework */,
 				69B07F9E1416AFEC008DD4E0 /* CoreGraphics.framework */,
+				69A905FB1455BBDB006B132B /* libz.1.2.5.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -565,7 +563,6 @@
 			children = (
 				698166D31417A9AF00E0B9E7 /* Settings.h */,
 				698166D41417A9AF00E0B9E7 /* Settings.m */,
-				698166D51417A9AF00E0B9E7 /* SynthesizeSingleton.h */,
 				6981670E1417FF0100E0B9E7 /* Open311.h */,
 				6981670F1417FF0100E0B9E7 /* Open311.m */,
 				697DF9F814226E97005C8EB5 /* Locator.h */,
@@ -620,6 +617,7 @@
 		69B07F8D1416AFEC008DD4E0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "City of Bloomington";
 			};
 			buildConfigurationList = 69B07F901416AFEC008DD4E0 /* Build configuration list for PBXProject "open311" */;
@@ -657,7 +655,6 @@
 				698166C51417A83800E0B9E7 /* DONORS in Resources */,
 				698166C71417A83800E0B9E7 /* LICENSE in Resources */,
 				698166C81417A83800E0B9E7 /* README.textile in Resources */,
-				698166C91417A83800E0B9E7 /* strict.xcconfig in Resources */,
 				698166D81417A9F400E0B9E7 /* AvailableServers.plist in Resources */,
 				698166ED1417B3D000E0B9E7 /* AvailableServers.xib in Resources */,
 				69E58238141E87550038C910 /* ChooseServiceViewController.xib in Resources */,
@@ -780,7 +777,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -794,7 +791,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -812,6 +809,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "open311/open311-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "open311/open311-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -828,6 +826,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "open311/open311-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "open311/open311-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

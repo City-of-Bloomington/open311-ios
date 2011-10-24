@@ -11,15 +11,27 @@
 
 #import "Open311.h"
 #import "SBJson.h"
-#import "SynthesizeSingleton.h"
 #import "Settings.h"
 
 @implementation Open311
-SYNTHESIZE_SINGLETON_FOR_CLASS(Open311);
+
+static id _sharedOpen311 = nil;
 
 @synthesize endpoint=_endpoint;
 @synthesize baseURL=_baseURL;
 @synthesize services=_services;
+
++ (void)initialize
+{
+    if (self == [Open311 class]) {
+        _sharedOpen311 = [[self alloc] init];
+    }
+}
+
++ (id)sharedOpen311
+{
+    return _sharedOpen311;
+}
 
 - (id)init
 {

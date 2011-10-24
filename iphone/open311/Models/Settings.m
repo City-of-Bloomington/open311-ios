@@ -12,16 +12,27 @@
  */
 
 #import "Settings.h"
-#import "SynthesizeSingleton.h"
 #import "Open311.h"
 
 @implementation Settings
-SYNTHESIZE_SINGLETON_FOR_CLASS(Settings);
+
+static id _sharedSettings = nil;
 
 @synthesize availableServers,myServers,myRequests;
 @synthesize currentServer;
 @synthesize first_name, last_name, email, phone;
 
++ (void)initialize
+{
+    if (self == [Settings class]) {
+        _sharedSettings = [[self alloc] init];
+    }
+}
+
++ (id)sharedSettings
+{
+    return _sharedSettings;
+}
 
 - (id) init
 {

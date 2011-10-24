@@ -69,7 +69,7 @@
     
     // Start up the location services.
     // Do it here, so we should have a position by the time we need it.
-    [[Locator sharedLocator] start];
+    [[Locator sharedLocator] startLocationServices];
     
     return YES;
 }
