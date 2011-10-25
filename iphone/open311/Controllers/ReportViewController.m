@@ -78,7 +78,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.navigationItem setTitle:@"New Issue"];
+    [self.navigationItem setTitle:@"New Report"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Service" style:UIBarButtonItemStylePlain target:self action:@selector(chooseService)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(postReport)];
 
@@ -114,23 +114,13 @@
     [super viewWillAppear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
+#pragma mark - Report Setup
 /**
  * Wipes and reloads the reportForm
  *
  * The template for the report is Report.plist in the bundle.
  * We clear out the report by reloading it from the template.
  * Then, we add in any custom attributes defined in the service.
- *
- * Todo: Load and populate the device_id
- *
- * Todo: Load in fields for firstname, lastname, email, and phone
- *       populate them with the user's information from the iPhone
  */
 - (void)initReportForm
 {
@@ -416,10 +406,13 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *serviceDescription = [self.currentService objectForKey:@"description"];
-    if (!serviceDescription) {
-        serviceDescription = [NSString stringWithFormat:@"Report %@",[self.currentService objectForKey:@"service_name"]];
+    NSString *serviceName = [self.currentService objectForKey:@"service_name"];
+    if (!serviceDescription && serviceName) {
+        return [NSString stringWithFormat:@"Report %@",serviceName];
     }
-    return serviceDescription;
+    else {
+        return @"";
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
