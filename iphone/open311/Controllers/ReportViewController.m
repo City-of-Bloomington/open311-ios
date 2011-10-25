@@ -263,12 +263,16 @@
     [alert release];
 }
 
+#pragma mark - Report Posting
+
 /**
  * Sends the report to the Open311 server
  *
  * We need to use the service definition so we can know which fields
  * are the custom attributes.  We can hard code the references to the
  * rest of the arguments, since they're defined in the spec.
+ *
+ * Todo: Handle responses with token instead of service_request_id
  */
 - (void)postReport
 {
@@ -336,38 +340,47 @@
  */
 - (void)handlePostReportSuccess:(ASIFormDataRequest *)post
 {
-    [busyController.view removeFromSuperview];
-    busyController = nil;
-    
-    DLog(@"%@",[post responseString]);
-    
-    // Save the request into MyRequests.plist, so we can display it later.
-    // We'll need to include enough information so we ask the Open311 
-    // server for new information later on.
-    NSArray *service_requests = [[post responseString] JSONValue];
-    if (service_requests != nil) {
-        NSDictionary *request = [service_requests objectAtIndex:0];
-        NSArray *storedData = [NSArray arrayWithObjects:
-                               [[Settings sharedSettings] currentServer],
-                               self.currentService,
-                               [request objectForKey:@"service_request_id"], 
-                               [NSDate date], nil];
-        NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"date", nil];
-        [[[Settings sharedSettings] myRequests] addObject:[NSDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
-        DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
+    if ([post responseStatusCode] >= 400) {
+        [self handlePostReportFailure:post];
     }
-    
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
-    [alert release];
-    
-    // Clear the report form
-    [self initReportForm];
-    self.currentService = nil;
-    self.service_definition = nil;
-    
-    self.tabBarController.selectedIndex = 2;
+    else {
+        [busyController.view removeFromSuperview];
+        busyController = nil;
+        
+        DLog(@"%@",[post responseString]);
+        
+        // Save the request into MyRequests.plist, so we can display it later.
+        // We'll need to include enough information so we ask the Open311 
+        // server for new information later on.
+        NSArray *service_requests = [[post responseString] JSONValue];
+        if (service_requests != nil) {
+            NSDictionary *request = [service_requests objectAtIndex:0];
+            NSString *service_request_id = [request objectForKey:@"service_request_id"] ? [request objectForKey:@"service_request_id"] : @"";
+            NSString *token = [request objectForKey:@"token"] ? [request objectForKey:@"token"] : @"";
+            
+            NSArray *storedData = [NSArray arrayWithObjects:
+                                   [[Settings sharedSettings] currentServer],
+                                   self.currentService,
+                                   service_request_id,
+                                   token,
+                                   [NSDate date], nil];
+            NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"token", @"date", nil];
+            [[[Settings sharedSettings] myRequests] addObject:[NSDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
+            DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
+        }
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        
+        // Clear the report form
+        [self initReportForm];
+        self.currentService = nil;
+        self.service_definition = nil;
+        
+        self.tabBarController.selectedIndex = 2;
+    }
 }
 
 /**
