@@ -42,10 +42,9 @@
 					<object class="IBUITableView" id="457942883">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 393}</string>
+						<string key="NSFrameSize">{320, 367}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="24383931">
 							<int key="NSColorSpace">10</int>
 							<object class="NSImage" key="NSImage">
@@ -122,7 +121,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
+				<reference key="NSNextKeyView" ref="457942883"/>
 				<reference key="IBUIBackgroundColor" ref="24383931"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedNavigationBarMetrics" key="IBUISimulatedTopBarMetrics">
@@ -248,35 +247,14 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<string key="className">ReportViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>reportTableView</string>
-							<string>serviceDescriptionLabel</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UITableView</string>
-							<string>UILabel</string>
-						</object>
+						<string key="NS.key.0">reportTableView</string>
+						<string key="NS.object.0">UITableView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>reportTableView</string>
-							<string>serviceDescriptionLabel</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">reportTableView</string>
-								<string key="candidateClassName">UITableView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">serviceDescriptionLabel</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
+						<string key="NS.key.0">reportTableView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">reportTableView</string>
+							<string key="candidateClassName">UITableView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
