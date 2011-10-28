@@ -56,8 +56,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    NSString *path = [NSString stringWithFormat:@"requests/%@.json",service_request_id];
-    NSURL *url = [[NSURL URLWithString:[[[Open311 sharedOpen311] endpoint] objectForKey:@"url"]] URLByAppendingPathComponent:path];
+    NSURL *url = [[Open311 sharedOpen311] getServiceRequestURL:service_request_id];
     DLog(@"Loading %@", url);
 
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];

@@ -114,35 +114,7 @@
     [super viewWillAppear:animated];
 }
 
-#pragma mark - Report Setup
-/**
- * Wipes and reloads the reportForm
- *
- * The template for the report is Report.plist in the bundle.
- * We clear out the report by reloading it from the template.
- * Then, we add in any custom attributes defined in the service.
- */
-- (void)initReportForm
-{
-    NSError *error = nil;
-    NSPropertyListFormat format;
-    NSData *reportPlist = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
-    
-    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:reportPlist options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
-    
-    NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
-    [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
-    
-     // Load the user's firstname, lastname, email, and phone number
-    Settings *settings = [Settings sharedSettings];
-    [data setObject:settings.first_name forKey:@"first_name"];
-    [data setObject:settings.last_name forKey:@"last_name"];
-    [data setObject:settings.email forKey:@"email"];
-    [data setObject:settings.phone forKey:@"phone"];
-    
-    [reportTableView reloadData];
-}
-
+#pragma mark - Service Picker Functions
 /**
  * Tells the Open311 to open the service picker
  */
@@ -181,17 +153,13 @@
     return [[[[Open311 sharedOpen311] services] objectAtIndex:row] objectForKey:@"service_name"];
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     [self didSelectService:[servicePicker selectedRowInComponent:0]];
     [servicePicker release];
 }
 
+#pragma mark - Report Setup
 /**
  * Handler for the Open311 service picker
  *
@@ -207,6 +175,35 @@
 }
 
 /**
+ * Wipes and reloads the reportForm
+ *
+ * The template for the report is Report.plist in the bundle.
+ * We clear out the report by reloading it from the template.
+ * Then, we add in any custom attributes defined in the service.
+ */
+- (void)initReportForm
+{
+    NSError *error = nil;
+    NSPropertyListFormat format;
+    NSData *reportPlist = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
+    
+    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:reportPlist options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
+    
+    NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
+    [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    
+    // Load the user's firstname, lastname, email, and phone number
+    Settings *settings = [Settings sharedSettings];
+    [data setObject:settings.first_name forKey:@"first_name"];
+    [data setObject:settings.last_name forKey:@"last_name"];
+    [data setObject:settings.email forKey:@"email"];
+    [data setObject:settings.phone forKey:@"phone"];
+    
+    [reportTableView reloadData];
+}
+
+
+/**
  * Queries the service defintion and populates reportForm with all the attributes
  *
  * If the current service does not have any metadata, there is no need 
@@ -215,11 +212,12 @@
  */
 - (void)loadServiceDefinition:(NSString *)service_code
 {
+    DLog(@"Loading service definition for %@", service_code);
     self.service_definition = nil;
     
     // Only try and load service definition from the server if there's metadata
     if ([[self.currentService objectForKey:@"metadata"] boolValue]) {
-        NSURL *url = [[[[Open311 sharedOpen311] baseURL] URLByAppendingPathComponent:@"services"] URLByAppendingPathComponent:[service_code stringByAppendingString:@".json"]];
+        NSURL *url = [[Open311 sharedOpen311] getServiceDefinitionURL:service_code];
         DLog(@"Loading URL: %@",[url absoluteString]);
         ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
         [request setDelegate:self];
@@ -280,8 +278,7 @@
     [self.view.superview.superview addSubview:busyController.view];
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
-    Open311 *open311 = [Open311 sharedOpen311];
-    NSURL *url = [[NSURL URLWithString:[open311.endpoint objectForKey:@"url"]] URLByAppendingPathComponent:@"requests.json"];
+    NSURL *url = [[Open311 sharedOpen311] getPostServiceRequestURL];
     DLog(@"Creating POST to %@", url);
     ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL:url];
     

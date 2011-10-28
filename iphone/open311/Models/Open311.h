@@ -14,6 +14,10 @@
 
 
 @interface Open311 : NSObject <ASIHTTPRequestDelegate> {
+    NSDictionary *currentServer;
+    NSString *params;
+    NSString *jurisdiction_id;
+    NSString *api_key;
 @public
     NSDictionary *endpoint;
     NSURL *baseURL;
@@ -25,10 +29,14 @@
 
 + (id)sharedOpen311;
 
-- (void)reload:(NSURL *)url;
+- (void)reload:(NSDictionary *)server;
 - (void)reset;
 
 - (void)handleDiscoverySuccess:(ASIHTTPRequest *)request;
 - (void)handleServicesSuccess:(ASIHTTPRequest *)request;
+
+- (NSURL *)getServiceDefinitionURL:(NSString *)service_code;
+- (NSURL *)getPostServiceRequestURL;
+- (NSURL *)getServiceRequestURL:(NSString *)service_request_id;
 
 @end

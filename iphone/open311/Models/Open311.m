@@ -43,6 +43,10 @@ static id _sharedOpen311 = nil;
 
 - (void) dealloc
 {
+    [params release];
+    [jurisdiction_id release];
+    [api_key release];
+    [currentServer release];
     [_baseURL release];
     [_endpoint release];
     [_services release];
@@ -52,13 +56,17 @@ static id _sharedOpen311 = nil;
 /**
  * Clears out all the current data and reloads Open311 data from the provided URL
  */
-- (void)reload:(NSURL *)url
+- (void)reload:(NSDictionary *)server
 {
     [self reset];
+    currentServer = server;
+    baseURL = [NSURL URLWithString:[currentServer objectForKey:@"URL"]];
+    jurisdiction_id = [currentServer objectForKey:@"jurisdiction_id"];
+    api_key = [currentServer objectForKey:@"api_key"];
     
     // Load the discovery data
-    DLog(@"Open311:reload:%@",[url absoluteString]);
-    NSURL *discoveryURL = [url URLByAppendingPathComponent:@"discovery.json"];
+    DLog(@"Open311:reload:%@",[baseURL absoluteString]);
+    NSURL *discoveryURL = [baseURL URLByAppendingPathComponent:@"discovery.json"];
     DLog(@"Loading URL: %@",discoveryURL);
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:discoveryURL];
     [request setDelegate:self];
@@ -68,6 +76,7 @@ static id _sharedOpen311 = nil;
 
 - (void)reset
 {
+    currentServer = nil;
     self.endpoint = nil;
     self.baseURL = nil;
     self.services = nil;
@@ -83,9 +92,21 @@ static id _sharedOpen311 = nil;
             self.baseURL = [NSURL URLWithString:[ep objectForKey:@"url"]];
         }
     }
+    
+    params = @"";
+    if (jurisdiction_id || api_key) {
+        params = @"?";
+        if (jurisdiction_id) {
+            params = [params stringByAppendingFormat:@"jurisdiction_id=%@&",jurisdiction_id];
+        }
+        if (api_key) {
+            params = [params stringByAppendingFormat:@"api_key=%@&",api_key];
+        }
+    }
+    
     // Load all the service definitions
     if (self.baseURL) {
-        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:@"services.json"];
+        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services.json%@",params]];
         DLog(@"Loading URL: %@", servicesURL);
         request = [ASIHTTPRequest requestWithURL:servicesURL];
         [request setDelegate:self];
@@ -106,6 +127,46 @@ static id _sharedOpen311 = nil;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load url" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     [alert release];
+}
+
+#pragma mark - API URL Getters
+/**
+ * Returns the URL to request a service definition from the current Open311 server
+ */
+- (NSURL *)getServiceDefinitionURL:(NSString *)service_code
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services/%@.json",service_code]];
+    if ([params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"%@service_code=%@",params,service_code]]];
+    }
+    else {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"?service_code=%@",service_code]]];
+    }
+    return url;
+}
+
+/**
+ * Returns the URL for POST-ing a new request to the current Open311 server
+ */
+- (NSURL *)getPostServiceRequestURL
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests.json"]];
+    if ([params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:params]];
+    }
+    return url;
+}
+
+/**
+ * Returns the URL for looking up a single request from the current Open311 server
+ */
+- (NSURL *)getServiceRequestURL:(NSString *)service_request_id
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests/%@.json",service_request_id]];
+    if ([params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:params]];
+    }
+    return url;
 }
 
 @end

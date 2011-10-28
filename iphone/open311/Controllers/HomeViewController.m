@@ -79,7 +79,7 @@
         [self.view addSubview:busyController.view];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(discoveryFinishedLoading:) name:@"discoveryFinishedLoading" object:nil];
         
-        [[Open311 sharedOpen311] reload:[NSURL URLWithString:[settings.currentServer objectForKey:@"URL"]]];
+        [[Open311 sharedOpen311] reload:settings.currentServer];
         
         // If we have a splash screen for the server, swap it in
         NSString *serverName = [settings.currentServer objectForKey:@"Name"];
