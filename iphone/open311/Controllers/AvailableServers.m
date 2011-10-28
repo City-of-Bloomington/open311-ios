@@ -43,6 +43,7 @@
 {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"Available Servers"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showCustomServerForm)];
 }
 
 - (void)viewDidUnload
@@ -81,21 +82,27 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self addToMyServers:[[[[Settings sharedSettings] availableServers] objectForKey:@"Servers"] objectAtIndex:indexPath.row]];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 /**
- * Adds tha chosen server to MyServers
+ * Adds the chosen server to MyServers
  *
  * We want to make sure that the server isn't already there.  Otherwise,
  * people will fill up their MyServers list with a bunch of the same one.
  */
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)addToMyServers:(NSDictionary *)chosenServer
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    Settings *settings = [Settings sharedSettings];
-    NSDictionary *chosenServer = [[settings.availableServers objectForKey:@"Servers"] objectAtIndex:indexPath.row];
+    NSMutableArray *myServers = [[Settings sharedSettings] myServers];
     
     // Make sure the server we're about to add isn't already in MyServers
     BOOL alreadyExists = FALSE;
-    for (NSDictionary *server in settings.myServers) {
+    for (NSDictionary *server in myServers) {
         if ([[server objectForKey:@"URL"] isEqualToString:[chosenServer objectForKey:@"URL"]]) {
             alreadyExists = TRUE;
             break;
@@ -103,9 +110,24 @@
     }
     
     if (!alreadyExists) {
-        [settings.myServers addObject:chosenServer];
+        [myServers addObject:chosenServer];
     }
-    
+}
+
+#pragma mark - Custom Server choosing
+- (void)showCustomServerForm
+{
+    CustomServerViewController *form = [[CustomServerViewController alloc] init];
+    [form setDelegate:self];
+    [self.navigationController presentModalViewController:form animated:YES];
+}
+
+- (void)didAddServer:(NSDictionary *)server
+{
+    if (server) {
+        [self addToMyServers:server];
+    }
+    [self.navigationController dismissModalViewControllerAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
