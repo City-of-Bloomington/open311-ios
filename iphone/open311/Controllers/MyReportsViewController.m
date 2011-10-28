@@ -96,6 +96,7 @@
                                  [dateFormatter stringFromDate:[request objectForKey:@"date"]],
                                  [[request objectForKey:@"server"] objectForKey:@"Name"]
                                  ];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [dateFormatter release];
     
     return cell;
