@@ -89,8 +89,6 @@
 		69B07FBC1416B065008DD4E0 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FBA1416B065008DD4E0 /* HomeViewController.xib */; };
 		69B07FC01416B076008DD4E0 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B07FBE1416B076008DD4E0 /* ReportViewController.m */; };
 		69B07FC11416B076008DD4E0 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FBF1416B076008DD4E0 /* ReportViewController.xib */; };
-		69B07FC51416B083008DD4E0 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B07FC31416B083008DD4E0 /* MapViewController.m */; };
-		69B07FC61416B083008DD4E0 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FC41416B083008DD4E0 /* MapViewController.xib */; };
 		69B07FCA1416B094008DD4E0 /* MyServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B07FC81416B094008DD4E0 /* MyServersViewController.m */; };
 		69B07FCB1416B094008DD4E0 /* MyServersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FC91416B094008DD4E0 /* MyServersViewController.xib */; };
 		69B07FD01416B30E008DD4E0 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FCC1416B30E008DD4E0 /* list.png */; };
@@ -245,9 +243,6 @@
 		69B07FBD1416B076008DD4E0 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
 		69B07FBE1416B076008DD4E0 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		69B07FBF1416B076008DD4E0 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
-		69B07FC21416B083008DD4E0 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		69B07FC31416B083008DD4E0 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		69B07FC41416B083008DD4E0 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		69B07FC71416B094008DD4E0 /* MyServersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyServersViewController.h; sourceTree = "<group>"; };
 		69B07FC81416B094008DD4E0 /* MyServersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyServersViewController.m; sourceTree = "<group>"; };
 		69B07FC91416B094008DD4E0 /* MyServersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyServersViewController.xib; sourceTree = "<group>"; };
@@ -521,9 +516,6 @@
 				69B07FBD1416B076008DD4E0 /* ReportViewController.h */,
 				69B07FBE1416B076008DD4E0 /* ReportViewController.m */,
 				69B07FBF1416B076008DD4E0 /* ReportViewController.xib */,
-				69B07FC21416B083008DD4E0 /* MapViewController.h */,
-				69B07FC31416B083008DD4E0 /* MapViewController.m */,
-				69B07FC41416B083008DD4E0 /* MapViewController.xib */,
 				69B07FC71416B094008DD4E0 /* MyServersViewController.h */,
 				69B07FC81416B094008DD4E0 /* MyServersViewController.m */,
 				69B07FC91416B094008DD4E0 /* MyServersViewController.xib */,
@@ -654,7 +646,6 @@
 				69B07FAE1416AFEC008DD4E0 /* MainWindow.xib in Resources */,
 				69B07FBC1416B065008DD4E0 /* HomeViewController.xib in Resources */,
 				69B07FC11416B076008DD4E0 /* ReportViewController.xib in Resources */,
-				69B07FC61416B083008DD4E0 /* MapViewController.xib in Resources */,
 				69B07FCB1416B094008DD4E0 /* MyServersViewController.xib in Resources */,
 				69B07FD01416B30E008DD4E0 /* list.png in Resources */,
 				69B07FD11416B30E008DD4E0 /* map.png in Resources */,
@@ -710,7 +701,6 @@
 				69B07FAB1416AFEC008DD4E0 /* open311AppDelegate.m in Sources */,
 				69B07FBB1416B065008DD4E0 /* HomeViewController.m in Sources */,
 				69B07FC01416B076008DD4E0 /* ReportViewController.m in Sources */,
-				69B07FC51416B083008DD4E0 /* MapViewController.m in Sources */,
 				69B07FCA1416B094008DD4E0 /* MyServersViewController.m in Sources */,
 				698166BD1417A83800E0B9E7 /* ASIAuthenticationDialog.m in Sources */,
 				698166BE1417A83800E0B9E7 /* ASIDataCompressor.m in Sources */,
