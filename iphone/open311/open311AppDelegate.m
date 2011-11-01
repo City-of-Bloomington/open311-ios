@@ -11,7 +11,6 @@
 #import "open311AppDelegate.h"
 #import "HomeViewController.h"
 #import "ReportViewController.h"
-#import "MapViewController.h"
 #import "MyReportsViewController.h"
 #import "MyServersViewController.h"
 #import "Settings.h"
@@ -36,7 +35,6 @@
     ReportViewController* report = [[ReportViewController alloc] init];
     MyReportsViewController* myReports = [[MyReportsViewController alloc] init];
     MyServersViewController* servers = [[MyServersViewController alloc] init];
-    //MapViewController* map = [[MapViewController alloc] init];
     
     UINavigationController* homeNav = [[UINavigationController alloc] initWithRootViewController:home];
     UINavigationController* reportNav = [[UINavigationController alloc] initWithRootViewController:report];
@@ -60,10 +58,8 @@
     [home release];
     [report release];
     [myReports release];
-    //[map release];
     [servers release];
     [reportNav release];
-    //[issueNav release];
     [serverNav release];
     [self.tabBarController release];
     
