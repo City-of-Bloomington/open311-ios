@@ -21,6 +21,8 @@ static id _sharedOpen311 = nil;
 @synthesize baseURL=_baseURL;
 @synthesize services=_services;
 
+@synthesize params;
+
 + (void)initialize
 {
     if (self == [Open311 class]) {
@@ -93,20 +95,23 @@ static id _sharedOpen311 = nil;
         }
     }
     
-    params = @"";
+    self.params = @"";
     if (jurisdiction_id || api_key) {
-        params = @"?";
+        self.params = @"?";
         if (jurisdiction_id) {
-            params = [params stringByAppendingFormat:@"jurisdiction_id=%@&",jurisdiction_id];
+            self.params = [self.params stringByAppendingFormat:@"jurisdiction_id=%@&",jurisdiction_id];
         }
         if (api_key) {
-            params = [params stringByAppendingFormat:@"api_key=%@&",api_key];
+            self.params = [self.params stringByAppendingFormat:@"api_key=%@&",api_key];
         }
     }
     
     // Load all the service definitions
     if (self.baseURL) {
-        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services.json%@",params]];
+        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services.json"]];
+        if ([self.params length] != 0) {
+            servicesURL = [NSURL URLWithString:[[servicesURL absoluteString] stringByAppendingString:self.params]];
+        }
         DLog(@"Loading URL: %@", servicesURL);
         request = [ASIHTTPRequest requestWithURL:servicesURL];
         [request setDelegate:self];
@@ -136,8 +141,8 @@ static id _sharedOpen311 = nil;
 - (NSURL *)getServiceDefinitionURL:(NSString *)service_code
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services/%@.json",service_code]];
-    if ([params length] != 0) {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"%@service_code=%@",params,service_code]]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"%@service_code=%@",self.params,service_code]]];
     }
     else {
         url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"?service_code=%@",service_code]]];
@@ -151,8 +156,8 @@ static id _sharedOpen311 = nil;
 - (NSURL *)getPostServiceRequestURL
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests.json"]];
-    if ([params length] != 0) {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:params]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
     }
     return url;
 }
@@ -163,8 +168,8 @@ static id _sharedOpen311 = nil;
 - (NSURL *)getRequestIdURL:(NSString *)token
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"tokens/%@.json",token]];
-    if ([params length] != 0) {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:params]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
     }
     return url;
 }
@@ -175,8 +180,8 @@ static id _sharedOpen311 = nil;
 - (NSURL *)getServiceRequestURL:(NSString *)service_request_id
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests/%@.json",service_request_id]];
-    if ([params length] != 0) {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:params]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
     }
     return url;
 }

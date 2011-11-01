@@ -27,6 +27,8 @@
 @property (nonatomic, retain) NSURL *baseURL;
 @property (nonatomic, retain) NSArray *services;
 
+@property (nonatomic, retain) NSString *params;
+
 + (id)sharedOpen311;
 
 - (void)reload:(NSDictionary *)server;
