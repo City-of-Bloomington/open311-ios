@@ -68,25 +68,20 @@
  */
 - (void)viewDidLoad
 {
-    DLog(@"View Loaded");
     [super viewDidLoad];
     
     [self refreshViewWithReportData];
 
     NSString *currentServerURL = [[[Settings sharedSettings] currentServer] objectForKey:@"URL"];
     NSString *reportURL = [[report objectForKey:@"server"] objectForKey:@"URL"];
-    DLog(@"Comparing URLs %@, %@", currentServerURL, reportURL);
     
     if ([reportURL isEqualToString:currentServerURL]) {
-        DLog(@"The report server is the current server");
         [self queryServerForReportInformation];
     }
     else {
-        DLog(@"Switching to server %@", reportURL)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(discoveryFinishedLoading:) name:@"discoveryFinishedLoading" object:nil];
         [[Open311 sharedOpen311] reload:[report objectForKey:@"server"]];
     }
-    DLog(@"Done loading view");
 }
 
 - (void)discoveryFinishedLoading:(NSNotification *)notification
@@ -103,7 +98,6 @@
  */
 - (void)queryServerForReportInformation
 {
-    DLog(@"Asking for fresh information from the server");
     Open311 *open311 = [Open311 sharedOpen311];
     NSURL *url = [NSURL alloc];
     
@@ -128,7 +122,6 @@
  */
 - (void)refreshViewWithReportData
 {
-    DLog(@"Refreshing screen with information: %@", report);
     NSString *service_name = [[report objectForKey:@"service"] objectForKey:@"service_name"];
     [self.navigationItem setTitle:service_name];
     
@@ -142,7 +135,6 @@
     address.text = [report objectForKey:@"address"] ? [report objectForKey:@"address"] : @"";
     department.text = [report objectForKey:@"agency_responsible"] ? [report objectForKey:@"agency_responsible"] : @"";
     
-    DLog(@"Colorizing status");
     if ([status.text isEqualToString:@"closed"]) {
         status.textColor = [UIColor greenColor];
     }
@@ -158,7 +150,6 @@
         // We're just going to ignore image download errors for now
         [request startAsynchronous];
     }
-    DLog(@"Finished refreshing screen");
 }
 
 /**
@@ -168,7 +159,6 @@
 {
     DLog(@"Handling response string %@", [request responseString]);
     NSArray *data = [[request responseString] JSONValue];
-    DLog(@"Loaded single report %@", data);
     NSDictionary *service_request = [data objectAtIndex:0];
     if (service_request) {
         NSString *service_name = [service_request objectForKey:@"service_name"];
