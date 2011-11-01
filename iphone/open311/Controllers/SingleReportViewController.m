@@ -1,4 +1,10 @@
 /**
+ * Takes a saved report and looks up the latest information
+ *
+ * After posting a report, we only save minimal information.
+ * Every time the user views a report, we want to query for the latest
+ * information and update out saved copy of the report.
+ *
  * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
@@ -12,6 +18,7 @@
 #import "SingleReportViewController.h"
 #import "Open311.h"
 #import "SBJson.h"
+#import "Settings.h"
 
 @implementation SingleReportViewController
 @synthesize serviceName;
@@ -21,17 +28,18 @@
 @synthesize department;
 @synthesize imageView;
 
-- (id)initWithServiceRequestId:(NSString *)request_id
+- (id)initWithReportAtIndex:(NSMutableDictionary *)myReport index:(NSInteger)index
 {
     self = [super init];
     if (self) {
-        service_request_id = request_id;
+        report = myReport;
+        reportIndex = index;
     }
     return self;
 }
 
 - (void)dealloc {
-    [service_request_id release];
+    [report release];
     [serviceName release];
     [submissionDate release];
     [status release];
@@ -51,14 +59,63 @@
 
 #pragma mark - View lifecycle
 
+/**
+ * Check if the report is for the current server
+ * 
+ * If this report is for the current server, go ahead and look up
+ * the report information. Otherwise, we need to switch to 
+ * the server for this report
+ */
 - (void)viewDidLoad
 {
+    DLog(@"View Loaded");
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view from its nib.
-    NSURL *url = [[Open311 sharedOpen311] getServiceRequestURL:service_request_id];
-    DLog(@"Loading %@", url);
+    [self refreshViewWithReportData];
 
+    NSString *currentServerURL = [[[Settings sharedSettings] currentServer] objectForKey:@"URL"];
+    NSString *reportURL = [[report objectForKey:@"server"] objectForKey:@"URL"];
+    DLog(@"Comparing URLs %@, %@", currentServerURL, reportURL);
+    
+    if ([reportURL isEqualToString:currentServerURL]) {
+        DLog(@"The report server is the current server");
+        [self queryServerForReportInformation];
+    }
+    else {
+        DLog(@"Switching to server %@", reportURL)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(discoveryFinishedLoading:) name:@"discoveryFinishedLoading" object:nil];
+        [[Open311 sharedOpen311] reload:[report objectForKey:@"server"]];
+    }
+    DLog(@"Done loading view");
+}
+
+- (void)discoveryFinishedLoading:(NSNotification *)notification
+{
+    [[Settings sharedSettings] setCurrentServer:[report objectForKey:@"server"]];
+    [self queryServerForReportInformation];
+}
+
+/**
+ * Queries the Open311 server for either the request info
+ *
+ * If we only have a token, ask for the request_id.
+ * If we have a request_id, ask for the full report information.
+ */
+- (void)queryServerForReportInformation
+{
+    DLog(@"Asking for fresh information from the server");
+    Open311 *open311 = [Open311 sharedOpen311];
+    NSURL *url = [NSURL alloc];
+    
+    if ([[report objectForKey:@"service_request_id"] length] != 0) {
+        url = [open311 getServiceRequestURL:[report objectForKey:@"service_request_id"]];
+    }
+    else {
+        url = [open311 getRequestIdURL:[report objectForKey:@"token"]];
+    }
+    
+    DLog(@"Loading %@", url);
+    
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(handleReportInfoSuccess:)];
@@ -67,39 +124,85 @@
 }
 
 /**
- * Updates the view with information from the report
+ * Refreshes the view with whatever information we have saved about the report
+ */
+- (void)refreshViewWithReportData
+{
+    DLog(@"Refreshing screen with information: %@", report);
+    NSString *service_name = [[report objectForKey:@"service"] objectForKey:@"service_name"];
+    [self.navigationItem setTitle:service_name];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:kCFDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+
+    serviceName.text = service_name;
+    submissionDate.text = [dateFormatter stringFromDate:[report objectForKey:@"date"]];
+    status.text = [report objectForKey:@"status"] ? [report objectForKey:@"status"] : @"";
+    address.text = [report objectForKey:@"address"] ? [report objectForKey:@"address"] : @"";
+    department.text = [report objectForKey:@"agency_responsible"] ? [report objectForKey:@"agency_responsible"] : @"";
+    
+    DLog(@"Colorizing status");
+    if ([status.text isEqualToString:@"closed"]) {
+        status.textColor = [UIColor greenColor];
+    }
+    else {
+        status.textColor = [UIColor redColor];
+    }
+
+    // Download the image, if we haven't already
+    if (!imageView.image && [[report objectForKey:@"media_url"] length]!=0) {
+        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[report objectForKey:@"media_url"]]];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(handleImageDownloadSuccess:)];
+        // We're just going to ignore image download errors for now
+        [request startAsynchronous];
+    }
+    DLog(@"Finished refreshing screen");
+}
+
+/**
+ * Updates the report with information from the server, then refreshes the view
  */
 - (void)handleReportInfoSuccess:(ASIHTTPRequest *)request;
 {
-    DLog(@"Loaded single report %@", [request responseString]);
+    DLog(@"Handling response string %@", [request responseString]);
     NSArray *data = [[request responseString] JSONValue];
+    DLog(@"Loaded single report %@", data);
     NSDictionary *service_request = [data objectAtIndex:0];
     if (service_request) {
         NSString *service_name = [service_request objectForKey:@"service_name"];
+        // Handle a response that has full report data
         if (service_name) {
-            [self.navigationItem setTitle:service_name];
-            serviceName.text = service_name;
-            submissionDate.text = [service_request objectForKey:@"requested_datetime"];
-            status.text = [service_request objectForKey:@"status"];
-            address.text = [service_request objectForKey:@"address"];
-            department.text = [service_request objectForKey:@"agency_responsible"];
+            [report setObject:service_name forKey:@"service_name"];
             
-            if ([status.text isEqualToString:@"closed"]) {
-                status.textColor = [UIColor greenColor];
+            if ([service_request objectForKey:@"requested_datetime"] != [NSNull null]) {
+                [report setObject:[service_request objectForKey:@"requested_datetime"] forKey:@"requested_datetime"];
             }
-            else {
-                status.textColor = [UIColor redColor];
+            if ([service_request objectForKey:@"status"] != [NSNull null]) {
+                [report setObject:[service_request objectForKey:@"status"] forKey:@"status"];
+            }
+            if ([service_request objectForKey:@"address"] != [NSNull null]) {
+                [report setObject:[service_request objectForKey:@"address"] forKey:@"address"];
+            }
+            if ([service_request objectForKey:@"agency_responsible"] != [NSNull null]) {
+                [report setObject:[service_request objectForKey:@"agency_responsible"] forKey:@"agency_responsible"];
+            }
+            if ([service_request objectForKey:@"media_url"] != [NSNull null]) {
+                [report setObject:[service_request objectForKey:@"media_url"] forKey:@"media_url"];
             }
             
-            NSString *media_url = [service_request objectForKey:@"media_url"];
-            if (media_url) {
-                ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:media_url]];
-                [request setDelegate:self];
-                [request setDidFinishSelector:@selector(handleImageDownloadSuccess:)];
-                // We're just going to ignore image download errors for now
-                [request startAsynchronous];
-            }
+            [self saveReport];
+            [self refreshViewWithReportData];
         }
+        // If we only had a token, the response will only include a request_id
+        // Update the request_id in the report, and send another query for the full information
+        else if ([service_request objectForKey:@"service_request_id"]) {
+            [report setObject:[service_request objectForKey:@"service_request_id"] forKey:@"service_request_id"];
+            [self saveReport];
+            [self queryServerForReportInformation];
+        }
+        // We got a response back, but it doesn't match what we're expecting
         else {
             [self handleReportInfoFailure:request];
         }
@@ -109,6 +212,14 @@
         [alert show];
         [alert release];
     }
+}
+
+/**
+ * Updates the report in Settings, so the data gets saved
+ */
+- (void)saveReport
+{
+    [[[Settings sharedSettings] myRequests] replaceObjectAtIndex:reportIndex withObject:report];
 }
 
 /**

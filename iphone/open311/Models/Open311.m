@@ -158,6 +158,18 @@ static id _sharedOpen311 = nil;
 }
 
 /**
+ * Returns the URL for getting a request_id from a token
+ */
+- (NSURL *)getRequestIdURL:(NSString *)token
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"tokens/%@.json",token]];
+    if ([params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:params]];
+    }
+    return url;
+}
+
+/**
  * Returns the URL for looking up a single request from the current Open311 server
  */
 - (NSURL *)getServiceRequestURL:(NSString *)service_request_id

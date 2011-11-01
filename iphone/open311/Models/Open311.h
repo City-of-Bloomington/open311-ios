@@ -37,6 +37,7 @@
 
 - (NSURL *)getServiceDefinitionURL:(NSString *)service_code;
 - (NSURL *)getPostServiceRequestURL;
+- (NSURL *)getRequestIdURL:(NSString *)token;
 - (NSURL *)getServiceRequestURL:(NSString *)service_request_id;
 
 @end

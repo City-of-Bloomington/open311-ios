@@ -362,7 +362,7 @@
                                    token,
                                    [NSDate date], nil];
             NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"token", @"date", nil];
-            [[[Settings sharedSettings] myRequests] addObject:[NSDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
+            [[[Settings sharedSettings] myRequests] addObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
             DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
         }
         
