@@ -87,12 +87,16 @@
         if (!imagePath) {
             imagePath = defaultSplash;
         }
-        [splashImageButton setImage:[[UIImage alloc] initWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+        [splashImageButton setImage:image forState:UIControlStateNormal];
+        [image release];
     }
     // If the user hasn't chosen a server, send them to the MyServer screen
     else {
         self.navigationItem.title = @"Unknown Server";
-        [splashImageButton setImage:[[UIImage alloc] initWithContentsOfFile:defaultSplash] forState:UIControlStateNormal];
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:defaultSplash];
+        [splashImageButton setImage:image forState:UIControlStateNormal];
+        [image release];
         [self.tabBarController setSelectedIndex:3];
     }
 

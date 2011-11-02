@@ -469,6 +469,7 @@
             geocoder.delegate = self;
             [geocoder start];
             [location release];
+            [geocoder release];
         }
     }
     else {

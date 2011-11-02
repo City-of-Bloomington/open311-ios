@@ -128,9 +128,10 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:kCFDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    submissionDate.text = [dateFormatter stringFromDate:[report objectForKey:@"date"]];
+    [dateFormatter release];
 
     serviceName.text = service_name;
-    submissionDate.text = [dateFormatter stringFromDate:[report objectForKey:@"date"]];
     status.text = [report objectForKey:@"status"] ? [report objectForKey:@"status"] : @"";
     address.text = [report objectForKey:@"address"] ? [report objectForKey:@"address"] : @"";
     department.text = [report objectForKey:@"agency_responsible"] ? [report objectForKey:@"agency_responsible"] : @"";
