@@ -14,14 +14,13 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "BusyViewController.h"
+#import "ChooseGroupViewController.h"
 
 @interface ReportViewController : UIViewController <UINavigationControllerDelegate,
                                                     UITableViewDelegate,
                                                     UITableViewDataSource,
                                                     UIImagePickerControllerDelegate,
-                                                    UIActionSheetDelegate,
-                                                    UIPickerViewDelegate,
-                                                    UIPickerViewDataSource,
+                                                    ServiceChooserDelegate,
                                                     MKReverseGeocoderDelegate> {
     
     IBOutlet UITableView *reportTableView;
@@ -36,7 +35,7 @@
 - (void)initReportForm;
 
 - (void)chooseService;
-- (void)didSelectService:(NSInteger)selectedIndex;
+- (void)didSelectService:(NSDictionary *)service;
 
 - (void)loadServiceDefinition:(NSString *)service_code;
 - (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request;

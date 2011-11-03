@@ -123,56 +123,28 @@
     self.currentService = nil;
     self.service_definition = nil;
     
-    UIActionSheet *serviceChooserActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Service" delegate:self cancelButtonTitle:@"Done" destructiveButtonTitle:nil otherButtonTitles:nil];
-    [serviceChooserActionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
-    
-    servicePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 100, 320, 216)];
-    [servicePicker setDelegate:self];
-    [servicePicker setDataSource:self];
-    [servicePicker setShowsSelectionIndicator:YES];
-    
-    [serviceChooserActionSheet addSubview:servicePicker];
-    
-    [serviceChooserActionSheet showFromTabBar:self.tabBarController.tabBar];
-    [serviceChooserActionSheet setBounds:CGRectMake(0, 0, 320, 610)];
-    [serviceChooserActionSheet release];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[ChooseGroupViewController alloc] initWithDelegate:self]];
+    [self.navigationController presentModalViewController:nav animated:YES];
+    [nav release];
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [[[Open311 sharedOpen311] services] count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return [[[[Open311 sharedOpen311] services] objectAtIndex:row] objectForKey:@"service_name"];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    [self didSelectService:[servicePicker selectedRowInComponent:0]];
-    [servicePicker release];
-}
-
-#pragma mark - Report Setup
 /**
  * Handler for the Open311 service picker
  *
  * Sets the user-chosen service and loads it's service definition
  */
-- (void)didSelectService:(NSInteger)selectedIndex
+- (void)didSelectService:(NSDictionary *)service;
 {
-    self.currentService = [[[Open311 sharedOpen311] services] objectAtIndex:selectedIndex];
+    self.currentService = service;
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
     [self initReportForm];
     [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
 }
+
+#pragma mark - Report Setup
 
 /**
  * Wipes and reloads the reportForm
