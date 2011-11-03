@@ -221,6 +221,9 @@
         [[self.reportForm objectForKey:@"fields"] addObject:code];
         [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
         [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
+        if ([[attribute objectForKey:@"required"] boolValue]) {
+            [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
+        }
         
         NSDictionary *values = [attribute objectForKey:@"values"];
         if (values) {
@@ -431,6 +434,10 @@
     cell.textLabel.text = [[self.reportForm objectForKey:@"labels"] objectForKey:fieldname];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.imageView.image = nil;
+    
+    if ([[self.reportForm objectForKey:@"requiredFields"] containsObject:fieldname]) {
+        cell.textLabel.text = [NSString stringWithFormat:@"* %@",cell.textLabel.text];
+    }
     
     // Populate the user-provided data
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
