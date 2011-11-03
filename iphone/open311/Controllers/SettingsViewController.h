@@ -11,18 +11,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController <UITextFieldDelegate, UIWebViewDelegate> {
+@interface SettingsViewController : UIViewController <UITextFieldDelegate> {
     UITextField *firstname;
     UITextField *lastname;
     UITextField *email;
     UITextField *phone;
-    UIWebView *aboutView;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *firstname;
 @property (nonatomic, retain) IBOutlet UITextField *lastname;
 @property (nonatomic, retain) IBOutlet UITextField *email;
 @property (nonatomic, retain) IBOutlet UITextField *phone;
-@property (nonatomic, retain) IBOutlet UIWebView *aboutView;
+- (IBAction)showAboutScreen:(id)sender;
 
 @end

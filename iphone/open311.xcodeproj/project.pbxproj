@@ -14,6 +14,8 @@
 		6924825F143209CD00EBBD16 /* SelectMultipleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6924825D143209CD00EBBD16 /* SelectMultipleViewController.m */; };
 		69248260143209CD00EBBD16 /* SelectMultipleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6924825E143209CD00EBBD16 /* SelectMultipleViewController.xib */; };
 		693028771443920500A8EFB2 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 693028761443920500A8EFB2 /* splash.png */; };
+		6934AAD31463287F00B648CF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6934AAD11463287F00B648CF /* AboutViewController.m */; };
+		6934AAD41463287F00B648CF /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6934AAD21463287F00B648CF /* AboutViewController.xib */; };
 		6948D1C41444A28500E26059 /* BusyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6948D1C21444A28500E26059 /* BusyViewController.m */; };
 		6948D1C51444A28500E26059 /* BusyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6948D1C31444A28500E26059 /* BusyViewController.xib */; };
 		6958413A144DF6D00068642E /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 69584139144DF6D00068642E /* about.html */; };
@@ -122,6 +124,9 @@
 		6924825D143209CD00EBBD16 /* SelectMultipleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectMultipleViewController.m; sourceTree = "<group>"; };
 		6924825E143209CD00EBBD16 /* SelectMultipleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectMultipleViewController.xib; sourceTree = "<group>"; };
 		693028761443920500A8EFB2 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		6934AAD01463287F00B648CF /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		6934AAD11463287F00B648CF /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		6934AAD21463287F00B648CF /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		6948D1C11444A28500E26059 /* BusyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusyViewController.h; sourceTree = "<group>"; };
 		6948D1C21444A28500E26059 /* BusyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusyViewController.m; sourceTree = "<group>"; };
 		6948D1C31444A28500E26059 /* BusyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusyViewController.xib; sourceTree = "<group>"; };
@@ -400,6 +405,9 @@
 				69D658D61462CCDC00F6A284 /* ChooseGroupViewController.h */,
 				69D658D71462CCDC00F6A284 /* ChooseGroupViewController.m */,
 				69D658D81462CCDC00F6A284 /* ChooseGroupViewController.xib */,
+				6934AAD01463287F00B648CF /* AboutViewController.h */,
+				6934AAD11463287F00B648CF /* AboutViewController.m */,
+				6934AAD21463287F00B648CF /* AboutViewController.xib */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -696,6 +704,7 @@
 				69013385145B19DE0071509F /* CustomServerViewController.xib in Resources */,
 				69D658D41462CC9100F6A284 /* ChooseServiceViewController.xib in Resources */,
 				69D658DA1462CCDC00F6A284 /* ChooseGroupViewController.xib in Resources */,
+				6934AAD41463287F00B648CF /* AboutViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +762,7 @@
 				69013384145B19DE0071509F /* CustomServerViewController.m in Sources */,
 				69D658D31462CC9100F6A284 /* ChooseServiceViewController.m in Sources */,
 				69D658D91462CCDC00F6A284 /* ChooseGroupViewController.m in Sources */,
+				6934AAD31463287F00B648CF /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
