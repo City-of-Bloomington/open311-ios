@@ -165,10 +165,11 @@
 - (void)initReportForm
 {
     NSError *error = nil;
-    NSPropertyListFormat format;
     NSData *reportPlist = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
     
-    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:reportPlist options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
+    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:reportPlist options:NSPropertyListMutableContainersAndLeaves format:NULL error:&error];
+
+    error = nil;
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
     [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
