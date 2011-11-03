@@ -11,11 +11,14 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "Locator.h"
 
 @interface BaseMapViewController : UIViewController {
     IBOutlet MKMapView *map;
+    Locator *locator;
 }
 @property (nonatomic, retain) IBOutlet MKMapView *map;
+@property (nonatomic, retain) Locator *locator;
 
 - (void)zoomToGpsLocation:(BOOL)animated;
 

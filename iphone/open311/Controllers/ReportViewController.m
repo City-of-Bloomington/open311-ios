@@ -42,6 +42,7 @@
 @synthesize currentService;
 @synthesize service_definition;
 @synthesize reportForm;
+@synthesize locator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,7 +55,7 @@
 
 - (void)dealloc
 {
-    [servicePicker release];
+    [locator release];
     [busyController release];
     [reportForm release];
     [service_definition release];
@@ -81,15 +82,23 @@
     [self.navigationItem setTitle:@"New Report"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Service" style:UIBarButtonItemStylePlain target:self action:@selector(chooseService)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(postReport)];
+    
+    // Start up the location services.
+    // Do it here, so we should have a position by the time we need it.
+    self.locator = [[Locator alloc] init];
+    [self.locator startLocationServices];
+    
 
     // If the user hasn't chosen a server yet, send them to the MyServers tab
     if (![[Settings sharedSettings] currentServer]) {
         self.tabBarController.selectedIndex = 3;
     }
+    
 }
 
 - (void)viewDidUnload
 {
+    [locator release];
     [reportForm release];
     [reportTableView release];
     reportTableView = nil;
@@ -486,6 +495,7 @@
     }
     if ([type isEqualToString:@"location"]) {
         LocationChooserViewController *chooseLocation = [[LocationChooserViewController alloc] initWithReport:self.reportForm];
+        [chooseLocation setLocator:self.locator];
         [self.navigationController pushViewController:chooseLocation animated:YES];
         [chooseLocation release];
     }

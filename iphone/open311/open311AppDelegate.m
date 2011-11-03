@@ -63,10 +63,6 @@
     [serverNav release];
     [self.tabBarController release];
     
-    // Start up the location services.
-    // Do it here, so we should have a position by the time we need it.
-    [[Locator sharedLocator] startLocationServices];
-    
     return YES;
 }
 
