@@ -11,6 +11,7 @@
 #import "Open311.h"
 
 @implementation ChooseGroupViewController
+@synthesize groups;
 @synthesize groupTable;
 
 - (id)initWithDelegate:(id <ServiceChooserDelegate>)serviceChooserDelegate
@@ -18,13 +19,12 @@
     self = [super init];
     if (self) {
         delegate = serviceChooserDelegate;
-        groups = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)dealloc {
-    [groups release];
+    [self.groups release];
     [groupTable release];
     [super dealloc];
 }
@@ -45,22 +45,29 @@
 - (void)loadGroups
 {
     NSArray *services = [[Open311 sharedOpen311] services];
+    self.groups = [NSMutableArray array];
+    BOOL hasOther = false;
+    
     for (NSDictionary *service in services) {
-        NSString *group = @"";
+        NSString *group = nil;
         if ([service objectForKey:@"group"] == [NSNull null]
             || [[service objectForKey:@"group"] length] == 0) {
-            group = @"Other";
+            hasOther = TRUE;
         }
         else {
             group = [service objectForKey:@"group"];
         }
-        if (![groups containsObject:group]) {
+        if (group && ![self.groups containsObject:group]) {
             DLog(@"Adding group %@", group);
-            [groups addObject:group];
+            [self.groups addObject:group];
         }
     }
+    self.groups = [NSMutableArray arrayWithArray:[self.groups sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    if (hasOther) {
+        [self.groups addObject:@"Other"];
+    }
     
-    if ([groups count] <= 1) {
+    if ([self.groups count] <= 1) {
         ChooseServiceViewController *chooser = [[ChooseServiceViewController alloc] initWithDelegate:delegate group:nil];
         [self.navigationController pushViewController:chooser animated:YES];
         [chooser release];
@@ -88,7 +95,7 @@
 #pragma mark - Table Handler Functions
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [groups count];
+    return [self.groups count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -97,7 +104,7 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"] autorelease];
     }
-    cell.textLabel.text = [groups objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.groups objectAtIndex:indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
@@ -105,7 +112,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    ChooseServiceViewController *chooser = [[ChooseServiceViewController alloc] initWithDelegate:delegate group:[groups objectAtIndex:indexPath.row]];
+    ChooseServiceViewController *chooser = [[ChooseServiceViewController alloc] initWithDelegate:delegate group:[self.groups objectAtIndex:indexPath.row]];
     [self.navigationController pushViewController:chooser animated:YES];
     [chooser release];
 }

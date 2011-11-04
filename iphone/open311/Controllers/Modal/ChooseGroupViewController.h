@@ -16,6 +16,7 @@
     NSMutableArray *groups;
 }
 
+@property (nonatomic, retain) NSMutableArray *groups;
 @property (retain, nonatomic) IBOutlet UITableView *groupTable;
 
 - (id)initWithDelegate:(id <ServiceChooserDelegate>)serviceChooserDelegate;
