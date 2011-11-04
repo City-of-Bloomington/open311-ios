@@ -553,7 +553,14 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    // Older versions of iOS use parentViewController.  In iOS 5 the meaning of parentView changed
+    // iOS5 now uses presentingViewController
+    if ([self respondsToSelector:@selector(presentingViewController)]) {
+        [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    }
+    else {
+        [picker.parentViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -583,7 +590,14 @@
     
     [[self.reportForm objectForKey:@"data"] setObject:resizedImage forKey:@"media"];
 
-    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    // Older versions of iOS use parentViewController.  In iOS 5 the meaning of parentView changed
+    // iOS5 now uses presentingViewController
+    if ([self respondsToSelector:@selector(presentingViewController)]) {
+        [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    }
+    else {
+        [picker.parentViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - Reverse Geocoder Delegate Functions
