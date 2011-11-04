@@ -24,5 +24,6 @@
 
 - (id)initWithDelegate:(id <ServiceChooserDelegate>)serviceChooserDelegate;
 - (void)loadGroups;
+- (void)cancel;
 
 @end

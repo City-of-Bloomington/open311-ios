@@ -84,7 +84,14 @@
     [super viewDidLoad];
     
     [self.navigationItem setTitle:@"Groups"];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    
     [self loadGroups];
+}
+
+- (void)cancel
+{
+    [delegate didSelectService:nil];
 }
 
 - (void)viewDidUnload

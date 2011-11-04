@@ -144,13 +144,17 @@
  */
 - (void)didSelectService:(NSDictionary *)service;
 {
-    self.currentService = service;
-    
+    DLog(@"User done selecting service");
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
-    [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
-    [self initReportForm];
-    [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
+    if (service) {
+        self.currentService = service;
+        
+        
+        [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
+        [self initReportForm];
+        [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
+    }
 }
 
 #pragma mark - Report Setup
@@ -400,16 +404,19 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *serviceDescription = [self.currentService objectForKey:@"description"];
-    NSString *serviceName = [self.currentService objectForKey:@"service_name"];
-    DLog(@"Loaded service description: %@", serviceDescription);
-    if (([self.currentService objectForKey:@"description"]==[NSNull null] || [serviceDescription length] == 0)
-        && serviceName) {
-        return [NSString stringWithFormat:@"Report %@",serviceName];
+    if (self.currentService) {
+        NSString *serviceDescription = [self.currentService objectForKey:@"description"];
+        NSString *serviceName = [self.currentService objectForKey:@"service_name"];
+        DLog(@"Loaded service description: %@", serviceDescription);
+        if (([self.currentService objectForKey:@"description"]==[NSNull null] || [serviceDescription length] == 0)
+            && serviceName) {
+            return [NSString stringWithFormat:@"Report %@",serviceName];
+        }
+        else {
+            return serviceDescription;
+        }
     }
-    else {
-        return serviceDescription;
-    }
+    return @"Choose a service to report to";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
