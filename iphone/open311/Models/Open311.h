@@ -36,6 +36,7 @@
 
 - (void)handleDiscoverySuccess:(ASIHTTPRequest *)request;
 - (void)handleServicesSuccess:(ASIHTTPRequest *)request;
+- (void)responseFormatInvalid:(ASIHTTPRequest *)request;
 
 - (NSURL *)getServiceDefinitionURL:(NSString *)service_code;
 - (NSURL *)getPostServiceRequestURL;

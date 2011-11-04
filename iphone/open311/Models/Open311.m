@@ -88,6 +88,11 @@ static id _sharedOpen311 = nil;
 - (void)handleDiscoverySuccess:(ASIHTTPRequest *)request
 {
     NSDictionary *discovery = [[request responseString] JSONValue];
+    if (!discovery) {
+        [self responseFormatInvalid:request];
+        return;
+    }
+    
     for (NSDictionary *ep in [discovery objectForKey:@"endpoints"]) {
         if ([[ep objectForKey:@"specification"] isEqualToString:@"http://wiki.open311.org/GeoReport_v2"]) {
             self.endpoint = ep; 
@@ -123,13 +128,34 @@ static id _sharedOpen311 = nil;
 - (void)handleServicesSuccess:(ASIHTTPRequest *)request
 {
     self.services = [[request responseString] JSONValue];
+    if (!self.services) {
+        [self responseFormatInvalid:request];
+        return;
+    }
     DLog(@"Loaded %u services",[self.services count]);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load url" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}
+
+/**
+ * Called when we got a 200 response with text that we can't parse
+ *
+ * This is usually because the server thinks it is providing Open311 json,
+ * when, in fact, it is not.
+ */
+- (void)responseFormatInvalid:(ASIHTTPRequest *)request
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server gave invalid response" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     [alert release];
 }
