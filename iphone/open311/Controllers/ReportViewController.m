@@ -402,11 +402,13 @@
 {
     NSString *serviceDescription = [self.currentService objectForKey:@"description"];
     NSString *serviceName = [self.currentService objectForKey:@"service_name"];
-    if (!serviceDescription && serviceName) {
+    DLog(@"Loaded service description: %@", serviceDescription);
+    if (([self.currentService objectForKey:@"description"]==[NSNull null] || [serviceDescription length] == 0)
+        && serviceName) {
         return [NSString stringWithFormat:@"Report %@",serviceName];
     }
     else {
-        return @"";
+        return serviceDescription;
     }
 }
 
