@@ -109,6 +109,14 @@
     }
     cell.textLabel.text = [self.groups objectAtIndex:indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    NSString *detail = @"";
+    for (NSDictionary *service in [[Open311 sharedOpen311] services]) {
+        if ([[service objectForKey:@"group"] isEqualToString:[self.groups objectAtIndex:indexPath.row]]) {
+            detail = [detail stringByAppendingFormat:@"%@, ",[service objectForKey:@"service_name"]];
+        }
+    }
+    cell.detailTextLabel.text = detail;
     return cell;
 }
 
