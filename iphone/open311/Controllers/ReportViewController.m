@@ -441,6 +441,7 @@
     NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:fieldname];
     
     cell.textLabel.text = [[self.reportForm objectForKey:@"labels"] objectForKey:fieldname];
+    cell.detailTextLabel.text = nil;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.imageView.image = nil;
     
