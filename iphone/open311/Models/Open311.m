@@ -17,7 +17,6 @@
 
 static id _sharedOpen311 = nil;
 
-@synthesize endpoint=_endpoint;
 @synthesize baseURL=_baseURL;
 @synthesize services=_services;
 
@@ -50,10 +49,17 @@ static id _sharedOpen311 = nil;
     [api_key release];
     [currentServer release];
     [_baseURL release];
-    [_endpoint release];
     [_services release];
     [super dealloc];
 }
+
+- (void)reset
+{
+    currentServer = nil;
+    self.baseURL = nil;
+    self.services = nil;
+}
+
 
 /**
  * Clears out all the current data and reloads Open311 data from the provided URL
@@ -62,68 +68,20 @@ static id _sharedOpen311 = nil;
 {
     [self reset];
     currentServer = server;
-    baseURL = [NSURL URLWithString:[currentServer objectForKey:@"URL"]];
+    self.baseURL = [NSURL URLWithString:[currentServer objectForKey:@"URL"]];
     jurisdiction_id = [currentServer objectForKey:@"jurisdiction_id"];
     api_key = [currentServer objectForKey:@"api_key"];
     
-    // Load the discovery data
-    DLog(@"Open311:reload:%@",[baseURL absoluteString]);
-    NSURL *discoveryURL = [baseURL URLByAppendingPathComponent:@"discovery.json"];
-    DLog(@"Loading URL: %@",discoveryURL);
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:discoveryURL];
+    // Load the service list
+    NSURL *servicesURL = [self getServiceListURL];
+    DLog(@"Loading URL: %@", servicesURL);
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:servicesURL];
     [request setDelegate:self];
-    [request setDidFinishSelector:@selector(handleDiscoverySuccess:)];
+    [request setDidFinishSelector:@selector(handleServicesSuccess:)];
     [request startAsynchronous];
 }
 
-- (void)reset
-{
-    currentServer = nil;
-    self.endpoint = nil;
-    self.baseURL = nil;
-    self.services = nil;
-}
-
 #pragma mark - ASIHTTPRequest Handlers
-- (void)handleDiscoverySuccess:(ASIHTTPRequest *)request
-{
-    NSDictionary *discovery = [[request responseString] JSONValue];
-    if (!discovery) {
-        [self responseFormatInvalid:request];
-        return;
-    }
-    
-    for (NSDictionary *ep in [discovery objectForKey:@"endpoints"]) {
-        if ([[ep objectForKey:@"specification"] isEqualToString:@"http://wiki.open311.org/GeoReport_v2"]) {
-            self.endpoint = ep; 
-            self.baseURL = [NSURL URLWithString:[ep objectForKey:@"url"]];
-        }
-    }
-    
-    self.params = @"";
-    if (jurisdiction_id || api_key) {
-        self.params = @"?";
-        if (jurisdiction_id) {
-            self.params = [self.params stringByAppendingFormat:@"jurisdiction_id=%@&",jurisdiction_id];
-        }
-        if (api_key) {
-            self.params = [self.params stringByAppendingFormat:@"api_key=%@&",api_key];
-        }
-    }
-    
-    // Load all the service definitions
-    if (self.baseURL) {
-        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services.json"]];
-        if ([self.params length] != 0) {
-            servicesURL = [NSURL URLWithString:[[servicesURL absoluteString] stringByAppendingString:self.params]];
-        }
-        DLog(@"Loading URL: %@", servicesURL);
-        request = [ASIHTTPRequest requestWithURL:servicesURL];
-        [request setDelegate:self];
-        [request setDidFinishSelector:@selector(handleServicesSuccess:)];
-        [request startAsynchronous];
-    }
-}
 
 - (void)handleServicesSuccess:(ASIHTTPRequest *)request
 {
@@ -161,6 +119,18 @@ static id _sharedOpen311 = nil;
 }
 
 #pragma mark - API URL Getters
+/**
+ * Returns the URL for the list of services
+ */
+- (NSURL *)getServiceListURL
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services.json"]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
+    }
+    return url;
+}
+
 /**
  * Returns the URL to request a service definition from the current Open311 server
  */
