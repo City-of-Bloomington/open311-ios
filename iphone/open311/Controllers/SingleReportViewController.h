@@ -13,7 +13,8 @@
 #import "ASIHTTPRequest.h"
 
 @interface SingleReportViewController : UIViewController <UIAlertViewDelegate,ASIHTTPRequestDelegate> {
-    NSString *service_request_id;
+    NSMutableDictionary *report;
+    NSInteger reportIndex;
     
     UILabel *serviceName;
     UILabel *submissionDate;
@@ -30,7 +31,14 @@
 @property (nonatomic, retain) IBOutlet UILabel *department;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 
-- (id)initWithServiceRequestId:(NSString *)request_id;
+- (id)initWithReportAtIndex:(NSMutableDictionary *)myReport index:(NSInteger)index;
+
+- (void)discoveryFinishedLoading:(NSNotification *)notification;
+
+- (void)refreshViewWithReportData;
+- (void)queryServerForReportInformation;
+- (void)saveReport;
+
 - (void)handleReportInfoSuccess:(ASIHTTPRequest *)request;
 - (void)handleReportInfoFailure:(ASIHTTPRequest *)request;
 - (void)handleImageDownloadSuccess:(ASIHTTPRequest *)request;

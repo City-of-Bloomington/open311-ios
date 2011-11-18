@@ -13,30 +13,15 @@
 
 @implementation Locator
 
-static id _sharedLocator = nil;
-
 @synthesize locationManager;
 @synthesize locationAvailable;
 @synthesize currentLocation;
-
-+ (void)initialize
-{
-    if (self == [Locator class]) {
-        _sharedLocator = [[self alloc] init];
-    }
-}
-
-+ (id)sharedLocator
-{
-    return _sharedLocator;
-}
 
 - (id) init
 {
     self = [super init];
     if (self) {
         self.locationAvailable = NO;
-        self.currentLocation = [[CLLocation alloc] init];
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;

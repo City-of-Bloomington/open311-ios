@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69013384145B19DE0071509F /* CustomServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69013382145B19DE0071509F /* CustomServerViewController.m */; };
+		69013385145B19DE0071509F /* CustomServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69013383145B19DE0071509F /* CustomServerViewController.xib */; };
 		691A7573144635DD0054B222 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691A7571144635DD0054B222 /* SettingsViewController.m */; };
 		691A7574144635DD0054B222 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 691A7572144635DD0054B222 /* SettingsViewController.xib */; };
 		6924825F143209CD00EBBD16 /* SelectMultipleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6924825D143209CD00EBBD16 /* SelectMultipleViewController.m */; };
 		69248260143209CD00EBBD16 /* SelectMultipleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6924825E143209CD00EBBD16 /* SelectMultipleViewController.xib */; };
 		693028771443920500A8EFB2 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 693028761443920500A8EFB2 /* splash.png */; };
+		6934AAD31463287F00B648CF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6934AAD11463287F00B648CF /* AboutViewController.m */; };
+		6934AAD41463287F00B648CF /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6934AAD21463287F00B648CF /* AboutViewController.xib */; };
 		6948D1C41444A28500E26059 /* BusyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6948D1C21444A28500E26059 /* BusyViewController.m */; };
 		6948D1C51444A28500E26059 /* BusyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6948D1C31444A28500E26059 /* BusyViewController.xib */; };
 		6958413A144DF6D00068642E /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 69584139144DF6D00068642E /* about.html */; };
@@ -87,8 +91,6 @@
 		69B07FBC1416B065008DD4E0 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FBA1416B065008DD4E0 /* HomeViewController.xib */; };
 		69B07FC01416B076008DD4E0 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B07FBE1416B076008DD4E0 /* ReportViewController.m */; };
 		69B07FC11416B076008DD4E0 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FBF1416B076008DD4E0 /* ReportViewController.xib */; };
-		69B07FC51416B083008DD4E0 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B07FC31416B083008DD4E0 /* MapViewController.m */; };
-		69B07FC61416B083008DD4E0 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FC41416B083008DD4E0 /* MapViewController.xib */; };
 		69B07FCA1416B094008DD4E0 /* MyServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B07FC81416B094008DD4E0 /* MyServersViewController.m */; };
 		69B07FCB1416B094008DD4E0 /* MyServersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FC91416B094008DD4E0 /* MyServersViewController.xib */; };
 		69B07FD01416B30E008DD4E0 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B07FCC1416B30E008DD4E0 /* list.png */; };
@@ -102,14 +104,19 @@
 		69D36952144F1F8B00F710A7 /* Bloomington.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D36951144F1F8B00F710A7 /* Bloomington.png */; };
 		69D36956144F253700F710A7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D36955144F253700F710A7 /* Default.png */; };
 		69D36958144F270700F710A7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D36957144F270700F710A7 /* Default@2x.png */; };
-		69E58237141E87550038C910 /* ChooseServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E58235141E87550038C910 /* ChooseServiceViewController.m */; };
-		69E58238141E87550038C910 /* ChooseServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E58236141E87550038C910 /* ChooseServiceViewController.xib */; };
+		69D658D31462CC9100F6A284 /* ChooseServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D658D11462CC9100F6A284 /* ChooseServiceViewController.m */; };
+		69D658D41462CC9100F6A284 /* ChooseServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D658D21462CC9100F6A284 /* ChooseServiceViewController.xib */; };
+		69D658D91462CCDC00F6A284 /* ChooseGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D658D71462CCDC00F6A284 /* ChooseGroupViewController.m */; };
+		69D658DA1462CCDC00F6A284 /* ChooseGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D658D81462CCDC00F6A284 /* ChooseGroupViewController.xib */; };
 		69F08B7B142A6E910019C816 /* cross-hairs-small-black-cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F08B79142A6E910019C816 /* cross-hairs-small-black-cropped.png */; };
 		69F08B7C142A6E910019C816 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F08B7A142A6E910019C816 /* iconLocation.png */; };
 		69F08B88142A71BB0019C816 /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F08B87142A71BB0019C816 /* BaseMapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		69013381145B19DE0071509F /* CustomServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomServerViewController.h; sourceTree = "<group>"; };
+		69013382145B19DE0071509F /* CustomServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomServerViewController.m; sourceTree = "<group>"; };
+		69013383145B19DE0071509F /* CustomServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomServerViewController.xib; sourceTree = "<group>"; };
 		691A7570144635DD0054B222 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		691A7571144635DD0054B222 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		691A7572144635DD0054B222 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
@@ -117,6 +124,9 @@
 		6924825D143209CD00EBBD16 /* SelectMultipleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectMultipleViewController.m; sourceTree = "<group>"; };
 		6924825E143209CD00EBBD16 /* SelectMultipleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectMultipleViewController.xib; sourceTree = "<group>"; };
 		693028761443920500A8EFB2 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		6934AAD01463287F00B648CF /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		6934AAD11463287F00B648CF /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		6934AAD21463287F00B648CF /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		6948D1C11444A28500E26059 /* BusyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusyViewController.h; sourceTree = "<group>"; };
 		6948D1C21444A28500E26059 /* BusyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusyViewController.m; sourceTree = "<group>"; };
 		6948D1C31444A28500E26059 /* BusyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusyViewController.xib; sourceTree = "<group>"; };
@@ -240,9 +250,6 @@
 		69B07FBD1416B076008DD4E0 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
 		69B07FBE1416B076008DD4E0 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		69B07FBF1416B076008DD4E0 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
-		69B07FC21416B083008DD4E0 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		69B07FC31416B083008DD4E0 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		69B07FC41416B083008DD4E0 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		69B07FC71416B094008DD4E0 /* MyServersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyServersViewController.h; sourceTree = "<group>"; };
 		69B07FC81416B094008DD4E0 /* MyServersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyServersViewController.m; sourceTree = "<group>"; };
 		69B07FC91416B094008DD4E0 /* MyServersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyServersViewController.xib; sourceTree = "<group>"; };
@@ -257,9 +264,12 @@
 		69D36951144F1F8B00F710A7 /* Bloomington.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bloomington.png; sourceTree = "<group>"; };
 		69D36955144F253700F710A7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		69D36957144F270700F710A7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		69E58234141E87550038C910 /* ChooseServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServiceViewController.h; sourceTree = "<group>"; };
-		69E58235141E87550038C910 /* ChooseServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServiceViewController.m; sourceTree = "<group>"; };
-		69E58236141E87550038C910 /* ChooseServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseServiceViewController.xib; sourceTree = "<group>"; };
+		69D658D01462CC9100F6A284 /* ChooseServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServiceViewController.h; sourceTree = "<group>"; };
+		69D658D11462CC9100F6A284 /* ChooseServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServiceViewController.m; sourceTree = "<group>"; };
+		69D658D21462CC9100F6A284 /* ChooseServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseServiceViewController.xib; sourceTree = "<group>"; };
+		69D658D61462CCDC00F6A284 /* ChooseGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGroupViewController.h; sourceTree = "<group>"; };
+		69D658D71462CCDC00F6A284 /* ChooseGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseGroupViewController.m; sourceTree = "<group>"; };
+		69D658D81462CCDC00F6A284 /* ChooseGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseGroupViewController.xib; sourceTree = "<group>"; };
 		69F08B79142A6E910019C816 /* cross-hairs-small-black-cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross-hairs-small-black-cropped.png"; sourceTree = "<group>"; };
 		69F08B7A142A6E910019C816 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
 		69F08B86142A71BB0019C816 /* BaseMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseMapViewController.h; sourceTree = "<group>"; };
@@ -383,12 +393,21 @@
 		69839720141E43A4006B4F79 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				69E58234141E87550038C910 /* ChooseServiceViewController.h */,
-				69E58235141E87550038C910 /* ChooseServiceViewController.m */,
-				69E58236141E87550038C910 /* ChooseServiceViewController.xib */,
 				6948D1C11444A28500E26059 /* BusyViewController.h */,
 				6948D1C21444A28500E26059 /* BusyViewController.m */,
 				6948D1C31444A28500E26059 /* BusyViewController.xib */,
+				69013381145B19DE0071509F /* CustomServerViewController.h */,
+				69013382145B19DE0071509F /* CustomServerViewController.m */,
+				69013383145B19DE0071509F /* CustomServerViewController.xib */,
+				69D658D01462CC9100F6A284 /* ChooseServiceViewController.h */,
+				69D658D11462CC9100F6A284 /* ChooseServiceViewController.m */,
+				69D658D21462CC9100F6A284 /* ChooseServiceViewController.xib */,
+				69D658D61462CCDC00F6A284 /* ChooseGroupViewController.h */,
+				69D658D71462CCDC00F6A284 /* ChooseGroupViewController.m */,
+				69D658D81462CCDC00F6A284 /* ChooseGroupViewController.xib */,
+				6934AAD01463287F00B648CF /* AboutViewController.h */,
+				6934AAD11463287F00B648CF /* AboutViewController.m */,
+				6934AAD21463287F00B648CF /* AboutViewController.xib */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -513,9 +532,6 @@
 				69B07FBD1416B076008DD4E0 /* ReportViewController.h */,
 				69B07FBE1416B076008DD4E0 /* ReportViewController.m */,
 				69B07FBF1416B076008DD4E0 /* ReportViewController.xib */,
-				69B07FC21416B083008DD4E0 /* MapViewController.h */,
-				69B07FC31416B083008DD4E0 /* MapViewController.m */,
-				69B07FC41416B083008DD4E0 /* MapViewController.xib */,
 				69B07FC71416B094008DD4E0 /* MyServersViewController.h */,
 				69B07FC81416B094008DD4E0 /* MyServersViewController.m */,
 				69B07FC91416B094008DD4E0 /* MyServersViewController.xib */,
@@ -646,7 +662,6 @@
 				69B07FAE1416AFEC008DD4E0 /* MainWindow.xib in Resources */,
 				69B07FBC1416B065008DD4E0 /* HomeViewController.xib in Resources */,
 				69B07FC11416B076008DD4E0 /* ReportViewController.xib in Resources */,
-				69B07FC61416B083008DD4E0 /* MapViewController.xib in Resources */,
 				69B07FCB1416B094008DD4E0 /* MyServersViewController.xib in Resources */,
 				69B07FD01416B30E008DD4E0 /* list.png in Resources */,
 				69B07FD11416B30E008DD4E0 /* map.png in Resources */,
@@ -657,7 +672,6 @@
 				698166C81417A83800E0B9E7 /* README.textile in Resources */,
 				698166D81417A9F400E0B9E7 /* AvailableServers.plist in Resources */,
 				698166ED1417B3D000E0B9E7 /* AvailableServers.xib in Resources */,
-				69E58238141E87550038C910 /* ChooseServiceViewController.xib in Resources */,
 				69BAA102141FB86C00D03396 /* Report.plist in Resources */,
 				697CE52C142111A4005C275A /* home_w.png in Resources */,
 				697CE52D142111A4005C275A /* megaphone.png in Resources */,
@@ -687,6 +701,10 @@
 				69D36952144F1F8B00F710A7 /* Bloomington.png in Resources */,
 				69D36956144F253700F710A7 /* Default.png in Resources */,
 				69D36958144F270700F710A7 /* Default@2x.png in Resources */,
+				69013385145B19DE0071509F /* CustomServerViewController.xib in Resources */,
+				69D658D41462CC9100F6A284 /* ChooseServiceViewController.xib in Resources */,
+				69D658DA1462CCDC00F6A284 /* ChooseGroupViewController.xib in Resources */,
+				6934AAD41463287F00B648CF /* AboutViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,7 +719,6 @@
 				69B07FAB1416AFEC008DD4E0 /* open311AppDelegate.m in Sources */,
 				69B07FBB1416B065008DD4E0 /* HomeViewController.m in Sources */,
 				69B07FC01416B076008DD4E0 /* ReportViewController.m in Sources */,
-				69B07FC51416B083008DD4E0 /* MapViewController.m in Sources */,
 				69B07FCA1416B094008DD4E0 /* MyServersViewController.m in Sources */,
 				698166BD1417A83800E0B9E7 /* ASIAuthenticationDialog.m in Sources */,
 				698166BE1417A83800E0B9E7 /* ASIDataCompressor.m in Sources */,
@@ -727,7 +744,6 @@
 				698495481418FFAD00CDEBF7 /* SBJsonTokeniser.m in Sources */,
 				698495491418FFAD00CDEBF7 /* SBJsonUTF8Stream.m in Sources */,
 				6984954A1418FFAD00CDEBF7 /* SBJsonWriter.m in Sources */,
-				69E58237141E87550038C910 /* ChooseServiceViewController.m in Sources */,
 				698290D914224AF700ABE661 /* TextFieldViewController.m in Sources */,
 				697DF9BD14225255005C8EB5 /* LocationChooserViewController.m in Sources */,
 				697DF9FA14226E97005C8EB5 /* Locator.m in Sources */,
@@ -743,6 +759,10 @@
 				69A92DE8143E43900065FD8D /* SingleReportViewController.m in Sources */,
 				6948D1C41444A28500E26059 /* BusyViewController.m in Sources */,
 				691A7573144635DD0054B222 /* SettingsViewController.m in Sources */,
+				69013384145B19DE0071509F /* CustomServerViewController.m in Sources */,
+				69D658D31462CC9100F6A284 /* ChooseServiceViewController.m in Sources */,
+				69D658D91462CCDC00F6A284 /* ChooseGroupViewController.m in Sources */,
+				6934AAD31463287F00B648CF /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,6 +809,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=*]" = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -811,6 +835,7 @@
 				GCC_PREFIX_HEADER = "open311/open311-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "open311/open311-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = NO;

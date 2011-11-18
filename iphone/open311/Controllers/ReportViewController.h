@@ -11,32 +11,33 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "Locator.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "BusyViewController.h"
+#import "ChooseGroupViewController.h"
 
 @interface ReportViewController : UIViewController <UINavigationControllerDelegate,
                                                     UITableViewDelegate,
                                                     UITableViewDataSource,
                                                     UIImagePickerControllerDelegate,
-                                                    UIActionSheetDelegate,
-                                                    UIPickerViewDelegate,
-                                                    UIPickerViewDataSource,
+                                                    ServiceChooserDelegate,
                                                     MKReverseGeocoderDelegate> {
     
     IBOutlet UITableView *reportTableView;
     BusyViewController *busyController;
-    UIPickerView *servicePicker;
+    Locator *locator;
 }
 @property (nonatomic, retain) NSString *previousServerURL;
 @property (nonatomic, retain) NSDictionary *currentService;
 @property (nonatomic, retain) NSDictionary *service_definition;
 @property (nonatomic, retain) NSMutableDictionary *reportForm;
+@property (nonatomic, retain) Locator *locator;
 
 - (void)initReportForm;
 
 - (void)chooseService;
-- (void)didSelectService:(NSInteger)selectedIndex;
+- (void)didSelectService:(NSDictionary *)service;
 
 - (void)loadServiceDefinition:(NSString *)service_code;
 - (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request;

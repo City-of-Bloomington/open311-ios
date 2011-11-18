@@ -13,19 +13,11 @@
 #import "Locator.h"
 
 @implementation BaseMapViewController
-@synthesize map;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize map, locator;
 
 - (void)dealloc
 {
+    [locator release];
     [map release];
     [super dealloc];
 }
@@ -44,11 +36,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[Locator sharedLocator] startLocationServices];
+    [self.locator startLocationServices];
 }
 
 - (void)viewDidUnload
 {
+    [locator release];
     [map release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -61,21 +54,14 @@
     [self zoomToGpsLocation:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 #pragma mark - Location Functions
 
 - (void)zoomToGpsLocation:(BOOL)animated
 {
-    Locator *locator = [Locator sharedLocator];
-    if (locator.locationAvailable) {
+    if (self.locator.locationAvailable) {
         MKCoordinateRegion region;
-        region.center.latitude = locator.currentLocation.coordinate.latitude;
-        region.center.longitude = locator.currentLocation.coordinate.longitude;
+        region.center.latitude = self.locator.currentLocation.coordinate.latitude;
+        region.center.longitude = self.locator.currentLocation.coordinate.longitude;
         MKCoordinateSpan span;
         span.latitudeDelta = 0.0025; // arbitrary value seems to look OK
         span.longitudeDelta = 0.0025; // arbitrary value seems to look OK
@@ -83,6 +69,5 @@
         [self.map setRegion:region animated:animated];
     }
 }
-
 
 @end

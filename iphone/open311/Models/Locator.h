@@ -22,8 +22,6 @@
 @property (nonatomic, retain) CLLocation *currentLocation;
 @property (nonatomic) bool locationAvailable;
 
-+ (id)sharedLocator;
-
 - (void)startLocationServices;
 - (void)stopLocationServices;
 @end

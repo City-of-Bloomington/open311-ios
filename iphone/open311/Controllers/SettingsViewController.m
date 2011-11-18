@@ -11,21 +11,13 @@
 
 #import "SettingsViewController.h"
 #import "Settings.h"
+#import "AboutViewController.h"
 
 @implementation SettingsViewController
 @synthesize firstname;
 @synthesize lastname;
 @synthesize email;
 @synthesize phone;
-@synthesize aboutView;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 
 - (void)dealloc
 {
@@ -33,7 +25,6 @@
     [lastname release];
     [email release];
     [phone release];
-    [aboutView release];
     [super dealloc];
 }
 
@@ -57,8 +48,6 @@
     self.lastname.text = settings.last_name;
     self.email.text = settings.email;
     self.phone.text = settings.phone;
-    
-    [aboutView loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]]];
 }
 
 - (void)viewDidUnload
@@ -67,7 +56,6 @@
     [self setLastname:nil];
     [self setEmail:nil];
     [self setPhone:nil];
-    [self setAboutView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -87,12 +75,6 @@
     [settings setPhone:self.phone.text];
     [settings save];
     [super viewWillDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Text Field Handlers
@@ -115,15 +97,7 @@
     return TRUE;
 }
 
-#pragma mark - Web View Handlers
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:[request URL]];
-        return NO;
-    }
-    return YES;
+- (IBAction)showAboutScreen:(id)sender {
+    [self.navigationController pushViewController:[[AboutViewController alloc] init] animated:YES];
 }
-
 @end

@@ -42,6 +42,7 @@
 @synthesize currentService;
 @synthesize service_definition;
 @synthesize reportForm;
+@synthesize locator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,7 +55,7 @@
 
 - (void)dealloc
 {
-    [servicePicker release];
+    [locator release];
     [busyController release];
     [reportForm release];
     [service_definition release];
@@ -81,15 +82,23 @@
     [self.navigationItem setTitle:@"New Report"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Service" style:UIBarButtonItemStylePlain target:self action:@selector(chooseService)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(postReport)];
+    
+    // Start up the location services.
+    // Do it here, so we should have a position by the time we need it.
+    self.locator = [[Locator alloc] init];
+    [self.locator startLocationServices];
+    
 
     // If the user hasn't chosen a server yet, send them to the MyServers tab
     if (![[Settings sharedSettings] currentServer]) {
         self.tabBarController.selectedIndex = 3;
     }
+    
 }
 
 - (void)viewDidUnload
 {
+    [locator release];
     [reportForm release];
     [reportTableView release];
     reportTableView = nil;
@@ -114,7 +123,42 @@
     [super viewWillAppear:animated];
 }
 
+#pragma mark - Service Picker Functions
+/**
+ * Tells the Open311 to open the service picker
+ */
+- (void)chooseService
+{
+    self.currentService = nil;
+    self.service_definition = nil;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[ChooseGroupViewController alloc] initWithDelegate:self]];
+    [self.navigationController presentModalViewController:nav animated:YES];
+    [nav release];
+}
+
+/**
+ * Handler for the Open311 service picker
+ *
+ * Sets the user-chosen service and loads it's service definition
+ */
+- (void)didSelectService:(NSDictionary *)service;
+{
+    DLog(@"User done selecting service");
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    if (service) {
+        self.currentService = service;
+        
+        
+        [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
+        [self initReportForm];
+        [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
+    }
+}
+
 #pragma mark - Report Setup
+
 /**
  * Wipes and reloads the reportForm
  *
@@ -125,15 +169,16 @@
 - (void)initReportForm
 {
     NSError *error = nil;
-    NSPropertyListFormat format;
     NSData *reportPlist = [[NSFileManager defaultManager] contentsAtPath:[[NSBundle mainBundle] pathForResource:@"Report" ofType:@"plist"]];
     
-    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:reportPlist options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
+    self.reportForm = (NSMutableDictionary *)[NSPropertyListSerialization propertyListWithData:reportPlist options:NSPropertyListMutableContainersAndLeaves format:NULL error:&error];
+
+    error = nil;
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
     [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
     
-     // Load the user's firstname, lastname, email, and phone number
+    // Load the user's firstname, lastname, email, and phone number
     Settings *settings = [Settings sharedSettings];
     [data setObject:settings.first_name forKey:@"first_name"];
     [data setObject:settings.last_name forKey:@"last_name"];
@@ -143,68 +188,6 @@
     [reportTableView reloadData];
 }
 
-/**
- * Tells the Open311 to open the service picker
- */
-- (void)chooseService
-{
-    self.currentService = nil;
-    self.service_definition = nil;
-    
-    UIActionSheet *serviceChooserActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Service" delegate:self cancelButtonTitle:@"Done" destructiveButtonTitle:nil otherButtonTitles:nil];
-    [serviceChooserActionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
-    
-    servicePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 100, 320, 216)];
-    [servicePicker setDelegate:self];
-    [servicePicker setDataSource:self];
-    [servicePicker setShowsSelectionIndicator:YES];
-    
-    [serviceChooserActionSheet addSubview:servicePicker];
-    
-    [serviceChooserActionSheet showFromTabBar:self.tabBarController.tabBar];
-    [serviceChooserActionSheet setBounds:CGRectMake(0, 0, 320, 610)];
-    [serviceChooserActionSheet release];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [[[Open311 sharedOpen311] services] count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return [[[[Open311 sharedOpen311] services] objectAtIndex:row] objectForKey:@"service_name"];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    [self didSelectService:[servicePicker selectedRowInComponent:0]];
-    [servicePicker release];
-}
-
-/**
- * Handler for the Open311 service picker
- *
- * Sets the user-chosen service and loads it's service definition
- */
-- (void)didSelectService:(NSInteger)selectedIndex
-{
-    self.currentService = [[[Open311 sharedOpen311] services] objectAtIndex:selectedIndex];
-    
-    [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
-    [self initReportForm];
-    [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
-}
 
 /**
  * Queries the service defintion and populates reportForm with all the attributes
@@ -215,11 +198,12 @@
  */
 - (void)loadServiceDefinition:(NSString *)service_code
 {
+    DLog(@"Loading service definition for %@", service_code);
     self.service_definition = nil;
     
     // Only try and load service definition from the server if there's metadata
     if ([[self.currentService objectForKey:@"metadata"] boolValue]) {
-        NSURL *url = [[[[Open311 sharedOpen311] baseURL] URLByAppendingPathComponent:@"services"] URLByAppendingPathComponent:[service_code stringByAppendingString:@".json"]];
+        NSURL *url = [[Open311 sharedOpen311] getServiceDefinitionURL:service_code];
         DLog(@"Loading URL: %@",[url absoluteString]);
         ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
         [request setDelegate:self];
@@ -241,6 +225,9 @@
         [[self.reportForm objectForKey:@"fields"] addObject:code];
         [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
         [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
+        if ([[attribute objectForKey:@"required"] boolValue]) {
+            [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
+        }
         
         NSDictionary *values = [attribute objectForKey:@"values"];
         if (values) {
@@ -280,8 +267,7 @@
     [self.view.superview.superview addSubview:busyController.view];
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
-    Open311 *open311 = [Open311 sharedOpen311];
-    NSURL *url = [[NSURL URLWithString:[open311.endpoint objectForKey:@"url"]] URLByAppendingPathComponent:@"requests.json"];
+    NSURL *url = [[Open311 sharedOpen311] getPostServiceRequestURL];
     DLog(@"Creating POST to %@", url);
     ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL:url];
     
@@ -365,7 +351,7 @@
                                    token,
                                    [NSDate date], nil];
             NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"token", @"date", nil];
-            [[[Settings sharedSettings] myRequests] addObject:[NSDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
+            [[[Settings sharedSettings] myRequests] addObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
             DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
         }
         
@@ -418,14 +404,19 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *serviceDescription = [self.currentService objectForKey:@"description"];
-    NSString *serviceName = [self.currentService objectForKey:@"service_name"];
-    if (!serviceDescription && serviceName) {
-        return [NSString stringWithFormat:@"Report %@",serviceName];
+    if (self.currentService) {
+        NSString *serviceDescription = [self.currentService objectForKey:@"description"];
+        NSString *serviceName = [self.currentService objectForKey:@"service_name"];
+        DLog(@"Loaded service description: %@", serviceDescription);
+        if (([self.currentService objectForKey:@"description"]==[NSNull null] || [serviceDescription length] == 0)
+            && serviceName) {
+            return [NSString stringWithFormat:@"Report %@",serviceName];
+        }
+        else {
+            return serviceDescription;
+        }
     }
-    else {
-        return @"";
-    }
+    return @"Choose a service to report to";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -450,8 +441,13 @@
     NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:fieldname];
     
     cell.textLabel.text = [[self.reportForm objectForKey:@"labels"] objectForKey:fieldname];
+    cell.detailTextLabel.text = nil;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.imageView.image = nil;
+    
+    if ([[self.reportForm objectForKey:@"requiredFields"] containsObject:fieldname]) {
+        cell.textLabel.text = [NSString stringWithFormat:@"* %@",cell.textLabel.text];
+    }
     
     // Populate the user-provided data
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
@@ -472,6 +468,7 @@
             geocoder.delegate = self;
             [geocoder start];
             [location release];
+            [geocoder release];
         }
     }
     else {
@@ -516,6 +513,7 @@
     }
     if ([type isEqualToString:@"location"]) {
         LocationChooserViewController *chooseLocation = [[LocationChooserViewController alloc] initWithReport:self.reportForm];
+        [chooseLocation setLocator:self.locator];
         [self.navigationController pushViewController:chooseLocation animated:YES];
         [chooseLocation release];
     }
@@ -556,7 +554,14 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    // Older versions of iOS use parentViewController.  In iOS 5 the meaning of parentView changed
+    // iOS5 now uses presentingViewController
+    if ([self respondsToSelector:@selector(presentingViewController)]) {
+        [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    }
+    else {
+        [picker.parentViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -586,7 +591,14 @@
     
     [[self.reportForm objectForKey:@"data"] setObject:resizedImage forKey:@"media"];
 
-    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    // Older versions of iOS use parentViewController.  In iOS 5 the meaning of parentView changed
+    // iOS5 now uses presentingViewController
+    if ([self respondsToSelector:@selector(presentingViewController)]) {
+        [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    }
+    else {
+        [picker.parentViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - Reverse Geocoder Delegate Functions

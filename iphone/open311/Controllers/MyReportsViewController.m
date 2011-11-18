@@ -96,6 +96,7 @@
                                  [dateFormatter stringFromDate:[request objectForKey:@"date"]],
                                  [[request objectForKey:@"server"] objectForKey:@"Name"]
                                  ];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [dateFormatter release];
     
     return cell;
@@ -105,11 +106,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    Settings *settings = [Settings sharedSettings];
-    NSDictionary *myReport = [settings.myRequests objectAtIndex:indexPath.row];
-    NSString *service_request_id = [myReport objectForKey:@"service_request_id"];
+    NSMutableDictionary *myReport = [[[Settings sharedSettings] myRequests] objectAtIndex:indexPath.row];
 
-    [self.navigationController pushViewController:[[SingleReportViewController alloc] initWithServiceRequestId:service_request_id] animated:YES];
+    [self.navigationController pushViewController:[[SingleReportViewController alloc] initWithReportAtIndex:myReport index:indexPath.row] animated:YES];
 }
 
 

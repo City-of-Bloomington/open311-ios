@@ -10,11 +10,17 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ChooseGroupViewController.h"
 
-
-@interface ChooseServiceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
-    
+@interface ChooseServiceViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    id <ServiceChooserDelegate> delegate;
+    NSString *group;
+    NSMutableArray *services;
 }
-@property (nonatomic, retain) NSDictionary *chosenService;
+@property (retain, nonatomic) IBOutlet UITableView *serviceTable;
+@property (nonatomic, retain) NSMutableArray *services;
+
+- (id)initWithDelegate:(id <ServiceChooserDelegate>)serviceChooserDelegate group:(NSString *)serviceGroup;
+- (void)loadServices;
 
 @end

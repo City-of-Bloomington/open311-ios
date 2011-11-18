@@ -71,6 +71,7 @@
 
 - (void)viewDidUnload
 {
+    [previousText release];
     [label release];
     label = nil;
     [super viewDidUnload];
@@ -82,12 +83,6 @@
 {
     label.text = [[self.reportForm objectForKey:@"labels"] objectForKey:self.fieldname];
     [super viewWillAppear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

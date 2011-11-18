@@ -21,6 +21,7 @@
 
 - (id)initWithReport:(NSMutableDictionary *)report;
 - (IBAction)handleZoomButton:(id)sender;
+- (IBAction)switchMapViewStyle:(id)sender;
 - (void)didChooseLocation;
 
 @end

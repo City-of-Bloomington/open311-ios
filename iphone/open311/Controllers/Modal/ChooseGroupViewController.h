@@ -10,16 +10,20 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
-#import "Locator.h"
+@protocol ServiceChooserDelegate
+- (void)didSelectService:(NSDictionary *)service;
+@end
 
-@interface BaseMapViewController : UIViewController {
-    IBOutlet MKMapView *map;
-    Locator *locator;
+@interface ChooseGroupViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    id <ServiceChooserDelegate> delegate;
+    NSMutableArray *groups;
 }
-@property (nonatomic, retain) IBOutlet MKMapView *map;
-@property (nonatomic, retain) Locator *locator;
 
-- (void)zoomToGpsLocation:(BOOL)animated;
+@property (nonatomic, retain) NSMutableArray *groups;
+@property (retain, nonatomic) IBOutlet UITableView *groupTable;
+
+- (id)initWithDelegate:(id <ServiceChooserDelegate>)serviceChooserDelegate;
+- (void)loadGroups;
+- (void)cancel;
 
 @end

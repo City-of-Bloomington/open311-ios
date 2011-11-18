@@ -67,6 +67,16 @@
     [self zoomToGpsLocation:TRUE];
 }
 
+- (IBAction)switchMapViewStyle:(id)sender {
+    //UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    if ([sender selectedSegmentIndex]==0) {
+        [self.map setMapType:MKMapTypeStandard];
+    }
+    else {
+        [self.map setMapType:MKMapTypeSatellite];
+    }
+}
+
 /**
  * Grabs the coordinates, reverse geocodes the address, and updates the report
  *

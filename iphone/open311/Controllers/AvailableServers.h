@@ -10,10 +10,13 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "CustomServerViewController.h"
 
 
-@interface AvailableServers : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface AvailableServers : UIViewController <UITableViewDelegate, UITableViewDataSource, CustomServerAddDelegate> {
     
 }
+- (void)addToMyServers:(NSDictionary *)chosenServer;
+- (void)showCustomServerForm;
 
 @end

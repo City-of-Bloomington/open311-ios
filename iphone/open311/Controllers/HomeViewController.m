@@ -79,7 +79,7 @@
         [self.view addSubview:busyController.view];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(discoveryFinishedLoading:) name:@"discoveryFinishedLoading" object:nil];
         
-        [[Open311 sharedOpen311] reload:[NSURL URLWithString:[settings.currentServer objectForKey:@"URL"]]];
+        [[Open311 sharedOpen311] reload:settings.currentServer];
         
         // If we have a splash screen for the server, swap it in
         NSString *serverName = [settings.currentServer objectForKey:@"Name"];
@@ -87,12 +87,16 @@
         if (!imagePath) {
             imagePath = defaultSplash;
         }
-        [splashImageButton setImage:[[UIImage alloc] initWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+        [splashImageButton setImage:image forState:UIControlStateNormal];
+        [image release];
     }
     // If the user hasn't chosen a server, send them to the MyServer screen
     else {
         self.navigationItem.title = @"Unknown Server";
-        [splashImageButton setImage:[[UIImage alloc] initWithContentsOfFile:defaultSplash] forState:UIControlStateNormal];
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:defaultSplash];
+        [splashImageButton setImage:image forState:UIControlStateNormal];
+        [image release];
         [self.tabBarController setSelectedIndex:3];
     }
 

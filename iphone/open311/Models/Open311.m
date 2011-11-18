@@ -17,9 +17,10 @@
 
 static id _sharedOpen311 = nil;
 
-@synthesize endpoint=_endpoint;
 @synthesize baseURL=_baseURL;
 @synthesize services=_services;
+
+@synthesize params;
 
 + (void)initialize
 {
@@ -43,69 +44,142 @@ static id _sharedOpen311 = nil;
 
 - (void) dealloc
 {
+    [params release];
+    [jurisdiction_id release];
+    [api_key release];
+    [currentServer release];
     [_baseURL release];
-    [_endpoint release];
     [_services release];
     [super dealloc];
 }
 
-/**
- * Clears out all the current data and reloads Open311 data from the provided URL
- */
-- (void)reload:(NSURL *)url
-{
-    [self reset];
-    
-    // Load the discovery data
-    DLog(@"Open311:reload:%@",[url absoluteString]);
-    NSURL *discoveryURL = [url URLByAppendingPathComponent:@"discovery.json"];
-    DLog(@"Loading URL: %@",discoveryURL);
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:discoveryURL];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(handleDiscoverySuccess:)];
-    [request startAsynchronous];
-}
-
 - (void)reset
 {
-    self.endpoint = nil;
+    currentServer = nil;
     self.baseURL = nil;
     self.services = nil;
 }
 
-#pragma mark - ASIHTTPRequest Handlers
-- (void)handleDiscoverySuccess:(ASIHTTPRequest *)request
+
+/**
+ * Clears out all the current data and reloads Open311 data from the provided URL
+ */
+- (void)reload:(NSDictionary *)server
 {
-    NSDictionary *discovery = [[request responseString] JSONValue];
-    for (NSDictionary *ep in [discovery objectForKey:@"endpoints"]) {
-        if ([[ep objectForKey:@"specification"] isEqualToString:@"http://wiki.open311.org/GeoReport_v2"]) {
-            self.endpoint = ep; 
-            self.baseURL = [NSURL URLWithString:[ep objectForKey:@"url"]];
-        }
-    }
-    // Load all the service definitions
-    if (self.baseURL) {
-        NSURL *servicesURL = [self.baseURL URLByAppendingPathComponent:@"services.json"];
-        DLog(@"Loading URL: %@", servicesURL);
-        request = [ASIHTTPRequest requestWithURL:servicesURL];
-        [request setDelegate:self];
-        [request setDidFinishSelector:@selector(handleServicesSuccess:)];
-        [request startAsynchronous];
-    }
+    [self reset];
+    currentServer = server;
+    self.baseURL = [NSURL URLWithString:[currentServer objectForKey:@"URL"]];
+    jurisdiction_id = [currentServer objectForKey:@"jurisdiction_id"];
+    api_key = [currentServer objectForKey:@"api_key"];
+    
+    // Load the service list
+    NSURL *servicesURL = [self getServiceListURL];
+    DLog(@"Loading URL: %@", servicesURL);
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:servicesURL];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(handleServicesSuccess:)];
+    [request startAsynchronous];
 }
+
+#pragma mark - ASIHTTPRequest Handlers
 
 - (void)handleServicesSuccess:(ASIHTTPRequest *)request
 {
     self.services = [[request responseString] JSONValue];
+    if (!self.services) {
+        [self responseFormatInvalid:request];
+        return;
+    }
     DLog(@"Loaded %u services",[self.services count]);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load url" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     [alert release];
+}
+
+/**
+ * Called when we got a 200 response with text that we can't parse
+ *
+ * This is usually because the server thinks it is providing Open311 json,
+ * when, in fact, it is not.
+ */
+- (void)responseFormatInvalid:(ASIHTTPRequest *)request
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server gave invalid response" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}
+
+#pragma mark - API URL Getters
+/**
+ * Returns the URL for the list of services
+ */
+- (NSURL *)getServiceListURL
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services.json"]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
+    }
+    return url;
+}
+
+/**
+ * Returns the URL to request a service definition from the current Open311 server
+ */
+- (NSURL *)getServiceDefinitionURL:(NSString *)service_code
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services/%@.json",service_code]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"%@service_code=%@",self.params,service_code]]];
+    }
+    else {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"?service_code=%@",service_code]]];
+    }
+    return url;
+}
+
+/**
+ * Returns the URL for POST-ing a new request to the current Open311 server
+ */
+- (NSURL *)getPostServiceRequestURL
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests.json"]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
+    }
+    return url;
+}
+
+/**
+ * Returns the URL for getting a request_id from a token
+ */
+- (NSURL *)getRequestIdURL:(NSString *)token
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"tokens/%@.json",token]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
+    }
+    return url;
+}
+
+/**
+ * Returns the URL for looking up a single request from the current Open311 server
+ */
+- (NSURL *)getServiceRequestURL:(NSString *)service_request_id
+{
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests/%@.json",service_request_id]];
+    if ([self.params length] != 0) {
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
+    }
+    return url;
 }
 
 @end
