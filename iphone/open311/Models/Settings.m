@@ -39,6 +39,9 @@ static id _sharedSettings = nil;
     self = [super init];
     if (self) {
         [self load];
+        // Always load the first server in the plist
+        // This is the only server this app should work with.
+        self.currentServer = [[self.availableServers objectForKey:@"Servers"] objectAtIndex:0];
     }
     return self;
 }

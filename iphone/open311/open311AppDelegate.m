@@ -12,7 +12,6 @@
 #import "HomeViewController.h"
 #import "ReportViewController.h"
 #import "MyReportsViewController.h"
-#import "MyServersViewController.h"
 #import "Settings.h"
 #import "Locator.h"
 
@@ -34,33 +33,24 @@
     HomeViewController* home = [[HomeViewController alloc] init];
     ReportViewController* report = [[ReportViewController alloc] init];
     MyReportsViewController* myReports = [[MyReportsViewController alloc] init];
-    MyServersViewController* servers = [[MyServersViewController alloc] init];
     
     UINavigationController* homeNav = [[UINavigationController alloc] initWithRootViewController:home];
     UINavigationController* reportNav = [[UINavigationController alloc] initWithRootViewController:report];
-    UINavigationController* serverNav = [[UINavigationController alloc] initWithRootViewController:servers];
     UINavigationController* issueNav = [[UINavigationController alloc] initWithRootViewController:myReports];
     homeNav.navigationBar.barStyle = UIBarStyleBlack;
     issueNav.navigationBar.barStyle = UIBarStyleBlack;
     reportNav.navigationBar.barStyle = UIBarStyleBlack;
-    serverNav.navigationBar.barStyle = UIBarStyleBlack;
 
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNav, reportNav, issueNav, serverNav, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:homeNav, reportNav, issueNav, nil];
 
-    if (![[Settings sharedSettings] currentServer]) {
-        self.tabBarController.selectedViewController = serverNav;
-    }
-    
     [self.window addSubview:self.tabBarController.view];
     [self.window makeKeyAndVisible];
     
     [home release];
     [report release];
     [myReports release];
-    [servers release];
     [reportNav release];
-    [serverNav release];
     [self.tabBarController release];
     
     return YES;

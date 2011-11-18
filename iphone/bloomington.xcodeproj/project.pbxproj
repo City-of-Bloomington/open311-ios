@@ -233,7 +233,7 @@
 		69AC1EAB1439FA6B0029B121 /* DateFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFieldViewController.h; sourceTree = "<group>"; };
 		69AC1EAC1439FA6B0029B121 /* DateFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFieldViewController.m; sourceTree = "<group>"; };
 		69AC1EAD1439FA6B0029B121 /* DateFieldViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateFieldViewController.xib; sourceTree = "<group>"; };
-		69B07F961416AFEC008DD4E0 /* Open311.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Open311.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69B07F961416AFEC008DD4E0 /* Bloomington.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bloomington.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69B07F9A1416AFEC008DD4E0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69B07F9C1416AFEC008DD4E0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		69B07F9E1416AFEC008DD4E0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -464,7 +464,7 @@
 		69B07F971416AFEC008DD4E0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				69B07F961416AFEC008DD4E0 /* Open311.app */,
+				69B07F961416AFEC008DD4E0 /* Bloomington.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -624,7 +624,7 @@
 			);
 			name = Bloomington;
 			productName = open311;
-			productReference = 69B07F961416AFEC008DD4E0 /* Open311.app */;
+			productReference = 69B07F961416AFEC008DD4E0 /* Bloomington.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
