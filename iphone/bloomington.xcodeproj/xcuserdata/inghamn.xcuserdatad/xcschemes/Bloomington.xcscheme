@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   version = "1.8">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,9 +14,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-               BuildableName = "Open311.app"
-               BlueprintName = "Open311"
-               ReferencedContainer = "container:open311.xcodeproj">
+               BuildableName = "Bloomington.app"
+               BlueprintName = "Bloomington"
+               ReferencedContainer = "container:bloomington.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,17 +32,15 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-            BuildableName = "Open311.app"
-            BlueprintName = "Open311"
-            ReferencedContainer = "container:open311.xcodeproj">
+            BuildableName = "Bloomington.app"
+            BlueprintName = "Bloomington"
+            ReferencedContainer = "container:bloomington.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
-      displayScaleIsEnabled = "NO"
-      displayScale = "1.00"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
@@ -52,29 +50,15 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-            BuildableName = "Open311.app"
-            BlueprintName = "Open311"
-            ReferencedContainer = "container:open311.xcodeproj">
+            BuildableName = "Bloomington.app"
+            BlueprintName = "Bloomington"
+            ReferencedContainer = "container:bloomington.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "MallocStackLoggingNoCompact"
-            value = "YES"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      displayScaleIsEnabled = "NO"
-      displayScale = "1.00"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -84,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-            BuildableName = "Open311.app"
-            BlueprintName = "Open311"
-            ReferencedContainer = "container:open311.xcodeproj">
+            BuildableName = "Bloomington.app"
+            BlueprintName = "Bloomington"
+            ReferencedContainer = "container:bloomington.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

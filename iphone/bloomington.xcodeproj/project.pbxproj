@@ -237,9 +237,9 @@
 		69B07F9A1416AFEC008DD4E0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69B07F9C1416AFEC008DD4E0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		69B07F9E1416AFEC008DD4E0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		69B07FA21416AFEC008DD4E0 /* open311-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "open311-Info.plist"; sourceTree = "<group>"; };
+		69B07FA21416AFEC008DD4E0 /* bloomington-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "bloomington-Info.plist"; sourceTree = "<group>"; };
 		69B07FA41416AFEC008DD4E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		69B07FA61416AFEC008DD4E0 /* open311-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "open311-Prefix.pch"; sourceTree = "<group>"; };
+		69B07FA61416AFEC008DD4E0 /* bloomington-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bloomington-Prefix.pch"; sourceTree = "<group>"; };
 		69B07FA71416AFEC008DD4E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		69B07FA91416AFEC008DD4E0 /* open311AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = open311AppDelegate.h; sourceTree = "<group>"; };
 		69B07FAA1416AFEC008DD4E0 /* open311AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = open311AppDelegate.m; sourceTree = "<group>"; };
@@ -510,9 +510,9 @@
 				696D2EEA1445F820002C07E9 /* open311_store_icon.png */,
 				698166D71417A9F400E0B9E7 /* AvailableServers.plist */,
 				69BAA101141FB86C00D03396 /* Report.plist */,
-				69B07FA21416AFEC008DD4E0 /* open311-Info.plist */,
+				69B07FA21416AFEC008DD4E0 /* bloomington-Info.plist */,
 				69B07FA31416AFEC008DD4E0 /* InfoPlist.strings */,
-				69B07FA61416AFEC008DD4E0 /* open311-Prefix.pch */,
+				69B07FA61416AFEC008DD4E0 /* bloomington-Prefix.pch */,
 				69B07FA71416AFEC008DD4E0 /* main.m */,
 				69B715221445D55D00C4ACA7 /* Settings.bundle */,
 				69584139144DF6D00068642E /* about.html */,
@@ -610,9 +610,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		69B07F951416AFEC008DD4E0 /* Open311 */ = {
+		69B07F951416AFEC008DD4E0 /* Bloomington */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Open311" */;
+			buildConfigurationList = 69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Bloomington" */;
 			buildPhases = (
 				69B07F921416AFEC008DD4E0 /* Sources */,
 				69B07F931416AFEC008DD4E0 /* Frameworks */,
@@ -622,7 +622,7 @@
 			);
 			dependencies = (
 			);
-			name = Open311;
+			name = Bloomington;
 			productName = open311;
 			productReference = 69B07F961416AFEC008DD4E0 /* Open311.app */;
 			productType = "com.apple.product-type.application";
@@ -636,7 +636,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "City of Bloomington";
 			};
-			buildConfigurationList = 69B07F901416AFEC008DD4E0 /* Build configuration list for PBXProject "open311" */;
+			buildConfigurationList = 69B07F901416AFEC008DD4E0 /* Build configuration list for PBXProject "bloomington" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -648,7 +648,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				69B07F951416AFEC008DD4E0 /* Open311 */,
+				69B07F951416AFEC008DD4E0 /* Bloomington */,
 			);
 		};
 /* End PBXProject section */
@@ -832,9 +832,9 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "open311/open311-Prefix.pch";
+				GCC_PREFIX_HEADER = "open311/bloomington-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "open311/open311-Info.plist";
+				INFOPLIST_FILE = "open311/bloomington-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -850,9 +850,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "open311/open311-Prefix.pch";
+				GCC_PREFIX_HEADER = "open311/bloomington-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "open311/open311-Info.plist";
+				INFOPLIST_FILE = "open311/bloomington-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
@@ -863,7 +863,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		69B07F901416AFEC008DD4E0 /* Build configuration list for PBXProject "open311" */ = {
+		69B07F901416AFEC008DD4E0 /* Build configuration list for PBXProject "bloomington" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				69B07FAF1416AFEC008DD4E0 /* Debug */,
@@ -872,7 +872,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Open311" */ = {
+		69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Bloomington" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				69B07FB21416AFEC008DD4E0 /* Debug */,
