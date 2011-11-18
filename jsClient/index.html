@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-	<link rel="stylesheet" href="css/iphone.css" />
-
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px)" href="css/mobile.css" />
+	<title>Open311</title>
 </head>
 <body>
-	<div id="navigationBar">
-		Open311
-	</div>
+	<header id="navigationBar">
+		<h1>Open311</h1>
+	</header>
 	<div id="mainContent">
-		<div id="services">
-			<form>
-				<fieldset>
-					<label>
-						Services
-						<select name="service_list" id="service_list" onchange="CLIENT.getServiceDefinition(this);">
-						<option value=""></option>'
-						</select>
-					</label>
-				</fieldset>
-			</form>
-		</div>
-		<div id="report">
-		</div>
+	</div>
+	<div id="locationchooser">
 	</div>
 </body>
-<script type="text/javascript" src="http://yui.yahooapis.com/3.4.0/build/yui/yui-min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
 <script type="text/javascript" src="js/open311.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 </html>

@@ -8,6 +8,7 @@ var CLIENT = {
 	endpoint: 'https://bloomington.in.gov/ureport/open311/v2',
 	DEFAULT_LATITUDE: 39.169927,
 	DEFAULT_LONGITUDE: -86.536806,
+	service_name:'',
 	service: {},
 	overlay: {},
 	init: function () {
@@ -22,29 +23,120 @@ var CLIENT = {
 		YUI().use('io','json-parse', function (Y) {
 			Y.on('io:complete', function (id, o, args) {
 				var services = Y.JSON.parse(o.responseText);
-				var select = document.getElementById('service_list');
-				for (var i in services) {
-					var option = document.createElement('option');
-					option.setAttribute('value',services[i].service_code);
-					option.text = services[i].service_name;
-					select.appendChild(option);
+				var html = '<form method="get"><fieldset><label>Choose a Service<select name="service_code" id="service_code" onchange="CLIENT.getServiceDefinition(this);">';
+				html += '<option value="">Select Servie</option>';
+				for (var i in services){
+					html += '<option value="' + services[i].service_code + '">' + services[i].service_name + '</option>';
 				}
+				html += '</select></label></fieldset></form>';
+				document.getElementById('mainContent').innerHTML = html;
 			}, Y);
 			Y.io(CLIENT.endpoint + '/services.json');
 		});
-	},
+ 	},				
 	getServiceDefinition: function (select) {
-		CLIENT.service.name = select.options[select.selectedIndex].text;
+		CLIENT.service_name = select.options[select.selectedIndex].text;
 		YUI().use('io', 'json-parse', function(Y) {
 			Y.on('io:complete', function (id, o, args) {
 				CLIENT.service = Y.JSON.parse(o.responseText);
-				var html = '';
+				var html = '<h2>'+CLIENT.service_name+' Report</h2>'+
+					'<form id="reportform" enctype="multipart/form-data">'+
+					//'<form id="reportform">'+
+					'	<fieldset id="allfields">'+				
+					'		<input type="hidden" name="service_code" value="'+CLIENT.service.service_code+'" />'+
+					'		<input type="hidden" name="jurisdiction_id" value="bloomington.in.gov" />'+
+					'		<input type="hidden" name="address_id" id="address_id" value="" />'+
+					'		<input type="hidden" name="address_string" id="address_string" value="" />'+					
+					'		<input type="hidden" name="lat" id="lat" value="" /></td>'+
+					'		<input type="hidden" name="long" id="long" value="" /></td>'+
+					'		<table>'+
+					'           <tr><td><div id="location"><a href="#" id="openMapButton">Choose a Location </a></td><td><strong><div id="addressstring"></div></strong></td></tr>   '+
+					'			<tr><td><label for="media">Upload a file or picture</label></td>'+
+					'				<td><input type="file" id="media" name="media" /></td>'+
+					'			</tr>'+ 
+					'			<tr>'+
+					'				<td><label id="first_name">First Name</label></td>'+
+					'				<td><input name="first_name" id="first_name" value="" /></td>'+
+					'			</tr>'+
+					'			<tr>'+
+					'				<td><label id="last_name">Last Name</label></td>'+
+					'				<td><input name="last_name" id="last_name" value="" /></td>'+
+					'			</tr>'+								
+					'			<tr>'+
+					'				<td><label id="phone">Phone</label></td>'+
+					'				<td><input name="phone" id="phone" value="" /></td>'+
+					'			</tr>'+
+					'			<tr>'+
+					'				<td><label id="email">Email</label></td>'+
+					'				<td><input name="email" id="email" value="" /></td>'+
+					'			</tr>'+
+					'			<tr>'+
+					'				<td><label id="address">Address</label></td>'+
+					'				<td><div id="addr_id"><input name="address" id="address" value="" /></div></td>'+
+					'			</tr>'+
+					'			<tr>'+
+					'				<td><label id="description">Description</label></td>'+
+					'				<td><textarea name="description" id="description"></textarea>'+
+					'				</td>'+
+					'			</tr>';				
+				
 				for (var i in CLIENT.service.attributes) {
 					var field = CLIENT.service.attributes[i];
-					html += '<div><label for="' + field.code + '">' + field.description + ':</label><input name="' + field.code + '" /></div>';
+					var name = field.code;
+					var description = field.description;					
+					if(field.datatype){
+						html += 
+						'		<tr><td><label for="'+name+'">'+description+'</label></td><td>';													
+						switch(field.datatype){
+							case 'singlevaluelist':
+								html +=
+								'			<select name="'+name+'" id="'+name+'">'+
+								'				<option value=""></option>';
+								for(var j in field.values){
+									var key = field.values[j].key;
+									var value = field.values[j].name;
+									html += '				<option value="'+key+'">'+value+'</optoin>';						
+								}
+								html +=
+								'			</select>';
+								break;
+							case 'multivaluelist':
+								html +=
+								'			<select multiple="multiple" name="'+name+'" id="'+name+'">'+
+								'				<option value=""></option>';
+								for(j in field.values){
+									var key = field.values[j].key;
+									var value = field.values[j].name;
+									html += '				<option value="'+key+'">'+value+'</optoin>';						
+								}
+								html += '			</select>';
+								break;
+							case 'text':
+								html += '			<textarea name="'+name+'" id="'+name+'"></textarea>';
+								break;
+							case 'string':
+							case 'number':
+							case 'datetime':
+							default:	
+								html += '			<input id="'+name+'" name="'+name+'" value="" />';
+						}
+						html +=
+							'			</td></tr>';
+					}
+					else{
+						html += '			<input id="'+name+'" name="'+name+'" value="" />';
+					}
+					html += '			</td></tr>';
 				}
-				document.getElementById('customfields').innerHTML = html;
-				document.getElementById('reportform').addEventListener('submit',CLIENT.postServiceRequest, false);	
+			html += '		</table>'+
+					'		<div id="submit">'+
+					'			<input type="submit" value="Report" />'+
+					'		</div>'+
+					'	</fieldset>'+
+					'</form>';					
+				document.getElementById('mainContent').innerHTML = html;
+				document.getElementById('reportform').addEventListener('submit',CLIENT.postServiceRequest, false);
+				
 			});
 			Y.io(CLIENT.endpoint + '/services/' + select.options[select.selectedIndex].value + '.json');
 		});
@@ -54,28 +146,65 @@ var CLIENT = {
 	 */
 	postServiceRequest: function (e) {
 		e.preventDefault();
-		alert('Your report has been submitted.  Thank you');
-		document.getElementById('addressstring').innerHTML = '';
-		document.getElementById('reportform').reset();
-		/*
-		YUI().use('io-form', 'json-parse', function(Y) {
-			Y.io(CLIENT.endpoint + '/requests.json',{
-				method: 'POST',
-				form: { id: document.getElementById('reportform'), upload: true }
-			});
+		//document.getElementById('addressstring').innerHTML = '';
+		//document.getElementById('reportform').reset();
+		
+		// YUI().use('io-upload-iframe', 'json-parse', function(Y) {
+		YUI().use('io-form', 'json-parse', function(Y) {			
+			var cfg = {
+				 timeout : 3000,
+				 method: 'POST',
+				 xdr:{use: 'native'},
+				 form:{
+					id: document.getElementById('reportform')
+					// upload: true
+				 },
+				 on: {
+					start: function(iOid){
+						var id = iOid;
+						// alert("Started");
+					},
+					complete: function(iOid, o){
+						if(o.responseText !== undefined){
+							var responses = Y.JSON.parse(o.responseText);
+							var html = "<h2>Successfull Submission</h2>";
+							// var responses = o.responseText;
+							for(var i in responses){
+								html += "<table>";
+								var response = responses[i];
+								for(var key in response){
+									html += "<tr><td>"+key+"</td><td>"+response[key]+"</td></tr>";
+								}
+								html += "</table>";
+							}
+							document.getElementById('mainContent').innerHTML = html;
+						}
+						else{
+							document.getElementById('mainContent').innerHTML ="no response text";
+						}
+					},
+					failure: function(iOid, o){
+						alert("called on failure");
+						 if(o.responseText !== undefined){
+							var s = "<ul>"+
+								"<li>id: " + ioId +"</li>"+
+								" <li>HTTP status: " + o.status+"</li>"
+								" <li>Status code message: " + o.statusText+"</li>";	
+							document.getElementById('mainContent').innerHTML =s;
+						 }
+						 else
+						 	document.getElementById('mainContent').innerHTML =" failure no response";
+					}
+				}
+			};
+			Y.io(CLIENT.endpoint + '/requests.json', cfg);
 		});
-		*/
 		return false;
-	},
-	/**
-	 * Open up the google map and have them choose a location
-	 */
-	chooseLocation: function() {
 	}
 }
 
-window.addEventListener('load', CLIENT.init, false);
-document.getElementById('reportform').addEventListener('submit', CLIENT.postServiceRequest, false);
+//window.addEventListener('load', CLIENT.init, false);
+// document.getElementById('reportform').addEventListener('submit', CLIENT.postServiceRequest, false);
 
 YUI().use('node','overlay',function(Y) {
 	var overlay = new Y.Overlay({
@@ -127,8 +256,9 @@ YUI().use('node','overlay',function(Y) {
 									break;
 							}
 						}
-						document.getElementById('address').value = address;
-						document.getElementById('addressstring').innerHTML = address;
+						Y.one('#addr_id').set('innerHTML','<input name="address" value="'+address+'" />');
+						Y.one('#address_string').set('value',address);
+						Y.one('#addressstring').set('innerHTML',address);
 					}
 				}
 			});
@@ -136,5 +266,5 @@ YUI().use('node','overlay',function(Y) {
 		},'#useThisLocation');
 	},'#openMapButton');
 });
-
+window.addEventListener('load', CLIENT.init, false);
 
