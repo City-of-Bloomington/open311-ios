@@ -14,8 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-               BuildableName = "Open311.app"
-               BlueprintName = "Open311"
+               BuildableName = "GeoReporter.app"
+               BlueprintName = "GeoReporter"
                ReferencedContainer = "container:open311.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,8 +32,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-            BuildableName = "Open311.app"
-            BlueprintName = "Open311"
+            BuildableName = "GeoReporter.app"
+            BlueprintName = "GeoReporter"
             ReferencedContainer = "container:open311.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,8 +52,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-            BuildableName = "Open311.app"
-            BlueprintName = "Open311"
+            BuildableName = "GeoReporter.app"
+            BlueprintName = "GeoReporter"
             ReferencedContainer = "container:open311.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -84,8 +84,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
-            BuildableName = "Open311.app"
-            BlueprintName = "Open311"
+            BuildableName = "GeoReporter.app"
+            BlueprintName = "GeoReporter"
             ReferencedContainer = "container:open311.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

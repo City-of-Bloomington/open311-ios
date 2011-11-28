@@ -233,7 +233,7 @@
 		69AC1EAB1439FA6B0029B121 /* DateFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFieldViewController.h; sourceTree = "<group>"; };
 		69AC1EAC1439FA6B0029B121 /* DateFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFieldViewController.m; sourceTree = "<group>"; };
 		69AC1EAD1439FA6B0029B121 /* DateFieldViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateFieldViewController.xib; sourceTree = "<group>"; };
-		69B07F961416AFEC008DD4E0 /* Open311.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Open311.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69B07F961416AFEC008DD4E0 /* GeoReporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoReporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69B07F9A1416AFEC008DD4E0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69B07F9C1416AFEC008DD4E0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		69B07F9E1416AFEC008DD4E0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -464,7 +464,7 @@
 		69B07F971416AFEC008DD4E0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				69B07F961416AFEC008DD4E0 /* Open311.app */,
+				69B07F961416AFEC008DD4E0 /* GeoReporter.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -610,9 +610,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		69B07F951416AFEC008DD4E0 /* Open311 */ = {
+		69B07F951416AFEC008DD4E0 /* GeoReporter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Open311" */;
+			buildConfigurationList = 69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "GeoReporter" */;
 			buildPhases = (
 				69B07F921416AFEC008DD4E0 /* Sources */,
 				69B07F931416AFEC008DD4E0 /* Frameworks */,
@@ -622,9 +622,9 @@
 			);
 			dependencies = (
 			);
-			name = Open311;
+			name = GeoReporter;
 			productName = open311;
-			productReference = 69B07F961416AFEC008DD4E0 /* Open311.app */;
+			productReference = 69B07F961416AFEC008DD4E0 /* GeoReporter.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -648,7 +648,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				69B07F951416AFEC008DD4E0 /* Open311 */,
+				69B07F951416AFEC008DD4E0 /* GeoReporter */,
 			);
 		};
 /* End PBXProject section */
@@ -847,14 +847,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: City of Bloomington, Indiana";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "open311/open311-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "open311/open311-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "FDA2830D-C752-4DFA-95DC-101C6D3DCD8C";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -872,7 +872,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Open311" */ = {
+		69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "GeoReporter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				69B07FB21416AFEC008DD4E0 /* Debug */,
