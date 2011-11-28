@@ -788,6 +788,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6946FD311483F36C00ACDE49 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"ARCHS[sdk=*]" = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Distribution;
+		};
+		6946FD321483F36C00ACDE49 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: City of Bloomington, Indiana";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "open311/bloomington-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "open311/bloomington-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FDA2830D-C752-4DFA-95DC-101C6D3DCD8C";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Distribution;
+		};
 		69B07FAF1416AFEC008DD4E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -828,7 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cliff Ingham (66VUR5NHEE)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -837,7 +873,7 @@
 				INFOPLIST_FILE = "open311/bloomington-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "134E5DD0-A78E-460B-A31F-6CE4C38A5011";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -847,14 +883,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: City of Bloomington, Indiana";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: City of Bloomington, Indiana";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "open311/bloomington-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "open311/bloomington-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "FDA2830D-C752-4DFA-95DC-101C6D3DCD8C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDA2830D-C752-4DFA-95DC-101C6D3DCD8C";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -868,6 +906,7 @@
 			buildConfigurations = (
 				69B07FAF1416AFEC008DD4E0 /* Debug */,
 				69B07FB01416AFEC008DD4E0 /* Release */,
+				6946FD311483F36C00ACDE49 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -877,6 +916,7 @@
 			buildConfigurations = (
 				69B07FB21416AFEC008DD4E0 /* Debug */,
 				69B07FB31416AFEC008DD4E0 /* Release */,
+				6946FD321483F36C00ACDE49 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
