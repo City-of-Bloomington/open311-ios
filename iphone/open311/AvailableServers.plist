@@ -6,19 +6,29 @@
 	<array>
 		<dict>
 			<key>Name</key>
+			<string>Toronto</string>
+			<key>URL</key>
+			<string>https://secure.toronto.ca/open311test/ws</string>
+			<key>jurisdiction_id</key>
+			<string>toronto.ca</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>San Francisco</string>
+			<key>URL</key>
+			<string>https://open311.sfgov.org/dev/V2</string>
+			<key>jurisdiction_id</key>
+			<string>sfgov.org</string>
+			<key>api_key</key>
+			<string>1O311TLS43WP16N</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>Boston</string>
 			<key>URL</key>
 			<string>https://mayors24.cityofboston.gov/open311/v2</string>
 			<key>jurisdiction_id</key>
 			<string>cityofboston.gov</string>
-		</dict>
-		<dict>
-			<key>jurisdiction_id</key>
-			<string>dc.gov</string>
-			<key>Name</key>
-			<string>DC</string>
-			<key>URL</key>
-			<string>http://311.dc.gov/cwi</string>
 		</dict>
 		<dict>
 			<key>Name</key>
