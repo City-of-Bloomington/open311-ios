@@ -44,28 +44,46 @@
  * Loads all the distinct groups from the service list
  *
  * For services without a group, we'll create a group called , "Other"
+ * Other will need to be listed last in the sorted list
+ *
+ * There is also a special group called "Most Popular".  This group
+ * needs to always come first in the sorted list
  */
 - (void)loadGroups
 {
     NSArray *services = [[Open311 sharedOpen311] services];
     self.groups = [NSMutableArray array];
     BOOL hasOther = false;
+    BOOL hasMostPopular = false;
     
+    // Read all the distinct groups from the service list
     for (NSDictionary *service in services) {
         NSString *group = nil;
-        if ([service objectForKey:@"group"] == [NSNull null]
-            || [[service objectForKey:@"group"] length] == 0) {
+        
+        // Create the "Other" group for services without a group specified
+        if ([service objectForKey:@"group"] == [NSNull null] || [[service objectForKey:@"group"] length] == 0) {
             hasOther = TRUE;
+        }
+        // Don't include "Most Popular" in the sorting.  We'll add it in last.
+        else if ([[service objectForKey:@"group"] isEqualToString:@"Most Popular"]) {
+            hasMostPopular = TRUE;
         }
         else {
             group = [service objectForKey:@"group"];
         }
+        
         if (group && ![self.groups containsObject:group]) {
             DLog(@"Adding group %@", group);
             [self.groups addObject:group];
         }
     }
+    // Sort the groups
     self.groups = [NSMutableArray arrayWithArray:[self.groups sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    
+    // Add the special groups into the list
+    if (hasMostPopular) {
+        [self.groups insertObject:@"Most Popular" atIndex:0];
+    }
     if (hasOther) {
         [self.groups addObject:@"Other"];
     }
