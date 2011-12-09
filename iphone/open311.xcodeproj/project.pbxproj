@@ -16,6 +16,9 @@
 		693028771443920500A8EFB2 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 693028761443920500A8EFB2 /* splash.png */; };
 		6934AAD31463287F00B648CF /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6934AAD11463287F00B648CF /* AboutViewController.m */; };
 		6934AAD41463287F00B648CF /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6934AAD21463287F00B648CF /* AboutViewController.xib */; };
+		6940841F1492780F00503244 /* Baltimore, MD.png in Resources */ = {isa = PBXBuildFile; fileRef = 6940841C1492780F00503244 /* Baltimore, MD.png */; };
+		694084201492780F00503244 /* Bloomington, IN.png in Resources */ = {isa = PBXBuildFile; fileRef = 6940841D1492780F00503244 /* Bloomington, IN.png */; };
+		694084211492780F00503244 /* Boston, MA.png in Resources */ = {isa = PBXBuildFile; fileRef = 6940841E1492780F00503244 /* Boston, MA.png */; };
 		6948D1C41444A28500E26059 /* BusyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6948D1C21444A28500E26059 /* BusyViewController.m */; };
 		6948D1C51444A28500E26059 /* BusyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6948D1C31444A28500E26059 /* BusyViewController.xib */; };
 		6958413A144DF6D00068642E /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 69584139144DF6D00068642E /* about.html */; };
@@ -101,7 +104,6 @@
 		69BAA102141FB86C00D03396 /* Report.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69BAA101141FB86C00D03396 /* Report.plist */; };
 		69BB1D92144C7FF100907B1A /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = 69BB1D90144C7FF000907B1A /* COPYING.txt */; };
 		69BB1D93144C7FF100907B1A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 69BB1D91144C7FF000907B1A /* LICENSE.txt */; };
-		69D36952144F1F8B00F710A7 /* Bloomington.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D36951144F1F8B00F710A7 /* Bloomington.png */; };
 		69D36956144F253700F710A7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D36955144F253700F710A7 /* Default.png */; };
 		69D36958144F270700F710A7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D36957144F270700F710A7 /* Default@2x.png */; };
 		69D658D31462CC9100F6A284 /* ChooseServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D658D11462CC9100F6A284 /* ChooseServiceViewController.m */; };
@@ -127,6 +129,9 @@
 		6934AAD01463287F00B648CF /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		6934AAD11463287F00B648CF /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		6934AAD21463287F00B648CF /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		6940841C1492780F00503244 /* Baltimore, MD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Baltimore, MD.png"; sourceTree = "<group>"; };
+		6940841D1492780F00503244 /* Bloomington, IN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bloomington, IN.png"; sourceTree = "<group>"; };
+		6940841E1492780F00503244 /* Boston, MA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Boston, MA.png"; sourceTree = "<group>"; };
 		6948D1C11444A28500E26059 /* BusyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusyViewController.h; sourceTree = "<group>"; };
 		6948D1C21444A28500E26059 /* BusyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusyViewController.m; sourceTree = "<group>"; };
 		6948D1C31444A28500E26059 /* BusyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusyViewController.xib; sourceTree = "<group>"; };
@@ -261,7 +266,6 @@
 		69BAA101141FB86C00D03396 /* Report.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Report.plist; sourceTree = "<group>"; };
 		69BB1D90144C7FF000907B1A /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
 		69BB1D91144C7FF000907B1A /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		69D36951144F1F8B00F710A7 /* Bloomington.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bloomington.png; sourceTree = "<group>"; };
 		69D36955144F253700F710A7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		69D36957144F270700F710A7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		69D658D01462CC9100F6A284 /* ChooseServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServiceViewController.h; sourceTree = "<group>"; };
@@ -590,7 +594,9 @@
 		69D3694F144F1F7200F710A7 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				69D36951144F1F8B00F710A7 /* Bloomington.png */,
+				6940841C1492780F00503244 /* Baltimore, MD.png */,
+				6940841D1492780F00503244 /* Bloomington, IN.png */,
+				6940841E1492780F00503244 /* Boston, MA.png */,
 			);
 			name = Splash;
 			path = splash;
@@ -698,13 +704,15 @@
 				69BB1D92144C7FF100907B1A /* COPYING.txt in Resources */,
 				69BB1D93144C7FF100907B1A /* LICENSE.txt in Resources */,
 				6958413A144DF6D00068642E /* about.html in Resources */,
-				69D36952144F1F8B00F710A7 /* Bloomington.png in Resources */,
 				69D36956144F253700F710A7 /* Default.png in Resources */,
 				69D36958144F270700F710A7 /* Default@2x.png in Resources */,
 				69013385145B19DE0071509F /* CustomServerViewController.xib in Resources */,
 				69D658D41462CC9100F6A284 /* ChooseServiceViewController.xib in Resources */,
 				69D658DA1462CCDC00F6A284 /* ChooseGroupViewController.xib in Resources */,
 				6934AAD41463287F00B648CF /* AboutViewController.xib in Resources */,
+				6940841F1492780F00503244 /* Baltimore, MD.png in Resources */,
+				694084201492780F00503244 /* Bloomington, IN.png in Resources */,
+				694084211492780F00503244 /* Boston, MA.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,7 +836,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cliff Ingham (4CC77393JD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -837,7 +845,7 @@
 				INFOPLIST_FILE = "open311/open311-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7305E014-4DC6-4ED1-B2F1-DDDF9EEFB3D8";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};

@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>Name</key>
-			<string>Boston</string>
+			<string>Boston, MA</string>
 			<key>URL</key>
 			<string>https://mayors24.cityofboston.gov:6443/open311/v2</string>
 			<key>jurisdiction_id</key>
@@ -16,7 +16,7 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>Baltimore</string>
+			<string>Baltimore, MD</string>
 			<key>jurisdiction_id</key>
 			<string>baltimorecity.gov</string>
 			<key>URL</key>
@@ -26,7 +26,7 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>Bloomington</string>
+			<string>Bloomington, IN</string>
 			<key>URL</key>
 			<string>https://bloomington.in.gov/ureport/open311/v2</string>
 			<key>supports_media</key>
