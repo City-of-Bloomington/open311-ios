@@ -161,13 +161,13 @@ static id _sharedOpen311 = nil;
 
 /**
  * Returns the URL for POST-ing a new request to the current Open311 server
+ *
+ * This URL should not include jurisdiction_id nor api_key.
+ * Those should be added to the POST form data, not the URL
  */
 - (NSURL *)getPostServiceRequestURL
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests.json"]];
-    if ([self.params length] != 0) {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
-    }
     return url;
 }
 
