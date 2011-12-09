@@ -185,6 +185,14 @@
     [data setObject:settings.email forKey:@"email"];
     [data setObject:settings.phone forKey:@"phone"];
     
+    // Remove Media uploading for servers that don't support it
+    BOOL supports_media = [[settings.currentServer objectForKey:@"supports_media"] boolValue];
+    if (!supports_media) {
+        DLog(@"Removing media support");
+        [[self.reportForm objectForKey:@"fields"] removeObjectAtIndex:0];
+        [data removeObjectForKey:@"media"];
+    }
+
     [reportTableView reloadData];
 }
 
