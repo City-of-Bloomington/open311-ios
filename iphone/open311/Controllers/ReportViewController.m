@@ -177,14 +177,31 @@
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
     [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+
+    Settings *settings = [Settings sharedSettings];
+    NSString *jurisdiction_id = [settings.currentServer objectForKey:@"jurisdiction_id"];
+    if (jurisdiction_id) {
+        [data setObject:jurisdiction_id forKey:@"jurisdiction_id"];
+    }
+    NSString *api_key = [settings.currentServer objectForKey:@"api_key"];
+    if (api_key) {
+        [data setObject:api_key forKey:@"api_key"];
+    }
     
     // Load the user's firstname, lastname, email, and phone number
-    Settings *settings = [Settings sharedSettings];
     [data setObject:settings.first_name forKey:@"first_name"];
     [data setObject:settings.last_name forKey:@"last_name"];
     [data setObject:settings.email forKey:@"email"];
     [data setObject:settings.phone forKey:@"phone"];
     
+    // Remove Media uploading for servers that don't support it
+    BOOL supports_media = [[settings.currentServer objectForKey:@"supports_media"] boolValue];
+    if (!supports_media) {
+        DLog(@"Removing media support");
+        [[self.reportForm objectForKey:@"fields"] removeObjectAtIndex:0];
+        [data removeObjectForKey:@"media"];
+    }
+
     [reportTableView reloadData];
 }
 
@@ -270,6 +287,13 @@
     NSURL *url = [[Open311 sharedOpen311] getPostServiceRequestURL];
     DLog(@"Creating POST to %@", url);
     ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL:url];
+    
+    if ([data objectForKey:@"jursidiction_id"]) {
+        [post setPostValue:[data objectForKey:@"jurisdiction_id"] forKey:@"jurisdiction_id"];
+    }
+    if ([data objectForKey:@"api_key"]) {
+        [post setPostValue:[data objectForKey:@"api_key"] forKey:@"api_key"];
+    }
     
     // Handle all the normal arguments
     [post setPostValue:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
@@ -377,6 +401,7 @@
     [busyController.view removeFromSuperview];
     busyController = nil;
     
+    DLog(@"%@",[post responseString]);
     if ([post error]) {
         DLog(@"Error reported %@",[[post error] description]);
     }

@@ -15,7 +15,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
                BuildableName = "BloomingtonApp.app"
-               BlueprintName = "BloomingtonApp"
+               BlueprintName = "Bloomington"
                ReferencedContainer = "container:bloomington.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,7 +33,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
             BuildableName = "BloomingtonApp.app"
-            BlueprintName = "BloomingtonApp"
+            BlueprintName = "Bloomington"
             ReferencedContainer = "container:bloomington.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,7 +51,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
             BuildableName = "BloomingtonApp.app"
-            BlueprintName = "BloomingtonApp"
+            BlueprintName = "Bloomington"
             ReferencedContainer = "container:bloomington.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,7 +69,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69B07F951416AFEC008DD4E0"
             BuildableName = "BloomingtonApp.app"
-            BlueprintName = "BloomingtonApp"
+            BlueprintName = "Bloomington"
             ReferencedContainer = "container:bloomington.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

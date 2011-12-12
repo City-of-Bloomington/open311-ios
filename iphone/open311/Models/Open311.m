@@ -69,8 +69,19 @@ static id _sharedOpen311 = nil;
     [self reset];
     currentServer = server;
     self.baseURL = [NSURL URLWithString:[currentServer objectForKey:@"URL"]];
+    
+    // Create the parameter string for jurisdiction and api_key, if needed
     jurisdiction_id = [currentServer objectForKey:@"jurisdiction_id"];
     api_key = [currentServer objectForKey:@"api_key"];
+    if (jurisdiction_id || api_key) {
+        self.params = @"?";
+        if (jurisdiction_id) {
+            self.params = [self.params stringByAppendingFormat:@"jurisdiction_id=%@&", jurisdiction_id];
+        }
+        if (api_key) {
+            self.params = [self.params stringByAppendingFormat:@"api_key=%@&", api_key];
+        }
+    }
     
     // Load the service list
     NSURL *servicesURL = [self getServiceListURL];
@@ -113,6 +124,8 @@ static id _sharedOpen311 = nil;
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
     
+    DLog(@"%@", [request responseString]);
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server gave invalid response" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     [alert release];
@@ -148,13 +161,13 @@ static id _sharedOpen311 = nil;
 
 /**
  * Returns the URL for POST-ing a new request to the current Open311 server
+ *
+ * This URL should not include jurisdiction_id nor api_key.
+ * Those should be added to the POST form data, not the URL
  */
 - (NSURL *)getPostServiceRequestURL
 {
     NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"requests.json"]];
-    if ([self.params length] != 0) {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:self.params]];
-    }
     return url;
 }
 
