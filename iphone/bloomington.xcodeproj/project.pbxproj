@@ -610,9 +610,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		69B07F951416AFEC008DD4E0 /* Bloomington */ = {
+		69B07F951416AFEC008DD4E0 /* BloomingtonApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Bloomington" */;
+			buildConfigurationList = 69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "BloomingtonApp" */;
 			buildPhases = (
 				69B07F921416AFEC008DD4E0 /* Sources */,
 				69B07F931416AFEC008DD4E0 /* Frameworks */,
@@ -622,7 +622,7 @@
 			);
 			dependencies = (
 			);
-			name = Bloomington;
+			name = BloomingtonApp;
 			productName = open311;
 			productReference = 69B07F961416AFEC008DD4E0 /* BloomingtonApp.app */;
 			productType = "com.apple.product-type.application";
@@ -648,7 +648,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				69B07F951416AFEC008DD4E0 /* Bloomington */,
+				69B07F951416AFEC008DD4E0 /* BloomingtonApp */,
 			);
 		};
 /* End PBXProject section */
@@ -864,7 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cliff Ingham (66VUR5NHEE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Cliff Ingham (4CC77393JD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -873,7 +873,7 @@
 				INFOPLIST_FILE = "open311/bloomington-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "134E5DD0-A78E-460B-A31F-6CE4C38A5011";
+				PROVISIONING_PROFILE = "7305E014-4DC6-4ED1-B2F1-DDDF9EEFB3D8";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -911,7 +911,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "Bloomington" */ = {
+		69B07FB11416AFEC008DD4E0 /* Build configuration list for PBXNativeTarget "BloomingtonApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				69B07FB21416AFEC008DD4E0 /* Debug */,
