@@ -8,19 +8,9 @@
 			<key>Name</key>
 			<string>Boston, MA</string>
 			<key>URL</key>
-			<string>https://mayors24.cityofboston.gov:6443/open311/v2</string>
+			<string>https://mayors24.cityofboston.gov/open311/v2</string>
 			<key>jurisdiction_id</key>
 			<string>cityofboston.gov</string>
-			<key>supports_media</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>Baltimore, MD</string>
-			<key>jurisdiction_id</key>
-			<string>baltimorecity.gov</string>
-			<key>URL</key>
-			<string>http://311test.baltimorecity.gov/open311/v2</string>
 			<key>supports_media</key>
 			<false/>
 		</dict>
@@ -31,6 +21,8 @@
 			<string>https://bloomington.in.gov/ureport/open311/v2</string>
 			<key>supports_media</key>
 			<true/>
+			<key>jursidiction_id</key>
+			<string>bloomington.in.gov</string>
 		</dict>
 	</array>
 </dict>
