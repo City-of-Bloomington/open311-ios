@@ -82,6 +82,7 @@ static id _sharedSettings = nil;
     else {
         self.myServers = [NSMutableArray arrayWithContentsOfFile:plistPath];
     }
+    [self refreshMyServersFromAvailableServers];
 }
 
 - (void)loadMyRequests
@@ -104,6 +105,36 @@ static id _sharedSettings = nil;
     self.email = [defaults objectForKey:@"email"] ? [defaults objectForKey:@"email"] : @"";
     self.phone = [defaults objectForKey:@"phone"] ? [defaults objectForKey:@"phone"] : @"";
 }
+
+/**
+ * Get fresh copies of all MyServers 
+ *
+ * Iterates through all MyServers and replaces each one with a
+ * fresh copy of its entry in AvailableServers.
+ *
+ * This app is going to be updated over time and the defintions
+ * in AvailableServers are subject to change.  As we update
+ * URLs or api_keys for servers in AvailableServers, we want to
+ * make sure those changes get applied to the saved MyServers.
+ */
+- (void)refreshMyServersFromAvailableServers
+{
+    for (int i=0; i<[self.myServers count]; i++) {
+        NSDictionary *server = [self.myServers objectAtIndex:i];
+        NSString *myJurisdiction = [server objectForKey:@"jurisdiction_id"];
+        if (myJurisdiction) {
+            for (NSDictionary *availableServer in [self.availableServers objectForKey:@"Servers"]) {
+                NSString *availableJurisdiction = [availableServer objectForKey:@"jurisdiction_id"];
+                if (availableJurisdiction && [myJurisdiction isEqualToString:availableJurisdiction]) {
+                    [self.myServers replaceObjectAtIndex:i withObject:availableServer];
+                    break;
+                }
+            }
+        }
+    }
+}
+
+
 
 /**
  * Saves all the data we've collected

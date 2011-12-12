@@ -37,5 +37,6 @@
 - (void)loadMyServers;
 - (void)loadMyRequests;
 - (void)loadStandardUserDefaults;
+- (void)refreshMyServersFromAvailableServers;
 
 @end
