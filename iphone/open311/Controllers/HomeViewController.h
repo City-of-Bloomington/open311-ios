@@ -20,6 +20,8 @@
 
 - (void)gotoSettings;
 - (IBAction)gotoNewReport:(id)sender;
+- (IBAction)gotoFeedback:(id)sender;
+- (IBAction)sendEmail:(id)sender;
 - (void)discoveryFinishedLoading:(NSNotification *)notification;
 
 @end

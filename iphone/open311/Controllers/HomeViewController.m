@@ -124,8 +124,30 @@
 
 - (IBAction)gotoNewReport:(id)sender
 {
-    DLog(@"Sending to new report");
-    [self.navigationController pushViewController:[[ReportViewController alloc] init] animated:YES];
+    self.tabBarController.selectedIndex = 1;
+}
+
+/**
+ * Send the user to a specific service for reporting feedback about this iPhone app.
+ *
+ * We've hard coded the service_code, since it's set up server-side.
+ */
+- (IBAction)gotoFeedback:(id)sender {
+    NSArray *services = [[Open311 sharedOpen311] services];
+    for (NSDictionary *service in services) {
+        if ([[service objectForKey:@"service_code"] isEqualToString:@"4eeb5e87992b941e7d000000"]) {
+            ReportViewController *report = [[[self.tabBarController.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
+            [report setPreviousServerURL:[[[Settings sharedSettings] currentServer] objectForKey:@"URL"]];
+            [report didSelectService:service];
+            break;
+        }
+    }
+    
+    self.tabBarController.selectedIndex = 1;
+}
+
+- (IBAction)sendEmail:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:helpdesk@bloomington.in.gov"]];
 }
 
 @end
