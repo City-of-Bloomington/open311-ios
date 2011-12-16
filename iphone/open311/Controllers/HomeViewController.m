@@ -52,7 +52,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    DLog(@"viewDidLoad");
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(gotoSettings)];
     
@@ -124,8 +123,7 @@
 
 - (IBAction)gotoNewReport:(id)sender
 {
-    DLog(@"Sending to new report");
-    [self.navigationController pushViewController:[[ReportViewController alloc] init] animated:YES];
+    self.tabBarController.selectedIndex = 1;
 }
 
 @end
