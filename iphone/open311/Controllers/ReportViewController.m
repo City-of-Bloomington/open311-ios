@@ -236,6 +236,9 @@
 - (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request
 {
     self.service_definition = [[request responseString] JSONValue];
+    if (!self.service_definition) {
+        [[Open311 sharedOpen311] responseFormatInvalid:request];
+    }
     for (NSDictionary *attribute in [self.service_definition objectForKey:@"attributes"]) {
         NSString *code = [attribute objectForKey:@"code"];
         DLog(@"Attribute found: %@",code);
@@ -377,19 +380,21 @@
             NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"token", @"date", nil];
             [[[Settings sharedSettings] myRequests] addObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
             DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+            
+            // Clear the report form
+            [self initReportForm];
+            self.currentService = nil;
+            self.service_definition = nil;
+            
+            self.tabBarController.selectedIndex = 2;
         }
-        
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        
-        // Clear the report form
-        [self initReportForm];
-        self.currentService = nil;
-        self.service_definition = nil;
-        
-        self.tabBarController.selectedIndex = 2;
+        else {
+            [[Open311 sharedOpen311] responseFormatInvalid:post];
+        }
     }
 }
 
