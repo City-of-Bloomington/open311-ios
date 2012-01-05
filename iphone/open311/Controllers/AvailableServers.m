@@ -111,6 +111,7 @@
     
     if (!alreadyExists) {
         [myServers addObject:chosenServer];
+        [[Settings sharedSettings] setCurrentServer:chosenServer];
     }
 }
 

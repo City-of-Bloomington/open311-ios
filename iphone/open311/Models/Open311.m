@@ -85,7 +85,7 @@ static id _sharedOpen311 = nil;
     
     // Load the service list
     NSURL *servicesURL = [self getServiceListURL];
-    DLog(@"Loading URL: %@", servicesURL);
+    DLog(@"Loading URL: %@", [servicesURL absoluteString]);
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:servicesURL];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(handleServicesSuccess:)];
@@ -109,7 +109,7 @@ static id _sharedOpen311 = nil;
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"discoveryFinishedLoading" object:self];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load url" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load url" message:@"" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     [alert release];
 }
@@ -126,7 +126,7 @@ static id _sharedOpen311 = nil;
     
     DLog(@"%@", [request responseString]);
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server gave invalid response" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server gave invalid response" message:@"" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     [alert release];
 }

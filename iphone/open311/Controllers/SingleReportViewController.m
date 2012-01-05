@@ -199,7 +199,7 @@
         }
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report was garbled" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report was garbled" message:@"" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         [alert release];
     }
@@ -218,7 +218,7 @@
  */
 - (void)handleReportInfoFailure:(ASIHTTPRequest *)request
 {
-    NSString *message = [[request url] absoluteString];
+    NSString *message = @"";
     if ([request responseString]) {
         DLog(@"%@",[request responseString]);
         NSArray *errors = [[request responseString] JSONValue];

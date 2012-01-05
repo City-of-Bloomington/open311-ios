@@ -262,7 +262,7 @@
  */
 - (void)handleServiceDefinitionFailure:(ASIHTTPRequest *)request
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load service" message:[[request url] absoluteString] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not load service" message:@"" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     [alert release];
 }

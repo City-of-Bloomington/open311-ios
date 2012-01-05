@@ -88,9 +88,20 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"] autorelease];
     }
-    NSMutableArray *myServers = [[Settings sharedSettings] myServers];
-    cell.textLabel.text = [[myServers objectAtIndex:indexPath.row] objectForKey:@"Name"];
-    cell.detailTextLabel.text = [[myServers objectAtIndex:indexPath.row] objectForKey:@"URL"];
+    
+    Settings *settings = [Settings sharedSettings];
+    NSDictionary *server = [[settings myServers] objectAtIndex:indexPath.row];
+    cell.textLabel.text = [server objectForKey:@"Name"];
+    cell.detailTextLabel.text = [server objectForKey:@"URL"];
+    
+    // Highlight the current server
+    NSDictionary *currentServer = [settings currentServer];
+    if (currentServer) {
+        if ([[currentServer objectForKey:@"URL"] isEqualToString:[server objectForKey:@"URL"]]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    }
+    
     return cell;
 }
 
