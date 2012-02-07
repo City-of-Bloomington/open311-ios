@@ -95,6 +95,7 @@
     cell.detailTextLabel.text = [server objectForKey:@"URL"];
     
     // Highlight the current server
+    cell.accessoryType = UITableViewCellAccessoryNone;
     NSDictionary *currentServer = [settings currentServer];
     if (currentServer) {
         if ([[currentServer objectForKey:@"URL"] isEqualToString:[server objectForKey:@"URL"]]) {
