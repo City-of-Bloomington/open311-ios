@@ -36,7 +36,6 @@
 	<string>MainWindow</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>still-camera</string>
 		<string>location-services</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>

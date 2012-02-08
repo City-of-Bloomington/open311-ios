@@ -74,7 +74,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">If you'd like to see you city here, please encourage them to adopt Open311.  For more information, visit: http://open311.org</string>
+						<string key="IBUIText">If you'd like to see your city here, please encourage them to adopt Open311.  For more information, visit: http://open311.org</string>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIAutocapitalizationType">2</int>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

@@ -43,6 +43,7 @@
 @synthesize service_definition;
 @synthesize reportForm;
 @synthesize locator;
+@synthesize serviceMessages;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +63,7 @@
     [currentService release];
     [previousServerURL release];
     [reportTableView release];
+    [serviceMessages release];
     [super dealloc];
 }
 
@@ -153,7 +155,7 @@
         
         [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
         [self initReportForm];
-        [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
+        [self loadServiceDefinition:[self.currentService objectForKey:kServiceCode]];
     }
 }
 
@@ -176,16 +178,16 @@
     error = nil;
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
-    [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    [data setObject:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
 
     Settings *settings = [Settings sharedSettings];
-    NSString *jurisdiction_id = [settings.currentServer objectForKey:@"jurisdiction_id"];
+    NSString *jurisdiction_id = [settings.currentServer objectForKey:kJurisdictionId];
     if (jurisdiction_id) {
-        [data setObject:jurisdiction_id forKey:@"jurisdiction_id"];
+        [data setObject:jurisdiction_id forKey:kJurisdictionId];
     }
-    NSString *api_key = [settings.currentServer objectForKey:@"api_key"];
+    NSString *api_key = [settings.currentServer objectForKey:kApiKey];
     if (api_key) {
-        [data setObject:api_key forKey:@"api_key"];
+        [data setObject:api_key forKey:kApiKey];
     }
     
     // Load the user's firstname, lastname, email, and phone number
@@ -196,7 +198,7 @@
     
     // Remove Media uploading for servers that don't support it
     BOOL supports_media = [[settings.currentServer objectForKey:@"supports_media"] boolValue];
-    if (!supports_media) {
+    if (!supports_media || [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]==NO) {
         DLog(@"Removing media support");
         [[self.reportForm objectForKey:@"fields"] removeObjectAtIndex:0];
         [data removeObjectForKey:@"media"];
@@ -235,21 +237,33 @@
  */
 - (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request
 {
+    DLog(@"Service Defition: %@", [request responseString]);
     self.service_definition = [[request responseString] JSONValue];
+    if (!self.service_definition) {
+        [[Open311 sharedOpen311] responseFormatInvalid:request];
+    }
+    
+    self.serviceMessages = @"";
+    
     for (NSDictionary *attribute in [self.service_definition objectForKey:@"attributes"]) {
         NSString *code = [attribute objectForKey:@"code"];
         DLog(@"Attribute found: %@",code);
-        [[self.reportForm objectForKey:@"fields"] addObject:code];
-        [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
-        [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
-        if ([[attribute objectForKey:@"required"] boolValue]) {
-            [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
+        if ([[attribute objectForKey:@"variable"] boolValue]) {
+            [[self.reportForm objectForKey:@"fields"] addObject:code];
+            [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
+            [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
+            if ([[attribute objectForKey:@"required"] boolValue]) {
+                [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
+            }
+            
+            NSDictionary *values = [attribute objectForKey:@"values"];
+            if (values) {
+                [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
+                DLog(@"Added values for %@",code);
+            }
         }
-        
-        NSDictionary *values = [attribute objectForKey:@"values"];
-        if (values) {
-            [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
-            DLog(@"Added values for %@",code);
+        else {
+            self.serviceMessages = [self.serviceMessages stringByAppendingFormat:@"\n%@", [attribute objectForKey:@"description"]];
         }
         
     }
@@ -275,8 +289,6 @@
  * We need to use the service definition so we can know which fields
  * are the custom attributes.  We can hard code the references to the
  * rest of the arguments, since they're defined in the spec.
- *
- * Todo: Handle responses with token instead of service_request_id
  */
 - (void)postReport
 {
@@ -288,15 +300,15 @@
     DLog(@"Creating POST to %@", url);
     ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL:url];
     
-    if ([data objectForKey:@"jursidiction_id"]) {
-        [post setPostValue:[data objectForKey:@"jurisdiction_id"] forKey:@"jurisdiction_id"];
+    if ([data objectForKey:kJurisdictionId]) {
+        [post setPostValue:[data objectForKey:kJurisdictionId] forKey:kJurisdictionId];
     }
-    if ([data objectForKey:@"api_key"]) {
-        [post setPostValue:[data objectForKey:@"api_key"] forKey:@"api_key"];
+    if ([data objectForKey:kApiKey]) {
+        [post setPostValue:[data objectForKey:kApiKey] forKey:kApiKey];
     }
     
     // Handle all the normal arguments
-    [post setPostValue:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    [post setPostValue:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
     [post setPostValue:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"device_id"];
     [post setPostValue:[data objectForKey:@"lat"] forKey:@"lat"];
     [post setPostValue:[data objectForKey:@"long"] forKey:@"long"];
@@ -377,19 +389,21 @@
             NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"token", @"date", nil];
             [[[Settings sharedSettings] myRequests] addObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
             DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+            
+            // Clear the report form
+            [self initReportForm];
+            self.currentService = nil;
+            self.service_definition = nil;
+            
+            self.tabBarController.selectedIndex = 2;
         }
-        
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        
-        // Clear the report form
-        [self initReportForm];
-        self.currentService = nil;
-        self.service_definition = nil;
-        
-        self.tabBarController.selectedIndex = 2;
+        else {
+            [[Open311 sharedOpen311] responseFormatInvalid:post];
+        }
     }
 }
 
@@ -432,14 +446,20 @@
     if (self.currentService) {
         NSString *serviceDescription = [self.currentService objectForKey:@"description"];
         NSString *serviceName = [self.currentService objectForKey:@"service_name"];
+        NSString *title;
+        
         DLog(@"Loaded service description: %@", serviceDescription);
         if (([self.currentService objectForKey:@"description"]==[NSNull null] || [serviceDescription length] == 0)
             && serviceName) {
-            return [NSString stringWithFormat:@"Report %@",serviceName];
+            title = [NSString stringWithFormat:@"Report %@",serviceName];
         }
         else {
-            return serviceDescription;
+            title = serviceDescription;
         }
+        if (self.serviceMessages) {
+            title = [title stringByAppendingString:self.serviceMessages];
+        }
+        return title;
     }
     return @"Choose a service to report to";
 }

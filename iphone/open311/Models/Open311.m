@@ -13,6 +13,10 @@
 #import "SBJson.h"
 #import "Settings.h"
 
+NSString * const kJurisdictionId = @"jurisdiction_id";
+NSString * const kApiKey = @"api_key";
+NSString * const kServiceCode = @"service_code";
+
 @implementation Open311
 
 static id _sharedOpen311 = nil;
@@ -71,15 +75,15 @@ static id _sharedOpen311 = nil;
     self.baseURL = [NSURL URLWithString:[currentServer objectForKey:@"URL"]];
     
     // Create the parameter string for jurisdiction and api_key, if needed
-    jurisdiction_id = [currentServer objectForKey:@"jurisdiction_id"];
-    api_key = [currentServer objectForKey:@"api_key"];
+    jurisdiction_id = [currentServer objectForKey:kJurisdictionId];
+    api_key = [currentServer objectForKey:kApiKey];
     if (jurisdiction_id || api_key) {
         self.params = @"?";
         if (jurisdiction_id) {
-            self.params = [self.params stringByAppendingFormat:@"jurisdiction_id=%@&", jurisdiction_id];
+            self.params = [self.params stringByAppendingFormat:@"%@=%@&", kJurisdictionId, jurisdiction_id];
         }
         if (api_key) {
-            self.params = [self.params stringByAppendingFormat:@"api_key=%@&", api_key];
+            self.params = [self.params stringByAppendingFormat:@"%@=%@&", kApiKey, api_key];
         }
     }
     
@@ -149,12 +153,12 @@ static id _sharedOpen311 = nil;
  */
 - (NSURL *)getServiceDefinitionURL:(NSString *)service_code
 {
-    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services/%@.json",service_code]];
+    NSURL *url = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"services/%@.json", service_code]];
     if ([self.params length] != 0) {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"%@service_code=%@",self.params,service_code]]];
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"%@%@=%@", self.params, kServiceCode, service_code]]];
     }
     else {
-        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"?service_code=%@",service_code]]];
+        url = [NSURL URLWithString:[[url absoluteString] stringByAppendingString:[NSString stringWithFormat:@"?%@=%@", kServiceCode,service_code]]];
     }
     return url;
 }

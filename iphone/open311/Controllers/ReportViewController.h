@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSDictionary *service_definition;
 @property (nonatomic, retain) NSMutableDictionary *reportForm;
 @property (nonatomic, retain) Locator *locator;
+@property (nonatomic, retain) NSString *serviceMessages;
 
 - (void)initReportForm;
 

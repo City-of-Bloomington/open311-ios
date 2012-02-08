@@ -10,6 +10,7 @@
  */
 
 #import "CustomServerViewController.h"
+#import "Open311.h"
 
 @implementation CustomServerViewController
 @synthesize delegate;
@@ -98,10 +99,10 @@
         [temp setObject:url.text forKey:@"URL"];
     }
     if ([jurisdiction.text length]!=0) {
-        [temp setObject:jurisdiction.text forKey:@"jurisdiction_id"];
+        [temp setObject:jurisdiction.text forKey:kJurisdictionId];
     }
     if ([api_key.text length]!=0) {
-        [temp setObject:api_key.text forKey:@"api_key"];
+        [temp setObject:api_key.text forKey:kApiKey];
     }
     
     [delegate didAddServer:[NSDictionary dictionaryWithDictionary:temp]];
