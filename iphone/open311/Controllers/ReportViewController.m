@@ -153,7 +153,7 @@
         
         [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
         [self initReportForm];
-        [self loadServiceDefinition:[self.currentService objectForKey:@"service_code"]];
+        [self loadServiceDefinition:[self.currentService objectForKey:kServiceCode]];
     }
 }
 
@@ -176,17 +176,18 @@
     error = nil;
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
-    [data setObject:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    [data setObject:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
 
     Settings *settings = [Settings sharedSettings];
-    NSString *jurisdiction_id = [settings.currentServer objectForKey:@"jurisdiction_id"];
+    NSString *jurisdiction_id = [settings.currentServer objectForKey:kJurisdictionId];
     if (jurisdiction_id) {
-        [data setObject:jurisdiction_id forKey:@"jurisdiction_id"];
+        [data setObject:jurisdiction_id forKey:kJurisdictionId];
     }
-    NSString *api_key = [settings.currentServer objectForKey:@"api_key"];
+    NSString *api_key = [settings.currentServer objectForKey:kApiKey];
     if (api_key) {
-        [data setObject:api_key forKey:@"api_key"];
+        [data setObject:api_key forKey:kApiKey];
     }
+    DLog(@"initForm data %@", data);
     
     // Load the user's firstname, lastname, email, and phone number
     [data setObject:settings.first_name forKey:@"first_name"];
@@ -256,6 +257,7 @@
         }
         
     }
+    DLog(@"Service info loaded %@", self.reportForm);
     // The fields the user needs to report on have changed
     [reportTableView reloadData];
 }
@@ -291,15 +293,15 @@
     DLog(@"Creating POST to %@", url);
     ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL:url];
     
-    if ([data objectForKey:@"jursidiction_id"]) {
-        [post setPostValue:[data objectForKey:@"jurisdiction_id"] forKey:@"jurisdiction_id"];
+    if ([data objectForKey:kJurisdictionId]) {
+        [post setPostValue:[data objectForKey:kJurisdictionId] forKey:kJurisdictionId];
     }
-    if ([data objectForKey:@"api_key"]) {
-        [post setPostValue:[data objectForKey:@"api_key"] forKey:@"api_key"];
+    if ([data objectForKey:kApiKey]) {
+        [post setPostValue:[data objectForKey:kApiKey] forKey:kApiKey];
     }
     
     // Handle all the normal arguments
-    [post setPostValue:[self.currentService objectForKey:@"service_code"] forKey:@"service_code"];
+    [post setPostValue:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
     [post setPostValue:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"device_id"];
     [post setPostValue:[data objectForKey:@"lat"] forKey:@"lat"];
     [post setPostValue:[data objectForKey:@"long"] forKey:@"long"];

@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequest.h"
 
+extern NSString * const kJurisdictionId;
+extern NSString * const kApiKey;
+extern NSString * const kServiceCode;
 
 @interface Open311 : NSObject <ASIHTTPRequestDelegate> {
     NSDictionary *currentServer;

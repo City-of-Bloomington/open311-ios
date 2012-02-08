@@ -121,10 +121,10 @@ static id _sharedSettings = nil;
 {
     for (int i=0; i<[self.myServers count]; i++) {
         NSDictionary *server = [self.myServers objectAtIndex:i];
-        NSString *myJurisdiction = [server objectForKey:@"jurisdiction_id"];
+        NSString *myJurisdiction = [server objectForKey:kJurisdictionId];
         if (myJurisdiction) {
             for (NSDictionary *availableServer in [self.availableServers objectForKey:@"Servers"]) {
-                NSString *availableJurisdiction = [availableServer objectForKey:@"jurisdiction_id"];
+                NSString *availableJurisdiction = [availableServer objectForKey:kJurisdictionId];
                 if (availableJurisdiction && [myJurisdiction isEqualToString:availableJurisdiction]) {
                     [self.myServers replaceObjectAtIndex:i withObject:availableServer];
                     break;
