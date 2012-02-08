@@ -43,6 +43,7 @@
 @synthesize service_definition;
 @synthesize reportForm;
 @synthesize locator;
+@synthesize serviceMessages;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +63,7 @@
     [currentService release];
     [previousServerURL release];
     [reportTableView release];
+    [serviceMessages release];
     [super dealloc];
 }
 
@@ -235,24 +237,33 @@
  */
 - (void)handleServiceDefinitionSuccess:(ASIHTTPRequest *)request
 {
+    DLog(@"Service Defition: %@", [request responseString]);
     self.service_definition = [[request responseString] JSONValue];
     if (!self.service_definition) {
         [[Open311 sharedOpen311] responseFormatInvalid:request];
     }
+    
+    self.serviceMessages = @"";
+    
     for (NSDictionary *attribute in [self.service_definition objectForKey:@"attributes"]) {
         NSString *code = [attribute objectForKey:@"code"];
         DLog(@"Attribute found: %@",code);
-        [[self.reportForm objectForKey:@"fields"] addObject:code];
-        [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
-        [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
-        if ([[attribute objectForKey:@"required"] boolValue]) {
-            [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
+        if ([[attribute objectForKey:@"variable"] boolValue]) {
+            [[self.reportForm objectForKey:@"fields"] addObject:code];
+            [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
+            [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
+            if ([[attribute objectForKey:@"required"] boolValue]) {
+                [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
+            }
+            
+            NSDictionary *values = [attribute objectForKey:@"values"];
+            if (values) {
+                [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
+                DLog(@"Added values for %@",code);
+            }
         }
-        
-        NSDictionary *values = [attribute objectForKey:@"values"];
-        if (values) {
-            [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
-            DLog(@"Added values for %@",code);
+        else {
+            self.serviceMessages = [self.serviceMessages stringByAppendingFormat:@"\n%@", [attribute objectForKey:@"description"]];
         }
         
     }
@@ -435,14 +446,20 @@
     if (self.currentService) {
         NSString *serviceDescription = [self.currentService objectForKey:@"description"];
         NSString *serviceName = [self.currentService objectForKey:@"service_name"];
+        NSString *title;
+        
         DLog(@"Loaded service description: %@", serviceDescription);
         if (([self.currentService objectForKey:@"description"]==[NSNull null] || [serviceDescription length] == 0)
             && serviceName) {
-            return [NSString stringWithFormat:@"Report %@",serviceName];
+            title = [NSString stringWithFormat:@"Report %@",serviceName];
         }
         else {
-            return serviceDescription;
+            title = serviceDescription;
         }
+        if (self.serviceMessages) {
+            title = [title stringByAppendingString:self.serviceMessages];
+        }
+        return title;
     }
     return @"Choose a service to report to";
 }
