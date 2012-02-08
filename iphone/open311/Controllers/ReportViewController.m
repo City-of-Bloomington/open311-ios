@@ -187,7 +187,6 @@
     if (api_key) {
         [data setObject:api_key forKey:kApiKey];
     }
-    DLog(@"initForm data %@", data);
     
     // Load the user's firstname, lastname, email, and phone number
     [data setObject:settings.first_name forKey:@"first_name"];
@@ -197,7 +196,7 @@
     
     // Remove Media uploading for servers that don't support it
     BOOL supports_media = [[settings.currentServer objectForKey:@"supports_media"] boolValue];
-    if (!supports_media) {
+    if (!supports_media || [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]==NO) {
         DLog(@"Removing media support");
         [[self.reportForm objectForKey:@"fields"] removeObjectAtIndex:0];
         [data removeObjectForKey:@"media"];
@@ -257,7 +256,6 @@
         }
         
     }
-    DLog(@"Service info loaded %@", self.reportForm);
     // The fields the user needs to report on have changed
     [reportTableView reloadData];
 }
@@ -280,8 +278,6 @@
  * We need to use the service definition so we can know which fields
  * are the custom attributes.  We can hard code the references to the
  * rest of the arguments, since they're defined in the spec.
- *
- * Todo: Handle responses with token instead of service_request_id
  */
 - (void)postReport
 {
