@@ -11,7 +11,7 @@
 			<string>https://bloomington.in.gov/ureport/open311/v2</string>
 			<key>supports_media</key>
 			<true/>
-			<key>jursidiction_id</key>
+			<key>jurisdiction_id</key>
 			<string>bloomington.in.gov</string>
 		</dict>
 	</array>
