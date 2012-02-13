@@ -82,7 +82,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     label.text = [[self.reportForm objectForKey:@"labels"] objectForKey:self.fieldname];
+    [BaseFieldViewController resizeFontForLabel:label maxSize:17 minSize:10];
     [super viewWillAppear:animated];
 }
 
+
++ (void)resizeFontForLabel:(UILabel*)aLabel maxSize:(int)maxSize minSize:(int)minSize {
+    // use font from provided label so we don't lose color, style, etc
+    UIFont *font = aLabel.font;
+    
+    // start with maxSize and keep reducing until it doesn't clip
+    for(int i = maxSize; i > 10; i-=2) {
+        font = [font fontWithSize:i];
+        CGSize constraintSize = CGSizeMake(aLabel.frame.size.width, MAXFLOAT);
+        
+        // This step checks how tall the label would be with the desired font.
+        CGSize labelSize = [aLabel.text sizeWithFont:font constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+        if(labelSize.height <= aLabel.frame.size.height)
+            break;
+    }
+    // Set the UILabel's font to the newly adjusted font.
+    aLabel.font = font;
+}
 @end
