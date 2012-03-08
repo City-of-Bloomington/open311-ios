@@ -639,7 +639,7 @@
 		69B07F8D1416AFEC008DD4E0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "City of Bloomington";
 			};
 			buildConfigurationList = 69B07F901416AFEC008DD4E0 /* Build configuration list for PBXProject "open311" */;
