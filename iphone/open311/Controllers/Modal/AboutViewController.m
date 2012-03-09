@@ -56,4 +56,11 @@
     return YES;
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *script = [NSString stringWithFormat:@"document.getElementById('version').innerHTML='v%@'", version];
+    [webView stringByEvaluatingJavaScriptFromString:script];    
+}
+
 @end

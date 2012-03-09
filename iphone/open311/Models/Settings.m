@@ -107,6 +107,8 @@ static id _sharedSettings = nil;
     self.last_name = [defaults objectForKey:@"last_name"] ? [defaults objectForKey:@"last_name"] : @"";
     self.email = [defaults objectForKey:@"email"] ? [defaults objectForKey:@"email"] : @"";
     self.phone = [defaults objectForKey:@"phone"] ? [defaults objectForKey:@"phone"] : @"";
+    
+    [self refreshCurrentServerFromMyServers];
 }
 
 /**
@@ -124,14 +126,33 @@ static id _sharedSettings = nil;
 {
     for (int i=0; i<[self.myServers count]; i++) {
         NSDictionary *server = [self.myServers objectAtIndex:i];
-        NSString *myJurisdiction = [server objectForKey:kJurisdictionId];
-        if (myJurisdiction) {
-            for (NSDictionary *availableServer in [self.availableServers objectForKey:@"Servers"]) {
-                NSString *availableJurisdiction = [availableServer objectForKey:kJurisdictionId];
-                if (availableJurisdiction && [myJurisdiction isEqualToString:availableJurisdiction]) {
-                    [self.myServers replaceObjectAtIndex:i withObject:availableServer];
-                    break;
-                }
+        NSString *myName = [server objectForKey:@"Name"];
+        for (NSDictionary *availableServer in [self.availableServers objectForKey:@"Servers"]) {
+            NSString *availableName = [availableServer objectForKey:@"Name"];
+            if (availableName && [myName isEqualToString:availableName]) {
+                [self.myServers replaceObjectAtIndex:i withObject:availableServer];
+                break;
+            }
+        }
+    }
+}
+/**
+ * Get fresh copy of current server
+ *
+ * This app is going to be updated over time and the defintions
+ * in AvailableServers are subject to change.  As we update
+ * URLs or api_keys for servers, we want to
+ * make sure those changes get applied to the saved state.
+ */
+- (void)refreshCurrentServerFromMyServers
+{
+    NSString *currentName = [self.currentServer objectForKey:@"Name"];
+    if (currentName) {
+        for (int i=0; i<[self.myServers count]; i++) {
+            NSDictionary *myServer = [self.myServers objectAtIndex:i];
+            NSString *myName = [myServer objectForKey:@"Name"];
+            if ([myName isEqualToString:currentName]) {
+                self.currentServer = myServer;
             }
         }
     }
