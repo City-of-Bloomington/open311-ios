@@ -18,7 +18,6 @@ extern NSString * const kServiceCode;
 
 @interface Open311 : NSObject <ASIHTTPRequestDelegate> {
     NSDictionary *currentServer;
-    NSString *params;
     NSString *jurisdiction_id;
     NSString *api_key;
 @public
@@ -27,8 +26,6 @@ extern NSString * const kServiceCode;
 }
 @property (nonatomic, retain) NSURL *baseURL;
 @property (nonatomic, retain) NSArray *services;
-
-@property (nonatomic, retain) NSString *params;
 
 + (id)sharedOpen311;
 
