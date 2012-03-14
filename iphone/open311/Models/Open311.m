@@ -13,9 +13,29 @@
 #import "SBJson.h"
 #import "Settings.h"
 
-NSString * const kJurisdictionId = @"jurisdiction_id";
-NSString * const kApiKey = @"api_key";
-NSString * const kServiceCode = @"service_code";
+// Open311 field names that we don't want to mis-type
+NSString * const kJurisdictionId	= @"jurisdiction_id";
+NSString * const kApiKey			= @"api_key";
+NSString * const kServiceCode		= @"service_code";
+NSString * const kServiceName		= @"service_name";
+NSString * const kDescription		= @"description";
+NSString * const kAttributes		= @"attributes";
+NSString * const kDatatype			= @"datatype";
+NSString * const kSingleValueList	= @"singlevaluelist";
+NSString * const kMultiValueList	= @"multivaluelist";
+NSString * const kRequired			= @"required";
+NSString * const kLat				= @"lat";
+NSString * const kLong				= @"long";
+NSString * const kAddressString		= @"address_string";
+NSString * const kFirstname			= @"first_name";
+NSString * const kLastname			= @"last_name";
+NSString * const kEmail				= @"email";
+NSString * const kPhone				= @"phone";
+NSString * const kDeviceId			= @"device_id";
+NSString * const kServiceRequestId	= @"service_request_id";
+NSString * const kToken				= @"token";
+NSString * const kAgencyResponsible	= @"agency_responsible";
+NSString * const kRequestedDateTime	= @"requested_datetime";
 
 @implementation Open311
 
