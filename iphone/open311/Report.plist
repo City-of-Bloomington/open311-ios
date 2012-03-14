@@ -3,26 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>data</key>
-	<dict>
-		<key>first_name</key>
-		<string></string>
-		<key>last_name</key>
-		<string></string>
-		<key>email</key>
-		<string></string>
-		<key>phone</key>
-		<string></string>
-		<key>address_string</key>
-		<string></string>
-		<key>description</key>
-		<string></string>
-		<key>lat</key>
-		<string></string>
-		<key>long</key>
-		<string></string>
-		<key>service_code</key>
-		<string></string>
-	</dict>
+	<dict/>
 	<key>fields</key>
 	<array>
 		<string>media</string>

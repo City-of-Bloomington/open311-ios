@@ -152,7 +152,6 @@
     if (service) {
         self.currentService = service;
         
-        
         [self.navigationItem setTitle:[self.currentService objectForKey:kServiceName]];
         [self initReportForm];
         [self loadServiceDefinition:[self.currentService objectForKey:kServiceCode]];
@@ -180,17 +179,8 @@
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
     [data setObject:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
 
-    Settings *settings = [Settings sharedSettings];
-    NSString *jurisdiction_id = [settings.currentServer objectForKey:kJurisdictionId];
-    if (jurisdiction_id) {
-        [data setObject:jurisdiction_id forKey:kJurisdictionId];
-    }
-    NSString *api_key = [settings.currentServer objectForKey:kApiKey];
-    if (api_key) {
-        [data setObject:api_key forKey:kApiKey];
-    }
-    
     // Load the user's firstname, lastname, email, and phone number
+    Settings *settings = [Settings sharedSettings];
     [data setObject:settings.first_name	forKey:kFirstname];
     [data setObject:settings.last_name	forKey:kLastname];
     [data setObject:settings.email		forKey:kEmail];
@@ -201,7 +191,6 @@
     if (!supports_media || [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]==NO) {
         DLog(@"Removing media support");
         [[self.reportForm objectForKey:@"fields"] removeObjectAtIndex:0];
-        [data removeObjectForKey:@"media"];
     }
 
     [reportTableView reloadData];
@@ -300,12 +289,11 @@
     DLog(@"Creating POST to %@", url);
     ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL:url];
     
-    if ([data objectForKey:kJurisdictionId]) {
-        [post setPostValue:[data objectForKey:kJurisdictionId] forKey:kJurisdictionId];
-    }
-    if ([data objectForKey:kApiKey]) {
-        [post setPostValue:[data objectForKey:kApiKey] forKey:kApiKey];
-    }
+    Settings *settings = [Settings sharedSettings];
+    NSString *jurisdiction_id	= [settings.currentServer objectForKey:kJurisdictionId];
+    NSString *api_key			= [settings.currentServer objectForKey:kApiKey];
+    if (jurisdiction_id)	[post setPostValue:jurisdiction_id	forKey:kJurisdictionId];
+    if (api_key)			[post setPostValue:api_key			forKey:kApiKey];
     
     // Handle all the normal arguments
     [post setPostValue:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
@@ -444,8 +432,8 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (self.currentService) {
-        NSString *serviceDescription = [self.currentService objectForKey:kDescription];
-        NSString *serviceName = [self.currentService objectForKey:kServiceName];
+        NSString *serviceDescription	= [self.currentService objectForKey:kDescription];
+        NSString *serviceName			= [self.currentService objectForKey:kServiceName];
         NSString *title;
         
         DLog(@"Loaded service description: %@", serviceDescription);
@@ -557,41 +545,40 @@
         }
     }
     if ([type isEqualToString:@"location"]) {
-        LocationChooserViewController *chooseLocation = [[LocationChooserViewController alloc] initWithReport:self.reportForm];
-        [chooseLocation setLocator:self.locator];
-        [self.navigationController pushViewController:chooseLocation animated:YES];
-        [chooseLocation release];
+        LocationChooserViewController *c = [[LocationChooserViewController alloc] initWithReport:self.reportForm];
+        [c setLocator:self.locator];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"text"]) {
-        TextFieldViewController *editTextController = [[TextFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:editTextController animated:YES];
-        [editTextController release];
+        TextFieldViewController *c = [[TextFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"string"]) {
-        StringFieldViewController *editStringController = [[StringFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:editStringController animated:YES];
-        [editStringController release];
+        StringFieldViewController *c = [[StringFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"number"]) {
-        NumberFieldViewController *editNumberController = [[NumberFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:editNumberController animated:YES];
-        [editNumberController release];
-        
+        NumberFieldViewController *c = [[NumberFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"datetime"]) {
-        DateFieldViewController *dateController = [[DateFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:dateController animated:YES];
-        [dateController release];
+        DateFieldViewController *c = [[DateFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:kSingleValueList]) {
-        SelectSingleViewController *selectController = [[SelectSingleViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:selectController animated:YES];
-        [selectController release];
+        SelectSingleViewController *c = [[SelectSingleViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:kMultiValueList]) {
-        SelectMultipleViewController *multiController = [[SelectMultipleViewController alloc] initWithFieldname:fieldname report:reportForm];
-        [self.navigationController pushViewController:multiController animated:YES];
-        [multiController release];
+        SelectMultipleViewController *c = [[SelectMultipleViewController alloc] initWithFieldname:fieldname report:reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
 }
 
