@@ -6,50 +6,70 @@
 	<dict/>
 	<key>fields</key>
 	<array>
-		<string>media</string>
-		<string>address_string</string>
-		<string>description</string>
-		<string>first_name</string>
-		<string>last_name</string>
-		<string>email</string>
-		<string>phone</string>
+		<array>
+			<dict>
+				<key>fieldname</key>
+				<string>media</string>
+				<key>label</key>
+				<string>Take a photo</string>
+				<key>type</key>
+				<string>media</string>
+			</dict>
+			<dict>
+				<key>fieldname</key>
+				<string>address_string</string>
+				<key>label</key>
+				<string>Choose a location</string>
+				<key>type</key>
+				<string>location</string>
+			</dict>
+		</array>
+		<array>
+			<dict>
+				<key>fieldname</key>
+				<string>description</string>
+				<key>label</key>
+				<string>Description</string>
+				<key>type</key>
+				<string>text</string>
+			</dict>
+		</array>
+		<array/>
+		<array>
+			<dict>
+				<key>fieldname</key>
+				<string>first_name</string>
+				<key>label</key>
+				<string>Firstname</string>
+				<key>type</key>
+				<string>string</string>
+			</dict>
+			<dict>
+				<key>fieldname</key>
+				<string>last_name</string>
+				<key>label</key>
+				<string>Lastname</string>
+				<key>type</key>
+				<string>string</string>
+			</dict>
+			<dict>
+				<key>fieldname</key>
+				<string>email</string>
+				<key>label</key>
+				<string>Email</string>
+				<key>type</key>
+				<string>string</string>
+			</dict>
+			<dict>
+				<key>fieldname</key>
+				<string>phone</string>
+				<key>label</key>
+				<string>Phone</string>
+				<key>type</key>
+				<string>string</string>
+			</dict>
+		</array>
 	</array>
-	<key>labels</key>
-	<dict>
-		<key>address_string</key>
-		<string>Choose a Location</string>
-		<key>description</key>
-		<string>Description</string>
-		<key>media</key>
-		<string>Take a Photo</string>
-		<key>first_name</key>
-		<string>Firstname</string>
-		<key>last_name</key>
-		<string>Lastname</string>
-		<key>email</key>
-		<string>Email</string>
-		<key>phone</key>
-		<string>Phone</string>
-	</dict>
-	<key>types</key>
-	<dict>
-		<key>first_name</key>
-		<string>string</string>
-		<key>last_name</key>
-		<string>string</string>
-		<key>email</key>
-		<string>string</string>
-		<key>phone</key>
-		<string>number</string>
-		<key>address_string</key>
-		<string>location</string>
-		<key>description</key>
-		<string>text</string>
-		<key>media</key>
-		<string>media</string>
-	</dict>
-	<key>values</key>
-	<dict/>
 	<key>requiredFields</key>
 	<array/>
 </dict>

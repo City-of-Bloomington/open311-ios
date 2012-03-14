@@ -1,5 +1,5 @@
 /**
- * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @copyright 2011-2012 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
@@ -31,7 +31,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     DLog(@"Loading values for %@",self.fieldname);
-    values = [[self.reportForm objectForKey:@"values"] objectForKey:self.fieldname];
+    values = [self.entry objectForKey:@"values"];
     [super viewWillAppear:animated];
 }
 

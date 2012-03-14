@@ -1,5 +1,5 @@
 /**
- * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @copyright 2011-2012 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
@@ -18,8 +18,9 @@
 @property (nonatomic, retain) NSString *fieldname;
 @property (nonatomic, retain) NSString *previousText;
 @property (nonatomic, retain) NSMutableDictionary *reportForm;
+@property (nonatomic, retain) NSDictionary *entry;
 
-- (id)initWithFieldname:(NSString *)field report:(NSMutableDictionary *)report;
+- (id)initWithReportFormEntry:(NSDictionary *)reportEntry report:(NSMutableDictionary *)report;
 - (void)cancel;
 - (void)done;
 

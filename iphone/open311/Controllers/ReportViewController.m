@@ -13,7 +13,7 @@
  * When we're ready to POST, we just have to read through 
  * reportForm[data] for the data to submit.
  *
- * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @copyright 2011-2012 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
@@ -35,6 +35,12 @@
 #import "DateFieldViewController.h"
 #import "SelectSingleViewController.h"
 #import "SelectMultipleViewController.h"
+
+// We're organizing the table view into these sections
+int const kLocationSection   = 0;
+int const kProblemSection    = 1;
+int const kAdditionalSection = 2;
+int const kPersonalSection   = 3;
 
 @implementation ReportViewController
 
@@ -190,7 +196,7 @@
     BOOL supports_media = [[settings.currentServer objectForKey:@"supports_media"] boolValue];
     if (!supports_media || [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]==NO) {
         DLog(@"Removing media support");
-        [[self.reportForm objectForKey:@"fields"] removeObjectAtIndex:0];
+        [[[self.reportForm objectForKey:@"fields"] objectAtIndex:kLocationSection] removeObjectAtIndex:0];
     }
 
     [reportTableView reloadData];
@@ -234,22 +240,28 @@
     
     self.serviceMessages = @"";
     
-    for (NSDictionary *attribute in [self.service_definition objectForKey:kAttributes]) {
+    NSMutableArray *attributeFields = [[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection];
+	
+	for (NSDictionary *attribute in [self.service_definition objectForKey:kAttributes]) {
         NSString *code = [attribute objectForKey:@"code"];
         DLog(@"Attribute found: %@",code);
         if ([[attribute objectForKey:@"variable"] boolValue]) {
-            [[self.reportForm objectForKey:@"fields"] addObject:code];
-            [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:kDescription] forKey:code];
-            [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:kDatatype] forKey:code];
+            NSMutableDictionary *entry = [[NSMutableDictionary alloc] init];
+            [entry setObject:code                                   forKey:@"fieldname"];
+            [entry setObject:[attribute objectForKey:kDescription]  forKey:@"label"];
+            [entry setObject:[attribute objectForKey:kDatatype]     forKey:@"type"];
+            
             if ([[attribute objectForKey:kRequired] boolValue]) {
                 [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
             }
             
             NSDictionary *values = [attribute objectForKey:@"values"];
             if (values) {
-                [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
+                [entry setObject:values forKey:@"values"];
                 DLog(@"Added values for %@",code);
             }
+            [attributeFields addObject:entry];
+            [entry release];
         }
         else {
             self.serviceMessages = [self.serviceMessages stringByAppendingFormat:@"\n%@", [attribute objectForKey:kDescription]];
@@ -271,7 +283,6 @@
 }
 
 #pragma mark - Report Posting
-
 /**
  * Sends the report to the Open311 server
  *
@@ -316,11 +327,11 @@
     
     // Handle any custom attributes in the service definition
     if (self.service_definition) {
-        for (NSDictionary *attribute in [self.service_definition objectForKey:kAttributes]) {
-            NSString *code = [attribute objectForKey:@"code"];
+        for (NSDictionary *entry in [[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection]) {
+            NSString *code = [entry objectForKey:@"fieldname"];
+            NSString *type = [entry objectForKey:@"type"];
             
             // singlevaluelist and multivaluelist need special handling, but all the rest are just strings
-            NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:code];
             if ([type isEqualToString:kMultiValueList]) {
                 for (NSDictionary *value in [data objectForKey:code]) {
                     [post addPostValue:[value objectForKey:@"key"] forKey:[NSString stringWithFormat:@"attribute[%@][]",code]];
@@ -334,8 +345,6 @@
             }
         }
     }
-    // Handle any Media that's been attached
-    // Todo:
     
     // Send in the POST
     [post setDelegate:self];
@@ -426,12 +435,12 @@
 #pragma mark - Table View Handlers
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection] count]==0 ? 3 : 4;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (self.currentService) {
+    if (section == kLocationSection && self.currentService) {
         NSString *serviceDescription	= [self.currentService objectForKey:kDescription];
         NSString *serviceName			= [self.currentService objectForKey:kServiceName];
         NSString *title;
@@ -449,12 +458,14 @@
         }
         return title;
     }
-    return @"Choose a service to report to";
+    else {
+        return section==kLocationSection ? @"Choose a service to report to" : nil;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.reportForm objectForKey:@"fields"] count];
+    return [[[self.reportForm objectForKey:@"fields"] objectAtIndex:[self transpose:section]] count];
 }
 
 /**
@@ -470,10 +481,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
     
-    NSString *fieldname = [[self.reportForm objectForKey:@"fields"] objectAtIndex:indexPath.row];
-    NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:fieldname];
+    NSDictionary *entry = [[[self.reportForm objectForKey:@"fields"] objectAtIndex:[self transpose:indexPath.section]] objectAtIndex:indexPath.row];
+    NSString *fieldname = [entry objectForKey:@"fieldname"];
+    NSString *type      = [entry objectForKey:@"type"];
     
-    cell.textLabel.text = [[self.reportForm objectForKey:@"labels"] objectForKey:fieldname];
+    cell.textLabel.text = [entry objectForKey:@"label"];
     cell.detailTextLabel.text = nil;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.imageView.image = nil;
@@ -532,8 +544,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     // Find out what data type the row is and display the appropriate view
-    NSString *fieldname = [[self.reportForm objectForKey:@"fields"] objectAtIndex:indexPath.row];
-    NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:fieldname];
+    NSDictionary *entry = [[[self.reportForm objectForKey:@"fields"] objectAtIndex:[self transpose:indexPath.section]] objectAtIndex:indexPath.row];
+    NSString *type      = [entry objectForKey:@"type"];
     if ([type isEqualToString:@"media"]) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -551,32 +563,32 @@
         [c release];
     }
     if ([type isEqualToString:@"text"]) {
-        TextFieldViewController *c = [[TextFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        TextFieldViewController      *c = [[TextFieldViewController      alloc] initWithReportFormEntry:entry report:self.reportForm];
         [self.navigationController pushViewController:c animated:YES];
         [c release];
     }
     if ([type isEqualToString:@"string"]) {
-        StringFieldViewController *c = [[StringFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        StringFieldViewController    *c = [[StringFieldViewController    alloc] initWithReportFormEntry:entry report:self.reportForm];
         [self.navigationController pushViewController:c animated:YES];
         [c release];
     }
     if ([type isEqualToString:@"number"]) {
-        NumberFieldViewController *c = [[NumberFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        NumberFieldViewController    *c = [[NumberFieldViewController    alloc] initWithReportFormEntry:entry report:self.reportForm];
         [self.navigationController pushViewController:c animated:YES];
         [c release];
     }
     if ([type isEqualToString:@"datetime"]) {
-        DateFieldViewController *c = [[DateFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        DateFieldViewController      *c = [[DateFieldViewController      alloc] initWithReportFormEntry:entry report:self.reportForm];
         [self.navigationController pushViewController:c animated:YES];
         [c release];
     }
     if ([type isEqualToString:kSingleValueList]) {
-        SelectSingleViewController *c = [[SelectSingleViewController alloc] initWithFieldname:fieldname report:self.reportForm];
+        SelectSingleViewController   *c = [[SelectSingleViewController   alloc] initWithReportFormEntry:entry report:self.reportForm];
         [self.navigationController pushViewController:c animated:YES];
         [c release];
     }
     if ([type isEqualToString:kMultiValueList]) {
-        SelectMultipleViewController *c = [[SelectMultipleViewController alloc] initWithFieldname:fieldname report:reportForm];
+        SelectMultipleViewController *c = [[SelectMultipleViewController alloc] initWithReportFormEntry:entry report:self.reportForm];
         [self.navigationController pushViewController:c animated:YES];
         [c release];
     }
@@ -649,4 +661,24 @@
     // The only thing that matters on submission will be the lat/long
 }
 
+# pragma mark - Internal Helper Functions
+/**
+ * Transposes the section number based on whether there's Additional Info or not
+ *
+ * Services might not have addition attributes.  If the current service does not
+ * have any attributes, there's no reason to display an empty Table Section 
+ * for Addtional Info.  In this case, we just change the section number to point
+ * to the Personal Info fields inside the reportForm.
+ *
+ * @param NSInteger section This is usually indexPath.section
+ * @return int
+ */
+- (int)transpose:(NSInteger)section
+{
+    if (section == kAdditionalSection 
+        && [[[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection] count]==0)  {
+        section = kPersonalSection;
+    }
+    return section;
+}
 @end

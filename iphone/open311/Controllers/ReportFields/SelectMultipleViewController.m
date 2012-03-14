@@ -1,5 +1,5 @@
 /**
- * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @copyright 2011-2012 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
@@ -45,7 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    values = [[self.reportForm objectForKey:@"values"] objectForKey:self.fieldname];
+    values = [self.entry objectForKey:@"values"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -71,7 +71,7 @@
  */
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[self.reportForm objectForKey:@"labels"] objectForKey:self.fieldname];
+    return [self.entry objectForKey:@"label"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -102,12 +102,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (cell.accessoryType == UITableViewCellAccessoryNone) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    cell.accessoryType = (cell.accessoryType == UITableViewCellAccessoryNone)
+        ? UITableViewCellAccessoryCheckmark
+        : UITableViewCellAccessoryNone;
 }
 
 @end

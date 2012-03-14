@@ -1,5 +1,5 @@
 /**
- * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @copyright 2011-2012 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
@@ -16,6 +16,12 @@
 #import "ASIFormDataRequest.h"
 #import "BusyViewController.h"
 #import "ChooseGroupViewController.h"
+
+// We're organizing the table view into these sections
+extern int const kLocationSection;
+extern int const kProblemSection;
+extern int const kAdditionalSection;
+extern int const kPersonalSection;
 
 @interface ReportViewController : UIViewController <UINavigationControllerDelegate,
                                                     UITableViewDelegate,
@@ -46,4 +52,5 @@
 - (void)handlePostReportSuccess:(ASIFormDataRequest *)post;
 - (void)handlePostReportFailure:(ASIFormDataRequest *)post;
 
+- (int)transpose:(NSInteger)section;
 @end
