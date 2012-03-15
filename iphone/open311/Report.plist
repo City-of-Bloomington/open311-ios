@@ -11,7 +11,7 @@
 				<key>fieldname</key>
 				<string>media</string>
 				<key>label</key>
-				<string>Take a photo</string>
+				<string>Add Photo</string>
 				<key>type</key>
 				<string>media</string>
 			</dict>
@@ -19,7 +19,7 @@
 				<key>fieldname</key>
 				<string>address_string</string>
 				<key>label</key>
-				<string>Choose a location</string>
+				<string>Location</string>
 				<key>type</key>
 				<string>location</string>
 			</dict>

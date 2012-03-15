@@ -27,6 +27,7 @@ extern int const kPersonalSection;
                                                     UITableViewDelegate,
                                                     UITableViewDataSource,
                                                     UIImagePickerControllerDelegate,
+                                                    UIActionSheetDelegate,
                                                     ServiceChooserDelegate,
                                                     MKReverseGeocoderDelegate> {
     

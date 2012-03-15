@@ -24,6 +24,7 @@
  */
 
 #import <AddressBook/AddressBook.h>
+#import <MobileCoreServices/UTCoreTypes.h>
 #import "ReportViewController.h"
 #import "Settings.h"
 #import "Open311.h"
@@ -548,12 +549,14 @@ int const kPersonalSection   = 3;
     NSString *type      = [entry objectForKey:@"type"];
     if ([type isEqualToString:@"media"]) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            picker.delegate = self;
-            picker.allowsEditing = NO;
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            [self presentModalViewController:picker animated:YES];
-            [picker release];
+            UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+            popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+            [popup addButtonWithTitle:@"Take Photo"];
+            [popup addButtonWithTitle:@"Choose From Library"];
+            [popup addButtonWithTitle:@"Cancel"];
+            popup.cancelButtonIndex = 2;
+            [popup showInView:self.view];
+            [popup release];
         }
     }
     if ([type isEqualToString:@"location"]) {
@@ -595,6 +598,20 @@ int const kPersonalSection   = 3;
 }
 
 #pragma mark - Image Choosing Functions
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != 2) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = NO;
+        picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
+        picker.sourceType = buttonIndex == 0
+            ? UIImagePickerControllerSourceTypeCamera
+            : UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentModalViewController:picker animated:YES];
+        [picker release];
+    }
+}
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
