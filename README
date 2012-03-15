@@ -8,5 +8,5 @@ Development Configuration
 ------------------------------
 In order to compile, this app requires an AvailableServers.plist.  An example file is included: /iphone/open311/AvailableServers.example.plist.  You'll need to rename this file to AvailableServers.plist and edit it as needed.  This plist describes all the endpoints you want the app to work with.
 
-Open311 endpoints require api_keys for communication.  You'll need to communicate with receive a separate api_key for each endpoint you want to work with.  The current list of known endpoints is maintained at:
+Open311 endpoints require api_keys for communication.  You'll need to receive a separate api_key for each endpoint you want to work with.  The current list of known endpoints is maintained at:
 http://wiki.open311.org/GeoReport_v2/Servers
