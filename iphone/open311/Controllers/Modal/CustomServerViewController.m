@@ -37,6 +37,7 @@
     [url release];
     [jurisdiction release];
     [api_key release];
+    [mediaSwitch release];
     [super dealloc];
 }
 
@@ -58,6 +59,8 @@
     jurisdiction = nil;
     [api_key release];
     api_key = nil;
+    [mediaSwitch release];
+    mediaSwitch = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -104,6 +107,7 @@
     if ([api_key.text length]!=0) {
         [temp setObject:api_key.text forKey:kApiKey];
     }
+    [temp setValue:[NSNumber numberWithBool:[mediaSwitch isOn]] forKey:@"supports_media"];
     
     [delegate didAddServer:[NSDictionary dictionaryWithDictionary:temp]];
     [temp release];
