@@ -189,7 +189,7 @@
         // If we only had a token, the response will only include a request_id
         // Update the request_id in the report, and send another query for the full information
         else if ([service_request objectForKey:kServiceRequestId]) {
-            [report setObject:[service_request objectForKey:kServiceRequestId] forKey:kServiceRequestId];
+            [report setObject:[NSString stringWithFormat:@"%@",[service_request objectForKey:kServiceRequestId]] forKey:kServiceRequestId];
             [self saveReport];
             [self queryServerForReportInformation];
         }

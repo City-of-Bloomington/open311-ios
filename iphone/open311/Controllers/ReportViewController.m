@@ -161,7 +161,7 @@ int const kPersonalSection   = 3;
         
         [self.navigationItem setTitle:[self.currentService objectForKey:kServiceName]];
         [self initReportForm];
-        [self loadServiceDefinition:[self.currentService objectForKey:kServiceCode]];
+        [self loadServiceDefinition:[NSString stringWithFormat:@"%@",[self.currentService objectForKey:kServiceCode]]];
     }
 }
 
@@ -184,7 +184,7 @@ int const kPersonalSection   = 3;
     error = nil;
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
-    [data setObject:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
+    [data setObject:[NSString stringWithFormat:@"%@",[self.currentService objectForKey:kServiceCode]] forKey:kServiceCode];
 
     // Load the user's firstname, lastname, email, and phone number
     Settings *settings = [Settings sharedSettings];
@@ -244,7 +244,7 @@ int const kPersonalSection   = 3;
     NSMutableArray *attributeFields = [[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection];
 	
 	for (NSDictionary *attribute in [self.service_definition objectForKey:kAttributes]) {
-        NSString *code = [attribute objectForKey:@"code"];
+        NSString *code = [NSString stringWithFormat:@"%@",[attribute objectForKey:@"code"]];
         DLog(@"Attribute found: %@",code);
         if ([[attribute objectForKey:@"variable"] boolValue]) {
             NSMutableDictionary *entry = [[NSMutableDictionary alloc] init];
@@ -308,7 +308,7 @@ int const kPersonalSection   = 3;
     if (api_key)			[post setPostValue:api_key			forKey:kApiKey];
     
     // Handle all the normal arguments
-    [post setPostValue:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
+    [post setPostValue:[NSString stringWithFormat:@"%@",[self.currentService objectForKey:kServiceCode]] forKey:kServiceCode];
     [post setPostValue:[[UIDevice currentDevice] uniqueIdentifier] forKey:kDeviceId];
     [post setPostValue:[data objectForKey:@"lat"]				forKey:kLat];
     [post setPostValue:[data objectForKey:@"long"]				forKey:kLong];
@@ -375,8 +375,11 @@ int const kPersonalSection   = 3;
         NSArray *service_requests = [[post responseString] JSONValue];
         if (service_requests != nil) {
             NSDictionary *request = [service_requests objectAtIndex:0];
-            NSString *service_request_id = [request objectForKey:kServiceRequestId] ? [request objectForKey:kServiceRequestId] : @"";
-            NSString *token = [request objectForKey:kToken] ? [request objectForKey:kToken] : @"";
+            
+            // JSON data values may be various data types (string, int).
+            // Make sure to cast them as strings before using them.
+            NSString *service_request_id = [NSString stringWithFormat:@"%@",[request objectForKey:kServiceRequestId] ? [request objectForKey:kServiceRequestId] : @""];
+            NSString *token = [NSString stringWithFormat:@"%@",[request objectForKey:kToken] ? [request objectForKey:kToken] : @""];
             
             NSArray *storedData = [NSArray arrayWithObjects:
                                    [[Settings sharedSettings] currentServer],

@@ -188,7 +188,8 @@ static id _sharedOpen311 = nil;
  */
 - (NSURL *)getPostServiceRequestURL
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/requests.json",[currentServer objectForKey:@"URL"]]];
+    NSURL *url = [[[NSURL alloc] initWithScheme:[self.baseURL scheme] host:[self.baseURL host] path:[self.baseURL path]] autorelease];
+    return [url URLByAppendingPathComponent:@"requests.json"];
 }
 
 /**
