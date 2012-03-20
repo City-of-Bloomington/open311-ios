@@ -7,4 +7,4 @@ Open311 GeoReport v2 is an open standard for sharing non-emergency issues in pub
 The current version of the specification is documented at http://wiki.open311.org/GeoReport_v2
 
 # Documentation
-We're using the [[Wiki|https://github.com/City-of-Bloomington/open311-mobile/wiki]] here on GitHub for all documentation
+We're using the [Wiki](https://github.com/City-of-Bloomington/open311-mobile/wiki) here on GitHub for all documentation
