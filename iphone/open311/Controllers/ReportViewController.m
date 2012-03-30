@@ -388,7 +388,7 @@ int const kPersonalSection   = 3;
                                    token,
                                    [NSDate date], nil];
             NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", kServiceRequestId, kToken, @"date", nil];
-            [[[Settings sharedSettings] myRequests] addObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
+            [[[Settings sharedSettings] myRequests] insertObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys] atIndex:0];
             DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
