@@ -44,6 +44,8 @@
  * Loads all the distinct groups from the service list
  *
  * For services without a group, we'll create a group called , "Other"
+ * Do not sort the groups.  Open311 servers will have their own ordering
+ * in the service list.  We don't want to override their ordering.
  */
 - (void)loadGroups
 {
@@ -65,7 +67,6 @@
             [self.groups addObject:group];
         }
     }
-    self.groups = [NSMutableArray arrayWithArray:[self.groups sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
     if (hasOther) {
         [self.groups addObject:@"Other"];
     }
