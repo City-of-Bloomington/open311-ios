@@ -1,5 +1,5 @@
 /**
- * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @copyright 2011-2012 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
@@ -12,29 +12,26 @@
 #import "BaseFieldViewController.h"
 
 @implementation BaseFieldViewController
-@synthesize fieldname,previousText,reportForm;
+@synthesize fieldname, previousText, reportForm, entry;
 
-- (id)initWithFieldname:(NSString *)field report:(NSMutableDictionary *)report
+- (id)initWithReportFormEntry:(NSDictionary *)reportEntry report:(NSMutableDictionary *)report
 {
     self = [super init];
     if (self) {
+        self.entry = reportEntry;
         self.reportForm = report;
-        self.fieldname = field;
+        self.fieldname = [self.entry objectForKey:@"fieldname"];
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [entry release];
     [fieldname release];
     [reportForm release];
     [label release];
     [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 # pragma mark - Button Handling Functions
@@ -81,7 +78,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    label.text = [[self.reportForm objectForKey:@"labels"] objectForKey:self.fieldname];
+    label.text = [self.entry objectForKey:@"label"];
     [BaseFieldViewController resizeFontForLabel:label maxSize:17 minSize:10];
     [super viewWillAppear:animated];
 }

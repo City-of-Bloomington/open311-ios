@@ -22,6 +22,7 @@
     IBOutlet UITextField *url;
     IBOutlet UITextField *jurisdiction;
     IBOutlet UITextField *api_key;
+    IBOutlet UISwitch *mediaSwitch;
 }
 
 @property (nonatomic, retain) id <CustomServerAddDelegate> delegate;

@@ -12,13 +12,33 @@
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequest.h"
 
+// Open311 field names that we don't want to mis-type
 extern NSString * const kJurisdictionId;
 extern NSString * const kApiKey;
 extern NSString * const kServiceCode;
+extern NSString * const kServiceName;
+extern NSString * const kDescription;
+extern NSString * const kAttributes;
+extern NSString * const kDatatype;
+extern NSString * const kSingleValueList;
+extern NSString * const kMultiValueList;
+extern NSString * const kRequired;
+extern NSString * const kLat;
+extern NSString * const kLong;
+extern NSString * const kAddressString;
+extern NSString * const kFirstname;
+extern NSString * const kLastname;
+extern NSString * const kEmail;
+extern NSString * const kPhone;
+extern NSString * const kDeviceId;
+extern NSString * const kServiceRequestId;
+extern NSString * const kToken;
+extern NSString * const kAgencyResponsible;
+extern NSString * const kRequestedDateTime;
+
 
 @interface Open311 : NSObject <ASIHTTPRequestDelegate> {
     NSDictionary *currentServer;
-    NSString *params;
     NSString *jurisdiction_id;
     NSString *api_key;
 @public
@@ -27,8 +47,6 @@ extern NSString * const kServiceCode;
 }
 @property (nonatomic, retain) NSURL *baseURL;
 @property (nonatomic, retain) NSArray *services;
-
-@property (nonatomic, retain) NSString *params;
 
 + (id)sharedOpen311;
 

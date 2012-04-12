@@ -101,11 +101,11 @@
     Open311 *open311 = [Open311 sharedOpen311];
     NSURL *url = [NSURL alloc];
     
-    if ([[report objectForKey:@"service_request_id"] length] != 0) {
-        url = [open311 getServiceRequestURL:[report objectForKey:@"service_request_id"]];
+    if ([[report objectForKey:kServiceRequestId] length] != 0) {
+        url = [open311 getServiceRequestURL:[report objectForKey:kServiceRequestId]];
     }
     else {
-        url = [open311 getRequestIdURL:[report objectForKey:@"token"]];
+        url = [open311 getRequestIdURL:[report objectForKey:kToken]];
     }
     
     DLog(@"Loading %@", url);
@@ -122,7 +122,7 @@
  */
 - (void)refreshViewWithReportData
 {
-    NSString *service_name = [[report objectForKey:@"service"] objectForKey:@"service_name"];
+    NSString *service_name = [[report objectForKey:@"service"] objectForKey:kServiceName];
     [self.navigationItem setTitle:service_name];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -134,7 +134,7 @@
     serviceName.text = service_name;
     status.text = [report objectForKey:@"status"] ? [report objectForKey:@"status"] : @"";
     address.text = [report objectForKey:@"address"] ? [report objectForKey:@"address"] : @"";
-    department.text = [report objectForKey:@"agency_responsible"] ? [report objectForKey:@"agency_responsible"] : @"";
+    department.text = [report objectForKey:kAgencyResponsible] ? [report objectForKey:kAgencyResponsible] : @"";
     
     if ([status.text isEqualToString:@"closed"]) {
         status.textColor = [UIColor greenColor];
@@ -162,13 +162,13 @@
     NSArray *data = [[request responseString] JSONValue];
     NSDictionary *service_request = [data objectAtIndex:0];
     if (service_request) {
-        NSString *service_name = [service_request objectForKey:@"service_name"];
+        NSString *service_name = [service_request objectForKey:kServiceName];
         // Handle a response that has full report data
         if (service_name) {
-            [report setObject:service_name forKey:@"service_name"];
+            [report setObject:service_name forKey:kServiceName];
             
-            if ([service_request objectForKey:@"requested_datetime"] != [NSNull null]) {
-                [report setObject:[service_request objectForKey:@"requested_datetime"] forKey:@"requested_datetime"];
+            if ([service_request objectForKey:kRequestedDateTime] != [NSNull null]) {
+                [report setObject:[service_request objectForKey:kRequestedDateTime] forKey:kRequestedDateTime];
             }
             if ([service_request objectForKey:@"status"] != [NSNull null]) {
                 [report setObject:[service_request objectForKey:@"status"] forKey:@"status"];
@@ -176,8 +176,8 @@
             if ([service_request objectForKey:@"address"] != [NSNull null]) {
                 [report setObject:[service_request objectForKey:@"address"] forKey:@"address"];
             }
-            if ([service_request objectForKey:@"agency_responsible"] != [NSNull null]) {
-                [report setObject:[service_request objectForKey:@"agency_responsible"] forKey:@"agency_responsible"];
+            if ([service_request objectForKey:kAgencyResponsible] != [NSNull null]) {
+                [report setObject:[service_request objectForKey:kAgencyResponsible] forKey:kAgencyResponsible];
             }
             if ([service_request objectForKey:@"media_url"] != [NSNull null]) {
                 [report setObject:[service_request objectForKey:@"media_url"] forKey:@"media_url"];
@@ -188,8 +188,8 @@
         }
         // If we only had a token, the response will only include a request_id
         // Update the request_id in the report, and send another query for the full information
-        else if ([service_request objectForKey:@"service_request_id"]) {
-            [report setObject:[service_request objectForKey:@"service_request_id"] forKey:@"service_request_id"];
+        else if ([service_request objectForKey:kServiceRequestId]) {
+            [report setObject:[NSString stringWithFormat:@"%@",[service_request objectForKey:kServiceRequestId]] forKey:kServiceRequestId];
             [self saveReport];
             [self queryServerForReportInformation];
         }
@@ -222,7 +222,7 @@
     if ([request responseString]) {
         DLog(@"%@",[request responseString]);
         NSArray *errors = [[request responseString] JSONValue];
-        NSString *description = [[errors objectAtIndex:0] objectForKey:@"description"];
+        NSString *description = [[errors objectAtIndex:0] objectForKey:kDescription];
         if (description) {
             message = description;
         }

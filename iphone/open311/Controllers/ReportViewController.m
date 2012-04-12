@@ -13,7 +13,7 @@
  * When we're ready to POST, we just have to read through 
  * reportForm[data] for the data to submit.
  *
- * @copyright 2011 City of Bloomington, Indiana. All Rights Reserved
+ * @copyright 2011-2012 City of Bloomington, Indiana. All Rights Reserved
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
@@ -24,6 +24,7 @@
  */
 
 #import <AddressBook/AddressBook.h>
+#import <MobileCoreServices/UTCoreTypes.h>
 #import "ReportViewController.h"
 #import "Settings.h"
 #import "Open311.h"
@@ -35,6 +36,12 @@
 #import "DateFieldViewController.h"
 #import "SelectSingleViewController.h"
 #import "SelectMultipleViewController.h"
+
+// We're organizing the table view into these sections
+int const kLocationSection   = 0;
+int const kProblemSection    = 1;
+int const kAdditionalSection = 2;
+int const kPersonalSection   = 3;
 
 @implementation ReportViewController
 
@@ -152,10 +159,9 @@
     if (service) {
         self.currentService = service;
         
-        
-        [self.navigationItem setTitle:[self.currentService objectForKey:@"service_name"]];
+        [self.navigationItem setTitle:[self.currentService objectForKey:kServiceName]];
         [self initReportForm];
-        [self loadServiceDefinition:[self.currentService objectForKey:kServiceCode]];
+        [self loadServiceDefinition:[NSString stringWithFormat:@"%@",[self.currentService objectForKey:kServiceCode]]];
     }
 }
 
@@ -178,30 +184,20 @@
     error = nil;
     
     NSMutableDictionary *data = [self.reportForm objectForKey:@"data"];
-    [data setObject:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
+    [data setObject:[NSString stringWithFormat:@"%@",[self.currentService objectForKey:kServiceCode]] forKey:kServiceCode];
 
-    Settings *settings = [Settings sharedSettings];
-    NSString *jurisdiction_id = [settings.currentServer objectForKey:kJurisdictionId];
-    if (jurisdiction_id) {
-        [data setObject:jurisdiction_id forKey:kJurisdictionId];
-    }
-    NSString *api_key = [settings.currentServer objectForKey:kApiKey];
-    if (api_key) {
-        [data setObject:api_key forKey:kApiKey];
-    }
-    
     // Load the user's firstname, lastname, email, and phone number
-    [data setObject:settings.first_name forKey:@"first_name"];
-    [data setObject:settings.last_name forKey:@"last_name"];
-    [data setObject:settings.email forKey:@"email"];
-    [data setObject:settings.phone forKey:@"phone"];
+    Settings *settings = [Settings sharedSettings];
+    [data setObject:settings.first_name	forKey:kFirstname];
+    [data setObject:settings.last_name	forKey:kLastname];
+    [data setObject:settings.email		forKey:kEmail];
+    [data setObject:settings.phone		forKey:kPhone];
     
     // Remove Media uploading for servers that don't support it
     BOOL supports_media = [[settings.currentServer objectForKey:@"supports_media"] boolValue];
     if (!supports_media || [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]==NO) {
         DLog(@"Removing media support");
-        [[self.reportForm objectForKey:@"fields"] removeObjectAtIndex:0];
-        [data removeObjectForKey:@"media"];
+        [[[self.reportForm objectForKey:@"fields"] objectAtIndex:kLocationSection] removeObjectAtIndex:0];
     }
 
     [reportTableView reloadData];
@@ -245,25 +241,31 @@
     
     self.serviceMessages = @"";
     
-    for (NSDictionary *attribute in [self.service_definition objectForKey:@"attributes"]) {
-        NSString *code = [attribute objectForKey:@"code"];
+    NSMutableArray *attributeFields = [[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection];
+	
+	for (NSDictionary *attribute in [self.service_definition objectForKey:kAttributes]) {
+        NSString *code = [NSString stringWithFormat:@"%@",[attribute objectForKey:@"code"]];
         DLog(@"Attribute found: %@",code);
         if ([[attribute objectForKey:@"variable"] boolValue]) {
-            [[self.reportForm objectForKey:@"fields"] addObject:code];
-            [[self.reportForm objectForKey:@"labels"] setObject:[attribute objectForKey:@"description"] forKey:code];
-            [[self.reportForm objectForKey:@"types"] setObject:[attribute objectForKey:@"datatype"] forKey:code];
-            if ([[attribute objectForKey:@"required"] boolValue]) {
+            NSMutableDictionary *entry = [[NSMutableDictionary alloc] init];
+            [entry setObject:code                                   forKey:@"fieldname"];
+            [entry setObject:[attribute objectForKey:kDescription]  forKey:@"label"];
+            [entry setObject:[attribute objectForKey:kDatatype]     forKey:@"type"];
+            
+            if ([[attribute objectForKey:kRequired] boolValue]) {
                 [[self.reportForm objectForKey:@"requiredFields"] addObject:code];
             }
             
             NSDictionary *values = [attribute objectForKey:@"values"];
             if (values) {
-                [[self.reportForm objectForKey:@"values"] setObject:values forKey:code];
+                [entry setObject:values forKey:@"values"];
                 DLog(@"Added values for %@",code);
             }
+            [attributeFields addObject:entry];
+            [entry release];
         }
         else {
-            self.serviceMessages = [self.serviceMessages stringByAppendingFormat:@"\n%@", [attribute objectForKey:@"description"]];
+            self.serviceMessages = [self.serviceMessages stringByAppendingFormat:@"\n%@", [attribute objectForKey:kDescription]];
         }
         
     }
@@ -282,7 +284,6 @@
 }
 
 #pragma mark - Report Posting
-
 /**
  * Sends the report to the Open311 server
  *
@@ -300,24 +301,23 @@
     DLog(@"Creating POST to %@", url);
     ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL:url];
     
-    if ([data objectForKey:kJurisdictionId]) {
-        [post setPostValue:[data objectForKey:kJurisdictionId] forKey:kJurisdictionId];
-    }
-    if ([data objectForKey:kApiKey]) {
-        [post setPostValue:[data objectForKey:kApiKey] forKey:kApiKey];
-    }
+    Settings *settings = [Settings sharedSettings];
+    NSString *jurisdiction_id	= [settings.currentServer objectForKey:kJurisdictionId];
+    NSString *api_key			= [settings.currentServer objectForKey:kApiKey];
+    if (jurisdiction_id)	[post setPostValue:jurisdiction_id	forKey:kJurisdictionId];
+    if (api_key)			[post setPostValue:api_key			forKey:kApiKey];
     
     // Handle all the normal arguments
-    [post setPostValue:[self.currentService objectForKey:kServiceCode] forKey:kServiceCode];
-    [post setPostValue:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"device_id"];
-    [post setPostValue:[data objectForKey:@"lat"] forKey:@"lat"];
-    [post setPostValue:[data objectForKey:@"long"] forKey:@"long"];
-    [post setPostValue:[data objectForKey:@"address_string"] forKey:@"address_string"];
-    [post setPostValue:[data objectForKey:@"description"] forKey:@"description"];
-    [post setPostValue:[data objectForKey:@"first_name"] forKey:@"first_name"];
-    [post setPostValue:[data objectForKey:@"last_name"] forKey:@"last_name"];
-    [post setPostValue:[data objectForKey:@"email"] forKey:@"email"];
-    [post setPostValue:[data objectForKey:@"phone"] forKey:@"phone"];
+    [post setPostValue:[NSString stringWithFormat:@"%@",[self.currentService objectForKey:kServiceCode]] forKey:kServiceCode];
+    [post setPostValue:[[UIDevice currentDevice] uniqueIdentifier] forKey:kDeviceId];
+    [post setPostValue:[data objectForKey:@"lat"]				forKey:kLat];
+    [post setPostValue:[data objectForKey:@"long"]				forKey:kLong];
+    [post setPostValue:[data objectForKey:@"address_string"]	forKey:kAddressString];
+    [post setPostValue:[data objectForKey:@"description"]		forKey:kDescription];
+    [post setPostValue:[data objectForKey:@"first_name"]		forKey:kFirstname];
+    [post setPostValue:[data objectForKey:@"last_name"]			forKey:kLastname];
+    [post setPostValue:[data objectForKey:@"email"]				forKey:kEmail];
+    [post setPostValue:[data objectForKey:@"phone"]				forKey:kPhone];
     
     UIImage *image = [data objectForKey:@"media"];
     if (image) {
@@ -328,17 +328,17 @@
     
     // Handle any custom attributes in the service definition
     if (self.service_definition) {
-        for (NSDictionary *attribute in [self.service_definition objectForKey:@"attributes"]) {
-            NSString *code = [attribute objectForKey:@"code"];
+        for (NSDictionary *entry in [[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection]) {
+            NSString *code = [entry objectForKey:@"fieldname"];
+            NSString *type = [entry objectForKey:@"type"];
             
             // singlevaluelist and multivaluelist need special handling, but all the rest are just strings
-            NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:code];
-            if ([type isEqualToString:@"multivaluelist"]) {
+            if ([type isEqualToString:kMultiValueList]) {
                 for (NSDictionary *value in [data objectForKey:code]) {
                     [post addPostValue:[value objectForKey:@"key"] forKey:[NSString stringWithFormat:@"attribute[%@][]",code]];
                 }
             }
-            else if ([type isEqualToString:@"singlevaluelist"]) {
+            else if ([type isEqualToString:kSingleValueList]) {
                 [post setPostValue:[[data objectForKey:code] objectForKey:@"key"] forKey:[NSString stringWithFormat:@"attribute[%@]",code]];
             }
             else {
@@ -346,8 +346,6 @@
             }
         }
     }
-    // Handle any Media that's been attached
-    // Todo:
     
     // Send in the POST
     [post setDelegate:self];
@@ -377,8 +375,11 @@
         NSArray *service_requests = [[post responseString] JSONValue];
         if (service_requests != nil) {
             NSDictionary *request = [service_requests objectAtIndex:0];
-            NSString *service_request_id = [request objectForKey:@"service_request_id"] ? [request objectForKey:@"service_request_id"] : @"";
-            NSString *token = [request objectForKey:@"token"] ? [request objectForKey:@"token"] : @"";
+            
+            // JSON data values may be various data types (string, int).
+            // Make sure to cast them as strings before using them.
+            NSString *service_request_id = [NSString stringWithFormat:@"%@",[request objectForKey:kServiceRequestId] ? [request objectForKey:kServiceRequestId] : @""];
+            NSString *token = [NSString stringWithFormat:@"%@",[request objectForKey:kToken] ? [request objectForKey:kToken] : @""];
             
             NSArray *storedData = [NSArray arrayWithObjects:
                                    [[Settings sharedSettings] currentServer],
@@ -386,8 +387,8 @@
                                    service_request_id,
                                    token,
                                    [NSDate date], nil];
-            NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", @"service_request_id", @"token", @"date", nil];
-            [[[Settings sharedSettings] myRequests] addObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys]];
+            NSArray *storedKeys = [NSArray arrayWithObjects:@"server", @"service", kServiceRequestId, kToken, @"date", nil];
+            [[[Settings sharedSettings] myRequests] insertObject:[NSMutableDictionary dictionaryWithObjects:storedData forKeys:storedKeys] atIndex:0];
             DLog(@"POST saved, count is now %@", [[Settings sharedSettings] myRequests]);
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Sent" message:@"Thank you, your report has been submitted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -424,7 +425,7 @@
     if ([post responseString]) {
         DLog(@"%@",[post responseString]);
         NSArray *errors = [[post responseString] JSONValue];
-        NSString *description = [[errors objectAtIndex:0] objectForKey:@"description"];
+        NSString *description = [[errors objectAtIndex:0] objectForKey:kDescription];
         if (description) {
             message = description;
         }
@@ -438,18 +439,18 @@
 #pragma mark - Table View Handlers
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection] count]==0 ? 3 : 4;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (self.currentService) {
-        NSString *serviceDescription = [self.currentService objectForKey:@"description"];
-        NSString *serviceName = [self.currentService objectForKey:@"service_name"];
+    if (section == kLocationSection && self.currentService) {
+        NSString *serviceDescription	= [self.currentService objectForKey:kDescription];
+        NSString *serviceName			= [self.currentService objectForKey:kServiceName];
         NSString *title;
         
         DLog(@"Loaded service description: %@", serviceDescription);
-        if (([self.currentService objectForKey:@"description"]==[NSNull null] || [serviceDescription length] == 0)
+        if (([self.currentService objectForKey:kDescription]==[NSNull null] || [serviceDescription length] == 0)
             && serviceName) {
             title = [NSString stringWithFormat:@"Report %@",serviceName];
         }
@@ -461,12 +462,14 @@
         }
         return title;
     }
-    return @"Choose a service to report to";
+    else {
+        return section==kLocationSection ? @"Choose a service to report to" : nil;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.reportForm objectForKey:@"fields"] count];
+    return [[[self.reportForm objectForKey:@"fields"] objectAtIndex:[self transpose:section]] count];
 }
 
 /**
@@ -482,10 +485,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
     
-    NSString *fieldname = [[self.reportForm objectForKey:@"fields"] objectAtIndex:indexPath.row];
-    NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:fieldname];
+    NSDictionary *entry = [[[self.reportForm objectForKey:@"fields"] objectAtIndex:[self transpose:indexPath.section]] objectAtIndex:indexPath.row];
+    NSString *fieldname = [entry objectForKey:@"fieldname"];
+    NSString *type      = [entry objectForKey:@"type"];
     
-    cell.textLabel.text = [[self.reportForm objectForKey:@"labels"] objectForKey:fieldname];
+    cell.textLabel.text = [entry objectForKey:@"label"];
     cell.detailTextLabel.text = nil;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.imageView.image = nil;
@@ -501,10 +505,10 @@
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
         cell.imageView.image = [data objectForKey:@"media"];
     }
-    else if ([fieldname isEqualToString:@"address_string"]) {
-        NSString *address = [data objectForKey:@"address_string"];
-        NSString *latitude = [data objectForKey:@"lat"];
-        NSString *longitude = [data objectForKey:@"long"];
+    else if ([fieldname isEqualToString:kAddressString]) {
+        NSString *address   = [data objectForKey:kAddressString];
+        NSString *latitude  = [data objectForKey:kLat];
+        NSString *longitude = [data objectForKey:kLong];
         cell.detailTextLabel.text = address;
         if ([address length]==0 && [latitude length]!=0 && [longitude length]!=0) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",latitude,longitude];
@@ -518,10 +522,10 @@
     }
     else {
         // Apply any custom formatting based on data type
-        if ([type isEqualToString:@"singlevaluelist"]) {
+        if ([type isEqualToString:kSingleValueList]) {
             cell.detailTextLabel.text = [[data objectForKey:fieldname] objectForKey:@"name"];
         }
-        else if ([type isEqualToString:@"multivaluelist"]) {
+        else if ([type isEqualToString:kMultiValueList]) {
             NSString *selectionText = @"";
             for (NSDictionary *selection in [data objectForKey:fieldname]) {
                 selectionText = [selectionText stringByAppendingFormat:@"%@, ",[selection objectForKey:@"name"]];
@@ -544,58 +548,73 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     // Find out what data type the row is and display the appropriate view
-    NSString *fieldname = [[self.reportForm objectForKey:@"fields"] objectAtIndex:indexPath.row];
-    NSString *type = [[self.reportForm objectForKey:@"types"] objectForKey:fieldname];
+    NSDictionary *entry = [[[self.reportForm objectForKey:@"fields"] objectAtIndex:[self transpose:indexPath.section]] objectAtIndex:indexPath.row];
+    NSString *type      = [entry objectForKey:@"type"];
     if ([type isEqualToString:@"media"]) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            picker.delegate = self;
-            picker.allowsEditing = NO;
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            [self presentModalViewController:picker animated:YES];
-            [picker release];
+            UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+            popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+            [popup addButtonWithTitle:@"Take Photo"];
+            [popup addButtonWithTitle:@"Choose From Library"];
+            [popup addButtonWithTitle:@"Cancel"];
+            popup.cancelButtonIndex = 2;
+            [popup showInView:self.view];
+            [popup release];
         }
     }
     if ([type isEqualToString:@"location"]) {
-        LocationChooserViewController *chooseLocation = [[LocationChooserViewController alloc] initWithReport:self.reportForm];
-        [chooseLocation setLocator:self.locator];
-        [self.navigationController pushViewController:chooseLocation animated:YES];
-        [chooseLocation release];
+        LocationChooserViewController *c = [[LocationChooserViewController alloc] initWithReport:self.reportForm];
+        [c setLocator:self.locator];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"text"]) {
-        TextFieldViewController *editTextController = [[TextFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:editTextController animated:YES];
-        [editTextController release];
+        TextFieldViewController      *c = [[TextFieldViewController      alloc] initWithReportFormEntry:entry report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"string"]) {
-        StringFieldViewController *editStringController = [[StringFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:editStringController animated:YES];
-        [editStringController release];
+        StringFieldViewController    *c = [[StringFieldViewController    alloc] initWithReportFormEntry:entry report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"number"]) {
-        NumberFieldViewController *editNumberController = [[NumberFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:editNumberController animated:YES];
-        [editNumberController release];
-        
+        NumberFieldViewController    *c = [[NumberFieldViewController    alloc] initWithReportFormEntry:entry report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
     if ([type isEqualToString:@"datetime"]) {
-        DateFieldViewController *dateController = [[DateFieldViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:dateController animated:YES];
-        [dateController release];
+        DateFieldViewController      *c = [[DateFieldViewController      alloc] initWithReportFormEntry:entry report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
-    if ([type isEqualToString:@"singlevaluelist"]) {
-        SelectSingleViewController *selectController = [[SelectSingleViewController alloc] initWithFieldname:fieldname report:self.reportForm];
-        [self.navigationController pushViewController:selectController animated:YES];
-        [selectController release];
+    if ([type isEqualToString:kSingleValueList]) {
+        SelectSingleViewController   *c = [[SelectSingleViewController   alloc] initWithReportFormEntry:entry report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
-    if ([type isEqualToString:@"multivaluelist"]) {
-        SelectMultipleViewController *multiController = [[SelectMultipleViewController alloc] initWithFieldname:fieldname report:reportForm];
-        [self.navigationController pushViewController:multiController animated:YES];
-        [multiController release];
+    if ([type isEqualToString:kMultiValueList]) {
+        SelectMultipleViewController *c = [[SelectMultipleViewController alloc] initWithReportFormEntry:entry report:self.reportForm];
+        [self.navigationController pushViewController:c animated:YES];
+        [c release];
     }
 }
 
 #pragma mark - Image Choosing Functions
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != 2) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = NO;
+        picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
+        picker.sourceType = buttonIndex == 0
+            ? UIImagePickerControllerSourceTypeCamera
+            : UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentModalViewController:picker animated:YES];
+        [picker release];
+    }
+}
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
@@ -651,7 +670,7 @@
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark
 {
     NSString *address = [[placemark.addressDictionary objectForKey:@"FormattedAddressLines"] objectAtIndex:0];
-    [[reportForm objectForKey:@"data"] setObject:address forKey:@"address_string"];
+    [[reportForm objectForKey:@"data"] setObject:address forKey:kAddressString];
     [reportTableView reloadData];
 }
 
@@ -662,4 +681,24 @@
     // The only thing that matters on submission will be the lat/long
 }
 
+# pragma mark - Internal Helper Functions
+/**
+ * Transposes the section number based on whether there's Additional Info or not
+ *
+ * Services might not have addition attributes.  If the current service does not
+ * have any attributes, there's no reason to display an empty Table Section 
+ * for Addtional Info.  In this case, we just change the section number to point
+ * to the Personal Info fields inside the reportForm.
+ *
+ * @param NSInteger section This is usually indexPath.section
+ * @return int
+ */
+- (int)transpose:(NSInteger)section
+{
+    if (section == kAdditionalSection 
+        && [[[self.reportForm objectForKey:@"fields"] objectAtIndex:kAdditionalSection] count]==0)  {
+        section = kPersonalSection;
+    }
+    return section;
+}
 @end
