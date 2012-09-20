@@ -195,7 +195,9 @@
         }
         // We got a response back, but it doesn't match what we're expecting
         else {
-            [self handleReportInfoFailure:request];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report has not been accepted by the server" message:@"" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
         }
     }
     else {
