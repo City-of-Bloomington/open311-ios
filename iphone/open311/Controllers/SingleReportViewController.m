@@ -167,19 +167,19 @@
         if (service_name) {
             [report setObject:service_name forKey:kServiceName];
             
-            if ([service_request objectForKey:kRequestedDateTime] != [NSNull null]) {
+            if ([service_request objectForKey:kRequestedDateTime] != nil) {
                 [report setObject:[service_request objectForKey:kRequestedDateTime] forKey:kRequestedDateTime];
             }
-            if ([service_request objectForKey:@"status"] != [NSNull null]) {
+            if ([service_request objectForKey:@"status"] != nil) {
                 [report setObject:[service_request objectForKey:@"status"] forKey:@"status"];
             }
-            if ([service_request objectForKey:@"address"] != [NSNull null]) {
+            if ([service_request objectForKey:@"address"] != nil) {
                 [report setObject:[service_request objectForKey:@"address"] forKey:@"address"];
             }
-            if ([service_request objectForKey:kAgencyResponsible] != [NSNull null]) {
+            if ([service_request objectForKey:kAgencyResponsible] != nil) {
                 [report setObject:[service_request objectForKey:kAgencyResponsible] forKey:kAgencyResponsible];
             }
-            if ([service_request objectForKey:@"media_url"] != [NSNull null]) {
+            if ([service_request objectForKey:@"media_url"] != nil) {
                 [report setObject:[service_request objectForKey:@"media_url"] forKey:@"media_url"];
             }
             
