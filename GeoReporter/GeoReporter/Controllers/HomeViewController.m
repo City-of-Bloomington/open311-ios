@@ -8,18 +8,22 @@
 
 #import "HomeViewController.h"
 #import "Strings.h"
+#import "AboutViewController.h"
+
+#define kReport
 
 @interface HomeViewController ()
 
 @end
 
+
 @implementation HomeViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"HomeView" bundle:nil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -32,6 +36,7 @@
     [_serversButton      setTitle:NSLocalizedString(kUI_Servers,      nil) forState:UIControlStateNormal];
     [_archiveButton      setTitle:NSLocalizedString(kUI_Archive,      nil) forState:UIControlStateNormal];
     [_personalInfoButton setTitle:NSLocalizedString(kUI_PersonalInfo, nil) forState:UIControlStateNormal];
+    [_aboutButton        setTitle:NSLocalizedString(kUI_About,        nil) forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,4 +45,35 @@
     // Dispose of any resources that can be recreated.
 }
 
+// Reads the tag from the button that was clicked
+// Tags should be set correctly in InterfaceBuilder
+- (IBAction)buttonWasClicked:(id)sender {
+    DLog(@"Button %d was clicked", [sender tag]);
+    enum HomeViewButtons {
+        ReportButton       = 0,
+        ServersButton      = 1,
+        ArchiveButton      = 2,
+        PersonalInfoButton = 3,
+        AboutButton        = 4
+    };
+    
+    switch ([(UIButton *)sender tag]) {
+        case ReportButton:
+            break;
+        case ServersButton:
+            break;
+        case ArchiveButton:
+            break;
+        case PersonalInfoButton:
+            break;
+        case AboutButton: {
+            AboutViewController *about = [[AboutViewController alloc] init];
+            [self.navigationController pushViewController:about animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 @end

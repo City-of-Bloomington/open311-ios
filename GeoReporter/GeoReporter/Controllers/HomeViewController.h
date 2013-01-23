@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *serversButton;
 @property (weak, nonatomic) IBOutlet UIButton *archiveButton;
 @property (weak, nonatomic) IBOutlet UIButton *personalInfoButton;
+@property (weak, nonatomic) IBOutlet UIButton *aboutButton;
+- (IBAction)buttonWasClicked:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AboutViewController.h"
+#import "Strings.h"
 
 @interface AboutViewController ()
 
@@ -14,11 +15,11 @@
 
 @implementation AboutViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"AboutView" bundle:nil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -26,13 +27,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    [self.navigationItem setTitle:NSLocalizedString(kUI_About, nil)];
+    [_aboutView loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]]];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Web View Handlers
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *script = [NSString stringWithFormat:@"document.getElementById('version').innerHTML='v%@'", version];
+    [webView stringByEvaluatingJavaScriptFromString:script];
 }
 
 @end
