@@ -1,38 +1,53 @@
 //
-//  PersonalInfoViewController.m
+//  PersonalInfoController.m
 //  GeoReporter
 //
-//  Created by Cliff Ingham on 1/24/13.
+//  Created by Cliff Ingham on 1/25/13.
 //  Copyright (c) 2013 City of Bloomington. All rights reserved.
 //
 
-#import "PersonalInfoViewController.h"
+#import "PersonalInfoController.h"
+#import "Strings.h"
 
-@interface PersonalInfoViewController ()
+@interface PersonalInfoController ()
 
 @end
 
-@implementation PersonalInfoViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@implementation PersonalInfoController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.labelFirstName.text = NSLocalizedString(kUI_FirstName, nil);
+    self.labelLastName .text = NSLocalizedString(kUI_LastName,  nil);
+    self.labelEmail    .text = NSLocalizedString(kUI_Email,     nil);
+    self.labelPhone    .text = NSLocalizedString(kUI_Phone,     nil);
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    self.textFieldFirstName.text = [preferences stringForKey:kOpen311_FirstName];
+    self.textFieldLastName .text = [preferences stringForKey:kOpen311_LastName];
+    self.textFieldEmail    .text = [preferences stringForKey:kOpen311_Email];
+    self.textFieldPhone    .text = [preferences stringForKey:kOpen311_Phone];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setValue:self.textFieldFirstName.text forKey:kOpen311_FirstName];
+    [preferences setValue:self.textFieldLastName .text forKey:kOpen311_LastName];
+    [preferences setValue:self.textFieldEmail    .text forKey:kOpen311_Email];
+    [preferences setValue:self.textFieldPhone    .text forKey:kOpen311_Phone];
+    
+    [super viewWillDisappear:animated];
+}
+
+
+#pragma mark - Table view handlers
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return NSLocalizedString(kUI_PersonalInfo, nil);
 }
 
 @end

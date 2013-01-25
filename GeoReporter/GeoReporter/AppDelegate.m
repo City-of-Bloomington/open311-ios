@@ -2,26 +2,20 @@
 //  AppDelegate.m
 //  GeoReporter
 //
-//  Created by Cliff Ingham on 1/22/13.
+//  Created by Cliff Ingham on 1/25/13.
 //  Copyright (c) 2013 City of Bloomington. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "HomeViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    HomeViewController *home = [[HomeViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:home];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = navigationController;
-    [self.window makeKeyAndVisible];
+    // Override point for customization after application launch.
     return YES;
 }
-
+							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

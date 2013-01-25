@@ -7,6 +7,7 @@
 //
 
 #import "Strings.h"
+// Keys to the Localized String file
 NSString * const kUI_Settings               = @"menu_settings";
 NSString * const kUI_Report                 = @"menu_report";
 NSString * const kUI_Archive                = @"menu_archive";
@@ -47,11 +48,64 @@ NSString * const kUI_FailureLoadingServices = @"failure_loading_services";
 NSString * const kUI_FailurePostingService  = @"failure_posting_service";
 NSString * const kUI_Error403               = @"error_403";
 
+// Open311 Key Strings
+// Global required fields
+NSString * const kOpen311_Jurisdiction = @"jurisdiction_id";
+NSString * const kOpen311_ApiKey       = @"api_key";
+NSString * const kOpen311_Format       = @"format";
+NSString * const kOpen311_ServiceCode  = @"service_code";
+NSString * const kOpen311_ServiceName  = @"service_name";
+NSString * const kOpen311_Group        = @"group";
+// Global basic fields
+NSString * const kOpen311_Media              = @"media";
+NSString * const kOpen311_MediaUrl           = @"media_url";
+NSString * const kOpen311_Latitude           = @"lat";
+NSString * const kOpen311_Longitude          = @"long";
+NSString * const kOpen311_Address            = @"address";
+NSString * const kOpen311_AddressString      = @"address_string";
+NSString * const kOpen311_Description        = @"description";
+NSString * const kOpen311_ServiceNotice      = @"service_notice";
+NSString * const kOpen311_AccountId 	     = @"account_id";
+NSString * const kOpen311_Status 		     = @"status";
+NSString * const kOpen311_StatusNotes        = @"status_notes";
+NSString * const kOpen311_AgencyResponsible  = @"agency_responsible";
+NSString * const kOpen311_RequestedDatetime  = @"requested_datetime";
+NSString * const kOpen311_UpdatedDatetime    = @"updated_datetime";
+NSString * const kOpen311_ExpectedDatetime   = @"expected_datetime";
+NSString * const kOpen311_ServiceRequestId   = @"service_request_id";
+NSString * const kOpen311_Token              = @"token";
+// Personal Information fields
+NSString * const kOpen311_FirstName = @"first_name";
+NSString * const kOpen311_LastName  = @"last_name";
+NSString * const kOpen311_Email     = @"email";
+NSString * const kOpen311_Phone     = @"phone";
+NSString * const kOpen311_DeviceId  = @"device_id";
+// Custom field definition in service_definition
+NSString * const kOpen311_Metadata     = @"metadata";
+NSString * const kOpen311_Attributes   = @"attributes";
+NSString * const kOpen311_Variable     = @"variable";
+NSString * const kOpen311_Code         = @"code";
+NSString * const kOpen311_Order        = @"order";
+NSString * const kOpen311_Values       = @"values";
+NSString * const kOpen311_Value        = @"value";
+NSString * const kOpen311_Key          = @"key";
+NSString * const kOpen311_Name         = @"name";
+NSString * const kOpen311_Required     = @"required";
+NSString * const kOpen311_Datatype     = @"datatype";
+NSString * const kOpen311_String       = @"string";
+NSString * const kOpen311_Number       = @"number";
+NSString * const kOpen311_Datetime     = @"datetime";
+NSString * const kOpen311_Text         = @"text";
+NSString * const kOpen311_True         = @"true";
+NSString * const kOpen311_SingleValueList = @"singlevaluelist";
+NSString * const kOpen311_MultiValueList  = @"multivaluelist";
+// Key names from /res/raw/available_servers.json
+NSString * const kOpen311_Url           = @"url";
+NSString * const kOpen311_SupportsMedia = @"supports_media";
+// Key names for formats
+NSString * const kOpen311_JSON = @"json";
+NSString * const kOpen311_XML  = @"xml";
+
 @implementation Strings
 
-
-+ (NSString *) getStringForKey:(NSString *)key
-{
-    return NSLocalizedString(key, nil);
-}
 @end
