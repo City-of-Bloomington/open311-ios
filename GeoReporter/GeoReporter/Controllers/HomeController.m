@@ -7,17 +7,30 @@
 //
 
 #import "HomeController.h"
+#import "Strings.h"
+#import "Preferences.h"
 
 @interface HomeController ()
 
 @end
 
-@implementation HomeController
+@implementation HomeController {
+    Preferences *preferences;
+}
+static NSString * const kSegueToServers = @"SegueToServers";
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    preferences = [Preferences sharedInstance];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSDictionary *currentServer = [preferences getCurrentServer];
+    if (currentServer == nil) {
+        [self performSegueWithIdentifier:kSegueToServers sender:self];
+    }
+}
 @end

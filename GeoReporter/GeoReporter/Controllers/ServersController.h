@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ServersController : UIViewController
-
+@interface ServersController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+- (NSDictionary *)getTargetServer:(NSInteger)index;
 @end

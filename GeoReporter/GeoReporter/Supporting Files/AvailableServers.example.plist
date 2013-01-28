@@ -5,9 +5,9 @@
 	<key>Servers</key>
 	<array>
 		<dict>
-			<key>Name</key>
+			<key>name</key>
 			<string>Bloomington, IN</string>
-			<key>URL</key>
+			<key>url</key>
 			<string>https://bloomington.in.gov/test/open311/v2</string>
 			<key>supports_media</key>
 			<true/>
