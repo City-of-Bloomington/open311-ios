@@ -20,3 +20,15 @@
 #else
     #define DLog(...)
 #endif
+
+#ifndef SHARED_SINGLETON
+    #define SHARED_SINGLETON(class)               \
+    + (id)sharedInstance {                        \
+        static dispatch_once_t pred = 0;          \
+        __strong static id _shared##class = nil;  \
+        dispatch_once(&pred, ^{                   \
+            _shared##class = [[self alloc] init]; \
+        });                                       \
+        return _shared##class;                    \
+    }
+#endif

@@ -10,6 +10,7 @@
 
 @interface Preferences : NSObject
 + (id)sharedInstance;
+
 + (NSArray *)getAvailableServers;
 
 - (NSArray *)getCustomServers;

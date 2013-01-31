@@ -15,15 +15,7 @@
 }
 static NSString * const kCustomServers = @"custom_servers";
 
-+ (id)sharedInstance
-{
-    static dispatch_once_t pred = 0;
-    __strong static id _sharedPreferences = nil;
-    dispatch_once(&pred, ^{
-        _sharedPreferences = [[self alloc] init];
-    });
-    return _sharedPreferences;
-}
+SHARED_SINGLETON(Preferences);
 
 /**
  * Returns the Servers array from inside the AvailableServers.plist

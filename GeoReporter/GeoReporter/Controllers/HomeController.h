@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *personalInfoButton;
 @property (weak, nonatomic) IBOutlet UIButton *aboutButton;
 
+- (void)serviceListReady;
 @end

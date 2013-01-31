@@ -48,6 +48,7 @@
 		69ED150816B2EE4D00232245 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69ED14E316B2EE4C00232245 /* Foundation.framework */; };
 		69ED151016B2EE4D00232245 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69ED150E16B2EE4D00232245 /* InfoPlist.strings */; };
 		69ED151316B2EE4D00232245 /* GeoReporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED151216B2EE4D00232245 /* GeoReporterTests.m */; };
+		69F0789A16B97A2700EC2C19 /* Open311.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0789916B97A2700EC2C19 /* Open311.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,8 @@
 		69ED150F16B2EE4D00232245 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		69ED151116B2EE4D00232245 /* GeoReporterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeoReporterTests.h; sourceTree = "<group>"; };
 		69ED151216B2EE4D00232245 /* GeoReporterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeoReporterTests.m; sourceTree = "<group>"; };
+		69F0789816B97A2700EC2C19 /* Open311.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Open311.h; sourceTree = "<group>"; };
+		69F0789916B97A2700EC2C19 /* Open311.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Open311.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +192,8 @@
 			children = (
 				693B34A116B6D11300FF1B13 /* Preferences.h */,
 				693B34A216B6D11300FF1B13 /* Preferences.m */,
+				69F0789816B97A2700EC2C19 /* Open311.h */,
+				69F0789916B97A2700EC2C19 /* Open311.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -469,6 +474,7 @@
 				69C2AEFE16B32E330037ED57 /* AboutController.m in Sources */,
 				693B349B16B6C8EC00FF1B13 /* AddServerController.m in Sources */,
 				693B34A316B6D11300FF1B13 /* Preferences.m in Sources */,
+				69F0789A16B97A2700EC2C19 /* Open311.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
