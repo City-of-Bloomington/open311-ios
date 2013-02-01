@@ -25,7 +25,6 @@ NSString * const kNotification_ServiceListReady = @"serviceListReady";
     AFHTTPClient *httpClient;
     NSDictionary *currentServer;
     NSArray *serviceList;
-    NSMutableArray *groups;
     NSMutableDictionary *serviceDefinitions;
 }
 SHARED_SINGLETON(Open311);
@@ -42,7 +41,7 @@ SHARED_SINGLETON(Open311);
     if (apiKey         != nil) { params[kOpen311_ApiKey]       = apiKey; }
     _endpointParameters = [NSDictionary dictionaryWithDictionary:params];
     
-    if (groups             == nil) { groups             = [[NSMutableArray      alloc] init]; } else { [groups             removeAllObjects]; }
+    if (_groups             == nil) { _groups             = [[NSMutableArray      alloc] init]; } else { [_groups             removeAllObjects]; }
     if (serviceDefinitions == nil) { serviceDefinitions = [[NSMutableDictionary alloc] init]; } else { [serviceDefinitions removeAllObjects]; }
     
     httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[server objectForKey:kOpen311_Url]]];
@@ -92,7 +91,7 @@ SHARED_SINGLETON(Open311);
         // Add the current group if it's not already there
         NSString *group = [service objectForKey:kOpen311_Group];
         if (group == nil) { group = kUI_Uncategorized; }
-        if (![groups containsObject:group]) { [groups addObject:group]; }
+        if (![_groups containsObject:group]) { [_groups addObject:group]; }
         
         // Fire off a service definition request, if needed
         __block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
@@ -114,4 +113,24 @@ SHARED_SINGLETON(Open311);
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
 }
 
+/**
+ * Returns an array of service dictionaries from |serviceList|
+ */
+- (NSArray *)getServicesForGroup:(NSString *)group
+{
+    NSMutableArray *services = [[NSMutableArray alloc] init];
+    for (NSDictionary *service in serviceList) {
+        NSString *sg = service[kOpen311_Group];
+        
+        if (![group isEqualToString:kUI_Uncategorized]) {
+            if ([sg isEqualToString:group]) {
+                [services addObject:service];
+            }
+        }
+        else if (sg==nil || [sg isEqualToString:@""]) {
+            [services addObject:service];
+        }
+    }
+    return [NSArray arrayWithArray:services];
+}
 @end

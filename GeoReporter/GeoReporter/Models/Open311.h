@@ -11,6 +11,7 @@ extern NSString * const kNotification_ServiceListReady;
 
 @interface Open311 : NSObject
 @property (readonly) NSDictionary *endpointParameters;
+@property (readonly) NSMutableArray *groups;
 
 + (id)sharedInstance;
 
@@ -20,4 +21,5 @@ extern NSString * const kNotification_ServiceListReady;
 - (void)loadServiceList;
 - (void)loadServiceDefinitions;
 
+- (NSArray *)getServicesForGroup:(NSString *)group;
 @end

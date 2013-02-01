@@ -33,6 +33,8 @@
 		69CB209A16B32B70009E9BAB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CB209916B32B70009E9BAB /* MobileCoreServices.framework */; };
 		69CB209C16B32BBF009E9BAB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB209B16B32BBF009E9BAB /* Icon.png */; };
 		69CB209E16B32BCA009E9BAB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB209D16B32BCA009E9BAB /* Icon@2x.png */; };
+		69E57B6C16BC1522004B7094 /* ChooseGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E57B6B16BC1522004B7094 /* ChooseGroupController.m */; };
+		69E57B6F16BC153A004B7094 /* ChooseServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E57B6E16BC153A004B7094 /* ChooseServiceController.m */; };
 		69ED14E216B2EE4C00232245 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69ED14E116B2EE4C00232245 /* UIKit.framework */; };
 		69ED14E416B2EE4C00232245 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69ED14E316B2EE4C00232245 /* Foundation.framework */; };
 		69ED14E616B2EE4C00232245 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69ED14E516B2EE4C00232245 /* CoreGraphics.framework */; };
@@ -110,6 +112,10 @@
 		69CB209B16B32BBF009E9BAB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		69CB209D16B32BCA009E9BAB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		69E57B6916BC0C6D004B7094 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		69E57B6A16BC1522004B7094 /* ChooseGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGroupController.h; sourceTree = "<group>"; };
+		69E57B6B16BC1522004B7094 /* ChooseGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseGroupController.m; sourceTree = "<group>"; };
+		69E57B6D16BC153A004B7094 /* ChooseServiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServiceController.h; sourceTree = "<group>"; };
+		69E57B6E16BC153A004B7094 /* ChooseServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServiceController.m; sourceTree = "<group>"; };
 		69ED14DD16B2EE4C00232245 /* GeoReporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoReporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69ED14E116B2EE4C00232245 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69ED14E316B2EE4C00232245 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -177,6 +183,10 @@
 				69C2AEFD16B32E330037ED57 /* AboutController.m */,
 				693B349916B6C8EB00FF1B13 /* AddServerController.h */,
 				693B349A16B6C8EB00FF1B13 /* AddServerController.m */,
+				69E57B6A16BC1522004B7094 /* ChooseGroupController.h */,
+				69E57B6B16BC1522004B7094 /* ChooseGroupController.m */,
+				69E57B6D16BC153A004B7094 /* ChooseServiceController.h */,
+				69E57B6E16BC153A004B7094 /* ChooseServiceController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -477,6 +487,8 @@
 				693B349B16B6C8EC00FF1B13 /* AddServerController.m in Sources */,
 				693B34A316B6D11300FF1B13 /* Preferences.m in Sources */,
 				69F0789A16B97A2700EC2C19 /* Open311.m in Sources */,
+				69E57B6C16BC1522004B7094 /* ChooseGroupController.m in Sources */,
+				69E57B6F16BC153A004B7094 /* ChooseServiceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

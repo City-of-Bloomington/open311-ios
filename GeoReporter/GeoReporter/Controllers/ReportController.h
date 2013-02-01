@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReportController : UIViewController
+@interface ReportController : UITableViewController
 
 @end
