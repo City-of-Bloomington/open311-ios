@@ -109,6 +109,7 @@
 		69CB209916B32B70009E9BAB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		69CB209B16B32BBF009E9BAB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		69CB209D16B32BCA009E9BAB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		69E57B6916BC0C6D004B7094 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69ED14DD16B2EE4C00232245 /* GeoReporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoReporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69ED14E116B2EE4C00232245 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69ED14E316B2EE4C00232245 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -392,6 +393,7 @@
 				en,
 				de,
 				fi,
+				fr,
 			);
 			mainGroup = 69ED14D216B2EE4C00232245;
 			productRefGroup = 69ED14DE16B2EE4C00232245 /* Products */;
@@ -503,6 +505,7 @@
 				696557B116B3180700258BA2 /* en */,
 				696557B316B3189F00258BA2 /* de */,
 				696557B416B318AC00258BA2 /* fi */,
+				69E57B6916BC0C6D004B7094 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
