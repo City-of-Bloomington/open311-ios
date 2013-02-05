@@ -25,7 +25,6 @@ NSString * const kNotification_ServiceListReady = @"serviceListReady";
     AFHTTPClient *httpClient;
     NSDictionary *currentServer;
     NSArray *serviceList;
-    NSMutableDictionary *serviceDefinitions;
 }
 SHARED_SINGLETON(Open311);
 
@@ -42,7 +41,7 @@ SHARED_SINGLETON(Open311);
     _endpointParameters = [NSDictionary dictionaryWithDictionary:params];
     
     if (_groups             == nil) { _groups             = [[NSMutableArray      alloc] init]; } else { [_groups             removeAllObjects]; }
-    if (serviceDefinitions == nil) { serviceDefinitions = [[NSMutableDictionary alloc] init]; } else { [serviceDefinitions removeAllObjects]; }
+    if (_serviceDefinitions == nil) { _serviceDefinitions = [[NSMutableDictionary alloc] init]; } else { [_serviceDefinitions removeAllObjects]; }
     
     httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[server objectForKey:kOpen311_Url]]];
     [self loadServiceList];
@@ -100,7 +99,7 @@ SHARED_SINGLETON(Open311);
                      parameters:_endpointParameters
                         success:^(AFHTTPRequestOperation *operation, id responseObject) {
                             NSError *error;
-                            serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                            _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
                             if (error) {
                                 [self loadFailedWithError:error];
                             }
@@ -133,4 +132,5 @@ SHARED_SINGLETON(Open311);
     }
     return [NSArray arrayWithArray:services];
 }
+
 @end

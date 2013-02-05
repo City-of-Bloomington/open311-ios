@@ -29,6 +29,7 @@ NSString * const kUI_Format                 = @"format";
 NSString * const kUI_SupportsMedia          = @"supports_media";
 NSString * const kUI_DialogLoadingServices  = @"dialog_loading_services";
 NSString * const kUI_DialogPostingService   = @"dialog_posting_service";
+NSString * const kUI_AddPhoto               = @"add_photo";
 NSString * const kUI_ChooseMediaSource      = @"choose_media_source";
 NSString * const kUI_Camera                 = @"camera";
 NSString * const kUI_Gallery                = @"gallery";
@@ -83,6 +84,7 @@ NSString * const kOpen311_DeviceId  = @"device_id";
 // Custom field definition in service_definition
 NSString * const kOpen311_Metadata     = @"metadata";
 NSString * const kOpen311_Attributes   = @"attributes";
+NSString * const kOpen311_Attribute    = @"attribute";
 NSString * const kOpen311_Variable     = @"variable";
 NSString * const kOpen311_Code         = @"code";
 NSString * const kOpen311_Order        = @"order";

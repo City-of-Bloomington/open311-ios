@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ServiceRequest.h"
 
 @interface ReportController : UITableViewController
-
+@property NSDictionary *service;
+@property ServiceRequest *serviceRequest;
 @end

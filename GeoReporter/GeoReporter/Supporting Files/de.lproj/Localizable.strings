@@ -19,6 +19,7 @@
 "supports_media"="Medienunterstützung";
 "dialog_loading_services"="Lade Service Information";
 "dialog_posting_service"="Hinweis wird übertragen";
+"add_photo"="Fügen Sie ein Foto";
 "choose_media_source"="Quelle für Foto";
 "camera"="Kamera";
 "gallery"="Galerie";

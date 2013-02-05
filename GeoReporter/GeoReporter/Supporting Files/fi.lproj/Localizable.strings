@@ -19,6 +19,7 @@
 "supports_media"="Tukee tiedotusvälineet";
 "dialog_loading_services"="Haetaan palvelun tietoja";
 "dialog_posting_service"="Lähetetään palautetta";
+"add_photo"="Lisää kuva";
 "choose_media_source"="Valitse kuva";
 "camera"="Kamera";
 "gallery"="Galleria";
