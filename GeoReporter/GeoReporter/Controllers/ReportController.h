@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "ServiceRequest.h"
 
-@interface ReportController : UITableViewController
+@interface ReportController : UITableViewController <UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
 @property NSDictionary *service;
 @property ServiceRequest *serviceRequest;
 @end

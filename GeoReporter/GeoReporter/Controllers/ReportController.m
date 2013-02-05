@@ -16,6 +16,13 @@
 
 @implementation ReportController {
     NSMutableArray *fields;
+    // In the ServiceRequest, we are only storing the URL for the photo asset.
+    // Retrieving the actual image data from the asset is an async call.
+    // We need to know what the current |mediaUrl| is, that way, we can invalidate
+    // the |mediaThumnail| when the |mediaUrl| changes
+    ALAssetsLibrary *library;
+    NSURL   *mediaUrl;
+    UIImage *mediaThumbnail;
 }
 static NSString * const kReportCell = @"report_cell";
 static NSString * const kFieldname  = @"fieldname";
@@ -38,12 +45,16 @@ static NSString * const kType       = @"type";
     
     // First section: Photo and Location choosers
     fields = [[NSMutableArray alloc] init];
-    if ([[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
+        && [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
         DLog(@"Adding media and address to display");
         [fields addObject:@[
-            @{kFieldname:kOpen311_Media,         kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
+            @{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
             @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
         ]];
+        
+        // Initialize the Asset Library object for saving/reading images
+        library = [[ALAssetsLibrary alloc] init];
     }
     else {
         DLog(@"Adding only address to display");
@@ -117,7 +128,26 @@ static NSString * const kType       = @"type";
     cell.textLabel.text = field[kLabel];
     
     if ([field[kFieldname] isEqualToString:kOpen311_Media]) {
-        
+        NSURL *url = _serviceRequest.postData[kOpen311_Media];
+        if (url != nil) {
+            // When the user-selected mediaUrl changes, we need to load a fresh thumbnail image
+            // This is an async call, that could take some time.
+            if (![mediaUrl isEqual:url]) {
+                [library assetForURL:url
+                    resultBlock:^(ALAsset *asset) {
+                        // Once we finally get the image loaded, we need to tell the
+                        // table to redraw itself, which should pick up the new |mediaThumbnail|
+                        mediaThumbnail = [UIImage imageWithCGImage:[asset thumbnail]];
+                        [self.tableView reloadData];
+                    }
+                    failureBlock:^(NSError *error) {
+                        DLog(@"Failed to load thumbnail from library");
+                    }];
+            }
+            if (mediaThumbnail != nil) {
+                [cell.imageView setImage:mediaThumbnail];
+            }
+        }
     }
     else if ([field[kFieldname] isEqualToString:kOpen311_Address]) {
         NSString *address = _serviceRequest.postData[kOpen311_AddressString];
@@ -134,4 +164,84 @@ static NSString * const kType       = @"type";
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *type = fields[indexPath.section][indexPath.row][kType];
+    
+    if ([type isEqualToString:kOpen311_Media]) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
+            UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
+                                                               delegate:self
+                                                      cancelButtonTitle:nil
+                                                 destructiveButtonTitle:nil
+                                                      otherButtonTitles:nil, nil];
+            popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
+            [popup setCancelButtonIndex:2];
+            [popup showInView:self.view];
+        }
+    }
+    else if ([type isEqualToString:kOpen311_Address]) {
+        
+    }
+    else if ([type isEqualToString:kOpen311_SingleValueList]) {
+        
+    }
+    else if ([type isEqualToString:kOpen311_MultiValueList]) {
+        
+    }
+    else {
+        
+    }
+}
+
+#pragma mark - Image choosing handlers
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != 2) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = NO;
+        picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
+        picker.sourceType = buttonIndex == 0
+            ? UIImagePickerControllerSourceTypeCamera
+            : UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    if (info[UIImagePickerControllerMediaMetadata] != nil) {
+        // The user took a picture with the camera.
+        // We need to save that picture and just use the reference to it from the Saved Photos library.
+        DLog(@"Camera returned a picture");
+        [library writeImageToSavedPhotosAlbum:[image CGImage]
+                                     metadata:info[UIImagePickerControllerMediaMetadata]
+                              completionBlock:^(NSURL *assetURL, NSError *error) {
+                                  DLog(@"Setting POST media to: %@", assetURL);
+                                  _serviceRequest.postData[kOpen311_Media] = assetURL;
+                                  [self.tableView reloadData];
+                              }];
+    }
+    else {
+        // The user chose an image from the library
+        DLog(@"User chose a picture from the library");
+        _serviceRequest.postData[kOpen311_Media] = info[UIImagePickerControllerReferenceURL];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.tableView reloadData];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
