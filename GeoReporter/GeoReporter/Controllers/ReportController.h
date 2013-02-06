@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <CoreLocation/CoreLocation.h>
 #import "ServiceRequest.h"
+#import "LocationController.h"
 
-@interface ReportController : UITableViewController <UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface ReportController : UITableViewController <UINavigationControllerDelegate,
+                                                     UIActionSheetDelegate,
+                                                     UIImagePickerControllerDelegate,
+                                                     LocationChooserDelegate>
 @property NSDictionary *service;
 @property ServiceRequest *serviceRequest;
 @end

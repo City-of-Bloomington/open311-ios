@@ -183,6 +183,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="0eY-AR-nai"/>
+                    <connections>
+                        <segue destination="2KI-gM-Foh" kind="push" identifier="SegueToLocationChooser" id="fOM-o6-y86"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h8F-GY-Vqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -532,6 +535,70 @@
             </objects>
             <point key="canvasLocation" x="933" y="-1037"/>
         </scene>
+        <!--Location Controller-->
+        <scene sceneID="Xv0-1l-mUd">
+            <objects>
+                <viewController id="2KI-gM-Foh" customClass="LocationController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f1y-As-GIM">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-6K-e3q">
+                                <items>
+                                    <barButtonItem image="iconLocation.png" id="gwd-WE-Aph">
+                                        <connections>
+                                            <action selector="centerOnLocation:" destination="2KI-gM-Foh" id="8zs-So-2Ws"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJc-R7-tG5">
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xGN-g3-q6Q"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" image="cross-hairs-small-black-cropped.png" translatesAutoresizingMaskIntoConstraints="NO" id="XHN-s9-Idd">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="Mxe-G2-bBj"/>
+                                            <constraint firstAttribute="width" constant="240" id="WTl-uj-mh8"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="xGN-g3-q6Q" firstAttribute="trailing" secondItem="CJc-R7-tG5" secondAttribute="trailing" type="default" id="Imh-ci-OBf"/>
+                                    <constraint firstItem="xGN-g3-q6Q" firstAttribute="top" secondItem="CJc-R7-tG5" secondAttribute="top" type="default" id="Q3C-fq-LlS"/>
+                                    <constraint firstItem="xGN-g3-q6Q" firstAttribute="leading" secondItem="CJc-R7-tG5" secondAttribute="leading" type="default" id="RaE-GC-O7n"/>
+                                    <constraint firstItem="xGN-g3-q6Q" firstAttribute="bottom" secondItem="CJc-R7-tG5" secondAttribute="bottom" type="default" id="Xza-X0-61p"/>
+                                    <constraint firstItem="XHN-s9-Idd" firstAttribute="centerY" secondItem="xGN-g3-q6Q" secondAttribute="centerY" type="default" id="ksD-Tp-Egq"/>
+                                    <constraint firstItem="XHN-s9-Idd" firstAttribute="centerX" secondItem="xGN-g3-q6Q" secondAttribute="centerX" type="default" id="uzI-fS-rrl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CJc-R7-tG5" firstAttribute="bottom" secondItem="Od0-6K-e3q" secondAttribute="top" type="default" id="4Nl-ra-Pyy"/>
+                            <constraint firstItem="Od0-6K-e3q" firstAttribute="leading" secondItem="f1y-As-GIM" secondAttribute="leading" type="default" id="7EW-tt-8oe"/>
+                            <constraint firstItem="CJc-R7-tG5" firstAttribute="trailing" secondItem="f1y-As-GIM" secondAttribute="trailing" type="default" id="GjR-vx-Lah"/>
+                            <constraint firstItem="Od0-6K-e3q" firstAttribute="bottom" secondItem="f1y-As-GIM" secondAttribute="bottom" type="default" id="ehW-CY-sRU"/>
+                            <constraint firstItem="CJc-R7-tG5" firstAttribute="top" secondItem="f1y-As-GIM" secondAttribute="top" type="default" id="i64-NE-7BH"/>
+                            <constraint firstItem="CJc-R7-tG5" firstAttribute="leading" secondItem="f1y-As-GIM" secondAttribute="leading" type="default" id="uKP-Hk-YSd"/>
+                            <constraint firstItem="Od0-6K-e3q" firstAttribute="trailing" secondItem="f1y-As-GIM" secondAttribute="trailing" type="default" id="zYb-ey-qxf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="NgS-sY-Tzi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="dk4-JB-idg">
+                            <connections>
+                                <action selector="done:" destination="2KI-gM-Foh" id="Ysl-Qc-pgX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="map" destination="xGN-g3-q6Q" id="vmp-yf-zMJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iRM-0M-qEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1921" y="-1771"/>
+        </scene>
         <!--Archive Controller-->
         <scene sceneID="8Fm-4s-2Q3">
             <objects>
@@ -719,6 +786,10 @@
             <point key="canvasLocation" x="531" y="315"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cross-hairs-small-black-cropped.png" width="70" height="70"/>
+        <image name="iconLocation.png" width="20" height="20"/>
+    </resources>
     <classes>
         <class className="AboutController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutController.h"/>
@@ -759,6 +830,14 @@
                 <relationship kind="outlet" name="personalInfoButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="serversButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="LocationController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationController.h"/>
+            <relationships>
+                <relationship kind="action" name="centerOnLocation:"/>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

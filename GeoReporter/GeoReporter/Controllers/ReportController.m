@@ -29,6 +29,8 @@ static NSString * const kFieldname  = @"fieldname";
 static NSString * const kLabel      = @"label";
 static NSString * const kType       = @"type";
 
+static NSString * const kSegueToLocation = @"SegueToLocationChooser";
+
 // Creates a multi-dimensional array to represent the fields to display in
 // the table view.
 //
@@ -150,8 +152,25 @@ static NSString * const kType       = @"type";
         }
     }
     else if ([field[kFieldname] isEqualToString:kOpen311_Address]) {
-        NSString *address = _serviceRequest.postData[kOpen311_AddressString];
-        cell.detailTextLabel.text = address;
+        NSString *address   = _serviceRequest.postData[kOpen311_AddressString];
+        NSString *latitude  = _serviceRequest.postData[kOpen311_Latitude];
+        NSString *longitude = _serviceRequest.postData[kOpen311_Longitude];
+        if (address.length==0 && latitude.length!=0 && longitude.length!=0) {
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longitude doubleValue]];
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+                if (error) {
+                    DLog(@"%@", error);
+                }
+                DLog(@"Placemarks: %@", placemarks);
+                _serviceRequest.postData[kOpen311_AddressString] = [placemarks[0] name];
+                [self.tableView reloadData];
+            }];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", latitude, longitude];
+        }
+        else {
+            cell.detailTextLabel.text = address;
+        }
     }
     else {
         if ([field[kType] isEqualToString:kOpen311_MultiValueList]) {
@@ -187,7 +206,7 @@ static NSString * const kType       = @"type";
         }
     }
     else if ([type isEqualToString:kOpen311_Address]) {
-        
+        [self performSegueWithIdentifier:kSegueToLocation sender:self];
     }
     else if ([type isEqualToString:kOpen311_SingleValueList]) {
         
@@ -198,6 +217,22 @@ static NSString * const kType       = @"type";
     else {
         
     }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:kSegueToLocation]) {
+        [segue.destinationViewController setDelegate:self];
+    }
+}
+
+#pragma mark - Location choosing handlers
+- (void)didChooseLocation:(CLLocationCoordinate2D)location
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    _serviceRequest.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
+    _serviceRequest.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Image choosing handlers

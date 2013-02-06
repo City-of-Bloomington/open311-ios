@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
+		692D042B16C1A2580011C190 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D042A16C1A2580011C190 /* LocationController.m */; };
+		692D042D16C1A5DA0011C190 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042C16C1A5DA0011C190 /* CoreLocation.framework */; };
+		692D042F16C1AA330011C190 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042E16C1AA330011C190 /* MapKit.framework */; };
+		692D043116C1B0B60011C190 /* cross-hairs-small-black-cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 692D043016C1B0B60011C190 /* cross-hairs-small-black-cropped.png */; };
 		693B349B16B6C8EC00FF1B13 /* AddServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693B349A16B6C8EB00FF1B13 /* AddServerController.m */; };
 		693B34A316B6D11300FF1B13 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 693B34A216B6D11300FF1B13 /* Preferences.m */; };
 		693B34A516B6FF5B00FF1B13 /* AvailableServers.json in Resources */ = {isa = PBXBuildFile; fileRef = 693B34A416B6FF5B00FF1B13 /* AvailableServers.json */; };
@@ -66,7 +71,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		690D7A4C16C2BE1D001DD365 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
 		692D042616C188B50011C190 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		692D042916C1A2580011C190 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
+		692D042A16C1A2580011C190 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
+		692D042C16C1A5DA0011C190 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		692D042E16C1AA330011C190 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		692D043016C1B0B60011C190 /* cross-hairs-small-black-cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross-hairs-small-black-cropped.png"; sourceTree = "<group>"; };
 		693B349916B6C8EB00FF1B13 /* AddServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddServerController.h; sourceTree = "<group>"; };
 		693B349A16B6C8EB00FF1B13 /* AddServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerController.m; sourceTree = "<group>"; };
 		693B34A116B6D11300FF1B13 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
@@ -150,6 +161,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				692D042F16C1AA330011C190 /* MapKit.framework in Frameworks */,
+				692D042D16C1A5DA0011C190 /* CoreLocation.framework in Frameworks */,
 				692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */,
 				69CB209A16B32B70009E9BAB /* MobileCoreServices.framework in Frameworks */,
 				69CB209816B32B68009E9BAB /* SystemConfiguration.framework in Frameworks */,
@@ -172,9 +185,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		692D042816C1A2200011C190 /* ReportFields */ = {
+			isa = PBXGroup;
+			children = (
+				692D042916C1A2580011C190 /* LocationController.h */,
+				692D042A16C1A2580011C190 /* LocationController.m */,
+			);
+			path = ReportFields;
+			sourceTree = "<group>";
+		};
 		6988CD1616B2F0900066E796 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				692D042816C1A2200011C190 /* ReportFields */,
 				6988CD1B16B2F1580066E796 /* HomeController.h */,
 				6988CD1C16B2F1580066E796 /* HomeController.m */,
 				6988CD2416B309450066E796 /* ServersController.h */,
@@ -200,6 +223,8 @@
 		6988CD1716B2F0A00066E796 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				690D7A4C16C2BE1D001DD365 /* iconLocation.png */,
+				692D043016C1B0B60011C190 /* cross-hairs-small-black-cropped.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -289,6 +314,8 @@
 		69ED14E016B2EE4C00232245 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				692D042E16C1AA330011C190 /* MapKit.framework */,
+				692D042C16C1A5DA0011C190 /* CoreLocation.framework */,
 				692D042616C188B50011C190 /* AssetsLibrary.framework */,
 				69CB209916B32B70009E9BAB /* MobileCoreServices.framework */,
 				69CB209716B32B68009E9BAB /* SystemConfiguration.framework */,
@@ -441,6 +468,8 @@
 				69C2AF0116B32F7D0037ED57 /* about.html in Resources */,
 				69C2AF0216B32F7D0037ED57 /* AvailableServers.plist in Resources */,
 				693B34A516B6FF5B00FF1B13 /* AvailableServers.json in Resources */,
+				692D043116C1B0B60011C190 /* cross-hairs-small-black-cropped.png in Resources */,
+				690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +528,7 @@
 				69E57B6C16BC1522004B7094 /* ChooseGroupController.m in Sources */,
 				69E57B6F16BC153A004B7094 /* ChooseServiceController.m in Sources */,
 				69ED1CF916BFFABF00A8DED2 /* ServiceRequest.m in Sources */,
+				692D042B16C1A2580011C190 /* LocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
