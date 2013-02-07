@@ -21,6 +21,15 @@
 }
 static NSString * const kSegueToServers = @"SegueToServers";
 
+- (void)viewDidLoad
+{
+    [self.reportButton       setTitle:NSLocalizedString(kUI_Report,       nil) forState:UIControlStateNormal];
+    [self.serversButton      setTitle:NSLocalizedString(kUI_Servers,      nil) forState:UIControlStateNormal];
+    [self.archiveButton      setTitle:NSLocalizedString(kUI_Archive,      nil) forState:UIControlStateNormal];
+    [self.personalInfoButton setTitle:NSLocalizedString(kUI_PersonalInfo, nil) forState:UIControlStateNormal];
+    [self.aboutButton        setTitle:NSLocalizedString(kUI_About,        nil) forState:UIControlStateNormal];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     Preferences *preferences = [Preferences sharedInstance];

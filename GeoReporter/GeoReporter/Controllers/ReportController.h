@@ -11,11 +11,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import "ServiceRequest.h"
 #import "LocationController.h"
+#import "TextEntryDelegate.h"
 
 @interface ReportController : UITableViewController <UINavigationControllerDelegate,
                                                      UIActionSheetDelegate,
                                                      UIImagePickerControllerDelegate,
-                                                     LocationChooserDelegate>
+                                                     LocationChooserDelegate,
+                                                     TextEntryDelegate>
 @property NSDictionary *service;
 @property ServiceRequest *serviceRequest;
+
+- (void)popViewAndReloadTable;
 @end

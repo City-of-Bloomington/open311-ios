@@ -10,12 +10,19 @@
 #import "Strings.h"
 #import "Preferences.h"
 
+#import "StringController.h"
+#import "TextController.h"
+#import "SingleValueListController.h"
+#import "MultiValueListController.h"
+
 @interface ReportController ()
 
 @end
 
 @implementation ReportController {
     NSMutableArray *fields;
+    NSIndexPath *currentIndexPath;
+    
     // In the ServiceRequest, we are only storing the URL for the photo asset.
     // Retrieving the actual image data from the asset is an async call.
     // We need to know what the current |mediaUrl| is, that way, we can invalidate
@@ -29,7 +36,12 @@ static NSString * const kFieldname  = @"fieldname";
 static NSString * const kLabel      = @"label";
 static NSString * const kType       = @"type";
 
-static NSString * const kSegueToLocation = @"SegueToLocationChooser";
+static NSString * const kSegueToLocation        = @"SegueToLocation";
+static NSString * const kSegueToText            = @"SegueToText";
+static NSString * const kSegueToString          = @"SegueToString";
+static NSString * const kSegueToSingleValueList = @"SegueToSingleValueList";
+static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
+
 
 // Creates a multi-dimensional array to represent the fields to display in
 // the table view.
@@ -127,9 +139,11 @@ static NSString * const kSegueToLocation = @"SegueToLocationChooser";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportCell forIndexPath:indexPath];
     
     NSDictionary *field = fields[indexPath.section][indexPath.row];
+    NSString *fieldname = field[kFieldname];
     cell.textLabel.text = field[kLabel];
     
-    if ([field[kFieldname] isEqualToString:kOpen311_Media]) {
+    // Media cell
+    if ([fieldname isEqualToString:kOpen311_Media]) {
         NSURL *url = _serviceRequest.postData[kOpen311_Media];
         if (url != nil) {
             // When the user-selected mediaUrl changes, we need to load a fresh thumbnail image
@@ -151,7 +165,8 @@ static NSString * const kSegueToLocation = @"SegueToLocationChooser";
             }
         }
     }
-    else if ([field[kFieldname] isEqualToString:kOpen311_Address]) {
+    // Location cell
+    else if ([fieldname isEqualToString:kOpen311_Address]) {
         NSString *address   = _serviceRequest.postData[kOpen311_AddressString];
         NSString *latitude  = _serviceRequest.postData[kOpen311_Latitude];
         NSString *longitude = _serviceRequest.postData[kOpen311_Longitude];
@@ -159,12 +174,13 @@ static NSString * const kSegueToLocation = @"SegueToLocationChooser";
             CLLocation *location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longitude doubleValue]];
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-                if (error) {
+                if (error != nil) {
+                    _serviceRequest.postData[kOpen311_AddressString] = [placemarks[0] name];
+                    [self.tableView reloadData];
+                }
+                else {
                     DLog(@"%@", error);
                 }
-                DLog(@"Placemarks: %@", placemarks);
-                _serviceRequest.postData[kOpen311_AddressString] = [placemarks[0] name];
-                [self.tableView reloadData];
             }];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", latitude, longitude];
         }
@@ -172,21 +188,38 @@ static NSString * const kSegueToLocation = @"SegueToLocationChooser";
             cell.detailTextLabel.text = address;
         }
     }
+    // Attribute cells
     else {
-        if ([field[kType] isEqualToString:kOpen311_MultiValueList]) {
+        NSString *datatype  = field[kType];
+        NSString *userInput = _serviceRequest.postData[fieldname];
+        
+        // SingleValueList and MultiValueList values are a set of key:name pairs
+        // The |postData| will contain the key - but we want to display
+        // the name associated with each key
+        if ([datatype isEqualToString:kOpen311_SingleValueList]) {
+            cell.detailTextLabel.text = [_serviceRequest attributeValueForKey:userInput atIndex:indexPath.row];
+        }
+        else if ([datatype isEqualToString:kOpen311_MultiValueList]) {
             
         }
         else {
-            cell.detailTextLabel.text = _serviceRequest.postData[field[kFieldname]];
+            cell.detailTextLabel.text = userInput;
         }
     }
     
     return cell;
 }
 
+// We do the data entry for each field in a seperate view.
+// This is because:
+// 1) The questions being asked can be very long.
+// and
+// 2) The form controls displayed can take up a lot of room.
+// It just makes sense to devote a full screen to each field
+//
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString *type = fields[indexPath.section][indexPath.row][kType];
     
@@ -205,34 +238,84 @@ static NSString * const kSegueToLocation = @"SegueToLocationChooser";
             [popup showInView:self.view];
         }
     }
-    else if ([type isEqualToString:kOpen311_Address]) {
-        [self performSegueWithIdentifier:kSegueToLocation sender:self];
-    }
-    else if ([type isEqualToString:kOpen311_SingleValueList]) {
-        
-    }
-    else if ([type isEqualToString:kOpen311_MultiValueList]) {
-        
-    }
+    else if ([type isEqualToString:kOpen311_Address])         { [self performSegueWithIdentifier:kSegueToLocation        sender:self]; }
+    else if ([type isEqualToString:kOpen311_SingleValueList]) { [self performSegueWithIdentifier:kSegueToSingleValueList sender:self]; }
+    else if ([type isEqualToString:kOpen311_MultiValueList])  { [self performSegueWithIdentifier:kSegueToMultiValueList  sender:self]; }
+    else if ([type isEqualToString:kOpen311_Text])            { [self performSegueWithIdentifier:kSegueToText            sender:self]; }
     else {
-        
+        [self performSegueWithIdentifier:kSegueToString sender:self];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:kSegueToLocation]) {
-        [segue.destinationViewController setDelegate:self];
+    // Because we're pushing a new view and responding to delegate
+    // calls later on, we need to remember what indexPath we were working on
+    // We'll refer to this later, in the delegate response methods
+    currentIndexPath = [self.tableView indexPathForSelectedRow];
+    
+    [segue.destinationViewController setDelegate:self];
+    
+    // If this is data entry for an attribute, send the attribute definition
+    if (currentIndexPath.section == 2) {
+         NSDictionary *attribute = _serviceRequest.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
+        [segue.destinationViewController setAttribute:attribute];
+        
+        // The fieldname is different from the attribute code.
+        // Fieldnames for attributes are in the form of "attribute[code]"
+        // It is fieldname that we use as the key for the value in |postData|.
+        // |postData| contains the raw key:value pairs we will be sending to the
+        // Open311 endpoint
+        NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
+        [segue.destinationViewController setCurrentValue:_serviceRequest.postData[fieldname]];
     }
+    // The only other common field is "description"
+    // We're going to have it use the same data entry view that any other
+    // text attribute would use
+    else {
+        NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
+        if ([fieldname isEqualToString:kOpen311_Description]) {
+            // Create an attribute definition so we can use the same TextController
+            // that all the other attribute definitions use
+            NSDictionary *attribute = @{
+                kOpen311_Code       :kOpen311_Description,
+                kOpen311_Datatype   :kOpen311_Text,
+                kOpen311_Description:NSLocalizedString(kUI_ReportDescription, nil)
+            };
+            [segue.destinationViewController setAttribute:attribute];
+            [segue.destinationViewController setCurrentValue:_serviceRequest.postData[kOpen311_Description]];
+        }
+    }
+}
+
+- (void)popViewAndReloadTable
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tableView reloadData];
+    currentIndexPath = nil;
+}
+
+
+#pragma mark - Attribute result delegate handlers
+// The controllers for String, Text, and SingleValueList will
+// call this delegate method when the user clicks "Done"
+- (void)didProvideValue:(NSString *)value
+{
+    NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
+    _serviceRequest.postData[fieldname] = value;
+    
+    [self popViewAndReloadTable];
 }
 
 #pragma mark - Location choosing handlers
 - (void)didChooseLocation:(CLLocationCoordinate2D)location
 {
-    [self.navigationController popViewControllerAnimated:YES];
     _serviceRequest.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
     _serviceRequest.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
-    [self.tableView reloadData];
+    
+    [self popViewAndReloadTable];
 }
 
 #pragma mark - Image choosing handlers

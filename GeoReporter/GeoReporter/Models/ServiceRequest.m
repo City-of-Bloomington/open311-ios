@@ -44,4 +44,23 @@
     }
     return self;
 }
+
+// Looks up the attribute definition at the index and returns the key value
+//
+// This method only works for SingleValueList and MultiValueList attributes
+// since they're the only attributes that have value lists
+- (NSString *)attributeValueForKey:(NSString *)key atIndex:(NSInteger)index
+{
+    NSDictionary *attribute = _serviceDefinition[kOpen311_Attributes][index];
+    if (   [attribute[kOpen311_Datatype] isEqualToString:kOpen311_SingleValueList]
+        || [attribute[kOpen311_Datatype] isEqualToString:kOpen311_MultiValueList]) {
+        for (NSDictionary *value in attribute[kOpen311_Values]) {
+            if ([value[kOpen311_Key] isEqualToString:key]) {
+                return value[kOpen311_Name];
+            }
+        }
+    }
+    return nil;
+}
+
 @end

@@ -16,4 +16,5 @@
 @property NSMutableDictionary *postData;
 
 - (id)initWithService:(NSDictionary *)service;
+- (NSString *)attributeValueForKey:(NSString *)key atIndex:(NSInteger)index;
 @end

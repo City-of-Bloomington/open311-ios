@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
+		690D7A5016C2D737001DD365 /* SingleValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A4F16C2D737001DD365 /* SingleValueListController.m */; };
+		690D7A5316C2E0B2001DD365 /* MultiValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A5216C2E0B2001DD365 /* MultiValueListController.m */; };
+		690D7A5616C2E0CB001DD365 /* TextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A5516C2E0CB001DD365 /* TextController.m */; };
+		690D7A5B16C2F7C4001DD365 /* StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A5A16C2F7C4001DD365 /* StringController.m */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
 		692D042B16C1A2580011C190 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D042A16C1A2580011C190 /* LocationController.m */; };
 		692D042D16C1A5DA0011C190 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042C16C1A5DA0011C190 /* CoreLocation.framework */; };
@@ -72,6 +76,15 @@
 
 /* Begin PBXFileReference section */
 		690D7A4C16C2BE1D001DD365 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
+		690D7A4E16C2D737001DD365 /* SingleValueListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleValueListController.h; sourceTree = "<group>"; };
+		690D7A4F16C2D737001DD365 /* SingleValueListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleValueListController.m; sourceTree = "<group>"; };
+		690D7A5116C2E0B2001DD365 /* MultiValueListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiValueListController.h; sourceTree = "<group>"; };
+		690D7A5216C2E0B2001DD365 /* MultiValueListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueListController.m; sourceTree = "<group>"; };
+		690D7A5416C2E0CB001DD365 /* TextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextController.h; sourceTree = "<group>"; };
+		690D7A5516C2E0CB001DD365 /* TextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextController.m; sourceTree = "<group>"; };
+		690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextEntryDelegate.h; sourceTree = "<group>"; };
+		690D7A5916C2F7C4001DD365 /* StringController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringController.h; sourceTree = "<group>"; };
+		690D7A5A16C2F7C4001DD365 /* StringController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringController.m; sourceTree = "<group>"; };
 		692D042616C188B50011C190 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		692D042916C1A2580011C190 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		692D042A16C1A2580011C190 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
@@ -190,6 +203,15 @@
 			children = (
 				692D042916C1A2580011C190 /* LocationController.h */,
 				692D042A16C1A2580011C190 /* LocationController.m */,
+				690D7A4E16C2D737001DD365 /* SingleValueListController.h */,
+				690D7A4F16C2D737001DD365 /* SingleValueListController.m */,
+				690D7A5116C2E0B2001DD365 /* MultiValueListController.h */,
+				690D7A5216C2E0B2001DD365 /* MultiValueListController.m */,
+				690D7A5416C2E0CB001DD365 /* TextController.h */,
+				690D7A5516C2E0CB001DD365 /* TextController.m */,
+				690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */,
+				690D7A5916C2F7C4001DD365 /* StringController.h */,
+				690D7A5A16C2F7C4001DD365 /* StringController.m */,
 			);
 			path = ReportFields;
 			sourceTree = "<group>";
@@ -529,6 +551,10 @@
 				69E57B6F16BC153A004B7094 /* ChooseServiceController.m in Sources */,
 				69ED1CF916BFFABF00A8DED2 /* ServiceRequest.m in Sources */,
 				692D042B16C1A2580011C190 /* LocationController.m in Sources */,
+				690D7A5016C2D737001DD365 /* SingleValueListController.m in Sources */,
+				690D7A5316C2E0B2001DD365 /* MultiValueListController.m in Sources */,
+				690D7A5616C2E0CB001DD365 /* TextController.m in Sources */,
+				690D7A5B16C2F7C4001DD365 /* StringController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
