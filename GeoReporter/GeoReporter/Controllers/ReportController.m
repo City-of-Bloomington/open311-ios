@@ -191,18 +191,26 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     // Attribute cells
     else {
         NSString *datatype  = field[kType];
-        NSString *userInput = _serviceRequest.postData[fieldname];
         
         // SingleValueList and MultiValueList values are a set of key:name pairs
         // The |postData| will contain the key - but we want to display
         // the name associated with each key
         if ([datatype isEqualToString:kOpen311_SingleValueList]) {
+            NSString *userInput = _serviceRequest.postData[fieldname];
             cell.detailTextLabel.text = [_serviceRequest attributeValueForKey:userInput atIndex:indexPath.row];
         }
         else if ([datatype isEqualToString:kOpen311_MultiValueList]) {
-            
+            NSString *display = @"";
+            NSArray *userInput = _serviceRequest.postData[fieldname];
+            int count = [userInput count];
+            for (int i=0; i<count; i++) {
+                NSString *name = [_serviceRequest attributeValueForKey:userInput[i] atIndex:indexPath.row];
+                display = [display stringByAppendingFormat:@"%@,", name];
+            }
+            cell.detailTextLabel.text = display;
         }
         else {
+            NSString *userInput = _serviceRequest.postData[fieldname];
             cell.detailTextLabel.text = userInput;
         }
     }
@@ -305,6 +313,14 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 {
     NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
     _serviceRequest.postData[fieldname] = value;
+    
+    [self popViewAndReloadTable];
+}
+
+- (void)didProvideValues:(NSArray *)values
+{
+    NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
+    _serviceRequest.postData[fieldname] = values;
     
     [self popViewAndReloadTable];
 }

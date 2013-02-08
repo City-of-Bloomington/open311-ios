@@ -75,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
 		690D7A4C16C2BE1D001DD365 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
 		690D7A4E16C2D737001DD365 /* SingleValueListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleValueListController.h; sourceTree = "<group>"; };
 		690D7A4F16C2D737001DD365 /* SingleValueListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleValueListController.m; sourceTree = "<group>"; };
@@ -212,6 +213,7 @@
 				690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */,
 				690D7A5916C2F7C4001DD365 /* StringController.h */,
 				690D7A5A16C2F7C4001DD365 /* StringController.m */,
+				690A55E616C433A20076D6A5 /* MultiValueDelegate.h */,
 			);
 			path = ReportFields;
 			sourceTree = "<group>";

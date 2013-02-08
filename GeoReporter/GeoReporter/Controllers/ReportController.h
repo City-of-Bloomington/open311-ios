@@ -12,12 +12,14 @@
 #import "ServiceRequest.h"
 #import "LocationController.h"
 #import "TextEntryDelegate.h"
+#import "MultiValueDelegate.h"
 
 @interface ReportController : UITableViewController <UINavigationControllerDelegate,
                                                      UIActionSheetDelegate,
                                                      UIImagePickerControllerDelegate,
                                                      LocationChooserDelegate,
-                                                     TextEntryDelegate>
+                                                     TextEntryDelegate,
+                                                     MultiValueDelegate>
 @property NSDictionary *service;
 @property ServiceRequest *serviceRequest;
 
