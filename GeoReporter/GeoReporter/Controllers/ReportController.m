@@ -9,6 +9,7 @@
 #import "ReportController.h"
 #import "Strings.h"
 #import "Preferences.h"
+#import "Open311.h"
 
 #import "StringController.h"
 #import "TextController.h"
@@ -30,6 +31,8 @@
     ALAssetsLibrary *library;
     NSURL   *mediaUrl;
     UIImage *mediaThumbnail;
+    
+    UIActivityIndicatorView *busyIcon;
 }
 static NSString * const kReportCell = @"report_cell";
 static NSString * const kFieldname  = @"fieldname";
@@ -61,7 +64,6 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     fields = [[NSMutableArray alloc] init];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
         && [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
-        DLog(@"Adding media and address to display");
         [fields addObject:@[
             @{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
             @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
@@ -71,21 +73,18 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
         library = [[ALAssetsLibrary alloc] init];
     }
     else {
-        DLog(@"Adding only address to display");
         [fields addObject:@[
             @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
         ]];
     }
     
     // Second section: Report Description
-    DLog(@"Adding description to display");
     [fields addObject:@[
         @{kFieldname:kOpen311_Description, kLabel:NSLocalizedString(kUI_ReportDescription, nil), kType:kOpen311_Text}
     ]];
     
     // Third section: Attributes
     if (_service[kOpen311_Metadata]) {
-        DLog(@"Adding attributes");
         NSMutableArray *attributes = [[NSMutableArray alloc] init];
         for (NSDictionary *attribute in _serviceRequest.serviceDefinition[kOpen311_Attributes]) {
             // According to the spec, attribute paramters need to be named:
@@ -101,18 +100,61 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
                 if ([type isEqualToString:kOpen311_MultiValueList]) {
                     code = [code stringByAppendingString:@"[]"];
                 }
-                DLog(@"Adding %@", code);
                 
                 [attributes addObject:@{kFieldname:code, kLabel:attribute[kOpen311_Description], kType:type}];
             }
             else {
                 // This is an information-only attribute.
                 // Save it somewhere so we can display those differently
-                DLog(@"Attribute is info-only");
             }
         }
         [fields addObject:attributes];
     }
+}
+
+/**
+ * POST the service request to the endpoint
+ */
+- (IBAction)done:(id)sender
+{
+    busyIcon = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    busyIcon.center = self.view.center;
+    [busyIcon setFrame:self.view.frame];
+    [busyIcon setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+    [busyIcon startAnimating];
+    [self.view addSubview:busyIcon];
+    
+
+    Open311 *open311 = [Open311 sharedInstance];
+
+    NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+    [notifications addObserver:self selector:@selector(postSucceeded) name:kNotification_PostSucceeded object:open311];
+    [notifications addObserver:self selector:@selector(postFailed)    name:kNotification_PostFailed    object:open311];
+
+    [open311 postServiceRequest:_serviceRequest];
+}
+
+- (void)postSucceeded
+{
+    [busyIcon stopAnimating];
+    [busyIcon removeFromSuperview];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)postFailed
+{
+    [busyIcon stopAnimating];
+    [busyIcon removeFromSuperview];
+}
+
+/**
+ * Refresh the view after a response from user data entry
+ */
+- (void)popViewAndReloadTable
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tableView reloadData];
+    currentIndexPath = nil;
 }
 
 #pragma mark - Table view handlers
@@ -296,13 +338,6 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             [segue.destinationViewController setCurrentValue:_serviceRequest.postData[kOpen311_Description]];
         }
     }
-}
-
-- (void)popViewAndReloadTable
-{
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.tableView reloadData];
-    currentIndexPath = nil;
 }
 
 

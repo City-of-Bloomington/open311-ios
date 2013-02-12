@@ -12,6 +12,11 @@
 #import "Open311.h"
 
 @implementation ServiceRequest
+NSString * const kServer            = @"server";
+NSString * const kService           = @"service";
+NSString * const kServiceDefinition = @"serviceDefinition";
+NSString * const kServiceRequest    = @"serviceRequest";
+NSString * const kPostData          = @"postData";
 
 // Intialize a new, empty service request
 //
@@ -43,6 +48,31 @@
         if (phone     != nil) { _postData[kOpen311_Phone]     = phone; }
     }
     return self;
+}
+
+// Initialize a fully populated ServiceRequest from an unserialized dictionary
+- (id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        _server            = dictionary[kServer];
+        _service           = dictionary[kService];
+        _serviceDefinition = dictionary[kServiceDefinition];
+        _serviceRequest    = dictionary[kServiceRequest];
+        _postData          = dictionary[kPostData];
+    }
+    return self;
+}
+
+- (NSDictionary *)asDictionary
+{
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    if (_server)            { output[kServer]            = _server; }
+    if (_service)           { output[kService]           = _service; }
+    if (_serviceDefinition) { output[kServiceDefinition] = _serviceDefinition; }
+    if (_serviceRequest)    { output[kServiceRequest]    = _serviceRequest; }
+    if (_postData)          { output[kPostData]          = _postData; }
+    return [NSDictionary dictionaryWithDictionary:output];
 }
 
 // Looks up the attribute definition at the index and returns the key value

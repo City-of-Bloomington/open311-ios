@@ -19,7 +19,6 @@
 		692D043116C1B0B60011C190 /* cross-hairs-small-black-cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 692D043016C1B0B60011C190 /* cross-hairs-small-black-cropped.png */; };
 		693B349B16B6C8EC00FF1B13 /* AddServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693B349A16B6C8EB00FF1B13 /* AddServerController.m */; };
 		693B34A316B6D11300FF1B13 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 693B34A216B6D11300FF1B13 /* Preferences.m */; };
-		693B34A516B6FF5B00FF1B13 /* AvailableServers.json in Resources */ = {isa = PBXBuildFile; fileRef = 693B34A416B6FF5B00FF1B13 /* AvailableServers.json */; };
 		696557B016B3180700258BA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 696557B216B3180700258BA2 /* Localizable.strings */; };
 		6988CD1D16B2F1580066E796 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD1C16B2F1580066E796 /* HomeController.m */; };
 		6988CD2616B309450066E796 /* ServersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2516B309450066E796 /* ServersController.m */; };
@@ -96,7 +95,6 @@
 		693B349A16B6C8EB00FF1B13 /* AddServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerController.m; sourceTree = "<group>"; };
 		693B34A116B6D11300FF1B13 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		693B34A216B6D11300FF1B13 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
-		693B34A416B6FF5B00FF1B13 /* AvailableServers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AvailableServers.json; sourceTree = "<group>"; };
 		696557B116B3180700258BA2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		696557B316B3189F00258BA2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		696557B416B318AC00258BA2 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -383,7 +381,6 @@
 				69ED14F516B2EE4C00232245 /* Default@2x.png */,
 				69ED14F716B2EE4C00232245 /* Default-568h@2x.png */,
 				696557B216B3180700258BA2 /* Localizable.strings */,
-				693B34A416B6FF5B00FF1B13 /* AvailableServers.json */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -491,7 +488,6 @@
 				69CB209E16B32BCA009E9BAB /* Icon@2x.png in Resources */,
 				69C2AF0116B32F7D0037ED57 /* about.html in Resources */,
 				69C2AF0216B32F7D0037ED57 /* AvailableServers.plist in Resources */,
-				693B34A516B6FF5B00FF1B13 /* AvailableServers.json in Resources */,
 				692D043116C1B0B60011C190 /* cross-hairs-small-black-cropped.png in Resources */,
 				690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */,
 			);

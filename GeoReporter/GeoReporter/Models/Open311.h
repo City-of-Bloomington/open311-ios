@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ServiceRequest.h"
+
 extern NSString * const kNotification_ServiceListReady;
+extern NSString * const kNotification_PostSucceeded;
+extern NSString * const kNotification_PostFailed;
 
 @interface Open311 : NSObject
 @property (readonly) NSDictionary *endpointParameters;
@@ -21,6 +25,9 @@ extern NSString * const kNotification_ServiceListReady;
 
 - (void)loadServiceList;
 - (void)loadServiceDefinitions;
+
+- (void)postServiceRequest:(ServiceRequest *)serviceRequest;
+- (void)postFailedWithError:(NSError *)error;
 
 - (NSArray *)getServicesForGroup:(NSString *)group;
 @end

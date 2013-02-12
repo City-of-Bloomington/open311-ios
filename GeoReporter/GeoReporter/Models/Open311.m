@@ -16,10 +16,13 @@
 
 #import "Open311.h"
 #import "Strings.h"
+#import "Preferences.h"
 #import "AFHTTPClient.h"
 #import "AFJSONRequestOperation.h"
 
 NSString * const kNotification_ServiceListReady = @"serviceListReady";
+NSString * const kNotification_PostSucceeded    = @"postSucceeded";
+NSString * const kNotification_PostFailed       = @"postFailed";
 
 @implementation Open311 {
     AFHTTPClient *httpClient;
@@ -49,6 +52,7 @@ SHARED_SINGLETON(Open311);
 
 - (void)loadFailedWithError:(NSError *)error
 {
+    DLog(@"%@", error);
 }
 
 - (void)loadServiceList
@@ -96,20 +100,75 @@ SHARED_SINGLETON(Open311);
         __block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
         if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
             [httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
-                     parameters:_endpointParameters
-                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                            NSError *error;
-                            _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-                            if (error) {
-                                [self loadFailedWithError:error];
-                            }
-                        }
-                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                            [self loadFailedWithError:error];
-                        }];
+                parameters:_endpointParameters
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSError *error;
+                    _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                    if (error) {
+                        [self loadFailedWithError:error];
+                    }
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [self loadFailedWithError:error];
+                }
+            ];
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
+}
+
+- (void)postFailedWithError:(NSError *)error
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_PostFailed object:self];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_FailurePostingService, nil)
+                                                    message:[error localizedDescription]
+                                                   delegate:self
+                                          cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)postServiceRequest:(ServiceRequest *)serviceRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:_endpointParameters];
+    [serviceRequest.postData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if (!parameters[key]) {
+            parameters[key] = obj;
+        }
+    }];
+    
+    NSMutableURLRequest *url = [httpClient requestWithMethod:@"POST" path:@"requests.json" parameters:parameters];
+    AFJSONRequestOperation *post = [AFJSONRequestOperation JSONRequestOperationWithRequest:url
+       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+           NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+           
+           if ([NSJSONSerialization isValidJSONObject:JSON]) {
+               NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:JSON[0]];
+               if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
+                   if (!sr[kOpen311_RequestedDatetime]) {
+                       NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                       [df setDateFormat:kDate_ISO8601];
+                       sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
+                   }
+                   serviceRequest.server         = currentServer;
+                   serviceRequest.serviceRequest = sr;
+                   [[Preferences sharedInstance] saveServiceRequest:serviceRequest forIndex:nil];
+                   [notifications postNotificationName:kNotification_PostSucceeded object:self];
+               }
+               else {
+                   [notifications postNotificationName:kNotification_PostFailed object:self];
+               }
+           }
+           else {
+               [notifications postNotificationName:kNotification_PostFailed object:self];
+           }
+       }
+       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+           [self postFailedWithError:error];
+       }
+    ];
+    [post start];
 }
 
 /**

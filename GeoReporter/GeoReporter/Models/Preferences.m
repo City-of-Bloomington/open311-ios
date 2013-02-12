@@ -14,6 +14,7 @@
     NSDictionary *currentServer;
 }
 static NSString * const kCustomServers = @"custom_servers";
+static NSString * const kArchiveFilename = @"savedServiceRequests.archive";
 
 SHARED_SINGLETON(Preferences);
 
@@ -75,4 +76,47 @@ SHARED_SINGLETON(Preferences);
     [[NSUserDefaults standardUserDefaults] setObject:server[kOpen311_Name] forKey:kOpen311_Name];
 }
 
+
+#pragma mark - Archived service requests
+
++ (NSString *)getArchiveFilePath
+{
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:kArchiveFilename];
+}
+
+- (NSArray *)getArchivedServiceRequests
+{
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[Preferences getArchiveFilePath]]) {
+        return [NSKeyedUnarchiver unarchiveObjectWithFile:[Preferences getArchiveFilePath]];
+    }
+    else {
+        return @[];
+    }
+}
+
+/**
+ * Inserts or Updates a serviceRequest in the archive
+ *
+ * If an index is not provided, the new service request is inserted
+ * at the top of the archive.  The archive is immediately written out
+ * to a file.
+ */
+ - (void)saveServiceRequest:(ServiceRequest *)serviceRequest forIndex:(NSInteger)index
+{
+    if (!index) { index = 0; }
+    
+    NSMutableArray *archive = [NSMutableArray arrayWithArray:[self getArchivedServiceRequests]];
+    NSDictionary *sr = [serviceRequest asDictionary];
+    [archive setObject:sr atIndexedSubscript:index];
+    
+    BOOL success = [NSKeyedArchiver archiveRootObject:archive toFile:[Preferences getArchiveFilePath]];
+    if (!success) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"failed to save archive file"
+                                                        message:nil
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
 @end

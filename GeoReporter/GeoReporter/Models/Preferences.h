@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ServiceRequest.h"
 
 @interface Preferences : NSObject
 + (id)sharedInstance;
@@ -18,4 +19,8 @@
 
 - (NSDictionary *)getCurrentServer;
 - (void)setCurrentServer:(NSDictionary *)server;
+
++ (NSString *)getArchiveFilePath;
+- (NSArray *)getArchivedServiceRequests;
+- (void)saveServiceRequest:(ServiceRequest *)serviceRequest forIndex:(NSInteger)index;
 @end

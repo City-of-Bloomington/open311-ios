@@ -108,6 +108,8 @@ NSString * const kOpen311_SupportsMedia = @"supports_media";
 NSString * const kOpen311_JSON = @"json";
 NSString * const kOpen311_XML  = @"xml";
 
+NSString * const kDate_ISO8601 = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+
 @implementation Strings
 
 @end

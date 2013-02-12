@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ArchiveController : UIViewController
+@interface ArchiveController : UITableViewController
 
 @end

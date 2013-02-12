@@ -100,5 +100,7 @@ extern NSString * const kOpen311_SupportsMedia;
 extern NSString * const kOpen311_JSON;
 extern NSString * const kOpen311_XML;
 
+extern NSString * const kDate_ISO8601;
+
 @interface Strings : NSObject
 @end

@@ -22,6 +22,9 @@
                                                      MultiValueDelegate>
 @property NSDictionary *service;
 @property ServiceRequest *serviceRequest;
+- (IBAction)done:(id)sender;
+- (void)postSucceeded;
+- (void)postFailed;
 
 - (void)popViewAndReloadTable;
 @end
