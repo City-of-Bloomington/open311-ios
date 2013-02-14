@@ -17,7 +17,7 @@
 @implementation ServersController {
     Preferences *prefs;
     NSArray *availableServers;
-    NSArray *customServers;
+    NSMutableArray *customServers;
 }
 static NSString * const kCellIdentifier = @"server_cell";
 
@@ -31,8 +31,13 @@ static NSString * const kCellIdentifier = @"server_cell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    customServers = [prefs getCustomServers];
+    customServers = [NSMutableArray arrayWithArray:[prefs getCustomServers]];
     [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [prefs saveCustomServers:customServers];
 }
 
 /**
@@ -84,9 +89,32 @@ static NSString * const kCellIdentifier = @"server_cell";
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+#pragma mark - Table View Deletion Handlers
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.row >= [availableServers count]) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSInteger index = indexPath.row - [availableServers count];
+        [customServers removeObjectAtIndex:index];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
 @end

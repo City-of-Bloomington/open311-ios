@@ -18,6 +18,7 @@ static NSString * const kArchiveFilename = @"savedServiceRequests.archive";
 
 SHARED_SINGLETON(Preferences);
 
+#pragma mark - Custom Servers
 /**
  * Returns the Servers array from inside the AvailableServers.plist
  */
@@ -36,16 +37,21 @@ SHARED_SINGLETON(Preferences);
     return nil;
 }
 
-- (void)addCustomServer:(NSDictionary *)server
+- (void)saveCustomServers:(NSMutableArray *)customServers
 {
-    NSMutableArray *customServers = [NSMutableArray arrayWithArray:[self getCustomServers]];
-    [customServers addObject:server];
-    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:customServers options:0 error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     [[NSUserDefaults standardUserDefaults] setValue:jsonString forKey:kCustomServers];
 }
 
+- (void)addCustomServer:(NSDictionary *)server
+{
+    NSMutableArray *customServers = [NSMutableArray arrayWithArray:[self getCustomServers]];
+    [customServers addObject:server];
+    [self saveCustomServers:customServers];
+}
+
+#pragma mark - Current Server
 /**
  * Lazy load the current server information
  *

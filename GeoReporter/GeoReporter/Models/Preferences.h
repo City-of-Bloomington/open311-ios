@@ -15,6 +15,7 @@
 + (NSArray *)getAvailableServers;
 
 - (NSArray *)getCustomServers;
+- (void)saveCustomServers:(NSMutableArray *)customServers;
 - (void)addCustomServer:(NSDictionary *)server;
 
 - (NSDictionary *)getCurrentServer;
