@@ -84,4 +84,9 @@ static NSString * const kCellIdentifier = @"server_cell";
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    
+}
+
 @end

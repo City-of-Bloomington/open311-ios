@@ -22,5 +22,6 @@
 
 + (NSString *)getArchiveFilePath;
 - (NSArray *)getArchivedServiceRequests;
+- (void)saveArchivedServiceRequests:(NSMutableArray *)archive;
 - (void)saveServiceRequest:(ServiceRequest *)serviceRequest forIndex:(NSInteger)index;
 @end

@@ -17,7 +17,7 @@
 @end
 
 @implementation ArchiveController {
-    NSArray *archivedServiceRequests;
+    NSMutableArray  *archivedServiceRequests;
     NSDateFormatter *dateFormatterDisplay;
     NSDateFormatter *dateFormatterISO;
 }
@@ -35,8 +35,15 @@ NSString * const kCellIdentifier = @"archive_cell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    archivedServiceRequests = [[Preferences sharedInstance] getArchivedServiceRequests];
+    archivedServiceRequests = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedServiceRequests]];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[Preferences sharedInstance] saveArchivedServiceRequests:archivedServiceRequests];
+}
+
+#pragma mark - Table handling functions
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -55,4 +62,22 @@ NSString * const kCellIdentifier = @"archive_cell";
     return cell;
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [archivedServiceRequests removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
 @end

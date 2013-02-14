@@ -84,6 +84,9 @@ SHARED_SINGLETON(Preferences);
     return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:kArchiveFilename];
 }
 
+/**
+ * Unserialize the archive file
+ */
 - (NSArray *)getArchivedServiceRequests
 {
     if ([[NSFileManager defaultManager] fileExistsAtPath:[Preferences getArchiveFilePath]]) {
@@ -91,6 +94,22 @@ SHARED_SINGLETON(Preferences);
     }
     else {
         return @[];
+    }
+}
+
+/**
+ * Write the archive back to a serialized file
+ */
+- (void)saveArchivedServiceRequests:(NSMutableArray *)archive
+{
+    BOOL success = [NSKeyedArchiver archiveRootObject:archive toFile:[Preferences getArchiveFilePath]];
+    if (!success) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"failed to save archive file"
+                                                        message:nil
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
+                                              otherButtonTitles:nil];
+        [alert show];
     }
 }
 
@@ -108,15 +127,7 @@ SHARED_SINGLETON(Preferences);
     NSMutableArray *archive = [NSMutableArray arrayWithArray:[self getArchivedServiceRequests]];
     NSDictionary *sr = [serviceRequest asDictionary];
     [archive setObject:sr atIndexedSubscript:index];
-    
-    BOOL success = [NSKeyedArchiver archiveRootObject:archive toFile:[Preferences getArchiveFilePath]];
-    if (!success) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"failed to save archive file"
-                                                        message:nil
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
+    [self saveArchivedServiceRequests:archive];
 }
+
 @end
