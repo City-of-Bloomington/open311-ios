@@ -61,6 +61,8 @@
 		69ED151316B2EE4D00232245 /* GeoReporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED151216B2EE4D00232245 /* GeoReporterTests.m */; };
 		69ED1CF916BFFABF00A8DED2 /* ServiceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED1CF816BFFABF00A8DED2 /* ServiceRequest.m */; };
 		69F0789A16B97A2700EC2C19 /* Open311.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0789916B97A2700EC2C19 /* Open311.m */; };
+		69F2E93916CAAC480027F580 /* ViewRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F2E93816CAAC480027F580 /* ViewRequestController.m */; };
+		69F2E93C16CACA6D0027F580 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F2E93B16CACA6D0027F580 /* Media.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,10 @@
 		69ED1CF816BFFABF00A8DED2 /* ServiceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceRequest.m; sourceTree = "<group>"; };
 		69F0789816B97A2700EC2C19 /* Open311.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Open311.h; sourceTree = "<group>"; };
 		69F0789916B97A2700EC2C19 /* Open311.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Open311.m; sourceTree = "<group>"; };
+		69F2E93716CAAC480027F580 /* ViewRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewRequestController.h; sourceTree = "<group>"; };
+		69F2E93816CAAC480027F580 /* ViewRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewRequestController.m; sourceTree = "<group>"; };
+		69F2E93A16CACA6D0027F580 /* Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
+		69F2E93B16CACA6D0027F580 /* Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Media.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +244,8 @@
 				69E57B6B16BC1522004B7094 /* ChooseGroupController.m */,
 				69E57B6D16BC153A004B7094 /* ChooseServiceController.h */,
 				69E57B6E16BC153A004B7094 /* ChooseServiceController.m */,
+				69F2E93716CAAC480027F580 /* ViewRequestController.h */,
+				69F2E93816CAAC480027F580 /* ViewRequestController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -269,6 +277,8 @@
 			children = (
 				69C062DA16B3193F005E4D67 /* Strings.h */,
 				69C062DB16B3193F005E4D67 /* Strings.m */,
+				69F2E93A16CACA6D0027F580 /* Media.h */,
+				69F2E93B16CACA6D0027F580 /* Media.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -553,6 +563,8 @@
 				690D7A5316C2E0B2001DD365 /* MultiValueListController.m in Sources */,
 				690D7A5616C2E0CB001DD365 /* TextController.m in Sources */,
 				690D7A5B16C2F7C4001DD365 /* StringController.m in Sources */,
+				69F2E93916CAAC480027F580 /* ViewRequestController.m in Sources */,
+				69F2E93C16CACA6D0027F580 /* Media.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

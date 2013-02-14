@@ -27,4 +27,5 @@
 - (void)postFailed;
 
 - (void)popViewAndReloadTable;
+- (void)refreshMediaThumbnail;
 @end

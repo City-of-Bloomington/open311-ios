@@ -131,7 +131,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     [notifications addObserver:self selector:@selector(postSucceeded) name:kNotification_PostSucceeded object:open311];
     [notifications addObserver:self selector:@selector(postFailed)    name:kNotification_PostFailed    object:open311];
 
-    [open311 postServiceRequest:_serviceRequest];
+    [open311 startPostingServiceRequest:_serviceRequest];
 }
 
 - (void)postSucceeded
@@ -192,15 +192,15 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             // This is an async call, that could take some time.
             if (![mediaUrl isEqual:url]) {
                 [library assetForURL:url
-                    resultBlock:^(ALAsset *asset) {
-                        // Once we finally get the image loaded, we need to tell the
-                        // table to redraw itself, which should pick up the new |mediaThumbnail|
-                        mediaThumbnail = [UIImage imageWithCGImage:[asset thumbnail]];
-                        [self.tableView reloadData];
-                    }
-                    failureBlock:^(NSError *error) {
-                        DLog(@"Failed to load thumbnail from library");
-                    }];
+                         resultBlock:^(ALAsset *asset) {
+                             DLog(@"Loaded image from library");
+                            // Once we finally get the image loaded, we need to tell the
+                            // table to redraw itself, which should pick up the new |mediaThumbnail|
+                            mediaThumbnail = [UIImage imageWithCGImage:[asset thumbnail]];
+                        }
+                        failureBlock:^(NSError *error) {
+                            DLog(@"Failed to load thumbnail from library");
+                        }];
             }
             if (mediaThumbnail != nil) {
                 [cell.imageView setImage:mediaThumbnail];
@@ -213,17 +213,6 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
         NSString *latitude  = _serviceRequest.postData[kOpen311_Latitude];
         NSString *longitude = _serviceRequest.postData[kOpen311_Longitude];
         if (address.length==0 && latitude.length!=0 && longitude.length!=0) {
-            CLLocation *location = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longitude doubleValue]];
-            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-            [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-                if (error != nil) {
-                    _serviceRequest.postData[kOpen311_AddressString] = [placemarks[0] name];
-                    [self.tableView reloadData];
-                }
-                else {
-                    DLog(@"%@", error);
-                }
-            }];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", latitude, longitude];
         }
         else {
@@ -366,6 +355,16 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     _serviceRequest.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
     _serviceRequest.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
     
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude]
+                   completionHandler:^(NSArray *placemarks, NSError *error) {
+                       DLog(@"Got a geocoder response");
+                       NSString *address = [placemarks[0] name];
+                       DLog(@"Geocoder returned %@", address);
+                       _serviceRequest.postData[kOpen311_AddressString] = address ? address : @"";
+                       [self.tableView reloadData];
+                   }];
+    
     [self popViewAndReloadTable];
 }
 
@@ -396,21 +395,33 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
                               completionBlock:^(NSURL *assetURL, NSError *error) {
                                   DLog(@"Setting POST media to: %@", assetURL);
                                   _serviceRequest.postData[kOpen311_Media] = assetURL;
-                                  [self.tableView reloadData];
+                                  [self refreshMediaThumbnail];
                               }];
     }
     else {
         // The user chose an image from the library
         DLog(@"User chose a picture from the library");
         _serviceRequest.postData[kOpen311_Media] = info[UIImagePickerControllerReferenceURL];
+        [self refreshMediaThumbnail];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.tableView reloadData];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)refreshMediaThumbnail
+{
+    [library assetForURL:_serviceRequest.postData[kOpen311_Media]
+             resultBlock:^(ALAsset *asset) {
+                 mediaThumbnail = [UIImage imageWithCGImage:[asset thumbnail]];
+                 [self.tableView reloadData];
+             }
+            failureBlock:^(NSError *error) {
+                DLog(@"Failed to load chosen image from library");
+            }];
 }
 
 @end

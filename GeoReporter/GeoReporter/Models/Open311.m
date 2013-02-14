@@ -19,6 +19,7 @@
 #import "Preferences.h"
 #import "AFHTTPClient.h"
 #import "AFJSONRequestOperation.h"
+#import "Media.h"
 
 NSString * const kNotification_ServiceListReady = @"serviceListReady";
 NSString * const kNotification_PostSucceeded    = @"postSucceeded";
@@ -117,6 +118,9 @@ SHARED_SINGLETON(Open311);
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
 }
 
+/**
+ * Displays an alert to the user and sets notification to any observers
+ */
 - (void)postFailedWithError:(NSError *)error
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_PostFailed object:self];
@@ -129,7 +133,13 @@ SHARED_SINGLETON(Open311);
     [alert show];
 }
 
-- (void)postServiceRequest:(ServiceRequest *)serviceRequest
+/**
+ * Creates a POST request
+ *
+ * The POST will be either a regular POST or multipart/form-data,
+ * depending on whether the service request has media or not.
+ */
+- (NSMutableURLRequest *)preparePostForServiceRequest:(ServiceRequest *)serviceRequest withMedia:(UIImage *)media
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:_endpointParameters];
     [serviceRequest.postData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -138,37 +148,98 @@ SHARED_SINGLETON(Open311);
         }
     }];
     
-    NSMutableURLRequest *url = [httpClient requestWithMethod:@"POST" path:@"requests.json" parameters:parameters];
-    AFJSONRequestOperation *post = [AFJSONRequestOperation JSONRequestOperationWithRequest:url
-       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-           NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
-           
-           if ([NSJSONSerialization isValidJSONObject:JSON]) {
-               NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:JSON[0]];
-               if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
-                   if (!sr[kOpen311_RequestedDatetime]) {
-                       NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                       [df setDateFormat:kDate_ISO8601];
-                       sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
+    NSMutableURLRequest *post;
+    if (media) {
+        [parameters removeObjectForKey:kOpen311_Media];
+        post = [httpClient multipartFormRequestWithMethod:@"POST"
+                                                     path:@"requests.json"
+                                               parameters:parameters
+                                constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                                    [formData appendPartWithFileData:UIImagePNGRepresentation(media)
+                                                                name:kOpen311_Media
+                                                            fileName:@"media.png"
+                                                            mimeType:@"image/png"];
+                                }];
+    }
+    else {
+        post = [httpClient requestWithMethod:@"POST" path:@"requests.json" parameters:parameters];
+    }
+    return post;
+}
+
+/**
+ * Kicks off the service request posting process
+ *
+ * Loading media from the asset library is an async call.
+ * So we have to set a callback for when the image data is loaded.
+ * This starts the process and sets the image-loaded callback
+ * to [self postServiceRequest]
+ *
+ * If there's no media involved, we just call that method right away
+ */
+- (void)startPostingServiceRequest:(ServiceRequest *)serviceRequest
+{
+    NSURL *mediaUrl = serviceRequest.postData[kOpen311_Media];
+    if (mediaUrl) {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library assetForURL:mediaUrl
+                 resultBlock:^(ALAsset *asset) {
+                     ALAssetRepresentation *rep = [asset defaultRepresentation];
+                     UIImage *original = [UIImage imageWithCGImage:[rep CGImageWithOptions:nil]];
+                     UIImage *media = [Media resizeImage:original toBoundingBox:800];
+                     
+                     NSMutableURLRequest *post = [self preparePostForServiceRequest:serviceRequest withMedia:media];
+                     [self postServiceRequest:serviceRequest withPost:post];
+                 }
+                failureBlock:^(NSError *error) {
+                    [self postFailedWithError:error];
+                }];
+    }
+    else {
+        NSMutableURLRequest *post = [self preparePostForServiceRequest:serviceRequest withMedia:nil];
+        [self postServiceRequest:serviceRequest withPost:post];
+    }
+}
+
+/**
+ * Sends the service request to the Open311 server
+ *
+ * This is an Async network call.
+ * The Open311 object will send out notifications when the call is finished.
+ * PostSucceeded or PostFailed
+ */
+- (void)postServiceRequest:(ServiceRequest *)serviceRequest withPost:(NSMutableURLRequest *)post
+{
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:post
+           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+               NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+               
+               if ([NSJSONSerialization isValidJSONObject:JSON]) {
+                   NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:JSON[0]];
+                   if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
+                       if (!sr[kOpen311_RequestedDatetime]) {
+                           NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                           [df setDateFormat:kDate_ISO8601];
+                           sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
+                       }
+                       serviceRequest.server         = currentServer;
+                       serviceRequest.serviceRequest = sr;
+                       [[Preferences sharedInstance] saveServiceRequest:serviceRequest forIndex:nil];
+                       [notifications postNotificationName:kNotification_PostSucceeded object:self];
                    }
-                   serviceRequest.server         = currentServer;
-                   serviceRequest.serviceRequest = sr;
-                   [[Preferences sharedInstance] saveServiceRequest:serviceRequest forIndex:nil];
-                   [notifications postNotificationName:kNotification_PostSucceeded object:self];
+                   else {
+                       [notifications postNotificationName:kNotification_PostFailed object:self];
+                   }
                }
                else {
                    [notifications postNotificationName:kNotification_PostFailed object:self];
                }
            }
-           else {
-               [notifications postNotificationName:kNotification_PostFailed object:self];
+           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+               [self postFailedWithError:error];
            }
-       }
-       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-           [self postFailedWithError:error];
-       }
     ];
-    [post start];
+    [operation start];
 }
 
 /**
