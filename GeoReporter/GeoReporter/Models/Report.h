@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ServiceRequest : NSObject
+@interface Report : NSObject
 @property NSDictionary *server;
 @property NSDictionary *service;
 @property NSDictionary *serviceDefinition;

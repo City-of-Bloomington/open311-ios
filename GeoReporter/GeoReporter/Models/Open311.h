@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "ServiceRequest.h"
+#import "Report.h"
 
 extern NSString * const kNotification_ServiceListReady;
 extern NSString * const kNotification_PostSucceeded;
@@ -27,9 +27,9 @@ extern NSString * const kNotification_PostFailed;
 - (void)loadServiceList;
 - (void)loadServiceDefinitions;
 
-- (void)startPostingServiceRequest:(ServiceRequest *)serviceRequest;
-- (NSMutableURLRequest *)preparePostForServiceRequest:(ServiceRequest *)serviceRequest withMedia:(UIImage *)media;
-- (void)postServiceRequest:(ServiceRequest *)serviceRequest withPost:(NSMutableURLRequest *)post;
+- (void)startPostingServiceRequest:(Report *)report;
+- (NSMutableURLRequest *)preparePostForReport:(Report *)report withMedia:(UIImage *)media;
+- (void)postReport:(Report *)report withPost:(NSMutableURLRequest *)post;
 - (void)postFailedWithError:(NSError *)error;
 
 - (NSArray *)getServicesForGroup:(NSString *)group;

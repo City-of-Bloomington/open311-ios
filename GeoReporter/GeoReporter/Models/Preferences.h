@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ServiceRequest.h"
+#import "Report.h"
 
 @interface Preferences : NSObject
 + (id)sharedInstance;
@@ -22,7 +22,7 @@
 - (void)setCurrentServer:(NSDictionary *)server;
 
 + (NSString *)getArchiveFilePath;
-- (NSArray *)getArchivedServiceRequests;
-- (void)saveArchivedServiceRequests:(NSMutableArray *)archive;
-- (void)saveServiceRequest:(ServiceRequest *)serviceRequest forIndex:(NSInteger)index;
+- (NSArray *)getArchivedReports;
+- (void)saveArchivedReports:(NSMutableArray *)archive;
+- (void)saveReport:(Report *)report forIndex:(NSInteger)index;
 @end

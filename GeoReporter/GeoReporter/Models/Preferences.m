@@ -14,7 +14,7 @@
     NSDictionary *currentServer;
 }
 static NSString * const kCustomServers = @"custom_servers";
-static NSString * const kArchiveFilename = @"savedServiceRequests.archive";
+static NSString * const kArchiveFilename = @"reports.archive";
 
 SHARED_SINGLETON(Preferences);
 
@@ -91,14 +91,21 @@ SHARED_SINGLETON(Preferences);
 }
 
 /**
- * Unserialize the archive file
+ * Loads the archive file (Does not unserialize reports)
+ *
+ * The archived reports will be an NSArray of NSDictionaries
+ * The items in the archive must still be hydrated before use
+ * Report *r = [[Report alloc] initWithDictionary:[archive[index]]]
  */
-- (NSArray *)getArchivedServiceRequests
+- (NSArray *)getArchivedReports
 {
+    DLog(@"Loading archive");
     if ([[NSFileManager defaultManager] fileExistsAtPath:[Preferences getArchiveFilePath]]) {
+        DLog(@"loading archive file");
         return [NSKeyedUnarchiver unarchiveObjectWithFile:[Preferences getArchiveFilePath]];
     }
     else {
+        DLog(@"No archive file found");
         return @[];
     }
 }
@@ -106,8 +113,9 @@ SHARED_SINGLETON(Preferences);
 /**
  * Write the archive back to a serialized file
  */
-- (void)saveArchivedServiceRequests:(NSMutableArray *)archive
+- (void)saveArchivedReports:(NSMutableArray *)archive
 {
+    DLog(@"Saving archive file");
     BOOL success = [NSKeyedArchiver archiveRootObject:archive toFile:[Preferences getArchiveFilePath]];
     if (!success) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"failed to save archive file"
@@ -122,18 +130,21 @@ SHARED_SINGLETON(Preferences);
 /**
  * Inserts or Updates a serviceRequest in the archive
  *
- * If an index is not provided, the new service request is inserted
- * at the top of the archive.  The archive is immediately written out
- * to a file.
+ * If an index is not provided, the new report is inserted
+ * at the top of the archive.
+ *
+ * The archive serialization process means the archive array
+ * must only contain NSDictionaries.  Each report added to the
+ * archive must be converted to an NSDictionary
  */
- - (void)saveServiceRequest:(ServiceRequest *)serviceRequest forIndex:(NSInteger)index
+ - (void)saveReport:(Report *)report forIndex:(NSInteger)index
 {
     if (!index) { index = 0; }
     
-    NSMutableArray *archive = [NSMutableArray arrayWithArray:[self getArchivedServiceRequests]];
-    NSDictionary *sr = [serviceRequest asDictionary];
+    NSMutableArray *archive = [NSMutableArray arrayWithArray:[self getArchivedReports]];
+    NSDictionary *sr = [report asDictionary];
     [archive setObject:sr atIndexedSubscript:index];
-    [self saveArchivedServiceRequests:archive];
+    [self saveArchivedReports:archive];
 }
 
 @end

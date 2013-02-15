@@ -7,7 +7,7 @@
 //
 
 #import "ArchiveController.h"
-#import "ServiceRequest.h"
+#import "Report.h"
 #import "Preferences.h"
 #import "Strings.h"
 #import "Open311.h"
@@ -17,7 +17,7 @@
 @end
 
 @implementation ArchiveController {
-    NSMutableArray  *archivedServiceRequests;
+    NSMutableArray  *archivedReports;
     NSDateFormatter *dateFormatterDisplay;
     NSDateFormatter *dateFormatterISO;
 }
@@ -35,25 +35,27 @@ NSString * const kCellIdentifier = @"archive_cell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    archivedServiceRequests = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedServiceRequests]];
+    archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
+    DLog(@"Displaying %d archived reports", [archivedReports count]);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[Preferences sharedInstance] saveArchivedServiceRequests:archivedServiceRequests];
+    [[Preferences sharedInstance] saveArchivedReports:archivedReports];
 }
 
 #pragma mark - Table handling functions
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [archivedServiceRequests count];
+    return [archivedReports count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
-    ServiceRequest *sr = [[ServiceRequest alloc] initWithDictionary:archivedServiceRequests[indexPath.row]];
+    // Reports from the archive must be hydrated before using
+    Report *sr = [[Report alloc] initWithDictionary:archivedReports[indexPath.row]];
     
     cell.textLabel.text = sr.service[kOpen311_ServiceName];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@",
@@ -76,7 +78,7 @@ NSString * const kCellIdentifier = @"archive_cell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [archivedServiceRequests removeObjectAtIndex:indexPath.row];
+        [archivedReports removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }

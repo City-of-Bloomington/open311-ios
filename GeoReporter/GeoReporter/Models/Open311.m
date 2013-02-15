@@ -139,10 +139,10 @@ SHARED_SINGLETON(Open311);
  * The POST will be either a regular POST or multipart/form-data,
  * depending on whether the service request has media or not.
  */
-- (NSMutableURLRequest *)preparePostForServiceRequest:(ServiceRequest *)serviceRequest withMedia:(UIImage *)media
+- (NSMutableURLRequest *)preparePostForReport:(Report *)report withMedia:(UIImage *)media
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:_endpointParameters];
-    [serviceRequest.postData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [report.postData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (!parameters[key]) {
             parameters[key] = obj;
         }
@@ -168,7 +168,7 @@ SHARED_SINGLETON(Open311);
 }
 
 /**
- * Kicks off the service request posting process
+ * Kicks off the report posting process
  *
  * Loading media from the asset library is an async call.
  * So we have to set a callback for when the image data is loaded.
@@ -177,9 +177,9 @@ SHARED_SINGLETON(Open311);
  *
  * If there's no media involved, we just call that method right away
  */
-- (void)startPostingServiceRequest:(ServiceRequest *)serviceRequest
+- (void)startPostingServiceRequest:(Report *)report
 {
-    NSURL *mediaUrl = serviceRequest.postData[kOpen311_Media];
+    NSURL *mediaUrl = report.postData[kOpen311_Media];
     if (mediaUrl) {
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:mediaUrl
@@ -188,27 +188,27 @@ SHARED_SINGLETON(Open311);
                      UIImage *original = [UIImage imageWithCGImage:[rep CGImageWithOptions:nil]];
                      UIImage *media = [Media resizeImage:original toBoundingBox:800];
                      
-                     NSMutableURLRequest *post = [self preparePostForServiceRequest:serviceRequest withMedia:media];
-                     [self postServiceRequest:serviceRequest withPost:post];
+                     NSMutableURLRequest *post = [self preparePostForReport:report withMedia:media];
+                     [self postReport:report withPost:post];
                  }
                 failureBlock:^(NSError *error) {
                     [self postFailedWithError:error];
                 }];
     }
     else {
-        NSMutableURLRequest *post = [self preparePostForServiceRequest:serviceRequest withMedia:nil];
-        [self postServiceRequest:serviceRequest withPost:post];
+        NSMutableURLRequest *post = [self preparePostForReport:report withMedia:nil];
+        [self postReport:report withPost:post];
     }
 }
 
 /**
- * Sends the service request to the Open311 server
+ * Sends the report to the Open311 server
  *
  * This is an Async network call.
  * The Open311 object will send out notifications when the call is finished.
  * PostSucceeded or PostFailed
  */
-- (void)postServiceRequest:(ServiceRequest *)serviceRequest withPost:(NSMutableURLRequest *)post
+- (void)postReport:(Report *)report withPost:(NSMutableURLRequest *)post
 {
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:post
            success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -222,9 +222,9 @@ SHARED_SINGLETON(Open311);
                            [df setDateFormat:kDate_ISO8601];
                            sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
                        }
-                       serviceRequest.server         = currentServer;
-                       serviceRequest.serviceRequest = sr;
-                       [[Preferences sharedInstance] saveServiceRequest:serviceRequest forIndex:nil];
+                       report.server         = currentServer;
+                       report.serviceRequest = sr;
+                       [[Preferences sharedInstance] saveReport:report forIndex:nil];
                        [notifications postNotificationName:kNotification_PostSucceeded object:self];
                    }
                    else {

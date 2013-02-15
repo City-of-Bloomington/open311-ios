@@ -58,7 +58,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 // This data structure is only for display
 - (void)viewDidLoad
 {
-    _serviceRequest = [[ServiceRequest alloc] initWithService:_service];
+    _report = [[Report alloc] initWithService:_service];
     
     // First section: Photo and Location choosers
     fields = [[NSMutableArray alloc] init];
@@ -86,7 +86,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     // Third section: Attributes
     if (_service[kOpen311_Metadata]) {
         NSMutableArray *attributes = [[NSMutableArray alloc] init];
-        for (NSDictionary *attribute in _serviceRequest.serviceDefinition[kOpen311_Attributes]) {
+        for (NSDictionary *attribute in _report.serviceDefinition[kOpen311_Attributes]) {
             // According to the spec, attribute paramters need to be named:
             // attribute[code]
             //
@@ -131,7 +131,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     [notifications addObserver:self selector:@selector(postSucceeded) name:kNotification_PostSucceeded object:open311];
     [notifications addObserver:self selector:@selector(postFailed)    name:kNotification_PostFailed    object:open311];
 
-    [open311 startPostingServiceRequest:_serviceRequest];
+    [open311 startPostingServiceRequest:_report];
 }
 
 - (void)postSucceeded
@@ -186,7 +186,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     
     // Media cell
     if ([fieldname isEqualToString:kOpen311_Media]) {
-        NSURL *url = _serviceRequest.postData[kOpen311_Media];
+        NSURL *url = _report.postData[kOpen311_Media];
         if (url != nil) {
             // When the user-selected mediaUrl changes, we need to load a fresh thumbnail image
             // This is an async call, that could take some time.
@@ -209,9 +209,9 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     }
     // Location cell
     else if ([fieldname isEqualToString:kOpen311_Address]) {
-        NSString *address   = _serviceRequest.postData[kOpen311_AddressString];
-        NSString *latitude  = _serviceRequest.postData[kOpen311_Latitude];
-        NSString *longitude = _serviceRequest.postData[kOpen311_Longitude];
+        NSString *address   = _report.postData[kOpen311_AddressString];
+        NSString *latitude  = _report.postData[kOpen311_Latitude];
+        NSString *longitude = _report.postData[kOpen311_Longitude];
         if (address.length==0 && latitude.length!=0 && longitude.length!=0) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", latitude, longitude];
         }
@@ -227,21 +227,21 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
         // The |postData| will contain the key - but we want to display
         // the name associated with each key
         if ([datatype isEqualToString:kOpen311_SingleValueList]) {
-            NSString *userInput = _serviceRequest.postData[fieldname];
-            cell.detailTextLabel.text = [_serviceRequest attributeValueForKey:userInput atIndex:indexPath.row];
+            NSString *userInput = _report.postData[fieldname];
+            cell.detailTextLabel.text = [_report attributeValueForKey:userInput atIndex:indexPath.row];
         }
         else if ([datatype isEqualToString:kOpen311_MultiValueList]) {
             NSString *display = @"";
-            NSArray *userInput = _serviceRequest.postData[fieldname];
+            NSArray *userInput = _report.postData[fieldname];
             int count = [userInput count];
             for (int i=0; i<count; i++) {
-                NSString *name = [_serviceRequest attributeValueForKey:userInput[i] atIndex:indexPath.row];
+                NSString *name = [_report attributeValueForKey:userInput[i] atIndex:indexPath.row];
                 display = [display stringByAppendingFormat:@"%@,", name];
             }
             cell.detailTextLabel.text = display;
         }
         else {
-            NSString *userInput = _serviceRequest.postData[fieldname];
+            NSString *userInput = _report.postData[fieldname];
             cell.detailTextLabel.text = userInput;
         }
     }
@@ -299,7 +299,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     
     // If this is data entry for an attribute, send the attribute definition
     if (currentIndexPath.section == 2) {
-         NSDictionary *attribute = _serviceRequest.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
+         NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
         [segue.destinationViewController setAttribute:attribute];
         
         // The fieldname is different from the attribute code.
@@ -308,7 +308,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
         // |postData| contains the raw key:value pairs we will be sending to the
         // Open311 endpoint
         NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
-        [segue.destinationViewController setCurrentValue:_serviceRequest.postData[fieldname]];
+        [segue.destinationViewController setCurrentValue:_report.postData[fieldname]];
     }
     // The only other common field is "description"
     // We're going to have it use the same data entry view that any other
@@ -324,7 +324,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
                 kOpen311_Description:NSLocalizedString(kUI_ReportDescription, nil)
             };
             [segue.destinationViewController setAttribute:attribute];
-            [segue.destinationViewController setCurrentValue:_serviceRequest.postData[kOpen311_Description]];
+            [segue.destinationViewController setCurrentValue:_report.postData[kOpen311_Description]];
         }
     }
 }
@@ -336,7 +336,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 - (void)didProvideValue:(NSString *)value
 {
     NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
-    _serviceRequest.postData[fieldname] = value;
+    _report.postData[fieldname] = value;
     
     [self popViewAndReloadTable];
 }
@@ -344,7 +344,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 - (void)didProvideValues:(NSArray *)values
 {
     NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
-    _serviceRequest.postData[fieldname] = values;
+    _report.postData[fieldname] = values;
     
     [self popViewAndReloadTable];
 }
@@ -352,8 +352,8 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 #pragma mark - Location choosing handlers
 - (void)didChooseLocation:(CLLocationCoordinate2D)location
 {
-    _serviceRequest.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
-    _serviceRequest.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
+    _report.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
+    _report.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude]
@@ -361,7 +361,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
                        DLog(@"Got a geocoder response");
                        NSString *address = [placemarks[0] name];
                        DLog(@"Geocoder returned %@", address);
-                       _serviceRequest.postData[kOpen311_AddressString] = address ? address : @"";
+                       _report.postData[kOpen311_AddressString] = address ? address : @"";
                        [self.tableView reloadData];
                    }];
     
@@ -394,14 +394,14 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
                                      metadata:info[UIImagePickerControllerMediaMetadata]
                               completionBlock:^(NSURL *assetURL, NSError *error) {
                                   DLog(@"Setting POST media to: %@", assetURL);
-                                  _serviceRequest.postData[kOpen311_Media] = assetURL;
+                                  _report.postData[kOpen311_Media] = assetURL;
                                   [self refreshMediaThumbnail];
                               }];
     }
     else {
         // The user chose an image from the library
         DLog(@"User chose a picture from the library");
-        _serviceRequest.postData[kOpen311_Media] = info[UIImagePickerControllerReferenceURL];
+        _report.postData[kOpen311_Media] = info[UIImagePickerControllerReferenceURL];
         [self refreshMediaThumbnail];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -414,7 +414,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 
 - (void)refreshMediaThumbnail
 {
-    [library assetForURL:_serviceRequest.postData[kOpen311_Media]
+    [library assetForURL:_report.postData[kOpen311_Media]
              resultBlock:^(ALAsset *asset) {
                  mediaThumbnail = [UIImage imageWithCGImage:[asset thumbnail]];
                  [self.tableView reloadData];

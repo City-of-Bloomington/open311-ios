@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
-#import "ServiceRequest.h"
+#import "Report.h"
 #import "LocationController.h"
 #import "TextEntryDelegate.h"
 #import "MultiValueDelegate.h"
@@ -21,7 +21,7 @@
                                                      TextEntryDelegate,
                                                      MultiValueDelegate>
 @property NSDictionary *service;
-@property ServiceRequest *serviceRequest;
+@property Report *report;
 - (IBAction)done:(id)sender;
 - (void)postSucceeded;
 - (void)postFailed;

@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 City of Bloomington. All rights reserved.
 //
 
-#import "ServiceRequest.h"
+#import "Report.h"
 #import "Preferences.h"
 #import "Strings.h"
 #import "Open311.h"
 
-@implementation ServiceRequest
+@implementation Report
 NSString * const kServer            = @"server";
 NSString * const kService           = @"service";
 NSString * const kServiceDefinition = @"serviceDefinition";
