@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Report.h"
 
-@interface ViewRequestController : UITableViewController
-
+@interface ViewRequestController : UITableViewController <ServiceRequestDelegate>
+@property Report *report;
+@property NSInteger reportIndex;
+- (void)startRefreshingServiceRequest;
 @end

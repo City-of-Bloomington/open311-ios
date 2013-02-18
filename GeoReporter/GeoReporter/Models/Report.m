@@ -10,8 +10,12 @@
 #import "Preferences.h"
 #import "Strings.h"
 #import "Open311.h"
+#import "AFJSONRequestOperation.h"
 
-@implementation Report
+@implementation Report {
+    AFHTTPClient *httpClient;
+    NSMutableDictionary *parameters;
+}
 NSString * const kServer            = @"server";
 NSString * const kService           = @"service";
 NSString * const kServiceDefinition = @"serviceDefinition";
@@ -91,6 +95,76 @@ NSString * const kPostData          = @"postData";
         }
     }
     return nil;
+}
+
+#pragma mark - Refresh Service Request data
+- (AFHTTPClient *)getHttpClient
+{
+    if (!httpClient) {
+        httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[_server objectForKey:kOpen311_Url]]];
+    }
+    return httpClient;
+}
+
+- (NSMutableDictionary *)getEndpointParameters
+{
+    if (!parameters) {
+        parameters = [[NSMutableDictionary alloc] init];
+        NSString *jurisdictionId = _server[kOpen311_Jurisdiction];
+        NSString *apiKey         = _server[kOpen311_ApiKey];
+        if (jurisdictionId != nil) { parameters[kOpen311_Jurisdiction] = jurisdictionId; }
+        if (apiKey         != nil) { parameters[kOpen311_ApiKey]       = apiKey; }
+    }
+    return parameters;
+}
+
+- (void)startLoadingServiceRequest:(NSString *)serviceRequestId delegate:(id<ServiceRequestDelegate>)delegate
+{
+    Open311 *open311 = [Open311 sharedInstance];
+    
+    [httpClient getPath:[NSString stringWithFormat:@"requests/%@.json", serviceRequestId]
+             parameters:[self getEndpointParameters]
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSError *error;
+                    NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                    if (!error) {
+                        [delegate didReceiveServiceRequest:serviceRequests[0]];
+                    }
+                    else {
+                        [open311 loadFailedWithError:error];
+                    }
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [open311 loadFailedWithError:error];
+                }];
+}
+
+- (void)startLoadingServiceRequestIdFromToken:(NSString *)token delegate:(id<ServiceRequestDelegate>)delegate
+{
+    Open311 *open311 = [Open311 sharedInstance];
+    
+    [httpClient getPath:[NSString stringWithFormat:@"tokens/%@.json", token]
+             parameters:[self getEndpointParameters]
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSError *error;
+                    NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                    NSString *serviceRequestId = serviceRequests[0][kOpen311_ServiceRequestId];
+                    if (!error) {
+                        if (serviceRequestId) {
+                            [delegate didReceiveServiceRequestId:serviceRequestId];
+                        }
+                        // It may take a while before a serviceRequestId is created on a server.
+                        // In the meantime, they are not responding with an error.
+                        // We just don't need to call our delegate, since we don't have an id yet.
+                    }
+                    else {
+                        DLog(@"%d: %@",[[operation response] statusCode], [operation responseString]);
+                        [open311 loadFailedWithError:error];
+                    }
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [open311 loadFailedWithError:error];
+                }];
 }
 
 @end

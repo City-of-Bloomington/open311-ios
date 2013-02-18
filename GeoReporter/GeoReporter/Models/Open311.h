@@ -26,11 +26,12 @@ extern NSString * const kNotification_PostFailed;
 
 - (void)loadServiceList;
 - (void)loadServiceDefinitions;
+- (NSArray *)getServicesForGroup:(NSString *)group;
 
 - (void)startPostingServiceRequest:(Report *)report;
 - (NSMutableURLRequest *)preparePostForReport:(Report *)report withMedia:(UIImage *)media;
 - (void)postReport:(Report *)report withPost:(NSMutableURLRequest *)post;
 - (void)postFailedWithError:(NSError *)error;
 
-- (NSArray *)getServicesForGroup:(NSString *)group;
+
 @end

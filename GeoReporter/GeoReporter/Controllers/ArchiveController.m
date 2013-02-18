@@ -11,6 +11,7 @@
 #import "Preferences.h"
 #import "Strings.h"
 #import "Open311.h"
+#import "ViewRequestController.h"
 
 @interface ArchiveController ()
 
@@ -42,6 +43,16 @@ NSString * const kCellIdentifier = @"archive_cell";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[Preferences sharedInstance] saveArchivedReports:archivedReports];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ViewRequestController *controller = [segue destinationViewController];
+    NSInteger reportIndex = [[self.tableView indexPathForSelectedRow] row];
+    Report *sr = [[Report alloc] initWithDictionary:[archivedReports objectAtIndex:reportIndex]];
+    
+    [controller setReport:sr];
+    [controller setReportIndex:reportIndex];
 }
 
 #pragma mark - Table handling functions
@@ -81,5 +92,10 @@ NSString * const kCellIdentifier = @"archive_cell";
         [archivedReports removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 @end

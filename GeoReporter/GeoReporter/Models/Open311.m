@@ -53,9 +53,16 @@ SHARED_SINGLETON(Open311);
 
 - (void)loadFailedWithError:(NSError *)error
 {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_FailureLoadingServices, nil)
+                                                    message:[error localizedDescription]
+                                                   delegate:self
+                                          cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
+                                          otherButtonTitles:nil];
+    [alert show];
     DLog(@"%@", error);
 }
 
+#pragma mark - GET Service List
 - (void)loadServiceList
 {
     [httpClient getPath:@"services.json"
@@ -118,6 +125,28 @@ SHARED_SINGLETON(Open311);
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
 }
 
+/**
+ * Returns an array of service dictionaries from |serviceList|
+ */
+- (NSArray *)getServicesForGroup:(NSString *)group
+{
+    NSMutableArray *services = [[NSMutableArray alloc] init];
+    for (NSDictionary *service in serviceList) {
+        NSString *sg = service[kOpen311_Group];
+        
+        if (![group isEqualToString:kUI_Uncategorized]) {
+            if ([sg isEqualToString:group]) {
+                [services addObject:service];
+            }
+        }
+        else if (sg==nil || [sg isEqualToString:@""]) {
+            [services addObject:service];
+        }
+    }
+    return [NSArray arrayWithArray:services];
+}
+
+#pragma mark - POST Service Request
 /**
  * Displays an alert to the user and sets notification to any observers
  */
@@ -224,7 +253,7 @@ SHARED_SINGLETON(Open311);
                        }
                        report.server         = currentServer;
                        report.serviceRequest = sr;
-                       [[Preferences sharedInstance] saveReport:report forIndex:nil];
+                       [[Preferences sharedInstance] saveReport:report forIndex:-1];
                        [notifications postNotificationName:kNotification_PostSucceeded object:self];
                    }
                    else {
@@ -240,27 +269,6 @@ SHARED_SINGLETON(Open311);
            }
     ];
     [operation start];
-}
-
-/**
- * Returns an array of service dictionaries from |serviceList|
- */
-- (NSArray *)getServicesForGroup:(NSString *)group
-{
-    NSMutableArray *services = [[NSMutableArray alloc] init];
-    for (NSDictionary *service in serviceList) {
-        NSString *sg = service[kOpen311_Group];
-        
-        if (![group isEqualToString:kUI_Uncategorized]) {
-            if ([sg isEqualToString:group]) {
-                [services addObject:service];
-            }
-        }
-        else if (sg==nil || [sg isEqualToString:@""]) {
-            [services addObject:service];
-        }
-    }
-    return [NSArray arrayWithArray:services];
 }
 
 @end

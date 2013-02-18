@@ -130,7 +130,7 @@ SHARED_SINGLETON(Preferences);
 /**
  * Inserts or Updates a serviceRequest in the archive
  *
- * If an index is not provided, the new report is inserted
+ * If an index is negative, the new report is inserted
  * at the top of the archive.
  *
  * The archive serialization process means the archive array
@@ -139,11 +139,14 @@ SHARED_SINGLETON(Preferences);
  */
  - (void)saveReport:(Report *)report forIndex:(NSInteger)index
 {
-    if (!index) { index = 0; }
-    
     NSMutableArray *archive = [NSMutableArray arrayWithArray:[self getArchivedReports]];
     NSDictionary *sr = [report asDictionary];
-    [archive setObject:sr atIndexedSubscript:index];
+    if (index < 0) {
+        [archive insertObject:sr atIndex:0];
+    }
+    else {
+        [archive setObject:sr atIndexedSubscript:index];
+    }
     [self saveArchivedReports:archive];
 }
 
