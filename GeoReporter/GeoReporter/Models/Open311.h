@@ -31,7 +31,7 @@ extern NSString * const kNotification_PostFailed;
 - (void)startPostingServiceRequest:(Report *)report;
 - (NSMutableURLRequest *)preparePostForReport:(Report *)report withMedia:(UIImage *)media;
 - (void)postReport:(Report *)report withPost:(NSMutableURLRequest *)post;
-- (void)postFailedWithError:(NSError *)error;
+- (void)postFailedWithError:(NSError *)error forOperation:(AFHTTPRequestOperation *)operation;
 
 
 @end

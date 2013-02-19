@@ -149,13 +149,35 @@ SHARED_SINGLETON(Open311);
 #pragma mark - POST Service Request
 /**
  * Displays an alert to the user and sets notification to any observers
+ *
+ * If the server supports known Open311 error formatting, we can display
+ * the error message reported by the Open311 server.  Otherwise, we can
+ * only display a generic message.
  */
-- (void)postFailedWithError:(NSError *)error
+- (void)postFailedWithError:(NSError *)error forOperation:(AFHTTPRequestOperation *)operation
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_PostFailed object:self];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_FailurePostingService, nil)
-                                                    message:[error localizedDescription]
+    NSString *title = NSLocalizedString(kUI_FailurePostingService, nil);
+    NSString *message = [error localizedDescription];
+
+    if (operation) {
+        DLog(@"%d: %@", [[operation response] statusCode], [operation responseString]);
+        NSError *e;
+        NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:[operation responseData] options:nil error:&e];
+        NSInteger statusCode = [[operation response] statusCode];
+        if (!e) {
+            NSDictionary *sr = serviceRequests[0];
+            if (sr[kOpen311_Description]) {
+                message = sr[kOpen311_Description];
+            }
+        }
+        
+        if (statusCode == 403) {
+            title = NSLocalizedString(kUI_Error403, nil);
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
                                                    delegate:self
                                           cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
                                           otherButtonTitles:nil];
@@ -221,7 +243,7 @@ SHARED_SINGLETON(Open311);
                      [self postReport:report withPost:post];
                  }
                 failureBlock:^(NSError *error) {
-                    [self postFailedWithError:error];
+                    [self postFailedWithError:error forOperation:nil];
                 }];
     }
     else {
@@ -239,35 +261,39 @@ SHARED_SINGLETON(Open311);
  */
 - (void)postReport:(Report *)report withPost:(NSMutableURLRequest *)post
 {
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:post
-           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-               NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
-               
-               if ([NSJSONSerialization isValidJSONObject:JSON]) {
-                   NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:JSON[0]];
-                   if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
-                       if (!sr[kOpen311_RequestedDatetime]) {
-                           NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                           [df setDateFormat:kDate_ISO8601];
-                           sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
-                       }
-                       report.server         = currentServer;
-                       report.serviceRequest = sr;
-                       [[Preferences sharedInstance] saveReport:report forIndex:-1];
-                       [notifications postNotificationName:kNotification_PostSucceeded object:self];
-                   }
-                   else {
-                       [notifications postNotificationName:kNotification_PostFailed object:self];
-                   }
-               }
-               else {
-                   [notifications postNotificationName:kNotification_PostFailed object:self];
-               }
-           }
-           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-               [self postFailedWithError:error];
-           }
-    ];
+    AFHTTPRequestOperation *operation = [httpClient HTTPRequestOperationWithRequest:post
+        success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+            
+            NSError *error;
+            NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+            if (!error) {
+                NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:serviceRequests[0]];
+                if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
+                    if (!sr[kOpen311_RequestedDatetime]) {
+                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                        [df setDateFormat:kDate_ISO8601];
+                        sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
+                    }
+                    report.server         = currentServer;
+                    report.serviceRequest = sr;
+                    [[Preferences sharedInstance] saveReport:report forIndex:-1];
+                    [notifications postNotificationName:kNotification_PostSucceeded object:self];
+                }
+                else {
+                    // We got a 200 response back in the correct format
+                    // However, it did not include a token or a service_request_id
+                    [notifications postNotificationName:kNotification_PostFailed object:self];
+                }
+            }
+            else {
+                // We got a 200 response, but it was not valid JSON
+                [notifications postNotificationName:kNotification_PostFailed object:self];
+            }
+        }
+        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self postFailedWithError:error forOperation:operation];
+        }];
     [operation start];
 }
 
