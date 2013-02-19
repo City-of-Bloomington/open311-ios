@@ -33,6 +33,7 @@
     UIImage *mediaThumbnail;
     
     UIActivityIndicatorView *busyIcon;
+    NSString *header;
 }
 static NSString * const kReportCell = @"report_cell";
 static NSString * const kFieldname  = @"fieldname";
@@ -88,6 +89,8 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     ]];
     
     // Third section: Attributes
+    // Attributes with variable=false will be appended to the section header
+    header = _service[kOpen311_Description];
     if (_service[kOpen311_Metadata]) {
         NSMutableArray *attributes = [[NSMutableArray alloc] init];
         for (NSDictionary *attribute in _report.serviceDefinition[kOpen311_Attributes]) {
@@ -110,6 +113,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             else {
                 // This is an information-only attribute.
                 // Save it somewhere so we can display those differently
+                header = [header stringByAppendingFormat:@"\n%@", attribute[kOpen311_Description]];
             }
         }
         [fields addObject:attributes];
@@ -175,7 +179,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return _service[kOpen311_Description];
+        return header;
     }
     return nil;
 }
@@ -232,7 +236,10 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
         // the name associated with each key
         if ([datatype isEqualToString:kOpen311_SingleValueList]) {
             NSString *userInput = _report.postData[fieldname];
-            cell.detailTextLabel.text = [_report attributeValueForKey:userInput atIndex:indexPath.row];
+            if (userInput) {
+                DLog(@"displaying value for user-selected key: %@", userInput);
+                cell.detailTextLabel.text = [_report attributeValueForKey:userInput atIndex:indexPath.row];
+            }
         }
         else if ([datatype isEqualToString:kOpen311_MultiValueList]) {
             NSString *display = @"";
