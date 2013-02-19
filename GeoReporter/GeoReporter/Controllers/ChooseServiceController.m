@@ -27,6 +27,7 @@ static NSString * const kSegueToReport  = @"SegueToReport";
     [super viewDidLoad];
     open311 = [Open311 sharedInstance];
     services = [open311 getServicesForGroup:self.group];
+    self.navigationItem.title = self.group;
 }
 
 #pragma mark - Table view data source

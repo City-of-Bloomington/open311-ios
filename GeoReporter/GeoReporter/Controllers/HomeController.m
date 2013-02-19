@@ -23,6 +23,8 @@ static NSString * const kSegueToServers = @"SegueToServers";
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     [self.reportButton       setTitle:NSLocalizedString(kUI_Report,       nil) forState:UIControlStateNormal];
     [self.serversButton      setTitle:NSLocalizedString(kUI_Servers,      nil) forState:UIControlStateNormal];
     [self.archiveButton      setTitle:NSLocalizedString(kUI_Archive,      nil) forState:UIControlStateNormal];
@@ -32,6 +34,8 @@ static NSString * const kSegueToServers = @"SegueToServers";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     Preferences *preferences = [Preferences sharedInstance];
     
     NSDictionary *currentServer = [preferences getCurrentServer];
@@ -39,6 +43,8 @@ static NSString * const kSegueToServers = @"SegueToServers";
         [self performSegueWithIdentifier:kSegueToServers sender:self];
     }
     else {
+        self.navigationItem.title = currentServer[kOpen311_Name];
+        
         busyIcon = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         busyIcon.center = self.view.center;
         [busyIcon setFrame:self.view.frame];

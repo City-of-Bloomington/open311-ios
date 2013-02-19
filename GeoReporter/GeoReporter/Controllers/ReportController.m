@@ -58,6 +58,10 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 // This data structure is only for display
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
+    self.navigationItem.title = _service[kOpen311_ServiceName];
+    
     _report = [[Report alloc] initWithService:_service];
     
     // First section: Photo and Location choosers

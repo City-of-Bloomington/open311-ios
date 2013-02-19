@@ -25,6 +25,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 {
     [super viewDidLoad];
     open311 = [Open311 sharedInstance];
+    self.navigationItem.title = NSLocalizedString(kUI_Report, nil);
 }
 
 #pragma mark - Table view data source

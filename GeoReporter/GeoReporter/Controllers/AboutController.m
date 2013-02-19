@@ -7,6 +7,7 @@
 //
 
 #import "AboutController.h"
+#import "Strings.h"
 
 @interface AboutController ()
 
@@ -17,6 +18,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.title = NSLocalizedString(kUI_About, nil);
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]]];
 }

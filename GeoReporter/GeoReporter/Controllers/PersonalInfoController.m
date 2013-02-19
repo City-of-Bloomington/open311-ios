@@ -18,6 +18,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = NSLocalizedString(kUI_PersonalInfo, nil);
+    
     self.labelFirstName.text = NSLocalizedString(kUI_FirstName, nil);
     self.labelLastName .text = NSLocalizedString(kUI_LastName,  nil);
     self.labelEmail    .text = NSLocalizedString(kUI_Email,     nil);

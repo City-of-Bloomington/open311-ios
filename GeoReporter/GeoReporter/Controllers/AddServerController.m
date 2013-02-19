@@ -20,6 +20,8 @@
 {
     [super viewDidLoad];
 
+    self.navigationItem.title = NSLocalizedString(kUI_ButtonAddServer, nil);
+    
     self.labelName         .text = NSLocalizedString(kUI_Name,           nil);
     self.labelUrl          .text = NSLocalizedString(kUI_Url,            nil);
     self.labelJurisdiction .text = NSLocalizedString(kUI_JurisdictionId, nil);

@@ -28,6 +28,9 @@ static CGFloat    const kMediaCellHeight = 122;
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    self.navigationItem.title = self.report.service[kOpen311_ServiceName];
+    
     dateFormatterDisplay = [[NSDateFormatter alloc] init];
     [dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];

@@ -24,6 +24,8 @@ static NSString * const kCellIdentifier = @"server_cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.title = NSLocalizedString(kUI_Servers, nil);
 
     availableServers = [Preferences getAvailableServers];
     prefs = [Preferences sharedInstance];
@@ -31,6 +33,8 @@ static NSString * const kCellIdentifier = @"server_cell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     customServers = [NSMutableArray arrayWithArray:[prefs getCustomServers]];
     [self.tableView reloadData];
 }
@@ -38,6 +42,8 @@ static NSString * const kCellIdentifier = @"server_cell";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [prefs saveCustomServers:customServers];
+    
+    [super viewWillDisappear:animated];
 }
 
 /**

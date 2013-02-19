@@ -26,6 +26,10 @@ NSString * const kCellIdentifier = @"archive_cell";
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
+    self.navigationItem.title = NSLocalizedString(kUI_Archive, nil);
+    
     dateFormatterDisplay = [[NSDateFormatter alloc] init];
     [dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];
@@ -36,6 +40,8 @@ NSString * const kCellIdentifier = @"archive_cell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
     DLog(@"Displaying %d archived reports", [archivedReports count]);
 }
@@ -43,6 +49,8 @@ NSString * const kCellIdentifier = @"archive_cell";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[Preferences sharedInstance] saveArchivedReports:archivedReports];
+
+    [super viewWillDisappear:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
