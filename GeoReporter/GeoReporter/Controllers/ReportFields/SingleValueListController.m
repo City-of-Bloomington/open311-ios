@@ -33,7 +33,15 @@
         NSArray *values = self.attribute[kOpen311_Values];
         int count = [values count];
         for (int i=0; i<count; i++) {
-            if ([values[i][kOpen311_Key] isEqualToString:self.currentValue]) {
+            // Some servers use non-string keys.
+            // We need to convert them to strings before comparing them.
+            // If they were unique to begin with, they should still be unique
+            // after string conversion.
+            NSObject *valueKey = values[i][kOpen311_Key];
+            if ([valueKey isKindOfClass:[NSNumber class]]) {
+                valueKey = [(NSNumber *)valueKey stringValue];
+            }
+            if ([(NSString *)valueKey isEqualToString:self.currentValue]) {
                 [self.picker selectRow:(NSInteger)i inComponent:0 animated:YES];
             }
         }
@@ -42,8 +50,15 @@
 
 - (IBAction)done:(id)sender
 {
-    NSString *key = self.attribute[kOpen311_Values][[self.picker selectedRowInComponent:0]][kOpen311_Key];
-    [self.delegate didProvideValue:key];
+    // Some servers use non-string keys.
+    // We need to convert them to strings before saving them.
+    // If they were unique to begin with, they should still be unique
+    // after string conversion.
+    NSObject *key = self.attribute[kOpen311_Values][[self.picker selectedRowInComponent:0]][kOpen311_Key];
+    if ([key isKindOfClass:[NSNumber class]]) {
+        key = [(NSNumber *)key stringValue];
+    }
+    [self.delegate didProvideValue:(NSString *)key];
 }
 
 #pragma mark - Picker handlers
