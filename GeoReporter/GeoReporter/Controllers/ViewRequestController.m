@@ -9,6 +9,7 @@
 #import "ViewRequestController.h"
 #import "Strings.h"
 #import "Preferences.h"
+#import "Media.h"
 
 @interface ViewRequestController ()
 
@@ -17,8 +18,13 @@
 @implementation ViewRequestController {
     NSDateFormatter *dateFormatterDisplay;
     NSDateFormatter *dateFormatterISO;
+    NSURL *mediaUrl;
+    UIImage *media;
 }
-static NSString * const kCellIdentifier = @"request_cell";
+static NSString * const kCellIdentifier  = @"request_cell";
+static NSString * const kMediaCell       = @"media_cell";
+static NSInteger  const kImageViewTag    = 100;
+static CGFloat    const kMediaCellHeight = 122;
 
 - (void)viewDidLoad
 {
@@ -30,6 +36,20 @@ static NSString * const kCellIdentifier = @"request_cell";
     [dateFormatterISO setDateFormat:kDate_ISO8601];
     
     [self startRefreshingServiceRequest];
+    
+    mediaUrl = _report.postData[kOpen311_Media];
+    if (mediaUrl) {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library assetForURL:mediaUrl
+                 resultBlock:^(ALAsset *asset) {
+                     ALAssetRepresentation *rep = [asset defaultRepresentation];
+                     UIImage *original = [UIImage imageWithCGImage:[rep fullScreenImage]];
+                     media = [Media resizeImage:original toBoundingBox:100];
+                 }
+                failureBlock:^(NSError *error) {
+                    DLog(@"Failed to load media from library");
+                }];
+    }
 }
 
 #pragma Service Request Refreshing
@@ -71,22 +91,45 @@ static NSString * const kCellIdentifier = @"request_cell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0) ? 1 : 3;
+    if (section == 0) {
+        if (mediaUrl) {
+            return 2;
+        }
+        return 1;
+    }
+    return 3;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        NSDictionary *sr = _report.serviceRequest;
+        NSDictionary *post = _report.postData;
+        return (sr && sr[kOpen311_Description]) ? sr[kOpen311_Description] : post[kOpen311_Description];
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell;
     
     NSDictionary *sr   = _report.serviceRequest;
     NSDictionary *post = _report.postData;
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+        if (mediaUrl && indexPath.row == 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:kMediaCell forIndexPath:indexPath];
+            UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageViewTag];
+            [imageView setImage:media];
+        }
+        else {
+            cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(kUI_Location, nil);
             cell.detailTextLabel.text = (sr && sr[kOpen311_Address]) ? sr[kOpen311_Address] : post[kOpen311_AddressString];
         }
     }
     else {
+        cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
         switch (indexPath.row) {
             case 0:
                 cell.textLabel.text = NSLocalizedString(kUI_ReportDate, nil);
@@ -108,6 +151,14 @@ static NSString * const kCellIdentifier = @"request_cell";
         }
     }
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (mediaUrl && indexPath.section==0 && indexPath.row==0) {
+        return 122;
+    }
+    return UITableViewAutomaticDimension;
 }
 
 @end

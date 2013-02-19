@@ -214,7 +214,7 @@ SHARED_SINGLETON(Open311);
         [library assetForURL:mediaUrl
                  resultBlock:^(ALAsset *asset) {
                      ALAssetRepresentation *rep = [asset defaultRepresentation];
-                     UIImage *original = [UIImage imageWithCGImage:[rep CGImageWithOptions:nil]];
+                     UIImage *original = [UIImage imageWithCGImage:[rep fullScreenImage]];
                      UIImage *media = [Media resizeImage:original toBoundingBox:800];
                      
                      NSMutableURLRequest *post = [self preparePostForReport:report withMedia:media];
