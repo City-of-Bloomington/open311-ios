@@ -1069,6 +1069,120 @@
         <image name="cross-hairs-small-black-cropped.png" width="70" height="70"/>
         <image name="iconLocation.png" width="20" height="20"/>
     </resources>
+    <classes>
+        <class className="AboutController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="AddServerController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddServerController.h"/>
+            <relationships>
+                <relationship kind="action" name="save:"/>
+                <relationship kind="outlet" name="labelApiKey" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelJurisdiction" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelSupportsMedia" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelUrl" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="switchSupportsMedia" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="textFieldApiKey" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldJurisdiction" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldUrl" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ArchiveController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ArchiveController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ChooseGroupController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChooseGroupController.h"/>
+        </class>
+        <class className="ChooseServiceController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChooseServiceController.h"/>
+        </class>
+        <class className="HomeController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="aboutButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="archiveButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="personalInfoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="reportButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="serversButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="LocationController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationController.h"/>
+            <relationships>
+                <relationship kind="action" name="centerOnLocation:"/>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="MultiValueListController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MultiValueListController.h"/>
+            <relationships>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="PersonalInfoController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelFirstName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelLastName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelPhone" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="textFieldEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldFirstName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldLastName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldPhone" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ReportController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReportController.h"/>
+            <relationships>
+                <relationship kind="action" name="done:"/>
+            </relationships>
+        </class>
+        <class className="ServersController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ServersController.h"/>
+        </class>
+        <class className="SingleValueListController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SingleValueListController.h"/>
+            <relationships>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="picker" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="StringController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StringController.h"/>
+            <relationships>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="TextController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextController.h"/>
+            <relationships>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="ViewRequestController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

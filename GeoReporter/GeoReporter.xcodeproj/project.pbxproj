@@ -291,13 +291,6 @@
 			path = Libraries;
 			sourceTree = "<group>";
 		};
-		6988CD3016B3137C0066E796 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		69CB207A16B32B4A009E9BAB /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,7 +359,6 @@
 				69ED14F116B2EE4C00232245 /* AppDelegate.m */,
 				69ED14F916B2EE4C00232245 /* MainStoryboard.storyboard */,
 				6988CD1616B2F0900066E796 /* Controllers */,
-				6988CD3016B3137C0066E796 /* Views */,
 				6988CD1916B2F0B40066E796 /* Utilities */,
 				6988CD1816B2F0AA0066E796 /* Models */,
 				6988CD1716B2F0A00066E796 /* Images */,
