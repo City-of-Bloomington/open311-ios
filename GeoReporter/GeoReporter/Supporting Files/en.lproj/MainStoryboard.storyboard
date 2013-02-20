@@ -8,7 +8,7 @@
         <scene sceneID="KlT-3h-lEf">
             <objects>
                 <navigationController definesPresentationContext="YES" id="4Gh-8H-htc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="1zM-4g-Oio"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home.png" id="1zM-4g-Oio"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6q-gv-jec">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -24,7 +24,7 @@
         <scene sceneID="HiD-Za-JmN">
             <objects>
                 <navigationController definesPresentationContext="YES" id="dUA-P5-eVf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Report" id="UwH-TJ-ain"/>
+                    <tabBarItem key="tabBarItem" title="Report" image="chat.png" id="UwH-TJ-ain"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="h4L-ZC-ezC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -64,7 +64,7 @@
                     <view key="view" contentMode="scaleToFill" id="ugl-LN-z47">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="TpX-k6-XFZ">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="eNb-1U-UbV">
@@ -76,13 +76,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgv-yM-hm7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="522" y="-284"/>
+            <point key="canvasLocation" x="531" y="-284"/>
         </scene>
         <!--Navigation Controller - Archive-->
         <scene sceneID="Ffp-GI-2f5">
             <objects>
                 <navigationController definesPresentationContext="YES" id="N2K-i0-tPx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Archive" id="ZTS-lu-jEl"/>
+                    <tabBarItem key="tabBarItem" title="Archive" image="list.png" id="ZTS-lu-jEl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pum-Z0-EvX">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -352,7 +352,7 @@
         <scene sceneID="jqM-TX-GqO">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Kqw-BO-11v" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Servers" id="N5s-aT-lgW"/>
+                    <tabBarItem key="tabBarItem" title="Servers" image="megaphone.png" id="N5s-aT-lgW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QzH-fo-UDs">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1066,8 +1066,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chat.png" width="30" height="30"/>
         <image name="cross-hairs-small-black-cropped.png" width="70" height="70"/>
+        <image name="home.png" width="30" height="30"/>
         <image name="iconLocation.png" width="20" height="20"/>
+        <image name="list.png" width="30" height="30"/>
+        <image name="megaphone.png" width="30" height="30"/>
     </resources>
     <classes>
         <class className="AboutController" superclassName="UIViewController">
