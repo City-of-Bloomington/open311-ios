@@ -11,12 +11,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomeController : UIViewController
-@property (weak, nonatomic) IBOutlet UIButton *reportButton;
-@property (weak, nonatomic) IBOutlet UIButton *serversButton;
-@property (weak, nonatomic) IBOutlet UIButton *archiveButton;
-@property (weak, nonatomic) IBOutlet UIButton *personalInfoButton;
-@property (weak, nonatomic) IBOutlet UIButton *aboutButton;
+@interface HomeController : UITableViewController
+@property (weak, nonatomic) IBOutlet UILabel *reportLabel;
+@property (weak, nonatomic) IBOutlet UILabel *archiveLabel;
+@property (weak, nonatomic) IBOutlet UILabel *personalInfoLabel;
 
 - (void)serviceListReady;
+- (void)startBusyIcon;
+- (void)refreshPersonalInfo;
 @end
