@@ -146,7 +146,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 {
     [busyIcon stopAnimating];
     [busyIcon removeFromSuperview];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:kTab_Archive];
 }
 
 - (void)postFailed

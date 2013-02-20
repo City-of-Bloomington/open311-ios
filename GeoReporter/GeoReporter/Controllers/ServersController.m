@@ -92,7 +92,7 @@ static NSString * const kCellIdentifier = @"server_cell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [prefs setCurrentServer:[self getTargetServer:indexPath.row]];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:kTab_Home];
 }
 
 #pragma mark - Table View Deletion Handlers

@@ -7,6 +7,13 @@
 //
 
 #import "Strings.h"
+// Tab indexes
+NSInteger const kTab_Home    = 0;
+NSInteger const kTab_Report  = 1;
+NSInteger const kTab_Servers = 2;
+NSInteger const kTab_Archive = 3;
+
+
 // Keys to the Localized String file
 NSString * const kUI_Settings               = @"menu_settings";
 NSString * const kUI_Report                 = @"menu_report";

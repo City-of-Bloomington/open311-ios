@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+extern NSInteger const kTab_Home;
+extern NSInteger const kTab_Report;
+extern NSInteger const kTab_Servers;
+extern NSInteger const kTab_Archive;
+
 extern NSString * const kUI_Settings;
 extern NSString * const kUI_Report;
 extern NSString * const kUI_Archive;

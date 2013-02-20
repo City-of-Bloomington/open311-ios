@@ -19,17 +19,13 @@
 @implementation HomeController {
     UIActivityIndicatorView *busyIcon;
 }
-static NSString * const kSegueToServers = @"SegueToServers";
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.reportButton       setTitle:NSLocalizedString(kUI_Report,       nil) forState:UIControlStateNormal];
-    [self.serversButton      setTitle:NSLocalizedString(kUI_Servers,      nil) forState:UIControlStateNormal];
-    [self.archiveButton      setTitle:NSLocalizedString(kUI_Archive,      nil) forState:UIControlStateNormal];
-    [self.personalInfoButton setTitle:NSLocalizedString(kUI_PersonalInfo, nil) forState:UIControlStateNormal];
-    [self.aboutButton        setTitle:NSLocalizedString(kUI_About,        nil) forState:UIControlStateNormal];
+    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Report]  setTitle:NSLocalizedString(kUI_Report,  nil)];
+    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Archive] setTitle:NSLocalizedString(kUI_Archive, nil)];
+    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Servers] setTitle:NSLocalizedString(kUI_Servers, nil)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -40,7 +36,7 @@ static NSString * const kSegueToServers = @"SegueToServers";
     
     NSDictionary *currentServer = [preferences getCurrentServer];
     if (currentServer == nil) {
-        [self performSegueWithIdentifier:kSegueToServers sender:self];
+        [self.tabBarController setSelectedIndex:3];
     }
     else {
         self.navigationItem.title = currentServer[kOpen311_Name];
