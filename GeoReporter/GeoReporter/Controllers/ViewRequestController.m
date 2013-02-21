@@ -143,12 +143,12 @@ static CGFloat    const kMediaCellHeight = 122;
                 break;
                 
             case 1:
-                cell.textLabel.text = kOpen311_Status;
+                cell.textLabel.text = NSLocalizedString(kUI_ReportStatus, nil);
                 cell.detailTextLabel.text = (sr && sr[kOpen311_Status]) ? sr[kOpen311_Status] : kUI_Pending;
                 break;
                 
             case 2:
-                cell.textLabel.text = kOpen311_AgencyResponsible;
+                cell.textLabel.text = NSLocalizedString(kOpen311_AgencyResponsible, nil);
                 cell.detailTextLabel.text = (sr && sr[kOpen311_AgencyResponsible]) ? sr[kOpen311_AgencyResponsible] : @"";
                 break;
                 

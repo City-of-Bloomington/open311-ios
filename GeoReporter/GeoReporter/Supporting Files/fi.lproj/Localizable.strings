@@ -29,6 +29,7 @@
 "report_attributes"="Lisätiedot";
 "report_description"="Palautteen kuvaus";
 "report_date"="Lähetys päivä";
+"agency_responsible"="Osasto Vastaa";
 "submit"="Lähetä";
 "cancel"="Peru";
 "delete"="Poista";

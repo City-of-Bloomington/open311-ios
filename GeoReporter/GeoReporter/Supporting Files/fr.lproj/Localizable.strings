@@ -29,6 +29,7 @@
 "report_attributes"="Attributs";
 "report_description"="Description du problème";
 "report_date"="Date soumise";
+"agency_responsible"="Responsable de Département";
 "submit"="Soumettre";
 "cancel"="Annuler";
 "delete"="Supprimer";

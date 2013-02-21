@@ -29,6 +29,7 @@
 "report_attributes"="Hinweis-Attribute";
 "report_description"="Beschreibung des Anliegens";
 "report_date"="Hinweis Datum";
+"agency_responsible"="Zuständigen Abteilung";
 "submit"="Absensen";
 "cancel"="Abbrechen";
 "delete"="Löschen";

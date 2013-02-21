@@ -29,6 +29,7 @@
 "report_attributes"="Attributes";
 "report_description"="Description of problem";
 "report_date"="Reported Date";
+"agency_responsible"="Department Responsible";
 "submit"="Submit";
 "cancel"="Cancel";
 "delete"="Delete";
