@@ -75,6 +75,10 @@
 		69F0789A16B97A2700EC2C19 /* Open311.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0789916B97A2700EC2C19 /* Open311.m */; };
 		69F2E93916CAAC480027F580 /* ViewRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F2E93816CAAC480027F580 /* ViewRequestController.m */; };
 		69F2E93C16CACA6D0027F580 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F2E93B16CACA6D0027F580 /* Media.m */; };
+		69FE9E6616D67BDC007021B9 /* open311.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FE9E6416D67BDC007021B9 /* open311.png */; };
+		69FE9E6716D67BDC007021B9 /* open311@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FE9E6516D67BDC007021B9 /* open311@2x.png */; };
+		69FE9E6A16D67E99007021B9 /* accountTableCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FE9E6816D67E99007021B9 /* accountTableCell.png */; };
+		69FE9E6B16D67E99007021B9 /* accountTableCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69FE9E6916D67E99007021B9 /* accountTableCell@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +200,10 @@
 		69F2E93816CAAC480027F580 /* ViewRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewRequestController.m; sourceTree = "<group>"; };
 		69F2E93A16CACA6D0027F580 /* Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
 		69F2E93B16CACA6D0027F580 /* Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Media.m; sourceTree = "<group>"; };
+		69FE9E6416D67BDC007021B9 /* open311.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open311.png; sourceTree = "<group>"; };
+		69FE9E6516D67BDC007021B9 /* open311@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "open311@2x.png"; sourceTree = "<group>"; };
+		69FE9E6816D67E99007021B9 /* accountTableCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = accountTableCell.png; sourceTree = "<group>"; };
+		69FE9E6916D67E99007021B9 /* accountTableCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accountTableCell@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +285,9 @@
 		6988CD1716B2F0A00066E796 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				69FE9E6816D67E99007021B9 /* accountTableCell.png */,
+				69FE9E6916D67E99007021B9 /* accountTableCell@2x.png */,
+				69FE9E6316D67BC2007021B9 /* Cities */,
 				69B2465416D552C100C47475 /* chatTableCell.png */,
 				69B2465516D552C100C47475 /* chatTableCell@2x.png */,
 				69B2465616D552C100C47475 /* listTableCell.png */,
@@ -442,6 +453,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		69FE9E6316D67BC2007021B9 /* Cities */ = {
+			isa = PBXGroup;
+			children = (
+				69FE9E6416D67BDC007021B9 /* open311.png */,
+				69FE9E6516D67BDC007021B9 /* open311@2x.png */,
+			);
+			path = Cities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -540,6 +560,10 @@
 				69B2465916D552C100C47475 /* chatTableCell@2x.png in Resources */,
 				69B2465A16D552C100C47475 /* listTableCell.png in Resources */,
 				69B2465B16D552C100C47475 /* listTableCell@2x.png in Resources */,
+				69FE9E6616D67BDC007021B9 /* open311.png in Resources */,
+				69FE9E6716D67BDC007021B9 /* open311@2x.png in Resources */,
+				69FE9E6A16D67E99007021B9 /* accountTableCell.png in Resources */,
+				69FE9E6B16D67E99007021B9 /* accountTableCell@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

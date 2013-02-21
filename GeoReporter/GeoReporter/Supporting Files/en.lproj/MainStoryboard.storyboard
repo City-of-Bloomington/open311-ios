@@ -853,7 +853,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleToFill" id="i73-RP-HOs">
+                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="center" image="open311.png" id="i73-RP-HOs">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -904,11 +904,11 @@
                             </tableViewSection>
                             <tableViewSection id="BO4-V4-1pV">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" indentationWidth="10" textLabel="ohK-73-wme" detailTextLabel="RlT-6h-Q7B" style="IBUITableViewCellStyleSubtitle" id="ouo-EH-fsE">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" textLabel="ohK-73-wme" detailTextLabel="RlT-6h-Q7B" imageView="Ana-S3-jfJ" style="IBUITableViewCellStyleSubtitle" id="ouo-EH-fsE">
                                         <rect key="frame" x="0.0" y="260" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="267" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="reporting_as" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohK-73-wme">
@@ -921,6 +921,10 @@
                                                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="accountTableCell.png" id="Ana-S3-jfJ">
+                                                    <rect key="frame" x="1" y="1" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1141,8 +1145,8 @@
                     <connections>
                         <segue destination="4Gh-8H-htc" kind="relationship" relationship="viewControllers" id="Kgh-hz-Q33"/>
                         <segue destination="dUA-P5-eVf" kind="relationship" relationship="viewControllers" id="Lhd-Ii-Zvi"/>
-                        <segue destination="Kqw-BO-11v" kind="relationship" relationship="viewControllers" id="4QM-SL-4si"/>
                         <segue destination="N2K-i0-tPx" kind="relationship" relationship="viewControllers" id="3Bi-TB-ufg"/>
+                        <segue destination="Kqw-BO-11v" kind="relationship" relationship="viewControllers" id="4QM-SL-4si"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qWX-PR-nQ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1151,6 +1155,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="accountTableCell.png" width="40" height="40"/>
         <image name="chat.png" width="30" height="30"/>
         <image name="chatTableCell.png" width="40" height="40"/>
         <image name="cross-hairs-small-black-cropped.png" width="70" height="70"/>
@@ -1159,6 +1164,7 @@
         <image name="list.png" width="30" height="30"/>
         <image name="listTableCell.png" width="40" height="40"/>
         <image name="megaphone.png" width="30" height="30"/>
+        <image name="open311.png" width="320" height="140"/>
     </resources>
     <classes>
         <class className="AboutController" superclassName="UIViewController">

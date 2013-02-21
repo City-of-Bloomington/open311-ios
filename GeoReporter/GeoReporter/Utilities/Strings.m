@@ -13,8 +13,8 @@
 // Tab indexes
 NSInteger const kTab_Home    = 0;
 NSInteger const kTab_Report  = 1;
-NSInteger const kTab_Servers = 2;
-NSInteger const kTab_Archive = 3;
+NSInteger const kTab_Archive = 2;
+NSInteger const kTab_Servers = 3;
 
 
 // Keys to the Localized String file

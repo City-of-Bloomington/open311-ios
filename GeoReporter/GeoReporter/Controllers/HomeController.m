@@ -51,7 +51,7 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
     
     NSDictionary *currentServer = [preferences getCurrentServer];
     if (currentServer == nil) {
-        [self.tabBarController setSelectedIndex:3];
+        [self.tabBarController setSelectedIndex:kTab_Servers];
     }
     else {
         self.navigationItem.title = currentServer[kOpen311_Name];
@@ -106,6 +106,7 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
     }
     DLog(@"Contact info is: %@", text);
     self.personalInfoLabel.text = text;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table Handler Methods
