@@ -28,8 +28,9 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.reportLabel .text = NSLocalizedString(kUI_Report,  nil);
-    self.archiveLabel.text = NSLocalizedString(kUI_Archive, nil);
+    self.reportLabel     .text = NSLocalizedString(kUI_Report,  nil);
+    self.archiveLabel    .text = NSLocalizedString(kUI_Archive, nil);
+    self.reportingAsLabel.text = NSLocalizedString(kUI_ReportingAs, nil);
     [self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(kUI_Settings, nil)];
     
     [[self.tabBarController.tabBar.items objectAtIndex:kTab_Report]  setTitle:NSLocalizedString(kUI_Report,  nil)];
@@ -126,6 +127,14 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            [self.tabBarController setSelectedIndex:kTab_Report];
+        }
+        if (indexPath.row == 1) {
+            [self.tabBarController setSelectedIndex:kTab_Archive];
+        }
+    }
     if (indexPath.section == 1) {
         [self performSegueWithIdentifier:kSegueToSettings sender:self];
     }

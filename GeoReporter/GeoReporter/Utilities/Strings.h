@@ -24,6 +24,7 @@ extern NSString * const kUI_PersonalInfo;
 extern NSString * const kUI_Servers;
 extern NSString * const kUI_ButtonAddServer;
 extern NSString * const kUI_ButtonAcceptError;
+extern NSString * const kUI_ReportingAs;
 extern NSString * const kUI_FirstName;
 extern NSString * const kUI_LastName;
 extern NSString * const kUI_Email;

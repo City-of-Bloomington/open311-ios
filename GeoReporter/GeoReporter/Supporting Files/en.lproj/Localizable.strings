@@ -7,6 +7,7 @@
 "servers"="Servers";
 "button_add_server"="Add Server";
 "button_accept_error"="Dismiss";
+"reporting_as"="Reporting as";
 "first_name"="First name";
 "last_name"="Last name";
 "email"="Email";

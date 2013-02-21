@@ -7,6 +7,7 @@
 "servers"="Palvelimet";
 "button_add_server"="Lisää Palvelin";
 "button_accept_error"="Sivuuttaa";
+"reporting_as"="Raportointia";
 "first_name"="Etunimi";
 "last_name"="Sukunimi";
 "email"="Sähköposti";

@@ -27,6 +27,7 @@ NSString * const kUI_PersonalInfo           = @"personal_info";
 NSString * const kUI_Servers                = @"servers";
 NSString * const kUI_ButtonAddServer        = @"button_add_server";
 NSString * const kUI_ButtonAcceptError      = @"button_accept_error";
+NSString * const kUI_ReportingAs            = @"reporting_as";
 NSString * const kUI_FirstName              = @"first_name";
 NSString * const kUI_LastName               = @"last_name";
 NSString * const kUI_Email                  = @"email";

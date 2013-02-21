@@ -14,6 +14,7 @@
 @interface HomeController : UITableViewController
 @property (weak, nonatomic) IBOutlet UILabel *reportLabel;
 @property (weak, nonatomic) IBOutlet UILabel *archiveLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reportingAsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *personalInfoLabel;
 
 - (void)serviceListReady;
