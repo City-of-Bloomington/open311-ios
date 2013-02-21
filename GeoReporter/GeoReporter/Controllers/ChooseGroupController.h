@@ -12,5 +12,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ChooseGroupController : UITableViewController
+- (IBAction)cancel:(id)sender;
 
 @end

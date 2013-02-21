@@ -31,6 +31,11 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
     self.navigationItem.title = NSLocalizedString(kUI_Report, nil);
 }
 
+- (IBAction)cancel:(id)sender
+{
+    [self.tabBarController setSelectedIndex:kTab_Home];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
