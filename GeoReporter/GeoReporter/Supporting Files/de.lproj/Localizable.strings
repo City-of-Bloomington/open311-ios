@@ -1,10 +1,10 @@
 "title_home"="GeoReporter";
 "menu_settings"="Einstellungen";
-"menu_report"="Hinweise";
+"menu_report"="Neuen Bericht";
 "menu_archive"="Meine Hinweise";
 "menu_about"="Über";
 "personal_info"="Persönliche Angaben";
-"servers"="Servers";
+"servers"="Berichten";
 "button_add_server"="Server hinzufügen";
 "button_accept_error"="Ablehnen";
 "reporting_as"="Berichterstattung";
