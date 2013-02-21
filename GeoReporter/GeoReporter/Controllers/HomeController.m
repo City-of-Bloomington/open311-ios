@@ -63,6 +63,10 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
                                                      name:kNotification_ServiceListReady
                                                    object:open311];
         [open311 loadAllMetadataForServer:currentServer];
+        
+        NSString *filename = currentServer[kOpen311_SplashImage];
+        if (!filename) { filename = @"open311"; }
+        [self.splashImage setImage:[UIImage imageNamed:filename]];
     }
     
     [self refreshPersonalInfo];

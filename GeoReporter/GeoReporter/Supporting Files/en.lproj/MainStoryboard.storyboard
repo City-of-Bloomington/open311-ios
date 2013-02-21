@@ -949,6 +949,7 @@
                         <outlet property="personalInfoLabel" destination="RlT-6h-Q7B" id="6lX-Ab-H0Q"/>
                         <outlet property="reportLabel" destination="AAi-5P-PwW" id="DEb-gA-efd"/>
                         <outlet property="reportingAsLabel" destination="ohK-73-wme" id="5Ey-TV-lew"/>
+                        <outlet property="splashImage" destination="i73-RP-HOs" id="jpW-Jq-vfp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RoS-4J-f7k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1208,6 +1209,7 @@
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="reportLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="reportingAsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="splashImage" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="LocationController" superclassName="UIViewController">

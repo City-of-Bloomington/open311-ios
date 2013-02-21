@@ -10,11 +10,13 @@
  */
 
 #import <Foundation/Foundation.h>
+// Tab indexes
 extern NSInteger const kTab_Home;
 extern NSInteger const kTab_Report;
 extern NSInteger const kTab_Archive;
 extern NSInteger const kTab_Servers;
 
+// Keys to the Localized String file
 extern NSString * const kUI_Settings;
 extern NSString * const kUI_Report;
 extern NSString * const kUI_Archive;
@@ -57,12 +59,15 @@ extern NSString * const kUI_FailureLoadingServices;
 extern NSString * const kUI_FailurePostingService;
 extern NSString * const kUI_Error403;
 
+// Open311 Key Strings
+// Global required fields
 extern NSString * const kOpen311_Jurisdiction;
 extern NSString * const kOpen311_ApiKey;
 extern NSString * const kOpen311_Format;
 extern NSString * const kOpen311_ServiceCode;
 extern NSString * const kOpen311_ServiceName;
 extern NSString * const kOpen311_Group;
+// Global basic fields
 extern NSString * const kOpen311_Media;
 extern NSString * const kOpen311_MediaUrl;
 extern NSString * const kOpen311_Latitude;
@@ -80,11 +85,13 @@ extern NSString * const kOpen311_UpdatedDatetime;
 extern NSString * const kOpen311_ExpectedDatetime;
 extern NSString * const kOpen311_ServiceRequestId;
 extern NSString * const kOpen311_Token;
+// Personal Information fields
 extern NSString * const kOpen311_FirstName;
 extern NSString * const kOpen311_LastName;
 extern NSString * const kOpen311_Email;
 extern NSString * const kOpen311_Phone;
 extern NSString * const kOpen311_DeviceId;
+// Custom field definition in service_definition
 extern NSString * const kOpen311_Metadata;
 extern NSString * const kOpen311_Attributes;
 extern NSString * const kOpen311_Attribute;
@@ -104,8 +111,11 @@ extern NSString * const kOpen311_Text;
 extern NSString * const kOpen311_True;
 extern NSString * const kOpen311_SingleValueList;
 extern NSString * const kOpen311_MultiValueList;
+// Key names from AvailableServers.plist
 extern NSString * const kOpen311_Url;
 extern NSString * const kOpen311_SupportsMedia;
+extern NSString * const kOpen311_SplashImage;
+// Key names for formats
 extern NSString * const kOpen311_JSON;
 extern NSString * const kOpen311_XML;
 

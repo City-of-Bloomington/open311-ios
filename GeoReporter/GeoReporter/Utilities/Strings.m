@@ -112,9 +112,10 @@ NSString * const kOpen311_Text         = @"text";
 NSString * const kOpen311_True         = @"true";
 NSString * const kOpen311_SingleValueList = @"singlevaluelist";
 NSString * const kOpen311_MultiValueList  = @"multivaluelist";
-// Key names from /res/raw/available_servers.json
+// Key names from AvailableServers.plist
 NSString * const kOpen311_Url           = @"url";
 NSString * const kOpen311_SupportsMedia = @"supports_media";
+NSString * const kOpen311_SplashImage   = @"splash_image";
 // Key names for formats
 NSString * const kOpen311_JSON = @"json";
 NSString * const kOpen311_XML  = @"xml";
