@@ -56,4 +56,12 @@
     return NSLocalizedString(kUI_PersonalInfo, nil);
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if      (indexPath.row == 0) { [self.textFieldFirstName becomeFirstResponder]; }
+    else if (indexPath.row == 1) { [self.textFieldLastName  becomeFirstResponder]; }
+    else if (indexPath.row == 2) { [self.textFieldEmail     becomeFirstResponder]; }
+    else if (indexPath.row == 3) { [self.textFieldPhone     becomeFirstResponder]; }
+}
+
 @end
