@@ -55,23 +55,14 @@ SHARED_SINGLETON(Preferences);
 /**
  * Lazy load the current server information
  *
- * We only store the name of the current server on the phone.
- * Since the defintions for the servers can change, we must always 
- * load the fresh definition for the server from AvailableServers.
+ * This is modified from GeoReporter to support single-city apps.
+ * This function will always return the first entry in AvailableServers
  */
 - (NSDictionary *)getCurrentServer
 {
     if (currentServer == nil) {
-        NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:kOpen311_Name];
-        if (![name isEqualToString:@""]) {
-            NSArray *servers = [Preferences getAvailableServers];
-            int count = [servers count];
-            for (int i=0; i<count; i++) {
-                if ([servers[i][kOpen311_Name] isEqualToString:name]) {
-                    currentServer = servers[i];
-                }
-            }
-        }
+        NSArray *servers = [Preferences getAvailableServers];
+        currentServer = servers[0];
     }
     return currentServer;
 }
