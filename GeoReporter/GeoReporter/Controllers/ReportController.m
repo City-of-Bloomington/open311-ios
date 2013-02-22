@@ -299,7 +299,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
             [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
             [popup setCancelButtonIndex:2];
-            [popup showInView:self.view];
+            [popup showFromTabBar:self.tabBarController.tabBar];
         }
     }
     else if ([type isEqualToString:kOpen311_Address])         { [self performSegueWithIdentifier:kSegueToLocation        sender:self]; }
