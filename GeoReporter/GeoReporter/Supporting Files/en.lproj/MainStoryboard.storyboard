@@ -9,7 +9,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="4Gh-8H-htc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home.png" id="1zM-4g-Oio"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6q-gv-jec">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="f6q-gv-jec">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -25,7 +25,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="dUA-P5-eVf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Report" image="chat.png" id="UwH-TJ-ain"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="h4L-ZC-ezC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="h4L-ZC-ezC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -62,7 +62,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="N2K-i0-tPx" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Archive" image="list.png" id="ZTS-lu-jEl"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pum-Z0-EvX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="Pum-Z0-EvX">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -338,7 +338,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="Kqw-BO-11v" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Servers" image="megaphone.png" id="N5s-aT-lgW"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QzH-fo-UDs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="QzH-fo-UDs">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
