@@ -31,6 +31,17 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
     self.navigationItem.title = NSLocalizedString(kUI_Report, nil);
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    DLog(@"Current group count is: %d", [open311.groups count]);
+    if ([open311.groups count] == 1) {
+        [self performSegueWithIdentifier:kSegueToChooseService sender:self];
+    }
+    else {
+        [self.tableView reloadData];
+    }
+}
+
 - (IBAction)cancel:(id)sender
 {
     [self.tabBarController setSelectedIndex:kTab_Home];

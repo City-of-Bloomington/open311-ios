@@ -10,6 +10,7 @@
  */
 
 #import "ChooseServiceController.h"
+#import "Preferences.h"
 #import "Open311.h"
 #import "Strings.h"
 #import "ReportController.h"
@@ -20,6 +21,7 @@
 
 @implementation ChooseServiceController {
     Open311 *open311;
+    NSString *currentServerName;
     NSArray *services;
 }
 static NSString * const kCellIdentifier = @"service_cell";
@@ -29,8 +31,19 @@ static NSString * const kSegueToReport  = @"SegueToReport";
 {
     [super viewDidLoad];
     open311 = [Open311 sharedInstance];
+    
+    currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
+    
     services = [open311 getServicesForGroup:self.group];
     self.navigationItem.title = self.group;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (![currentServerName isEqualToString:[[Preferences sharedInstance] getCurrentServer][kOpen311_Name]]) {
+        currentServerName = nil;
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 #pragma mark - Table view data source
