@@ -26,6 +26,7 @@
 @implementation ReportController {
     NSMutableArray *fields;
     NSIndexPath *currentIndexPath;
+    NSString *currentServerName;
     
     // In the ServiceRequest, we are only storing the URL for the photo asset.
     // Retrieving the actual image data from the asset is an async call.
@@ -63,6 +64,8 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
     
     self.navigationItem.title = _service[kOpen311_ServiceName];
     
@@ -120,6 +123,14 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             }
         }
         [fields addObject:attributes];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (![currentServerName isEqualToString:[[Preferences sharedInstance] getCurrentServer][kOpen311_Name]]) {
+        currentServerName = nil;
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
