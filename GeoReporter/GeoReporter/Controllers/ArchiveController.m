@@ -46,7 +46,6 @@ NSString * const kCellIdentifier = @"archive_cell";
     [super viewWillAppear:animated];
     
     archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
-    DLog(@"Displaying %d archived reports", [archivedReports count]);
 }
 
 - (void)viewWillDisappear:(BOOL)animated

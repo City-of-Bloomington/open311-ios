@@ -108,7 +108,6 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
     if ([text length] == 0) {
         text = @"anonymous";
     }
-    DLog(@"Contact info is: %@", text);
     self.personalInfoLabel.text = text;
     [self.tableView reloadData];
 }
@@ -122,7 +121,6 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
                                               constrainedToSize:CGSizeMake(300, 140)
                                                   lineBreakMode:self.personalInfoLabel.lineBreakMode];
         NSInteger height = size.height + 28;
-        DLog(@"Setting report_to height: %d", height);
         return (CGFloat)height;
     }
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];

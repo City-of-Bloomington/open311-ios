@@ -99,13 +99,10 @@ SHARED_SINGLETON(Preferences);
  */
 - (NSArray *)getArchivedReports
 {
-    DLog(@"Loading archive");
     if ([[NSFileManager defaultManager] fileExistsAtPath:[Preferences getArchiveFilePath]]) {
-        DLog(@"loading archive file");
         return [NSKeyedUnarchiver unarchiveObjectWithFile:[Preferences getArchiveFilePath]];
     }
     else {
-        DLog(@"No archive file found");
         return @[];
     }
 }
@@ -115,7 +112,6 @@ SHARED_SINGLETON(Preferences);
  */
 - (void)saveArchivedReports:(NSMutableArray *)archive
 {
-    DLog(@"Saving archive file");
     BOOL success = [NSKeyedArchiver archiveRootObject:archive toFile:[Preferences getArchiveFilePath]];
     if (!success) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"failed to save archive file"

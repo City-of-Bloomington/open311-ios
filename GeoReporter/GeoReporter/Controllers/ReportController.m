@@ -215,7 +215,6 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             if (![mediaUrl isEqual:url]) {
                 [library assetForURL:url
                          resultBlock:^(ALAsset *asset) {
-                             DLog(@"Loaded image from library");
                             // Once we finally get the image loaded, we need to tell the
                             // table to redraw itself, which should pick up the new |mediaThumbnail|
                             mediaThumbnail = [UIImage imageWithCGImage:[asset thumbnail]];
@@ -251,7 +250,6 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
         if ([datatype isEqualToString:kOpen311_SingleValueList]) {
             NSString *userInput = _report.postData[fieldname];
             if (userInput) {
-                DLog(@"displaying value for user-selected key: %@", userInput);
                 cell.detailTextLabel.text = [_report attributeValueForKey:userInput atIndex:indexPath.row];
             }
         }
@@ -383,9 +381,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude]
                    completionHandler:^(NSArray *placemarks, NSError *error) {
-                       DLog(@"Got a geocoder response");
                        NSString *address = [placemarks[0] name];
-                       DLog(@"Geocoder returned %@", address);
                        _report.postData[kOpen311_AddressString] = address ? address : @"";
                        [self.tableView reloadData];
                    }];
@@ -414,18 +410,15 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     if (info[UIImagePickerControllerMediaMetadata] != nil) {
         // The user took a picture with the camera.
         // We need to save that picture and just use the reference to it from the Saved Photos library.
-        DLog(@"Camera returned a picture");
         [library writeImageToSavedPhotosAlbum:[image CGImage]
                                      metadata:info[UIImagePickerControllerMediaMetadata]
                               completionBlock:^(NSURL *assetURL, NSError *error) {
-                                  DLog(@"Setting POST media to: %@", assetURL);
                                   _report.postData[kOpen311_Media] = assetURL;
                                   [self refreshMediaThumbnail];
                               }];
     }
     else {
         // The user chose an image from the library
-        DLog(@"User chose a picture from the library");
         _report.postData[kOpen311_Media] = info[UIImagePickerControllerReferenceURL];
         [self refreshMediaThumbnail];
     }

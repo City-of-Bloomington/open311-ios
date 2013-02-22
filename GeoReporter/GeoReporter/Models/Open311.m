@@ -61,7 +61,6 @@ SHARED_SINGLETON(Open311);
                                           cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
                                           otherButtonTitles:nil];
     [alert show];
-    DLog(@"%@", error);
 }
 
 #pragma mark - GET Service List
@@ -163,7 +162,6 @@ SHARED_SINGLETON(Open311);
     NSString *message = [error localizedDescription];
 
     if (operation) {
-        DLog(@"%d: %@", [[operation response] statusCode], [operation responseString]);
         NSError *e;
         NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:[operation responseData] options:nil error:&e];
         NSInteger statusCode = [[operation response] statusCode];

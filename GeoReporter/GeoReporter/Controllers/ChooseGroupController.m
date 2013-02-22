@@ -33,7 +33,6 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    DLog(@"Current group count is: %d", [open311.groups count]);
     if ([open311.groups count] == 1) {
         [self performSegueWithIdentifier:kSegueToChooseService sender:self];
     }

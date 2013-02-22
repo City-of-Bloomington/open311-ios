@@ -85,9 +85,7 @@ NSString * const kPostData          = @"postData";
 // since they're the only attributes that have value lists
 - (NSString *)attributeValueForKey:(NSString *)key atIndex:(NSInteger)index
 {
-    DLog(@"key:%@ index:%d", key, index);
     NSDictionary *attribute = _serviceDefinition[kOpen311_Attributes][index];
-    DLog(@"%@", attribute);
     if (   [attribute[kOpen311_Datatype] isEqualToString:kOpen311_SingleValueList]
         || [attribute[kOpen311_Datatype] isEqualToString:kOpen311_MultiValueList]) {
         for (NSDictionary *value in attribute[kOpen311_Values]) {
@@ -168,7 +166,6 @@ NSString * const kPostData          = @"postData";
                         // We just don't need to call our delegate, since we don't have an id yet.
                     }
                     else {
-                        DLog(@"%d: %@",[[operation response] statusCode], [operation responseString]);
                         [open311 loadFailedWithError:error];
                     }
                 }
