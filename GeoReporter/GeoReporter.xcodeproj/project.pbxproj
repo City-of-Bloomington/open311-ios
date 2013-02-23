@@ -182,7 +182,7 @@
 		69E57B6B16BC1522004B7094 /* ChooseGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseGroupController.m; sourceTree = "<group>"; };
 		69E57B6D16BC153A004B7094 /* ChooseServiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServiceController.h; sourceTree = "<group>"; };
 		69E57B6E16BC153A004B7094 /* ChooseServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServiceController.m; sourceTree = "<group>"; };
-		69ED14DD16B2EE4C00232245 /* GeoReporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoReporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69ED14DD16B2EE4C00232245 /* BloomingtonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloomingtonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69ED14E116B2EE4C00232245 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69ED14E316B2EE4C00232245 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		69ED14E516B2EE4C00232245 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -393,7 +393,7 @@
 		69ED14DE16B2EE4C00232245 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				69ED14DD16B2EE4C00232245 /* GeoReporter.app */,
+				69ED14DD16B2EE4C00232245 /* BloomingtonApp.app */,
 				69ED150416B2EE4D00232245 /* GeoReporterTests.octest */,
 			);
 			name = Products;
@@ -503,7 +503,7 @@
 			);
 			name = BloomingtonApp;
 			productName = GeoReporter;
-			productReference = 69ED14DD16B2EE4C00232245 /* GeoReporter.app */;
+			productReference = 69ED14DD16B2EE4C00232245 /* BloomingtonApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		69ED150316B2EE4D00232245 /* GeoReporterTests */ = {
@@ -778,6 +778,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoReporter/Supporting Files/GeoReporter-Prefix.pch";
 				INFOPLIST_FILE = "GeoReporter/Supporting Files/GeoReporter-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -789,6 +790,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoReporter/Supporting Files/GeoReporter-Prefix.pch";
 				INFOPLIST_FILE = "GeoReporter/Supporting Files/GeoReporter-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
