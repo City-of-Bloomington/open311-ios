@@ -643,11 +643,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CJc-R7-tG5" firstAttribute="bottom" secondItem="Od0-6K-e3q" secondAttribute="top" type="default" id="4Nl-ra-Pyy"/>
+                            <constraint firstAttribute="bottom" secondItem="CJc-R7-tG5" secondAttribute="bottom" constant="43" id="0Ce-jc-mFn"/>
                             <constraint firstItem="Od0-6K-e3q" firstAttribute="leading" secondItem="f1y-As-GIM" secondAttribute="leading" type="default" id="7EW-tt-8oe"/>
+                            <constraint firstItem="Od0-6K-e3q" firstAttribute="bottom" secondItem="f1y-As-GIM" secondAttribute="bottom" type="user" id="FGx-0d-reO"/>
                             <constraint firstItem="CJc-R7-tG5" firstAttribute="trailing" secondItem="f1y-As-GIM" secondAttribute="trailing" type="default" id="GjR-vx-Lah"/>
-                            <constraint firstItem="Od0-6K-e3q" firstAttribute="top" secondItem="f1y-As-GIM" secondAttribute="top" constant="412" id="YE7-bI-U9t"/>
                             <constraint firstItem="CJc-R7-tG5" firstAttribute="top" secondItem="f1y-As-GIM" secondAttribute="top" type="default" id="i64-NE-7BH"/>
+                            <constraint firstItem="Od0-6K-e3q" firstAttribute="bottom" secondItem="f1y-As-GIM" secondAttribute="bottom" type="user" id="pSV-DS-o9U"/>
                             <constraint firstItem="CJc-R7-tG5" firstAttribute="leading" secondItem="f1y-As-GIM" secondAttribute="leading" type="default" id="uKP-Hk-YSd"/>
                             <constraint firstItem="Od0-6K-e3q" firstAttribute="trailing" secondItem="f1y-As-GIM" secondAttribute="trailing" type="default" id="zYb-ey-qxf"/>
                         </constraints>
