@@ -46,6 +46,7 @@ NSString * const kCellIdentifier = @"archive_cell";
     [super viewWillAppear:animated];
     
     archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
