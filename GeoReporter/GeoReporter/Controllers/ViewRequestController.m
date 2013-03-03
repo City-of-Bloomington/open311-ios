@@ -111,7 +111,25 @@ static CGFloat    const kMediaCellHeight = 122;
     if (section == 0) {
         NSDictionary *sr = _report.serviceRequest;
         NSDictionary *post = _report.postData;
-        return (sr && sr[kOpen311_Description]) ? sr[kOpen311_Description] : post[kOpen311_Description];
+        
+        NSString *titleForHeader = nil;
+        
+        if ( sr ) {
+            id srDescription = sr[kOpen311_Description];
+            if ( srDescription != [NSNull null] ) {
+                titleForHeader = srDescription;
+            }
+        }
+        
+        if ( titleForHeader == nil ) {
+            id postDescription = post[kOpen311_Description];
+            if ( postDescription != [NSNull null] ) {
+                titleForHeader = postDescription;
+            }
+        }
+        
+        if ( titleForHeader )
+            return titleForHeader;
     }
     return nil;
 }
