@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 - (IBAction)done:(id)sender;
 - (IBAction)centerOnLocation:(id)sender;
+- (IBAction)mapTypeChanged:(id)sender;
 
 - (void)zoomToLocation:(CLLocation *)location;
 @end

@@ -65,4 +65,17 @@
 {
     [self zoomToLocation:locationManager.location];
 }
+
+- (IBAction)mapTypeChanged:(id)sender
+{
+    switch (((UISegmentedControl *)sender).selectedSegmentIndex) {
+        case 0:
+            [self.map setMapType:MKMapTypeStandard];
+            break;
+            
+        case 1:
+            [self.map setMapType:MKMapTypeSatellite];
+            break;
+    }
+}
 @end
