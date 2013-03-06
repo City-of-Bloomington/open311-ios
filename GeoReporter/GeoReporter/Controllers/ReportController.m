@@ -126,9 +126,22 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     }
 }
 
+// Check if it is still valid for the user to enter information for a report.
+//
+// The user can always change tabs, select a different server, then try to come back to the report.
+//
+// Also, once we've successfully submitted a report, we do not want the user to resubmit
+// the same report.  So, what we do is delete the service upon success.
+//
+// Either way, bounce the user back to the Group Chooser screen, starting the report
+// process over from scratch.
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (![currentServerName isEqualToString:[[Preferences sharedInstance] getCurrentServer][kOpen311_Name]]) {
+    // If the user has changed servers
+    // or if we don't have a service
+    if (![currentServerName isEqualToString:[[Preferences sharedInstance] getCurrentServer][kOpen311_Name]]
+        || _service==nil) {
+        
         currentServerName = nil;
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
@@ -160,6 +173,11 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 {
     [busyIcon stopAnimating];
     [busyIcon removeFromSuperview];
+    
+    // Remove the service so they cannot post this report again,
+    // without starting the process from scratch.
+    _service = nil;
+    
     [self.tabBarController setSelectedIndex:kTab_Archive];
 }
 
