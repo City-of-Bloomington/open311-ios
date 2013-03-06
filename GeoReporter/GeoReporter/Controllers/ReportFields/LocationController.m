@@ -11,10 +11,14 @@
 
 #import "LocationController.h"
 #import "ReportController.h"
+#import "Strings.h"
 
 @interface LocationController ()
 
 @end
+
+static NSInteger const kMapTypeStandardIndex  = 0;
+static NSInteger const kMapTypeSatelliteIndex = 1;
 
 @implementation LocationController {
     CLLocationManager *locationManager;
@@ -32,6 +36,9 @@
     
     MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.map];
     [self.navigationController.toolbar setItems:@[button]];
+    
+    [self.segmentedControl setTitle:NSLocalizedString(kUI_Standard,  nil) forSegmentAtIndex:kMapTypeStandardIndex];
+    [self.segmentedControl setTitle:NSLocalizedString(kUI_Satellite, nil) forSegmentAtIndex:kMapTypeSatelliteIndex];
 }
 
 - (void)zoomToLocation:(CLLocation *)location
@@ -69,13 +76,17 @@
 - (IBAction)mapTypeChanged:(id)sender
 {
     switch (((UISegmentedControl *)sender).selectedSegmentIndex) {
-        case 0:
+        case kMapTypeStandardIndex:
             [self.map setMapType:MKMapTypeStandard];
             break;
             
-        case 1:
+        case kMapTypeSatelliteIndex:
             [self.map setMapType:MKMapTypeSatellite];
             break;
     }
+}
+- (void)viewDidUnload {
+    [self setSegmentedControl:nil];
+    [super viewDidUnload];
 }
 @end

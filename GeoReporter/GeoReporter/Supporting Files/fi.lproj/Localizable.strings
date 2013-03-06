@@ -25,6 +25,8 @@
 "camera"="Kamera";
 "gallery"="Galleria";
 "location"="Sijainti";
+"map_button_standard"="Standardi";
+"map_button_satellite"="Satelliitti";
 "report_status"="Tila";
 "report_attributes"="Lisätiedot";
 "report_description"="Palautteen kuvaus";

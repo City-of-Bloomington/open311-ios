@@ -44,6 +44,8 @@ extern NSString * const kUI_ChooseMediaSource;
 extern NSString * const kUI_Camera;
 extern NSString * const kUI_Gallery;
 extern NSString * const kUI_Location;
+extern NSString * const kUI_Standard;
+extern NSString * const kUI_Satellite;
 extern NSString * const kUI_ReportStatus;
 extern NSString * const kUI_ReportAttributes;
 extern NSString * const kUI_ReportDescription;

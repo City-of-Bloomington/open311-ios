@@ -675,6 +675,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="map" destination="xGN-g3-q6Q" id="vmp-yf-zMJ"/>
+                        <outlet property="segmentedControl" destination="acZ-pK-YsY" id="dgi-sN-eqU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRM-0M-qEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

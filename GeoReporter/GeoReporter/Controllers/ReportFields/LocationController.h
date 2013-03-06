@@ -24,6 +24,7 @@
 @interface LocationController : UIViewController <CLLocationManagerDelegate>
 @property id<LocationChooserDelegate>delegate;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 - (IBAction)done:(id)sender;
 - (IBAction)centerOnLocation:(id)sender;
 - (IBAction)mapTypeChanged:(id)sender;
