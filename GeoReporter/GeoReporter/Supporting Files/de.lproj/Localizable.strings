@@ -25,6 +25,8 @@
 "camera"="Kamera";
 "gallery"="Galerie";
 "location"="Ortsangabe";
+"map_button_standard"="Standard";
+"map_button_satellite"="Satellit";
 "report_status"="Status";
 "report_attributes"="Hinweis-Attribute";
 "report_description"="Beschreibung des Anliegens";

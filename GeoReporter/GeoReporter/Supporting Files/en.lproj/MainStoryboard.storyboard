@@ -348,6 +348,19 @@
                                             <action selector="centerOnLocation:" destination="2KI-gM-Foh" id="8zs-So-2Ws"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" id="bdb-Zz-xYS">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="5vF-0E-YGQ">
+                                            <rect key="frame" x="56" y="8" width="161" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Standard"/>
+                                                <segment title="Satellite"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="mapTypeChanged:" destination="2KI-gM-Foh" eventType="valueChanged" id="V5O-Jp-5Au"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJc-R7-tG5">
@@ -392,6 +405,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="map" destination="xGN-g3-q6Q" id="vmp-yf-zMJ"/>
+                        <outlet property="segmentedControl" destination="5vF-0E-YGQ" id="iEP-JE-77Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRM-0M-qEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

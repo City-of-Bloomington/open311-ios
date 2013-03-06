@@ -25,6 +25,8 @@
 "camera"="Caméra";
 "gallery"="Gallery";
 "location"="Localisation";
+"map_button_standard"="Norme";
+"map_button_satellite"="Satellite";
 "report_status"="Status";
 "report_attributes"="Attributs";
 "report_description"="Description du problème";
