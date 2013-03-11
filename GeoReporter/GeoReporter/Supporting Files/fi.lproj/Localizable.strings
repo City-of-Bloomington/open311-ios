@@ -1,11 +1,11 @@
 "title_home"="GeoReporter";
 "menu_settings"="Asetukset";
 "menu_report"="Uusi Palaute";
-"menu_archive"="Omat Palautteet";
+"menu_archive"="Omat palautteet";
 "menu_about"="Lisätietoja";
 "personal_info"="Omat tiedot";
 "servers"="Palvelimet";
-"button_add_server"="Lisää Palvelin";
+"button_add_server"="Lisää palvelin";
 "button_accept_error"="Ohita";
 "reporting_as"="Lähetä tunnuksella";
 "first_name"="Etunimi";
