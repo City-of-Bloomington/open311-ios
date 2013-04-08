@@ -103,16 +103,12 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             // According to the spec, attribute paramters need to be named:
             // attribute[code]
             //
-            // Also, if the attribute is a MultiValueList, it needs to be named:
-            // attribute[code][]
-            //
-            // The server will interpret the parameter as an array of values.
+            // Multivaluelist values will be arrays.  Because of that, the HTTPClient
+            // will append the appropriate "[]" when the POST is created.  We do not
+            // need to use a special name here for the Multivaluelist attributes.
             if ([attribute[kOpen311_Variable] boolValue]) {
                 NSString *code = [NSString stringWithFormat:@"%@[%@]", kOpen311_Attribute, attribute[kOpen311_Code]];
                 NSString *type = attribute[kOpen311_Datatype];
-                if ([type isEqualToString:kOpen311_MultiValueList]) {
-                    code = [code stringByAppendingString:@"[]"];
-                }
                 
                 [attributes addObject:@{kFieldname:code, kLabel:attribute[kOpen311_Description], kType:type}];
             }
