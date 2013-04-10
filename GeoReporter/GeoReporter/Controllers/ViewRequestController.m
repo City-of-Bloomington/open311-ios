@@ -149,7 +149,11 @@ static CGFloat    const kMediaCellHeight = 122;
         else {
             cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(kUI_Location, nil);
-            cell.detailTextLabel.text = (sr && sr[kOpen311_Address]) ? sr[kOpen311_Address] : post[kOpen311_AddressString];
+            
+            NSString *text = nil;
+            if (sr          &&   sr[kOpen311_Address]       != [NSNull null]) { text =   sr[kOpen311_Address];       }
+            if (text == nil && post[kOpen311_AddressString] != [NSNull null]) { text = post[kOpen311_AddressString]; }
+            if (text != nil) { cell.detailTextLabel.text = text; }
         }
     }
     else {
@@ -162,12 +166,12 @@ static CGFloat    const kMediaCellHeight = 122;
                 
             case 1:
                 cell.textLabel.text = NSLocalizedString(kUI_ReportStatus, nil);
-                cell.detailTextLabel.text = (sr && sr[kOpen311_Status]) ? sr[kOpen311_Status] : kUI_Pending;
+                cell.detailTextLabel.text = (sr && sr[kOpen311_Status]!=[NSNull null]) ? sr[kOpen311_Status] : kUI_Pending;
                 break;
                 
             case 2:
                 cell.textLabel.text = NSLocalizedString(kOpen311_AgencyResponsible, nil);
-                cell.detailTextLabel.text = (sr && sr[kOpen311_AgencyResponsible]) ? sr[kOpen311_AgencyResponsible] : @"";
+                cell.detailTextLabel.text = (sr && sr[kOpen311_AgencyResponsible]!=[NSNull null]) ? sr[kOpen311_AgencyResponsible] : @"";
                 break;
                 
             default:
