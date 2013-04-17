@@ -55,7 +55,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
     
     NSString *group = open311.groups[indexPath.row];
     NSString *serviceList = @"";

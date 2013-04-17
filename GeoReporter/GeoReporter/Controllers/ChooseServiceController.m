@@ -54,7 +54,7 @@ static NSString * const kSegueToReport  = @"SegueToReport";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
     NSDictionary *service = services[indexPath.row];
     
     cell.textLabel      .text = service[kOpen311_ServiceName];
