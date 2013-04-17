@@ -21,6 +21,10 @@
 - (void)viewDidLoad
 {
     self.label    .text = self.attribute[kOpen311_Description];
+	
+	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+	gestureRecognizer.cancelsTouchesInView = NO;
+	[self.view addGestureRecognizer:gestureRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -32,6 +36,10 @@
 - (IBAction)done:(id)sender
 {
     [self.delegate didProvideValue:self.textField.text];
+}
+
+- (void) hideKeyboard {
+	[self.textField resignFirstResponder];
 }
 
 @end

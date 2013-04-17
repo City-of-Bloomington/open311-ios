@@ -13,7 +13,6 @@
 #import "Strings.h"
 
 @interface PersonalInfoController ()
-
 @end
 
 @implementation PersonalInfoController
@@ -35,6 +34,10 @@
     self.textFieldLastName .text = [preferences stringForKey:kOpen311_LastName];
     self.textFieldEmail    .text = [preferences stringForKey:kOpen311_Email];
     self.textFieldPhone    .text = [preferences stringForKey:kOpen311_Phone];
+	
+	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+	gestureRecognizer.cancelsTouchesInView = NO;
+	[self.tableView addGestureRecognizer:gestureRecognizer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -48,6 +51,12 @@
     [super viewWillDisappear:animated];
 }
 
+- (void) hideKeyboard {
+		[self.textFieldFirstName resignFirstResponder];
+    	[self.textFieldLastName resignFirstResponder];
+		[self.textFieldEmail resignFirstResponder];
+		[self.textFieldPhone resignFirstResponder];
+}
 
 #pragma mark - Table view handlers
 
