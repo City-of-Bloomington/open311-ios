@@ -20,8 +20,33 @@
 
 - (void)viewDidLoad
 {
-    self.label   .text = self.attribute[kOpen311_Description];
-	[self.label sizeToFit];
+	//		adjust the height of the label
+	
+	// Calculate the expected size based on the font and linebreak mode of the label
+	// FLT_MAX here simply means no constraint in height
+	CGSize maximumLabelSize = CGSizeMake(296, FLT_MAX);
+	
+	CGSize expectedLabelSize = [self.attribute[kOpen311_Description] sizeWithFont:self.label.font constrainedToSize:maximumLabelSize lineBreakMode:self.label.lineBreakMode];
+	
+	
+	//		adjust the label to the new height
+	
+	CGRect newLabelFrame = self.label.frame;
+	newLabelFrame.size.height = expectedLabelSize.height;
+	self.label.frame = newLabelFrame;
+	
+	
+	//		set text in label
+	
+	self.label   .text = self.attribute[kOpen311_Description];
+	
+	
+	//		move the textView to the bottom, according to the new size of the label
+	CGRect newTextViewFrame = self.textView.frame;
+	newTextViewFrame.origin.y = newTextViewFrame.origin.y + newLabelFrame.size.height;
+	self.textView.frame = newTextViewFrame;
+	
+	//		add gesture recognizer to close the keyboard
 	
 	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
 	gestureRecognizer.cancelsTouchesInView = NO;
