@@ -44,6 +44,7 @@ static NSString * const kSegueToReport  = @"SegueToReport";
         currentServerName = nil;
         [self.navigationController popViewControllerAnimated:NO];
     }
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 }
 
 #pragma mark - Table view data source
