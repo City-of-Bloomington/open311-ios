@@ -37,6 +37,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
         [self performSegueWithIdentifier:kSegueToChooseService sender:self];
     }
     else {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
         [self.tableView reloadData];
     }
 }
@@ -71,8 +72,6 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
-    
     ChooseServiceController *controller = [segue destinationViewController];
     controller.group = [open311.groups objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
 }

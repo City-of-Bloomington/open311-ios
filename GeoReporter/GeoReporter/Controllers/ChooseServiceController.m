@@ -44,6 +44,7 @@ static NSString * const kSegueToReport  = @"SegueToReport";
         currentServerName = nil;
         [self.navigationController popViewControllerAnimated:NO];
     }
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 }
 
 #pragma mark - Table view data source
@@ -65,8 +66,6 @@ static NSString * const kSegueToReport  = @"SegueToReport";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
-    
     ReportController *report = [segue destinationViewController];
     report.service = services[[[self.tableView indexPathForSelectedRow] row]];
 }
