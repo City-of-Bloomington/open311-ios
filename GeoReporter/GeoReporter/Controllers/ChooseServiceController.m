@@ -44,6 +44,7 @@ static NSString * const kSegueToReport  = @"SegueToReport";
         currentServerName = nil;
         [self.navigationController popViewControllerAnimated:NO];
     }
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 }
 
 #pragma mark - Table view data source
@@ -54,7 +55,7 @@ static NSString * const kSegueToReport  = @"SegueToReport";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
     NSDictionary *service = services[indexPath.row];
     
     cell.textLabel      .text = service[kOpen311_ServiceName];

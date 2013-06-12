@@ -37,6 +37,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
         [self performSegueWithIdentifier:kSegueToChooseService sender:self];
     }
     else {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
         [self.tableView reloadData];
     }
 }
@@ -55,7 +56,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
     
     NSString *group = open311.groups[indexPath.row];
     NSString *serviceList = @"";

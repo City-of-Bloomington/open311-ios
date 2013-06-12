@@ -27,6 +27,8 @@
 		6988CD2916B309560066E796 /* ArchiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2816B309560066E796 /* ArchiveController.m */; };
 		6988CD2C16B3097A0066E796 /* ReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2B16B3097A0066E796 /* ReportController.m */; };
 		6988CD2F16B30CF70066E796 /* PersonalInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2E16B30CF70066E796 /* PersonalInfoController.m */; };
+		69A4D2641732F55300AA1AC6 /* columbus.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A4D2621732F55300AA1AC6 /* columbus.png */; };
+		69A4D2651732F55300AA1AC6 /* columbus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A4D2631732F55300AA1AC6 /* columbus@2x.png */; };
 		69B2464816D5410900C47475 /* chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2464416D5410900C47475 /* chat.png */; };
 		69B2464916D5410900C47475 /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2464516D5410900C47475 /* chat@2x.png */; };
 		69B2464A16D5410900C47475 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2464616D5410900C47475 /* list.png */; };
@@ -136,6 +138,8 @@
 		6988CD2B16B3097A0066E796 /* ReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportController.m; sourceTree = "<group>"; };
 		6988CD2D16B30CF70066E796 /* PersonalInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoController.h; sourceTree = "<group>"; };
 		6988CD2E16B30CF70066E796 /* PersonalInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoController.m; sourceTree = "<group>"; };
+		69A4D2621732F55300AA1AC6 /* columbus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = columbus.png; sourceTree = "<group>"; };
+		69A4D2631732F55300AA1AC6 /* columbus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "columbus@2x.png"; sourceTree = "<group>"; };
 		69B2464416D5410900C47475 /* chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat.png; sourceTree = "<group>"; };
 		69B2464516D5410900C47475 /* chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat@2x.png"; sourceTree = "<group>"; };
 		69B2464616D5410900C47475 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
@@ -472,6 +476,8 @@
 		69FE9E6316D67BC2007021B9 /* Cities */ = {
 			isa = PBXGroup;
 			children = (
+				69A4D2621732F55300AA1AC6 /* columbus.png */,
+				69A4D2631732F55300AA1AC6 /* columbus@2x.png */,
 				6969385F16D7CFC400D8C613 /* bonn.png */,
 				6969386016D7CFC400D8C613 /* bonn@2x.png */,
 				69FE9E6C16D6A4E2007021B9 /* bloomington.png */,
@@ -596,6 +602,8 @@
 				69FE9E7716D6A4E2007021B9 /* chicago@2x.png in Resources */,
 				6969386116D7CFC400D8C613 /* bonn.png in Resources */,
 				6969386216D7CFC400D8C613 /* bonn@2x.png in Resources */,
+				69A4D2641732F55300AA1AC6 /* columbus.png in Resources */,
+				69A4D2651732F55300AA1AC6 /* columbus@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,7 +786,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoReporter/Supporting Files/GeoReporter-Prefix.pch";
 				INFOPLIST_FILE = "GeoReporter/Supporting Files/GeoReporter-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -790,7 +798,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoReporter/Supporting Files/GeoReporter-Prefix.pch";
 				INFOPLIST_FILE = "GeoReporter/Supporting Files/GeoReporter-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

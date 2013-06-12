@@ -214,7 +214,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportCell];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportCell forIndexPath:indexPath];
     
     NSDictionary *field = fields[indexPath.section][indexPath.row];
     NSString *fieldname = field[kFieldname];
