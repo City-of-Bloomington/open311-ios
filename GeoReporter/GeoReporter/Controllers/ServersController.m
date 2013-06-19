@@ -38,6 +38,12 @@ static NSString * const kCellIdentifier = @"server_cell";
 {
     [super viewWillAppear:animated];
     
+    NSDictionary *currentServer = [prefs getCurrentServer];
+    if (currentServer == nil) {
+        //TODO: if no server is chosen, don't display the cancel button on the navigation bar
+        [self.cancelButton setEnabled:NO];
+    }
+    
     customServers = [NSMutableArray arrayWithArray:[prefs getCustomServers]];
     [self.tableView reloadData];
 }
@@ -68,6 +74,15 @@ static NSString * const kCellIdentifier = @"server_cell";
     }
 }
 
+- (IBAction)cancel:(id)sender {
+    
+    
+    NSDictionary *currentServer = [prefs getCurrentServer];
+    if (currentServer != nil) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark - Table View Handlers
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -95,7 +110,8 @@ static NSString * const kCellIdentifier = @"server_cell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [prefs setCurrentServer:[self getTargetServer:indexPath.row]];
-    [self.tabBarController setSelectedIndex:kTab_Home];
+    //[self.tabBarController setSelectedIndex:kTab_Home];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Table View Deletion Handlers

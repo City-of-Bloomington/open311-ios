@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *archiveLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reportingAsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *personalInfoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *serversLabel;
 
 - (void)serviceListReady;
 - (void)startBusyIcon;

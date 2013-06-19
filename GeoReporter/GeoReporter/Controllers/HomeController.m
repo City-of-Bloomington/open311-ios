@@ -20,6 +20,10 @@
 @end
 
 static NSString * const kSegueToSettings = @"SegueToSettings";
+static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
+static NSString * const kSegueToServers = @"SegueToServers";
+static NSString * const kSegueToArchive = @"SegueToArchive";
+
 
 @implementation HomeController {
     UIActivityIndicatorView *busyIcon;
@@ -31,11 +35,7 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
     self.reportLabel     .text = NSLocalizedString(kUI_Report,  nil);
     self.archiveLabel    .text = NSLocalizedString(kUI_Archive, nil);
     self.reportingAsLabel.text = NSLocalizedString(kUI_ReportingAs, nil);
-    [self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(kUI_Settings, nil)];
-    
-    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Report]  setTitle:NSLocalizedString(kUI_Report,  nil)];
-    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Archive] setTitle:NSLocalizedString(kUI_Archive, nil)];
-    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Servers] setTitle:NSLocalizedString(kUI_Servers, nil)];
+    self.serversLabel.text = NSLocalizedString(kUI_Servers, nil);
 }
 
 /**
@@ -51,7 +51,9 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
     
     NSDictionary *currentServer = [preferences getCurrentServer];
     if (currentServer == nil) {
-        [self.tabBarController setSelectedIndex:kTab_Servers];
+        //TODO
+        //[self.tabBarController setSelectedIndex:kTab_Servers];
+        [self performSegueWithIdentifier:kSegueToServers sender:self];
     }
     else {
         self.navigationItem.title = currentServer[kOpen311_Name];
@@ -132,15 +134,19 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
     
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self.tabBarController setSelectedIndex:kTab_Report];
+            [self performSegueWithIdentifier:kSegueToChooseGroup sender:self];
+        } else if (indexPath.row == 1) {
+            [self performSegueWithIdentifier:kSegueToArchive sender:self];
         }
-        if (indexPath.row == 1) {
-            [self.tabBarController setSelectedIndex:kTab_Archive];
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self performSegueWithIdentifier:kSegueToSettings sender:self];
+        } else if (indexPath.row == 1) {
+            [self performSegueWithIdentifier:kSegueToServers sender:self];
         }
-    }
-    if (indexPath.section == 1) {
-        [self performSegueWithIdentifier:kSegueToSettings sender:self];
     }
 }
+
+
 
 @end
