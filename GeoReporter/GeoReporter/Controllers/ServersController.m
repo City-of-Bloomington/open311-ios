@@ -21,8 +21,10 @@
     Preferences *prefs;
     NSArray *availableServers;
     NSMutableArray *customServers;
+    
 }
 static NSString * const kCellIdentifier = @"server_cell";
+static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
 
 - (void)viewDidLoad
 {
@@ -111,7 +113,7 @@ static NSString * const kCellIdentifier = @"server_cell";
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [prefs setCurrentServer:[self getTargetServer:indexPath.row]];
     //[self.tabBarController setSelectedIndex:kTab_Home];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self performSegueWithIdentifier:kUnwindSegueToHome sender:self];
 }
 
 #pragma mark - Table View Deletion Handlers
