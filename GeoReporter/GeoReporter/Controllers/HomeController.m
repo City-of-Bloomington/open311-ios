@@ -20,6 +20,13 @@
 @end
 
 static NSString * const kSegueToSettings = @"SegueToSettings";
+static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
+static NSString * const kSegueToServers = @"SegueToServers";
+static NSString * const kSegueToArchive = @"SegueToArchive";
+static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
+
+
+
 
 @implementation HomeController {
     UIActivityIndicatorView *busyIcon;
@@ -28,14 +35,12 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self loadServer];
     self.reportLabel     .text = NSLocalizedString(kUI_Report,  nil);
     self.archiveLabel    .text = NSLocalizedString(kUI_Archive, nil);
     self.reportingAsLabel.text = NSLocalizedString(kUI_ReportingAs, nil);
-    [self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(kUI_Settings, nil)];
-    
-    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Report]  setTitle:NSLocalizedString(kUI_Report,  nil)];
-    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Archive] setTitle:NSLocalizedString(kUI_Archive, nil)];
-    [[self.tabBarController.tabBar.items objectAtIndex:kTab_Servers] setTitle:NSLocalizedString(kUI_Servers, nil)];
+    self.serversLabel.text = NSLocalizedString(kUI_Servers, nil);
 }
 
 /**
@@ -46,28 +51,7 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    Preferences *preferences = [Preferences sharedInstance];
-    
-    NSDictionary *currentServer = [preferences getCurrentServer];
-    if (currentServer == nil) {
-        [self.tabBarController setSelectedIndex:kTab_Servers];
-    }
-    else {
-        self.navigationItem.title = currentServer[kOpen311_Name];
-        
-        [self startBusyIcon];
-        Open311 *open311 = [Open311 sharedInstance];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(serviceListReady)
-                                                     name:kNotification_ServiceListReady
-                                                   object:open311];
-        [open311 loadAllMetadataForServer:currentServer];
-        
-        NSString *filename = currentServer[kOpen311_SplashImage];
-        if (!filename) { filename = @"open311"; }
-        [self.splashImage setImage:[UIImage imageNamed:filename]];
-    }
+    //ToDo: ori aici, imi fac un if sa vad daca vin cu un server nou si imi chem loadServer, ori cand imi fac pop, cumva
     
     [self refreshPersonalInfo];
 }
@@ -132,15 +116,51 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
     
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self.tabBarController setSelectedIndex:kTab_Report];
+            [self performSegueWithIdentifier:kSegueToChooseGroup sender:self];
+        } else if (indexPath.row == 1) {
+            [self performSegueWithIdentifier:kSegueToArchive sender:self];
         }
-        if (indexPath.row == 1) {
-            [self.tabBarController setSelectedIndex:kTab_Archive];
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self performSegueWithIdentifier:kSegueToSettings sender:self];
+        } else if (indexPath.row == 1) {
+            [self performSegueWithIdentifier:kSegueToServers sender:self];
         }
-    }
-    if (indexPath.section == 1) {
-        [self performSegueWithIdentifier:kSegueToSettings sender:self];
     }
 }
+
+- (void) loadServer
+{
+    Preferences *preferences = [Preferences sharedInstance];
+    
+    NSDictionary *currentServer = [preferences getCurrentServer];
+    if (currentServer == nil) {
+        [self performSegueWithIdentifier:kSegueToServers sender:self];
+    }
+    else {
+        self.navigationItem.title = currentServer[kOpen311_Name];
+        
+        [self startBusyIcon];
+        Open311 *open311 = [Open311 sharedInstance];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(serviceListReady)
+                                                     name:kNotification_ServiceListReady
+                                                   object:open311];
+        [open311 loadAllMetadataForServer:currentServer];
+        
+        NSString *filename = currentServer[kOpen311_SplashImage];
+        if (!filename) { filename = @"open311"; }
+        [self.splashImage setImage:[UIImage imageNamed:filename]];
+    }
+}
+
+#pragma mark -unwind segue
+-(IBAction) didReturnFromServersController:(UIStoryboardSegue *)sender
+{
+    if ([sender.identifier isEqualToString:kUnwindSegueToHome])
+        [self loadServer];
+}
+
+
 
 @end

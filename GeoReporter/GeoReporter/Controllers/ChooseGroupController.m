@@ -44,7 +44,8 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
 - (IBAction)cancel:(id)sender
 {
-    [self.tabBarController setSelectedIndex:kTab_Home];
+    //[self.tabBarController setSelectedIndex:kTab_Home];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
