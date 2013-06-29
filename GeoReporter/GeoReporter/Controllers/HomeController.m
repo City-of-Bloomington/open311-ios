@@ -59,7 +59,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 {
     busyIcon = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     busyIcon.center = self.view.center;
-    [busyIcon setFrame:self.view.frame];
+    [busyIcon setFrame:self.view.bounds];
     [busyIcon setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
     [busyIcon startAnimating];
     [self.view addSubview:busyIcon];

@@ -1197,7 +1197,6 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
-                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1277,9 +1276,6 @@
                 <relationship kind="outlet" name="label" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>
