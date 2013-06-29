@@ -21,12 +21,17 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(kUI_PersonalInfo, nil);
-    //[self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(kUI_About, nil)];
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.labelFirstName.text = NSLocalizedString(kUI_FirstName, nil);
     self.labelLastName .text = NSLocalizedString(kUI_LastName,  nil);
     self.labelEmail    .text = NSLocalizedString(kUI_Email,     nil);
     self.labelPhone    .text = NSLocalizedString(kUI_Phone,     nil);
+    
+    self.textFieldFirstName .placeholder = @"tap edit to insert";
+    self.textFieldLastName  .placeholder = @"tap edit to insert";
+    self.textFieldEmail     .placeholder = @"tap edit to insert";
+    self.textFieldPhone     .placeholder = @"tap edit to insert";
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -35,6 +40,16 @@
     self.textFieldEmail    .text = [preferences stringForKey:kOpen311_Email];
     self.textFieldPhone    .text = [preferences stringForKey:kOpen311_Phone];
 	
+    self.textFieldFirstName.enabled = NO;
+    self.textFieldLastName.enabled = NO;
+    self.textFieldEmail.enabled = NO;
+    self.textFieldPhone.enabled = NO;
+    
+    // uncomment for the view to scroll when keyboard is shown
+    //[self registerForKeyboardNotifications];
+    
+    
+    
 	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
 	gestureRecognizer.cancelsTouchesInView = NO;
 	[self.tableView addGestureRecognizer:gestureRecognizer];
@@ -75,5 +90,122 @@
         [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    if(editing) {
+        self.textFieldFirstName.clearButtonMode = UITextFieldViewModeAlways;
+        self.textFieldLastName.clearButtonMode = UITextFieldViewModeAlways;
+        self.textFieldEmail.clearButtonMode = UITextFieldViewModeAlways;
+        self.textFieldPhone.clearButtonMode = UITextFieldViewModeAlways;
+
+        self.textFieldFirstName.enabled = YES;
+        self.textFieldLastName.enabled = YES;
+        self.textFieldEmail.enabled = YES;
+        self.textFieldPhone.enabled = YES;
+        
+        self.textFieldFirstName .placeholder = @"";
+        self.textFieldLastName  .placeholder = @"";
+        self.textFieldEmail     .placeholder = @"";
+        self.textFieldPhone     .placeholder = @"";
+
+    }
+    else {
+        self.textFieldFirstName.clearButtonMode = UITextFieldViewModeNever;
+        self.textFieldLastName.clearButtonMode = UITextFieldViewModeNever;
+        self.textFieldEmail.clearButtonMode = UITextFieldViewModeNever;
+        self.textFieldPhone.clearButtonMode = UITextFieldViewModeNever;
+        
+        self.textFieldFirstName.enabled = NO;
+        self.textFieldLastName.enabled = NO;
+        self.textFieldEmail.enabled = NO;
+        self.textFieldPhone.enabled = NO;
+        
+        self.textFieldFirstName .placeholder = @"tap edit to insert";
+        self.textFieldLastName  .placeholder = @"tap edit to insert";
+        self.textFieldEmail     .placeholder = @"tap edit to insert";
+        self.textFieldPhone     .placeholder = @"tap edit to insert";
+    }
+}
+
+#pragma mark - keyboard events
+
+#define kOFFSET_FOR_KEYBOARD 30.0
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+-(void)keyboardWillShow {
+    // Animate the current view out of the way
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)keyboardWillHide {
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rect = self.view.frame;
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
+        rect.size.height += kOFFSET_FOR_KEYBOARD;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += kOFFSET_FOR_KEYBOARD;
+        rect.size.height -= kOFFSET_FOR_KEYBOARD;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+}
+
 
 @end

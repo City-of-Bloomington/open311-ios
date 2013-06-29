@@ -76,34 +76,62 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
     [busyIcon removeFromSuperview];
 }
 
+- (void) loadServer
+{
+    Preferences *preferences = [Preferences sharedInstance];
+    
+    NSDictionary *currentServer = [preferences getCurrentServer];
+    if (currentServer == nil) {
+        [self performSegueWithIdentifier:kSegueToServers sender:self];
+    }
+    else {
+        self.navigationItem.title = currentServer[kOpen311_Name];
+        
+        [self startBusyIcon];
+        Open311 *open311 = [Open311 sharedInstance];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(serviceListReady)
+                                                     name:kNotification_ServiceListReady
+                                                   object:open311];
+        [open311 loadAllMetadataForServer:currentServer];
+        
+        NSString *filename = currentServer[kOpen311_SplashImage];
+        if (!filename) { filename = @"open311"; }
+        [self.splashImage setImage:[UIImage imageNamed:filename]];
+    }
+}
+
 - (void)refreshPersonalInfo
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *text = @"";
     NSString *firstname = [defaults stringForKey:kOpen311_FirstName];
     NSString *lastname  = [defaults stringForKey:kOpen311_LastName];
-    NSString *email     = [defaults stringForKey:kOpen311_Email];
-    NSString *phone     = [defaults stringForKey:kOpen311_Phone];
+    //NSString *email     = [defaults stringForKey:kOpen311_Email];
+    //NSString *phone     = [defaults stringForKey:kOpen311_Phone];
     if ([firstname length] > 0 || [lastname length] > 0) {
         text = [text stringByAppendingFormat:@"%@ %@", firstname, lastname];
     }
+    /*
     if ([email length] > 0) {
         text = [text stringByAppendingFormat:@"\r%@", email];
     }
     if ([phone length] > 0) {
         text = [text stringByAppendingFormat:@"\r%@", phone];
-    }
+    }*/
     if ([text length] == 0) {
         text = @"anonymous";
     }
+    
     self.personalInfoLabel.text = text;
     [self.tableView reloadData];
 }
 
 #pragma mark - Table Handler Methods
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 1 && indexPath.row == 0) {
         
         CGSize size = [self.personalInfoLabel.text sizeWithFont:self.personalInfoLabel.font
                                               constrainedToSize:CGSizeMake(300, 140)
@@ -133,30 +161,8 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
     }
 }
 
-- (void) loadServer
-{
-    Preferences *preferences = [Preferences sharedInstance];
-    
-    NSDictionary *currentServer = [preferences getCurrentServer];
-    if (currentServer == nil) {
-        [self performSegueWithIdentifier:kSegueToServers sender:self];
-    }
-    else {
-        self.navigationItem.title = currentServer[kOpen311_Name];
-        
-        [self startBusyIcon];
-        Open311 *open311 = [Open311 sharedInstance];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(serviceListReady)
-                                                     name:kNotification_ServiceListReady
-                                                   object:open311];
-        [open311 loadAllMetadataForServer:currentServer];
-        
-        NSString *filename = currentServer[kOpen311_SplashImage];
-        if (!filename) { filename = @"open311"; }
-        [self.splashImage setImage:[UIImage imageNamed:filename]];
-    }
-}
+
+
 
 #pragma mark -unwind segue
 -(IBAction) didReturnFromServersController:(UIStoryboardSegue *)sender
