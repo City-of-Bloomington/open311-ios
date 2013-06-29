@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *personalInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *serversLabel;
 
+- (IBAction)tapAboutButton:(id)sender;
 - (void)serviceListReady;
 - (void)startBusyIcon;
 - (void)refreshPersonalInfo;

@@ -39,7 +39,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n6V-21-Isk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1337" y="-284"/>
+            <point key="canvasLocation" x="531" y="1224"/>
         </scene>
         <!--Archive Controller - Archive-->
         <scene sceneID="5cC-HS-u0q">
@@ -840,6 +840,22 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="xH6-m7-0ff">
+                            <rect key="frame" x="0.0" y="360" width="320" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <inset key="contentEdgeInsets" minX="250" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal">
+                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="tapAboutButton:" destination="2sD-c7-eGc" eventType="touchUpInside" id="Ogr-Y1-T2T"/>
+                            </connections>
+                        </button>
                         <sections>
                             <tableViewSection id="UOR-hD-SEz">
                                 <cells>
@@ -952,6 +968,7 @@
                         <segue destination="EfX-GI-bOa" kind="push" identifier="SegueToArchive" id="m5a-SN-N46"/>
                         <segue destination="HOg-GR-bvu" kind="push" identifier="SegueToChooseGroup" id="ZCe-7L-Da4"/>
                         <segue destination="ufC-lV-6kH" kind="push" identifier="SegueToSettings" id="Nxu-ez-BG0"/>
+                        <segue destination="OFD-Z8-qm9" kind="push" identifier="SegueToAbout" id="j8q-eM-44B"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RoS-4J-f7k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1113,13 +1130,7 @@
                             <outlet property="delegate" destination="ufC-lV-6kH" id="i4S-GJ-8nJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="rcO-0r-0BI">
-                        <barButtonItem key="rightBarButtonItem" title="about" id="w3v-yd-NHr">
-                            <connections>
-                                <segue destination="OFD-Z8-qm9" kind="push" id="NG5-h2-g0m"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="rcO-0r-0BI"/>
                     <connections>
                         <outlet property="labelEmail" destination="iL4-Wn-efr" id="UVL-h1-KwB"/>
                         <outlet property="labelFirstName" destination="N9D-Lr-WAK" id="fhr-al-h4r"/>
@@ -1187,6 +1198,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
                 <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="reportLabel" candidateClass="UILabel"/>

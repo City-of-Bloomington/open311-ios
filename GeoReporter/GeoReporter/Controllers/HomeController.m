@@ -24,6 +24,7 @@ static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
 static NSString * const kSegueToServers = @"SegueToServers";
 static NSString * const kSegueToArchive = @"SegueToArchive";
 static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
+static NSString * const kSegueToAbout = @"SegueToAbout";
 
 
 
@@ -51,8 +52,6 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //ToDo: ori aici, imi fac un if sa vad daca vin cu un server nou si imi chem loadServer, ori cand imi fac pop, cumva
-    
     [self refreshPersonalInfo];
 }
 
@@ -64,6 +63,11 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
     [busyIcon setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
     [busyIcon startAnimating];
     [self.view addSubview:busyIcon];
+}
+
+- (IBAction)tapAboutButton:(id)sender {
+    [self performSegueWithIdentifier:kSegueToAbout sender:self];
+    
 }
 
 - (void)serviceListReady

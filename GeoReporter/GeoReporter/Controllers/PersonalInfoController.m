@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(kUI_PersonalInfo, nil);
-    [self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(kUI_About, nil)];
+    //[self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(kUI_About, nil)];
     
     self.labelFirstName.text = NSLocalizedString(kUI_FirstName, nil);
     self.labelLastName .text = NSLocalizedString(kUI_LastName,  nil);
