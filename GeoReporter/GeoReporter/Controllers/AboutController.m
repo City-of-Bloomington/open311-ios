@@ -25,6 +25,24 @@
     self.navigationItem.title = NSLocalizedString(kUI_About, nil);
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]]];
+    [self removeScrollBackground:self.webView];
+    
+}
+
+- (void)removeScrollBackground:(UIWebView *)webView
+{
+    webView.backgroundColor = [UIColor whiteColor];
+    for (UIView* subView in [webView subviews])
+    {
+        if ([subView isKindOfClass:[UIScrollView class]]) {
+            for (UIView* shadowView in [subView subviews])
+            {
+                if ([shadowView isKindOfClass:[UIImageView class]]) {
+                    [shadowView setHidden:YES];
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - Web View Handlers
