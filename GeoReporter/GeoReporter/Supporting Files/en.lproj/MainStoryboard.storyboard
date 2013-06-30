@@ -903,11 +903,11 @@
                             </tableViewSection>
                             <tableViewSection id="BO4-V4-1pV">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ohK-73-wme" detailTextLabel="RlT-6h-Q7B" imageView="Ana-S3-jfJ" style="IBUITableViewCellStyleSubtitle" id="ouo-EH-fsE">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" textLabel="ohK-73-wme" detailTextLabel="RlT-6h-Q7B" imageView="Ana-S3-jfJ" style="IBUITableViewCellStyleSubtitle" id="ouo-EH-fsE">
                                         <rect key="frame" x="0.0" y="260" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="reporting_as" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohK-73-wme">
@@ -1002,7 +1002,7 @@
                                                     <color key="textColor" red="0.17172716557979584" green="0.36562579870223999" blue="0.56096031021897808" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="TextField" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hxc-1i-Qz4">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hxc-1i-Qz4">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="5QR-Lc-GCg"/>
                                                         <constraint firstAttribute="width" constant="172" id="oQ6-ko-dRD"/>
@@ -1018,7 +1018,7 @@
                                             <constraint firstItem="Hxc-1i-Qz4" firstAttribute="leading" secondItem="N9D-Lr-WAK" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="5bV-R8-lba"/>
                                             <constraint firstItem="N9D-Lr-WAK" firstAttribute="leading" secondItem="pM6-nF-1aN" secondAttribute="leading" constant="30" type="user" id="B20-vX-hbg"/>
                                             <constraint firstItem="N9D-Lr-WAK" firstAttribute="baseline" secondItem="Hxc-1i-Qz4" secondAttribute="baseline" type="default" id="I35-6E-2Zq"/>
-                                            <constraint firstItem="Hxc-1i-Qz4" firstAttribute="top" secondItem="N9D-Lr-WAK" secondAttribute="top" type="default" id="ZDH-PG-sHN"/>
+                                            <constraint firstItem="Hxc-1i-Qz4" firstAttribute="top" secondItem="pM6-nF-1aN" secondAttribute="top" constant="8" id="TaG-Cd-MaQ"/>
                                             <constraint firstItem="N9D-Lr-WAK" firstAttribute="centerY" secondItem="pM6-nF-1aN" secondAttribute="centerY" type="default" id="a22-Xo-QzB"/>
                                         </constraints>
                                     </tableViewCell>
@@ -1038,7 +1038,7 @@
                                                     <color key="textColor" red="0.17172716557979584" green="0.36562579870223999" blue="0.55939210766423353" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="udE-Hs-9XP">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="udE-Hs-9XP">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="8z1-zH-Jms"/>
                                                         <constraint firstAttribute="width" constant="172" id="yXi-dB-YXO"/>
@@ -1051,7 +1051,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="udE-Hs-9XP" firstAttribute="top" secondItem="8NF-ka-iID" secondAttribute="top" type="default" id="WnF-LA-CV1"/>
+                                            <constraint firstItem="udE-Hs-9XP" firstAttribute="centerY" secondItem="M6T-aR-QIb" secondAttribute="centerY" type="default" id="IMf-SV-SMu"/>
                                             <constraint firstItem="8NF-ka-iID" firstAttribute="leading" secondItem="M6T-aR-QIb" secondAttribute="leading" constant="30" id="mFT-iT-uLj"/>
                                             <constraint firstItem="8NF-ka-iID" firstAttribute="top" secondItem="M6T-aR-QIb" secondAttribute="top" constant="11" id="qkL-Nv-4UZ"/>
                                             <constraint firstItem="udE-Hs-9XP" firstAttribute="leading" secondItem="8NF-ka-iID" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="yxu-vo-xLe"/>
@@ -1073,7 +1073,7 @@
                                                     <color key="textColor" red="0.17172716557979584" green="0.36562579870223999" blue="0.56258553832116787" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wV8-Ad-ol6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wV8-Ad-ol6">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="172" id="3E3-Zp-tUD"/>
                                                         <constraint firstAttribute="height" constant="30" id="dIq-To-YfS"/>
@@ -1087,9 +1087,9 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="iL4-Wn-efr" firstAttribute="leading" secondItem="gxZ-0I-aqp" secondAttribute="leading" constant="30" id="I5J-gf-7aK"/>
+                                            <constraint firstItem="wV8-Ad-ol6" firstAttribute="centerY" secondItem="gxZ-0I-aqp" secondAttribute="centerY" type="default" id="frx-rp-FR4"/>
                                             <constraint firstItem="iL4-Wn-efr" firstAttribute="top" secondItem="gxZ-0I-aqp" secondAttribute="top" constant="11" id="hrO-5K-Hgk"/>
                                             <constraint firstItem="wV8-Ad-ol6" firstAttribute="leading" secondItem="iL4-Wn-efr" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="k3A-0h-LnI"/>
-                                            <constraint firstItem="wV8-Ad-ol6" firstAttribute="top" secondItem="iL4-Wn-efr" secondAttribute="top" type="default" id="zTw-kC-DRC"/>
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3ny-3B-HEP">
@@ -1108,7 +1108,7 @@
                                                     <color key="textColor" red="0.17172716557979584" green="0.36562579870223999" blue="0.5609888229927007" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-hq-dc6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-hq-dc6">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Un6-wB-w91"/>
                                                         <constraint firstAttribute="width" constant="172" id="cwz-td-dgc"/>
@@ -1121,7 +1121,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="D2o-hq-dc6" firstAttribute="top" secondItem="QY4-9g-odE" secondAttribute="top" type="default" id="0tq-ur-Vpb"/>
+                                            <constraint firstItem="D2o-hq-dc6" firstAttribute="centerY" secondItem="3ny-3B-HEP" secondAttribute="centerY" type="default" id="WiQ-WN-ePA"/>
                                             <constraint firstItem="D2o-hq-dc6" firstAttribute="leading" secondItem="QY4-9g-odE" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="bl4-H5-cjg"/>
                                             <constraint firstItem="QY4-9g-odE" firstAttribute="top" secondItem="3ny-3B-HEP" secondAttribute="top" constant="11" id="cWo-fy-PLq"/>
                                             <constraint firstItem="QY4-9g-odE" firstAttribute="leading" secondItem="3ny-3B-HEP" secondAttribute="leading" constant="30" id="k9C-4S-bgq"/>
@@ -1202,6 +1202,7 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1281,6 +1282,9 @@
                 <relationship kind="outlet" name="label" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>
