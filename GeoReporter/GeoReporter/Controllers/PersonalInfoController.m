@@ -13,6 +13,11 @@
 #import "Strings.h"
 
 @interface PersonalInfoController ()
+@property (weak, nonatomic) IBOutlet UIView *separator0;
+@property (weak, nonatomic) IBOutlet UIView *separator1;
+@property (weak, nonatomic) IBOutlet UIView *separator2;
+@property (weak, nonatomic) IBOutlet UIView *separator3;
+
 @end
 
 @implementation PersonalInfoController
@@ -44,6 +49,11 @@
     self.textFieldLastName.enabled = NO;
     self.textFieldEmail.enabled = NO;
     self.textFieldPhone.enabled = NO;
+    
+    [self.separator0 setHidden:YES];
+    [self.separator1 setHidden:YES];
+    [self.separator2 setHidden:YES];
+    [self.separator3 setHidden:YES];
     
     // uncomment for the view to scroll when keyboard is shown
     //[self registerForKeyboardNotifications];
@@ -85,10 +95,7 @@
     if      (indexPath.row == 0) { [self.textFieldFirstName becomeFirstResponder]; }
     else if (indexPath.row == 1) { [self.textFieldLastName  becomeFirstResponder]; }
     else if (indexPath.row == 2) { [self.textFieldEmail     becomeFirstResponder]; }
-    else if (indexPath.row == 3) {
-        [self.textFieldPhone  becomeFirstResponder];
-        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    }
+    else if (indexPath.row == 3) { [self.textFieldPhone  becomeFirstResponder];    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -124,6 +131,11 @@
         self.textFieldLastName  .placeholder = @"";
         self.textFieldEmail     .placeholder = @"";
         self.textFieldPhone     .placeholder = @"";
+        
+        [self.separator0 setHidden:NO];
+        [self.separator1 setHidden:NO];
+        [self.separator2 setHidden:NO];
+        [self.separator3 setHidden:NO];
 
     }
     else {
@@ -141,6 +153,13 @@
         self.textFieldLastName  .placeholder = @"tap edit to insert";
         self.textFieldEmail     .placeholder = @"tap edit to insert";
         self.textFieldPhone     .placeholder = @"tap edit to insert";
+        
+        [self.separator0 setHidden:YES];
+        [self.separator1 setHidden:YES];
+        [self.separator2 setHidden:YES];
+        [self.separator3 setHidden:YES];
+        
+        
     }
 }
 

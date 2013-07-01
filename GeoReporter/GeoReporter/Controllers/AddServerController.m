@@ -14,6 +14,10 @@
 #import "Preferences.h"
 
 @interface AddServerController ()
+@property (weak, nonatomic) IBOutlet UIView *separator0;
+@property (weak, nonatomic) IBOutlet UIView *separator1;
+@property (weak, nonatomic) IBOutlet UIView *separator2;
+@property (weak, nonatomic) IBOutlet UIView *separator3;
 
 @end
 
@@ -30,6 +34,21 @@
     self.labelJurisdiction .text = NSLocalizedString(kUI_JurisdictionId, nil);
     self.labelApiKey       .text = NSLocalizedString(kUI_ApiKey,         nil);
     self.labelSupportsMedia.text = NSLocalizedString(kUI_SupportsMedia,  nil);
+ 
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
+    gestureRecognizer.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:gestureRecognizer];
+    
+    
+}
+- (void)closeKeyboard
+{
+    [self.textFieldName resignFirstResponder];
+    [self.textFieldUrl resignFirstResponder];
+    [self.textFieldApiKey resignFirstResponder];
+    [self.textFieldJurisdiction resignFirstResponder];
+    
 }
 
 - (IBAction)save:(id)sender
@@ -51,4 +70,28 @@
 {
     return NSLocalizedString(kUI_ButtonAddServer, nil);
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+            [self.textFieldName becomeFirstResponder];
+            break;
+        case 1:
+            [self.textFieldUrl becomeFirstResponder];
+            break;
+        case 2:
+            [self.textFieldJurisdiction becomeFirstResponder];
+            break;
+        case 3:
+            [self.textFieldApiKey becomeFirstResponder];
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
 @end
