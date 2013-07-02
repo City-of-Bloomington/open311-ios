@@ -86,9 +86,26 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
 }
 
 #pragma mark - Table View Handlers
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if ([customServers count] > 0) {
+        return 2;
+    }
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [availableServers count] + [customServers count];
+    if (section == 0) {
+        return [availableServers count];
+    }
+    return [customServers count];
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) return @"Available Servers";
+    return @"Custom Servers";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -97,8 +114,16 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
     }
+    NSDictionary *server;
+    if (indexPath.section == 0) {
+        server = [self getTargetServer:indexPath.row];
+    }
+    else {
+        server = [self getTargetServer:(indexPath.row + [availableServers count])];
+    }
     
-    NSDictionary *server = [self getTargetServer:indexPath.row];
+    
+    
     cell.textLabel      .text = server[kOpen311_Name];
     cell.detailTextLabel.text = server[kOpen311_Url];
     cell.accessoryType = UITableViewCellAccessoryNone;
@@ -110,16 +135,21 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) {
+        [prefs setCurrentServer:[self getTargetServer:indexPath.row]];
+    }
+    else {
+        [prefs setCurrentServer:[self getTargetServer:(indexPath.row + [availableServers count])]];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [prefs setCurrentServer:[self getTargetServer:indexPath.row]];
-    //[self.tabBarController setSelectedIndex:kTab_Home];
+    
     [self performSegueWithIdentifier:kUnwindSegueToHome sender:self];
 }
 
 #pragma mark - Table View Deletion Handlers
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row >= [availableServers count]) {
+    if (indexPath.section == 1) {
         return TRUE;
     }
     return FALSE;
@@ -139,9 +169,15 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSInteger index = indexPath.row - [availableServers count];
-        [customServers removeObjectAtIndex:index];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if ([tableView numberOfRowsInSection:[indexPath section]] > 1) {
+            [customServers removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        else
+        {
+            [customServers removeObjectAtIndex:indexPath.row];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
 }
 @end
