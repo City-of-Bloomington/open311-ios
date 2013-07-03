@@ -12,6 +12,7 @@
 #import "AddServerController.h"
 #import "Strings.h"
 #import "Preferences.h"
+#import "Open311.h"
 
 @interface AddServerController ()
 @property (weak, nonatomic) IBOutlet UIView *separator0;
@@ -53,14 +54,20 @@
 
 - (IBAction)save:(id)sender
 {
+    [[Open311 sharedInstance] checkServerValidity:self.textFieldUrl.text fromSender:self];
+}
+
+- (void)didFinishSaving
+{
     Preferences *prefs = [Preferences sharedInstance];
     [prefs addCustomServer:@{
-        kOpen311_Name         : self.textFieldName.text,
-        kOpen311_Url          : self.textFieldUrl.text,
-        kOpen311_Jurisdiction : self.textFieldJurisdiction.text,
-        kOpen311_ApiKey       : self.textFieldApiKey.text,
-        kOpen311_SupportsMedia: [NSNumber numberWithBool:self.switchSupportsMedia.on]
-    }];
+    kOpen311_Name         : self.textFieldName.text,
+    kOpen311_Url          : self.textFieldUrl.text,
+    kOpen311_Jurisdiction : self.textFieldJurisdiction.text,
+    kOpen311_ApiKey       : self.textFieldApiKey.text,
+    kOpen311_SupportsMedia: [NSNumber numberWithBool:self.switchSupportsMedia.on]
+     }];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -24,6 +24,8 @@ extern NSString * const kNotification_PostFailed;
 - (void)loadAllMetadataForServer:(NSDictionary *)server;
 - (void)loadFailedWithError:(NSError *)error;
 
+- (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender;
+
 - (void)loadServiceList;
 - (void)loadServiceDefinitions;
 - (NSArray *)getServicesForGroup:(NSString *)group;

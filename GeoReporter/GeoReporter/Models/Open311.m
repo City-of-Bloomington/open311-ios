@@ -63,6 +63,31 @@ SHARED_SINGLETON(Open311);
     [alert show];
 }
 
+- (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender
+{
+    httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:serverURL]];
+    
+    [httpClient getPath:@"services.json"
+             parameters:_endpointParameters
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSError *error;
+                    serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                    if (!error) {
+                        //[self loadServiceDefinitions];
+                        [sender performSelector:@selector(didFinishSaving)];
+                    }
+                    else {
+                        [self loadFailedWithError:error];
+                    }
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [self loadFailedWithError:error];
+                }];
+    
+    
+    
+}
+
 #pragma mark - GET Service List
 - (void)loadServiceList
 {
@@ -82,6 +107,7 @@ SHARED_SINGLETON(Open311);
                     [self loadFailedWithError:error];
                 }];
 }
+
 
 // |serviceList| must already be loaded before calling this method.
 //
