@@ -54,7 +54,15 @@
 
 - (IBAction)save:(id)sender
 {
-    [[Open311 sharedInstance] checkServerValidity:self.textFieldUrl.text fromSender:self];
+    if ([self.textFieldName.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_ServerNameError, nil)
+                                                        message:NSLocalizedString(kUI_ServerNameErrorMessage, nil)
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    else [[Open311 sharedInstance] checkServerValidity:self.textFieldUrl.text fromSender:self];
 }
 
 - (void)didFinishSaving

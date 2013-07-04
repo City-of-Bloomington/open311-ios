@@ -61,6 +61,10 @@ NSString * const kUI_Uncategorized          = @"uncategorized";
 NSString * const kUI_FailureLoadingServices = @"failure_loading_services";
 NSString * const kUI_FailurePostingService  = @"failure_posting_service";
 NSString * const kUI_Error403               = @"error_403";
+NSString * const kUI_URLError               = @"wrong_url";
+NSString * const kUI_ServerNameError        = @"servername_error_title";
+NSString * const kUI_ServerNameErrorMessage = @"servername_error_message";
+
 
 // Open311 Key Strings
 // Global required fields

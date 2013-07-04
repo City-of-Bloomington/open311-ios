@@ -54,9 +54,9 @@ SHARED_SINGLETON(Open311);
 - (void)loadFailedWithError:(NSError *)error
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
-    
+    NSLog(@"ERROR:\t%@", [error localizedDescription]);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_FailureLoadingServices, nil)
-                                                    message:[error localizedDescription]
+                                                    message:NSLocalizedString(kUI_URLError, nil)
                                                    delegate:self
                                           cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
                                           otherButtonTitles:nil];

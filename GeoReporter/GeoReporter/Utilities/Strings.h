@@ -60,6 +60,9 @@ extern NSString * const kUI_Uncategorized;
 extern NSString * const kUI_FailureLoadingServices;
 extern NSString * const kUI_FailurePostingService;
 extern NSString * const kUI_Error403;
+extern NSString * const kUI_URLError;
+extern NSString * const kUI_ServerNameError;
+extern NSString * const kUI_ServerNameErrorMessage;
 
 // Open311 Key Strings
 // Global required fields
