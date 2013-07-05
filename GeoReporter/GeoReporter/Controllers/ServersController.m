@@ -42,8 +42,7 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
     
     NSDictionary *currentServer = [prefs getCurrentServer];
     if (currentServer == nil) {
-        //TODO: if no server is chosen, don't display the cancel button on the navigation bar
-        [self.cancelButton setEnabled:NO];
+        [[self navigationItem] setHidesBackButton:YES];
     }
     
     customServers = [NSMutableArray arrayWithArray:[prefs getCustomServers]];
@@ -76,14 +75,7 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
     }
 }
 
-- (IBAction)cancel:(id)sender {
-    
-    
-    NSDictionary *currentServer = [prefs getCurrentServer];
-    if (currentServer != nil) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-}
+
 
 #pragma mark - Table View Handlers
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

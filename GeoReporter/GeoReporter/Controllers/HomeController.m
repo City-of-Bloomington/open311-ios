@@ -42,6 +42,10 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
     self.archiveLabel    .text = NSLocalizedString(kUI_Archive, nil);
     self.reportingAsLabel.text = NSLocalizedString(kUI_ReportingAs, nil);
     self.serversLabel.text = NSLocalizedString(kUI_Servers, nil);
+    
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    
+    [[self navigationItem] setBackBarButtonItem: newBackButton];
 }
 
 /**

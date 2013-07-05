@@ -13,6 +13,4 @@
 
 @interface ServersController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 - (NSDictionary *)getTargetServer:(NSInteger)index;
-- (IBAction)cancel:(id)sender;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @end

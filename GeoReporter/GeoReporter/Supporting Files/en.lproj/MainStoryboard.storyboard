@@ -339,11 +339,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="VOO-om-45z">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Tf5-3t-jGu">
-                            <connections>
-                                <action selector="cancel:" destination="JgH-cr-AHd" id="HTt-nB-6IQ"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="uj3-G0-vEA">
                             <connections>
                                 <segue destination="aT5-GZ-6jH" kind="push" id="hCm-Iz-ViA"/>
@@ -351,7 +346,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cancelButton" destination="Tf5-3t-jGu" id="C5C-Eh-SNi"/>
                         <segue destination="eek-eb-DRb" kind="unwind" identifier="UnwindSegueToHome" unwindAction="didReturnFromServersController:" id="atu-ks-Ozy"/>
                     </connections>
                 </tableViewController>
