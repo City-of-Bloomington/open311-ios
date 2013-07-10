@@ -38,13 +38,13 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
     }
     else {
         [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
-        [self.tableView reloadData];
+        //TODO: why reload data every time?
+        //[self.tableView reloadData];
     }
 }
 
 - (IBAction)cancel:(id)sender
 {
-    //[self.tabBarController setSelectedIndex:kTab_Home];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

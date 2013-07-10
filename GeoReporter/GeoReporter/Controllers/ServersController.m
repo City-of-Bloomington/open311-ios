@@ -24,7 +24,7 @@
     
 }
 static NSString * const kCellIdentifier = @"server_cell";
-static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
+static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServersToHome";
 
 - (void)viewDidLoad
 {
@@ -135,7 +135,7 @@ static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    [self performSegueWithIdentifier:kUnwindSegueToHome sender:self];
+    [self performSegueWithIdentifier:kUnwindSegueFromServersToHome sender:self];
 }
 
 #pragma mark - Table View Deletion Handlers

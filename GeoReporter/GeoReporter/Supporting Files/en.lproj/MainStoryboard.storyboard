@@ -187,7 +187,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="0eY-AR-nai">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="dda-KV-Go6">
+                        <barButtonItem key="rightBarButtonItem" title="Send" style="done" id="dda-KV-Go6">
                             <connections>
                                 <action selector="done:" destination="MAu-Hh-k02" id="iMt-SB-ObB"/>
                             </connections>
@@ -199,9 +199,11 @@
                         <segue destination="E1f-iD-xYu" kind="push" identifier="SegueToText" id="ikZ-g1-o8m"/>
                         <segue destination="rvV-xd-gCY" kind="push" identifier="SegueToString" id="bGK-sV-n1W"/>
                         <segue destination="e30-5K-jLZ" kind="push" identifier="SegueToMultiValueList" id="FuP-tf-hyc"/>
+                        <segue destination="6tv-vy-nEQ" kind="unwind" identifier="UnwindSegueFromReportToHome" unwindAction="didReturnAfterSendingReport:" id="h4Q-PO-IBf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h8F-GY-Vqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="6tv-vy-nEQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1337" y="-1771"/>
         </scene>
@@ -346,7 +348,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="eek-eb-DRb" kind="unwind" identifier="UnwindSegueToHome" unwindAction="didReturnFromServersController:" id="atu-ks-Ozy"/>
+                        <segue destination="eek-eb-DRb" kind="unwind" identifier="UnwindSegueFromServersToHome" unwindAction="didReturnFromServersController:" id="atu-ks-Ozy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQj-w4-6mU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1270,6 +1272,8 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1325,10 +1329,6 @@
         </class>
         <class className="ServersController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ServersController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
         </class>
         <class className="SingleValueListController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SingleValueListController.h"/>
@@ -1353,6 +1353,9 @@
                 <relationship kind="outlet" name="label" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>

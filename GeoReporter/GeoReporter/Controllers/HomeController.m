@@ -23,7 +23,8 @@ static NSString * const kSegueToSettings = @"SegueToSettings";
 static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
 static NSString * const kSegueToServers = @"SegueToServers";
 static NSString * const kSegueToArchive = @"SegueToArchive";
-static NSString * const kUnwindSegueToHome = @"UnwindSegueToHome";
+static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServersToHome";
+static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportToHome";
 static NSString * const kSegueToAbout = @"SegueToAbout";
 
 
@@ -171,9 +172,18 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 #pragma mark -unwind segue
 -(IBAction) didReturnFromServersController:(UIStoryboardSegue *)sender
 {
-    if ([sender.identifier isEqualToString:kUnwindSegueToHome])
+    if ([sender.identifier isEqualToString:kUnwindSegueFromServersToHome])
         [self loadServer];
 }
+
+-(IBAction) didReturnAfterSendingReport:(UIStoryboardSegue *)sender
+{
+    
+//    if ([sender.identifier isEqualToString:kUnwindSegueFromReportToHome])
+//      TODO: do something if it should open the Archive
+}
+
+
 
 
 

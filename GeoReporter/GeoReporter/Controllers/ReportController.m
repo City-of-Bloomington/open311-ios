@@ -49,6 +49,7 @@ static NSString * const kSegueToText            = @"SegueToText";
 static NSString * const kSegueToString          = @"SegueToString";
 static NSString * const kSegueToSingleValueList = @"SegueToSingleValueList";
 static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
+static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportToHome";
 
 
 // Creates a multi-dimensional array to represent the fields to display in
@@ -174,7 +175,8 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
     // without starting the process from scratch.
     _service = nil;
     
-    [self.tabBarController setSelectedIndex:kTab_Archive];
+    // Go to Home screen
+    [self performSegueWithIdentifier:kUnwindSegueFromReportToHome sender:self];
 }
 
 - (void)postFailed
@@ -311,7 +313,7 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
             [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
             [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
             [popup setCancelButtonIndex:2];
-            [popup showFromTabBar:self.tabBarController.tabBar];
+            [popup showInView:self.view];
         }
     }
     else if ([type isEqualToString:kOpen311_Address])         { [self performSegueWithIdentifier:kSegueToLocation        sender:self]; }
@@ -327,41 +329,43 @@ static NSString * const kSegueToMultiValueList  = @"SegueToMultiValueList";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Because we're pushing a new view and responding to delegate
-    // calls later on, we need to remember what indexPath we were working on
-    // We'll refer to this later, in the delegate response methods
-    currentIndexPath = [self.tableView indexPathForSelectedRow];
-    
-    [segue.destinationViewController setDelegate:self];
-    
-    // If this is data entry for an attribute, send the attribute definition
-    if (currentIndexPath.section == 2) {
-         NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
-        [segue.destinationViewController setAttribute:attribute];
+    if (![segue.identifier isEqualToString:kUnwindSegueFromReportToHome]) {
+        // Because we're pushing a new view and responding to delegate
+        // calls later on, we need to remember what indexPath we were working on
+        // We'll refer to this later, in the delegate response methods
+        currentIndexPath = [self.tableView indexPathForSelectedRow];
         
-        // The fieldname is different from the attribute code.
-        // Fieldnames for attributes are in the form of "attribute[code]"
-        // It is fieldname that we use as the key for the value in |postData|.
-        // |postData| contains the raw key:value pairs we will be sending to the
-        // Open311 endpoint
-        NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
-        [segue.destinationViewController setCurrentValue:_report.postData[fieldname]];
-    }
-    // The only other common field is "description"
-    // We're going to have it use the same data entry view that any other
-    // text attribute would use
-    else {
-        NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
-        if ([fieldname isEqualToString:kOpen311_Description]) {
-            // Create an attribute definition so we can use the same TextController
-            // that all the other attribute definitions use
-            NSDictionary *attribute = @{
-                kOpen311_Code       :kOpen311_Description,
-                kOpen311_Datatype   :kOpen311_Text,
-                kOpen311_Description:NSLocalizedString(kUI_ReportDescription, nil)
-            };
+        [segue.destinationViewController setDelegate:self];
+        
+        // If this is data entry for an attribute, send the attribute definition
+        if (currentIndexPath.section == 2) {
+             NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
             [segue.destinationViewController setAttribute:attribute];
-            [segue.destinationViewController setCurrentValue:_report.postData[kOpen311_Description]];
+            
+            // The fieldname is different from the attribute code.
+            // Fieldnames for attributes are in the form of "attribute[code]"
+            // It is fieldname that we use as the key for the value in |postData|.
+            // |postData| contains the raw key:value pairs we will be sending to the
+            // Open311 endpoint
+            NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
+            [segue.destinationViewController setCurrentValue:_report.postData[fieldname]];
+        }
+        // The only other common field is "description"
+        // We're going to have it use the same data entry view that any other
+        // text attribute would use
+        else {
+            NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
+            if ([fieldname isEqualToString:kOpen311_Description]) {
+                // Create an attribute definition so we can use the same TextController
+                // that all the other attribute definitions use
+                NSDictionary *attribute = @{
+                    kOpen311_Code       :kOpen311_Description,
+                    kOpen311_Datatype   :kOpen311_Text,
+                    kOpen311_Description:NSLocalizedString(kUI_ReportDescription, nil)
+                };
+                [segue.destinationViewController setAttribute:attribute];
+                [segue.destinationViewController setCurrentValue:_report.postData[kOpen311_Description]];
+            }
         }
     }
 }
