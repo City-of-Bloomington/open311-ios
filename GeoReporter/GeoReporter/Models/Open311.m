@@ -17,8 +17,8 @@
 #import "Open311.h"
 #import "Strings.h"
 #import "Preferences.h"
-#import "AFHTTPClient.h"
-#import "AFJSONRequestOperation.h"
+#import <AFNetworking/AFHTTPClient.h>
+#import <AFNetworking/AFJSONRequestOperation.h>
 #import "Media.h"
 
 NSString * const kNotification_ServiceListReady = @"serviceListReady";

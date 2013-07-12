@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPClient.h"
+#import <AFNetworking/AFHTTPClient.h>
 
 @protocol ServiceRequestDelegate <NSObject>
 @required

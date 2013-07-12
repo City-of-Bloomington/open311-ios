@@ -10,7 +10,7 @@
 #import "Preferences.h"
 #import "Strings.h"
 #import "Open311.h"
-#import "AFJSONRequestOperation.h"
+#import <AFNetworking/AFJSONRequestOperation.h>
 
 @implementation Report {
     AFHTTPClient *httpClient;
