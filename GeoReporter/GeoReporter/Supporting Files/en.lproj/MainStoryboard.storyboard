@@ -118,7 +118,7 @@
                                 </view>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="media_cell" rowHeight="122" id="iVV-8e-tkc">
-                                <rect key="frame" x="0.0" y="91" width="320" height="123"/>
+                                <rect key="frame" x="0.0" y="91" width="320" height="122"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="121"/>
@@ -136,6 +136,36 @@
                                 <constraints>
                                     <constraint firstItem="sSL-z4-PZI" firstAttribute="centerX" secondItem="iVV-8e-tkc" secondAttribute="centerX" type="default" id="DaA-RV-crc"/>
                                     <constraint firstItem="sSL-z4-PZI" firstAttribute="top" secondItem="iVV-8e-tkc" secondAttribute="top" constant="11" id="GlG-yO-ZK7"/>
+                                </constraints>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="description_cell" rowHeight="134" id="DWZ-po-oYE">
+                                <rect key="frame" x="0.0" y="213" width="320" height="135"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="133"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="114" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="qhY-Tl-14X">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="290" id="1hR-gM-ZMa"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t99-2y-mi8">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="t99-2y-mi8" firstAttribute="leading" secondItem="qhY-Tl-14X" secondAttribute="leading" type="default" id="6pD-Qq-Z4B"/>
+                                    <constraint firstItem="qhY-Tl-14X" firstAttribute="top" secondItem="t99-2y-mi8" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="DNv-WS-PVd"/>
+                                    <constraint firstItem="t99-2y-mi8" firstAttribute="top" secondItem="DWZ-po-oYE" secondAttribute="top" type="default" id="hx7-qD-O7Z"/>
+                                    <constraint firstItem="qhY-Tl-14X" firstAttribute="centerX" secondItem="DWZ-po-oYE" secondAttribute="centerX" type="default" id="qdj-R8-59R"/>
                                 </constraints>
                             </tableViewCell>
                         </prototypes>
@@ -616,7 +646,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="Wsu-Dt-jZe">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="acZ-pK-YsY">
-                                            <rect key="frame" x="52" y="8" width="161" height="31"/>
+                                            <rect key="frame" x="56" y="8" width="161" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Standard"/>
@@ -906,7 +936,7 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chatTableCell.png" id="Wtd-06-Jee">
-                                                    <rect key="frame" x="10" y="13" width="16" height="16"/>
+                                                    <rect key="frame" x="1" y="1" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -926,7 +956,7 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="listTableCell.png" id="4AQ-XQ-Dt9">
-                                                    <rect key="frame" x="10" y="13" width="16" height="16"/>
+                                                    <rect key="frame" x="1" y="1" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -955,7 +985,7 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="accountTableCell.png" id="Ana-S3-jfJ">
-                                                    <rect key="frame" x="10" y="13" width="16" height="16"/>
+                                                    <rect key="frame" x="1" y="1" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -975,7 +1005,7 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="accountTableCell.png" id="Q5r-Pc-sGm">
-                                                    <rect key="frame" x="10" y="13" width="16" height="16"/>
+                                                    <rect key="frame" x="1" y="1" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -1219,13 +1249,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accountTableCell.png" width="16" height="16"/>
-        <image name="chatTableCell.png" width="16" height="16"/>
-        <image name="cross-hairs-small-black-cropped.png" width="16" height="16"/>
-        <image name="home.png" width="16" height="16"/>
-        <image name="iconLocation.png" width="16" height="16"/>
-        <image name="listTableCell.png" width="16" height="16"/>
-        <image name="open311.png" width="16" height="16"/>
+        <image name="accountTableCell.png" width="40" height="40"/>
+        <image name="chatTableCell.png" width="40" height="40"/>
+        <image name="cross-hairs-small-black-cropped.png" width="70" height="70"/>
+        <image name="home.png" width="30" height="30"/>
+        <image name="iconLocation.png" width="20" height="20"/>
+        <image name="listTableCell.png" width="40" height="40"/>
+        <image name="open311.png" width="320" height="140"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

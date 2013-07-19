@@ -26,7 +26,9 @@
 }
 static NSString * const kCellIdentifier  = @"request_cell";
 static NSString * const kMediaCell       = @"media_cell";
+static NSString * const kDescriptionCell       = @"description_cell";
 static NSInteger  const kImageViewTag    = 100;
+static NSInteger  const kLabelTag    = 114;
 static CGFloat    const kMediaCellHeight = 122;
 
 - (void)viewDidLoad
@@ -58,7 +60,7 @@ static CGFloat    const kMediaCellHeight = 122;
     }
 }
 
-#pragma Service Request Refreshing
+#pragma mark Service Request Refreshing
 - (void)startRefreshingServiceRequest
 {
     NSDictionary *sr = _report.serviceRequest;
@@ -81,6 +83,31 @@ static CGFloat    const kMediaCellHeight = 122;
     [self.tableView reloadData];
 }
 
+-(NSString *)getReportDescription
+{
+    NSDictionary *sr = _report.serviceRequest;
+    NSDictionary *post = _report.postData;
+    
+    NSString *titleForHeader = nil;
+    
+    if ( sr ) {
+        id srDescription = sr[kOpen311_Description];
+        if ( srDescription != [NSNull null] ) {
+            titleForHeader = srDescription;
+        }
+    }
+    
+    if ( titleForHeader == nil ) {
+        id postDescription = post[kOpen311_Description];
+        if ( postDescription != [NSNull null] ) {
+            titleForHeader = postDescription;
+        }
+    }
+    
+    //if ( titleForHeader )
+    return titleForHeader;
+}
+
 - (void)didReceiveServiceRequestId:(NSString *)serviceRequestId
 {
     _report.serviceRequest[kOpen311_ServiceRequestId] = serviceRequestId;
@@ -98,41 +125,44 @@ static CGFloat    const kMediaCellHeight = 122;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
+        return 3;
+    }
+    else {
         if (mediaUrl) {
-            return 2;
+            return 3;
         }
-        return 1;
+        return 2;
     }
-    return 3;
-}
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        NSDictionary *sr = _report.serviceRequest;
-        NSDictionary *post = _report.postData;
-        
-        NSString *titleForHeader = nil;
-        
-        if ( sr ) {
-            id srDescription = sr[kOpen311_Description];
-            if ( srDescription != [NSNull null] ) {
-                titleForHeader = srDescription;
-            }
-        }
-        
-        if ( titleForHeader == nil ) {
-            id postDescription = post[kOpen311_Description];
-            if ( postDescription != [NSNull null] ) {
-                titleForHeader = postDescription;
-            }
-        }
-        
-        if ( titleForHeader )
-            return titleForHeader;
-    }
-    return nil;
 }
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    if (section == 0) {
+//        NSDictionary *sr = _report.serviceRequest;
+//        NSDictionary *post = _report.postData;
+//        
+//        NSString *titleForHeader = nil;
+//        
+//        if ( sr ) {
+//            id srDescription = sr[kOpen311_Description];
+//            if ( srDescription != [NSNull null] ) {
+//                titleForHeader = srDescription;
+//            }
+//        }
+//        
+//        if ( titleForHeader == nil ) {
+//            id postDescription = post[kOpen311_Description];
+//            if ( postDescription != [NSNull null] ) {
+//                titleForHeader = postDescription;
+//            }
+//        }
+//        
+//        if ( titleForHeader )
+//            return titleForHeader;
+//    }
+//    return nil;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -141,35 +171,24 @@ static CGFloat    const kMediaCellHeight = 122;
     NSDictionary *sr   = _report.serviceRequest;
     NSDictionary *post = _report.postData;
     if (indexPath.section == 0) {
-        if (mediaUrl && indexPath.row == 0) {
-            cell = [tableView dequeueReusableCellWithIdentifier:kMediaCell forIndexPath:indexPath];
-            UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageViewTag];
-            [imageView setImage:media];
-        }
-        else {
-            cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(kUI_Location, nil);
-            
-            NSString *text = nil;
-            if (sr          &&   sr[kOpen311_Address]       != [NSNull null]) { text =   sr[kOpen311_Address];       }
-            if (text == nil && post[kOpen311_AddressString] != [NSNull null]) { text = post[kOpen311_AddressString]; }
-            if (text != nil) { cell.detailTextLabel.text = text; }
-        }
-    }
-    else {
+        //date, status, responsible
         cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+        [cell setSelectionStyle:UITableViewCellEditingStyleNone];
         switch (indexPath.row) {
             case 0:
+                //date
                 cell.textLabel.text = NSLocalizedString(kUI_ReportDate, nil);
                 cell.detailTextLabel.text = [dateFormatterDisplay stringFromDate:[dateFormatterISO dateFromString:sr[kOpen311_RequestedDatetime]]];
                 break;
                 
             case 1:
+                //status
                 cell.textLabel.text = NSLocalizedString(kUI_ReportStatus, nil);
                 cell.detailTextLabel.text = (sr && sr[kOpen311_Status]!=[NSNull null]) ? sr[kOpen311_Status] : kUI_Pending;
                 break;
                 
             case 2:
+                //responsible
                 cell.textLabel.text = NSLocalizedString(kOpen311_AgencyResponsible, nil);
                 cell.detailTextLabel.text = (sr && sr[kOpen311_AgencyResponsible]!=[NSNull null]) ? sr[kOpen311_AgencyResponsible] : @"";
                 break;
@@ -178,13 +197,58 @@ static CGFloat    const kMediaCellHeight = 122;
                 break;
         }
     }
+    else {
+        if (mediaUrl && indexPath.row == 0) {
+            //have image
+            cell = [tableView dequeueReusableCellWithIdentifier:kMediaCell forIndexPath:indexPath];
+            UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageViewTag];
+            [imageView setImage:media];
+        }
+        else {
+            //don't have image
+            if (indexPath.row == 1) {
+                cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+                [cell setSelectionStyle:UITableViewCellEditingStyleNone];
+                //TODO: fix string
+                cell.textLabel.text = @"Description of problem";
+                [cell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
+                [cell.detailTextLabel setNumberOfLines:0];
+                cell.detailTextLabel.text = [self getReportDescription];
+                
+            }
+            else {
+                cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+                [cell setSelectionStyle:UITableViewCellEditingStyleNone];
+                cell.textLabel.text = NSLocalizedString(kUI_Location, nil);
+                
+                NSString *text = nil;
+                if (sr          &&   sr[kOpen311_Address]       != [NSNull null]) { text =   sr[kOpen311_Address];       }
+                if (text == nil && post[kOpen311_AddressString] != [NSNull null]) { text = post[kOpen311_AddressString]; }
+                if (text != nil) { cell.detailTextLabel.text = text; }
+            }
+        }
+    }
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (mediaUrl && indexPath.section==0 && indexPath.row==0) {
+    if (mediaUrl && indexPath.section==1 && indexPath.row==0) {
         return 122;
+    }
+    
+    #define FONT_SIZE 14.0f
+    #define CELL_CONTENT_WIDTH 290.0f
+    #define CELL_CONTENT_MARGIN 10.0f
+    
+    if  ((indexPath.section == 1 && indexPath.row == 1 && !mediaUrl) ||
+         (indexPath.section == 1 && indexPath.row == 2 && mediaUrl)) {
+        CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH, 20000.0f);
+        
+        CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        
+        return size.height + 30.f;
+        //TODO: change height of tablecell dinamically, depending on the height of the label inside
     }
     return UITableViewAutomaticDimension;
 }
