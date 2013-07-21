@@ -26,7 +26,6 @@
 }
 static NSString * const kCellIdentifier  = @"request_cell";
 static NSString * const kMediaCell       = @"media_cell";
-static NSString * const kDescriptionCell       = @"description_cell";
 static NSInteger  const kImageViewTag    = 100;
 static NSInteger  const kLabelTag    = 114;
 static CGFloat    const kMediaCellHeight = 122;
@@ -173,7 +172,6 @@ static CGFloat    const kMediaCellHeight = 122;
     if (indexPath.section == 0) {
         //date, status, responsible
         cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-        [cell setSelectionStyle:UITableViewCellEditingStyleNone];
         switch (indexPath.row) {
             case 0:
                 //date
@@ -208,7 +206,6 @@ static CGFloat    const kMediaCellHeight = 122;
             //don't have image
             if (indexPath.row == 1) {
                 cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-                [cell setSelectionStyle:UITableViewCellEditingStyleNone];
                 //TODO: fix string
                 cell.textLabel.text = @"Description of problem";
                 [cell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -218,7 +215,6 @@ static CGFloat    const kMediaCellHeight = 122;
             }
             else {
                 cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-                [cell setSelectionStyle:UITableViewCellEditingStyleNone];
                 cell.textLabel.text = NSLocalizedString(kUI_Location, nil);
                 
                 NSString *text = nil;
