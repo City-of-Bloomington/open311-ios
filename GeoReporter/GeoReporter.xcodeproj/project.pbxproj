@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29907145179DB639003D4B2F /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907144179DB639003D4B2F /* LocationCell.m */; };
+		29907148179DB655003D4B2F /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907147179DB655003D4B2F /* TextCell.m */; };
+		2990714B179DB676003D4B2F /* SingleValueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2990714A179DB676003D4B2F /* SingleValueListCell.m */; };
+		2990714E179DB68F003D4B2F /* MultiValueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2990714D179DB68F003D4B2F /* MultiValueListCell.m */; };
+		29907151179DB6A2003D4B2F /* StringCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907150179DB6A2003D4B2F /* StringCell.m */; };
+		29907154179DB75B003D4B2F /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907153179DB75A003D4B2F /* SwitchCell.m */; };
+		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		690D7A5016C2D737001DD365 /* SingleValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A4F16C2D737001DD365 /* SingleValueListController.m */; };
 		690D7A5316C2E0B2001DD365 /* MultiValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A5216C2E0B2001DD365 /* MultiValueListController.m */; };
@@ -94,6 +101,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29907143179DB639003D4B2F /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		29907144179DB639003D4B2F /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
+		29907146179DB655003D4B2F /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
+		29907147179DB655003D4B2F /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
+		29907149179DB676003D4B2F /* SingleValueListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleValueListCell.h; sourceTree = "<group>"; };
+		2990714A179DB676003D4B2F /* SingleValueListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleValueListCell.m; sourceTree = "<group>"; };
+		2990714C179DB68F003D4B2F /* MultiValueListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiValueListCell.h; sourceTree = "<group>"; };
+		2990714D179DB68F003D4B2F /* MultiValueListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueListCell.m; sourceTree = "<group>"; };
+		2990714F179DB6A2003D4B2F /* StringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringCell.h; sourceTree = "<group>"; };
+		29907150179DB6A2003D4B2F /* StringCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringCell.m; sourceTree = "<group>"; };
+		29907152179DB75A003D4B2F /* SwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchCell.h; sourceTree = "<group>"; };
+		29907153179DB75A003D4B2F /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchCell.m; sourceTree = "<group>"; };
+		29E22401179B06D100F76C01 /* NewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReportController.h; sourceTree = "<group>"; };
+		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
 		690D7A4C16C2BE1D001DD365 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
 		690D7A4E16C2D737001DD365 /* SingleValueListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleValueListController.h; sourceTree = "<group>"; };
@@ -231,6 +252,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29907142179DB604003D4B2F /* ReportCells */ = {
+			isa = PBXGroup;
+			children = (
+				29907143179DB639003D4B2F /* LocationCell.h */,
+				29907144179DB639003D4B2F /* LocationCell.m */,
+				29907149179DB676003D4B2F /* SingleValueListCell.h */,
+				2990714A179DB676003D4B2F /* SingleValueListCell.m */,
+				2990714C179DB68F003D4B2F /* MultiValueListCell.h */,
+				2990714D179DB68F003D4B2F /* MultiValueListCell.m */,
+				29907146179DB655003D4B2F /* TextCell.h */,
+				29907147179DB655003D4B2F /* TextCell.m */,
+				2990714F179DB6A2003D4B2F /* StringCell.h */,
+				29907150179DB6A2003D4B2F /* StringCell.m */,
+				29907152179DB75A003D4B2F /* SwitchCell.h */,
+				29907153179DB75A003D4B2F /* SwitchCell.m */,
+			);
+			name = ReportCells;
+			sourceTree = "<group>";
+		};
 		692D042816C1A2200011C190 /* ReportFields */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				692D042816C1A2200011C190 /* ReportFields */,
+				29907142179DB604003D4B2F /* ReportCells */,
 				6988CD1B16B2F1580066E796 /* HomeController.h */,
 				6988CD1C16B2F1580066E796 /* HomeController.m */,
 				6988CD2416B309450066E796 /* ServersController.h */,
@@ -274,6 +315,8 @@
 				69E57B6E16BC153A004B7094 /* ChooseServiceController.m */,
 				69F2E93716CAAC480027F580 /* ViewRequestController.h */,
 				69F2E93816CAAC480027F580 /* ViewRequestController.m */,
+				29E22401179B06D100F76C01 /* NewReportController.h */,
+				29E22402179B06D100F76C01 /* NewReportController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -635,6 +678,13 @@
 				690D7A5B16C2F7C4001DD365 /* StringController.m in Sources */,
 				69F2E93916CAAC480027F580 /* ViewRequestController.m in Sources */,
 				69F2E93C16CACA6D0027F580 /* Media.m in Sources */,
+				29E22403179B06D100F76C01 /* NewReportController.m in Sources */,
+				29907145179DB639003D4B2F /* LocationCell.m in Sources */,
+				29907148179DB655003D4B2F /* TextCell.m in Sources */,
+				2990714B179DB676003D4B2F /* SingleValueListCell.m in Sources */,
+				2990714E179DB68F003D4B2F /* MultiValueListCell.m in Sources */,
+				29907151179DB6A2003D4B2F /* StringCell.m in Sources */,
+				29907154179DB75B003D4B2F /* SwitchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
