@@ -12,7 +12,6 @@
 		2990714B179DB676003D4B2F /* SingleValueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2990714A179DB676003D4B2F /* SingleValueListCell.m */; };
 		2990714E179DB68F003D4B2F /* MultiValueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2990714D179DB68F003D4B2F /* MultiValueListCell.m */; };
 		29907151179DB6A2003D4B2F /* StringCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907150179DB6A2003D4B2F /* StringCell.m */; };
-		29907154179DB75B003D4B2F /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907153179DB75A003D4B2F /* SwitchCell.m */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		690D7A5016C2D737001DD365 /* SingleValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A4F16C2D737001DD365 /* SingleValueListController.m */; };
@@ -111,8 +110,6 @@
 		2990714D179DB68F003D4B2F /* MultiValueListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueListCell.m; sourceTree = "<group>"; };
 		2990714F179DB6A2003D4B2F /* StringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringCell.h; sourceTree = "<group>"; };
 		29907150179DB6A2003D4B2F /* StringCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringCell.m; sourceTree = "<group>"; };
-		29907152179DB75A003D4B2F /* SwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchCell.h; sourceTree = "<group>"; };
-		29907153179DB75A003D4B2F /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchCell.m; sourceTree = "<group>"; };
 		29E22401179B06D100F76C01 /* NewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReportController.h; sourceTree = "<group>"; };
 		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
@@ -265,8 +262,6 @@
 				29907147179DB655003D4B2F /* TextCell.m */,
 				2990714F179DB6A2003D4B2F /* StringCell.h */,
 				29907150179DB6A2003D4B2F /* StringCell.m */,
-				29907152179DB75A003D4B2F /* SwitchCell.h */,
-				29907153179DB75A003D4B2F /* SwitchCell.m */,
 			);
 			name = ReportCells;
 			sourceTree = "<group>";
@@ -684,7 +679,6 @@
 				2990714B179DB676003D4B2F /* SingleValueListCell.m in Sources */,
 				2990714E179DB68F003D4B2F /* MultiValueListCell.m in Sources */,
 				29907151179DB6A2003D4B2F /* StringCell.m in Sources */,
-				29907154179DB75B003D4B2F /* SwitchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

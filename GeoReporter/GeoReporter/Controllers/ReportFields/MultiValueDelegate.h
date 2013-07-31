@@ -16,4 +16,5 @@
 @protocol MultiValueDelegate <NSObject>
 @required
 - (void)didProvideValues:(NSArray *)values;
+- (void)didProvideValues:(NSArray *)values fromField:(NSString*)field;
 @end

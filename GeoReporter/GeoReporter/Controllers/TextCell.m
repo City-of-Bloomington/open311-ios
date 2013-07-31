@@ -15,6 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+
     }
     return self;
 }
@@ -25,5 +26,12 @@
 
     // Configure the view for the selected state
 }
+
+
+- (void) textViewDidEndEditing:(UITextView *)textView
+{
+    [self.delegate didProvideValue:textView.text fromField:self.fieldname] ;
+}
+
 
 @end

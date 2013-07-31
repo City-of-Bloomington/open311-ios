@@ -45,7 +45,7 @@
         <scene sceneID="BUu-0Z-s6V">
             <objects>
                 <tableViewController id="zXc-D2-iWn" customClass="NewReportController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="y7C-ch-ES6">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="y7C-ch-ES6" customClass="TPKeyboardAvoidingTableView">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,14 +58,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TextCellHeader" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="oML-MJ-Gdt">
-                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDi-w0-SlX">
-                                            <color key="backgroundColor" name="secondarySelectedControlColor" catalog="System" colorSpace="catalog"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="h7y-83-XDb" id="nyz-Dm-hc8"/>
+                                            </connections>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -75,9 +77,9 @@
                                     <constraint firstItem="wDi-w0-SlX" firstAttribute="leading" secondItem="h7y-83-XDb" secondAttribute="leading" constant="20" type="default" id="5r5-IQ-hg4"/>
                                     <constraint firstAttribute="trailing" secondItem="oML-MJ-Gdt" secondAttribute="trailing" constant="20" type="default" id="7Rl-QH-o9u"/>
                                     <constraint firstAttribute="trailing" secondItem="wDi-w0-SlX" secondAttribute="trailing" constant="20" type="default" id="AAL-24-DcZ"/>
-                                    <constraint firstItem="wDi-w0-SlX" firstAttribute="top" secondItem="oML-MJ-Gdt" secondAttribute="bottom" constant="4" type="user" id="LeV-eg-U9z"/>
-                                    <constraint firstItem="oML-MJ-Gdt" firstAttribute="top" secondItem="h7y-83-XDb" secondAttribute="top" type="user" id="WES-8a-oGM"/>
-                                    <constraint firstAttribute="bottom" secondItem="wDi-w0-SlX" secondAttribute="bottom" constant="12" type="user" id="xxy-eJ-CgT"/>
+                                    <constraint firstItem="wDi-w0-SlX" firstAttribute="top" secondItem="oML-MJ-Gdt" secondAttribute="bottom" constant="6" type="user" id="eWl-Ve-4ja"/>
+                                    <constraint firstAttribute="bottom" secondItem="wDi-w0-SlX" secondAttribute="bottom" constant="4" type="user" id="gic-dg-NOV"/>
+                                    <constraint firstItem="oML-MJ-Gdt" firstAttribute="top" secondItem="h7y-83-XDb" secondAttribute="top" constant="2" type="user" id="kcc-RI-O8s"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="header" destination="oML-MJ-Gdt" id="fT7-rh-ftg"/>
@@ -92,7 +94,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="LocationCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="hlh-vJ-yRs">
-                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="42w-wS-mrc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -122,17 +127,14 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SingleValueListCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="AUe-Ma-LhH">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="zyS-r9-zpo"/>
+                                                <constraint firstAttribute="height" constant="20" type="user" id="zyS-r9-zpo"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="d4T-pC-z2V">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="d4T-pC-z2V">
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="71" id="rr2-7t-S7Q"/>
-                                            </constraints>
                                             <prototypes>
                                                 <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inner_cell" textLabel="7KM-IX-pR7" style="IBUITableViewCellStyleDefault" id="jOX-Lm-dFI">
                                                     <rect key="frame" x="0.0" y="22" width="280" height="44"/>
@@ -142,7 +144,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7KM-IX-pR7">
-                                                                <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             </label>
@@ -161,9 +163,10 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="d4T-pC-z2V" firstAttribute="top" secondItem="Blw-7i-Vys" secondAttribute="top" constant="20" type="default" id="I0C-4g-YtE"/>
+                                    <constraint firstItem="d4T-pC-z2V" firstAttribute="top" secondItem="Blw-7i-Vys" secondAttribute="top" constant="20" type="user" id="2wI-O3-IS6"/>
                                     <constraint firstItem="AUe-Ma-LhH" firstAttribute="top" secondItem="Blw-7i-Vys" secondAttribute="top" type="default" id="QzX-8s-xax"/>
                                     <constraint firstItem="d4T-pC-z2V" firstAttribute="leading" secondItem="Blw-7i-Vys" secondAttribute="leading" constant="20" type="default" id="Vby-PM-jg9"/>
+                                    <constraint firstAttribute="bottom" secondItem="d4T-pC-z2V" secondAttribute="bottom" constant="4" type="user" id="XQn-hp-Fa8"/>
                                     <constraint firstAttribute="trailing" secondItem="AUe-Ma-LhH" secondAttribute="trailing" constant="20" type="default" id="cWX-Wm-gHa"/>
                                     <constraint firstItem="AUe-Ma-LhH" firstAttribute="leading" secondItem="Blw-7i-Vys" secondAttribute="leading" constant="20" type="default" id="h0Z-cf-fmM"/>
                                     <constraint firstAttribute="trailing" secondItem="d4T-pC-z2V" secondAttribute="trailing" constant="20" type="default" id="z3Q-aV-1Us"/>
@@ -182,22 +185,52 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MultiValueListCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="phE-zR-gSq">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="1l0-24-ryy"/>
+                                                <constraint firstAttribute="height" constant="20" id="7h7-N5-0Li"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lKo-AZ-V20">
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <prototypes>
+                                                <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="inner_cell" textLabel="bJu-LS-iSv" style="IBUITableViewCellStyleDefault" id="ucf-Vg-vvz">
+                                                    <rect key="frame" x="0.0" y="22" width="280" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJu-LS-iSv">
+                                                                <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </tableViewCell>
+                                            </prototypes>
+                                            <connections>
+                                                <outlet property="dataSource" destination="0Fu-gi-6Zc" id="3Kj-oD-Pfd"/>
+                                                <outlet property="delegate" destination="0Fu-gi-6Zc" id="v8p-Gd-gsy"/>
+                                            </connections>
+                                        </tableView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="lKo-AZ-V20" firstAttribute="leading" secondItem="0Fu-gi-6Zc" secondAttribute="leading" constant="20" type="default" id="21k-Rb-3Pq"/>
                                     <constraint firstItem="phE-zR-gSq" firstAttribute="top" secondItem="0Fu-gi-6Zc" secondAttribute="top" type="default" id="LTz-Kg-hyg"/>
+                                    <constraint firstAttribute="trailing" secondItem="lKo-AZ-V20" secondAttribute="trailing" constant="20" type="default" id="RU9-LT-agY"/>
                                     <constraint firstItem="phE-zR-gSq" firstAttribute="leading" secondItem="0Fu-gi-6Zc" secondAttribute="leading" constant="20" type="default" id="eWQ-uJ-td1"/>
+                                    <constraint firstItem="lKo-AZ-V20" firstAttribute="top" secondItem="0Fu-gi-6Zc" secondAttribute="top" constant="20" type="user" id="pBV-1P-5T7"/>
                                     <constraint firstAttribute="trailing" secondItem="phE-zR-gSq" secondAttribute="trailing" constant="20" type="default" id="rFd-Wt-fpi"/>
+                                    <constraint firstAttribute="bottom" secondItem="lKo-AZ-V20" secondAttribute="bottom" constant="4" type="user" id="rtV-H7-joN"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="header" destination="phE-zR-gSq" id="C2H-05-IIm"/>
+                                    <outlet property="tableViewInsideCell" destination="lKo-AZ-V20" id="Qqk-2P-uel"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_string_cell" id="zdW-k6-ZMP" customClass="StringCell">
@@ -209,9 +242,9 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="StringCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-6W-yiM">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="MUS-AF-3hP"/>
+                                                <constraint firstAttribute="height" constant="20" id="8BJ-rt-KNa"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -225,33 +258,6 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="header" destination="fdR-6W-yiM" id="4VF-Wm-jwt"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_switch_cell" id="Lre-lo-T3w" customClass="SwitchCell">
-                                <rect key="frame" x="0.0" y="522" width="320" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SwitchCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Jjo-bX-X5T">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="cWU-xo-DcK"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="Jjo-bX-X5T" firstAttribute="leading" secondItem="Lre-lo-T3w" secondAttribute="leading" constant="20" type="default" id="Vnf-y6-owW"/>
-                                    <constraint firstAttribute="trailing" secondItem="Jjo-bX-X5T" secondAttribute="trailing" constant="20" type="default" id="i0j-Np-6DD"/>
-                                    <constraint firstItem="Jjo-bX-X5T" firstAttribute="top" secondItem="Lre-lo-T3w" secondAttribute="top" type="default" id="u2h-rd-DkB"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="header" destination="Jjo-bX-X5T" id="7ks-mN-qCM"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -513,7 +519,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="MAu-Hh-k02" kind="push" id="TLe-bv-YKx"/>
+                                    <segue destination="MAu-Hh-k02" kind="push" id="i1h-ep-eQQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1497,6 +1503,8 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1526,6 +1534,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MultiValueListCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tableViewInsideCell" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="MultiValueListController" superclassName="UITableViewController">
@@ -1597,11 +1606,8 @@
                 <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="SwitchCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SwitchCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="header" candidateClass="UILabel"/>
-            </relationships>
+        <class className="TPKeyboardAvoidingTableView" superclassName="UITableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TPKeyboardAvoidingTableView.h"/>
         </class>
         <class className="TextCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TextCell.h"/>

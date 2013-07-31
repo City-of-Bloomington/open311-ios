@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Report.h"
 #import "TextEntryDelegate.h"
+#import "MultiValueDelegate.h"
 
-@interface NewReportController : UITableViewController <TextEntryDelegate>
+@interface NewReportController : UITableViewController <TextEntryDelegate, MultiValueDelegate>
 @property NSDictionary *service;
 @property Report *report;
 @end

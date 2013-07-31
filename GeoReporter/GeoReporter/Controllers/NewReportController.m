@@ -15,7 +15,11 @@
 #import "MultiValueListCell.h"
 #import "SingleValueListCell.h"
 #import "StringCell.h"
-#import "SwitchCell.h"
+#import <QuartzCore/QuartzCore.h>
+
+
+
+
 
 @interface NewReportController ()
 
@@ -151,12 +155,21 @@ static NSString * const kType       = @"type";
 {
     NSDictionary *field = fields[indexPath.section][indexPath.row];
     NSString *type = field[kType];
+    //NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
+    NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
     
+    if ([type isEqualToString:kOpen311_Text]) {
+        NSString* text = fields[indexPath.section][indexPath.row][kLabel];
+        CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        return TEXT_CELL_BOTTOM_SPACE + TEXT_CELL_TEXT_VIEW_HEIGHT + headerSize.height;
+    }
     if ([type isEqualToString:kOpen311_SingleValueList])
-        return 60;
-    
+        return SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE + SINGLE_VALUE_INNER_CELL_HEADER + SINGLE_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
+    if ([type isEqualToString:kOpen311_MultiValueList])
+        return MULTI_VALUE_INNER_CELL_BOTTOM_SPACE + MULTI_VALUE_INNER_CELL_HEADER + MULTI_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
     if ([type isEqualToString:kOpen311_Address] && [indexPath isEqual: [tableView indexPathForSelectedRow]])
         return 150;
+#warning - hardcoded value
     return 100;
 }
 
@@ -169,10 +182,20 @@ static NSString * const kType       = @"type";
     
     
     if ([type isEqualToString:kOpen311_Text]) {
-       // cell = (TextCell *)[tableView dequeueReusableCellWithIdentifier:kReportCell forIndexPath:indexPath];
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportTextCell forIndexPath:indexPath];
         TextCell* textCell = (TextCell*) cell;
         textCell.header.text = field[kLabel];
+        textCell.delegate = self;
+        textCell.fieldname = field[kFieldname];
+        // appearance customization
+        textCell.text.layer.cornerRadius=8.0f;
+        textCell.text.layer.masksToBounds=YES;
+        textCell.text.layer.borderColor = [[UIColor orangeColor] CGColor];
+        textCell.text.layer.borderWidth = 1.0f;
+        // get text from the datasource
+        if (_report.postData[field[kFieldname]] != nil) {
+            textCell.text.text = _report.postData[field[kFieldname]];
+        }
         return textCell;
     }
     if ([type isEqualToString:kOpen311_Address]) {
@@ -182,16 +205,23 @@ static NSString * const kType       = @"type";
         return locationCell;
     }
     if ([type isEqualToString:kOpen311_MultiValueList]) {
+        //TODO: make it multivalue (right now it's radio button style)
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMultiValueCell forIndexPath:indexPath];
         MultiValueListCell* multiValueListCell = (MultiValueListCell*) cell;
+        NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
+        multiValueListCell.delegate = self;
+        multiValueListCell.fieldname = field[kFieldname];
+        multiValueListCell.attribute = attribute;
         multiValueListCell.header.text = field[kLabel];
+        if (_report.postData[field[kFieldname]] != nil) {
+            multiValueListCell.selectedOption = _report.postData[field[kFieldname]];
+        }
         return multiValueListCell;
     }
     if ([type isEqualToString:kOpen311_SingleValueList]) {
-        //TODO: if only have two options, yes and n, show Switch
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportSingleValueCell forIndexPath:indexPath];
         SingleValueListCell* singleValueListCell = (SingleValueListCell*) cell;
-        NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
+        NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
         singleValueListCell.delegate = self;
         singleValueListCell.fieldname = field[kFieldname];
         singleValueListCell.attribute = attribute;
@@ -296,8 +326,14 @@ static NSString * const kType       = @"type";
 #pragma mark - TextEntryDelegate
 - (void)didProvideValue:(NSString *)value fromField:(NSString *)field
 {
-//    NSString *fieldname = fields[currentIndexPath.section][currentIndexPath.row][kFieldname];
     _report.postData[field] = value;
+    [self.tableView reloadData];
+}
+
+#pragma mark - MultiValueDelegate
+- (void)didProvideValues:(NSArray *)values fromField:(NSString*)field
+{
+    _report.postData[field] = values;
     [self.tableView reloadData];
 }
 

@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TextEntryDelegate.h"
 
+#define SINGLE_VALUE_INNER_CELL_HEIGHT 28
+#define SINGLE_VALUE_INNER_CELL_HEADER 20
+#define SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE 4
+
 @interface SingleValueListCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewInsideCell;

@@ -31,8 +31,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning hardcoded
-    return 20;
+    return SINGLE_VALUE_INNER_CELL_HEIGHT;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -80,9 +79,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //if ([tableView indexPathForSelectedRow] isEqual:indexPath)
-    //[[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
-    
     NSObject *key = self.attribute[kOpen311_Values][indexPath.row][kOpen311_Key];
     if ([key isKindOfClass:[NSNumber class]]) {
         key = [(NSNumber *)key stringValue];
