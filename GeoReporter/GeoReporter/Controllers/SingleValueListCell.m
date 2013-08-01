@@ -36,7 +36,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning hardcoded
     return [self.attribute[kOpen311_Values] count];
 }
 
@@ -83,7 +82,12 @@
     if ([key isKindOfClass:[NSNumber class]]) {
         key = [(NSNumber *)key stringValue];
     }
-    [self.delegate didProvideValue:(NSString *)key fromField:self.fieldname] ;
+    if ([key isEqual:self.selectedOption]) {
+        [self.delegate didProvideValue:nil fromField:self.fieldname] ;
+    }
+    else {
+        [self.delegate didProvideValue:(NSString *)key fromField:self.fieldname] ;
+    }
     
 }
 

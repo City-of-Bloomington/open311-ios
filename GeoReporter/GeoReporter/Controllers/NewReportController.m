@@ -229,6 +229,7 @@ static NSString * const kType       = @"type";
         if (_report.postData[field[kFieldname]] != nil) {
             singleValueListCell.selectedOption = _report.postData[field[kFieldname]];
         }
+        else singleValueListCell.selectedOption = nil;
         return singleValueListCell;
     }
     if ([type isEqualToString:kOpen311_String]) {
@@ -326,7 +327,10 @@ static NSString * const kType       = @"type";
 #pragma mark - TextEntryDelegate
 - (void)didProvideValue:(NSString *)value fromField:(NSString *)field
 {
-    _report.postData[field] = value;
+    if (value != nil)
+        _report.postData[field] = value;
+    else
+        [_report.postData removeObjectForKey:field];
     [self.tableView reloadData];
 }
 
