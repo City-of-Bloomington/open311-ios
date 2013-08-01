@@ -173,6 +173,11 @@ static NSString * const kType       = @"type";
         CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
         return 2 + MULTI_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + MULTI_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
     }
+    if ([type isEqualToString:kOpen311_String]) {
+        NSString* text = fields[indexPath.section][indexPath.row][kLabel];
+        CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        return 2 + STRING_CELL_BOTTOM_SPACE + STRING_CELL_TEXT_FIELD_HEIGHT + headerSize.height;
+    }
     if ([type isEqualToString:kOpen311_Address] && [indexPath isEqual: [tableView indexPathForSelectedRow]])
         return 150;
 #warning - hardcoded value
@@ -243,6 +248,17 @@ static NSString * const kType       = @"type";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportStringCell forIndexPath:indexPath];
         StringCell* stringCell = (StringCell*) cell;
         stringCell.header.text = field[kLabel];
+        stringCell.delegate = self;
+        stringCell.fieldname = field[kFieldname];
+        // appearance customization
+        stringCell.textField.layer.cornerRadius=8.0f;
+        stringCell.textField.layer.masksToBounds=YES;
+        stringCell.textField.layer.borderColor = [[UIColor orangeColor] CGColor];
+        stringCell.textField.layer.borderWidth = 1.0f;
+        // get text from the datasource
+        if (_report.postData[field[kFieldname]] != nil) {
+            stringCell.textField.text = _report.postData[field[kFieldname]];
+        }
         return stringCell;
     }
     

@@ -239,22 +239,34 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="StringCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-6W-yiM">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="8BJ-rt-KNa"/>
+                                                <constraint firstAttribute="height" constant="20" type="user" id="8BJ-rt-KNa"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ghy-aS-KhG">
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="zdW-k6-ZMP" id="S5m-yE-fBF"/>
+                                            </connections>
+                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fdR-6W-yiM" secondAttribute="trailing" constant="20" type="default" id="Mg2-9V-viJ"/>
-                                    <constraint firstItem="fdR-6W-yiM" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" type="default" id="Oje-hO-hUA"/>
+                                    <constraint firstAttribute="trailing" secondItem="ghy-aS-KhG" secondAttribute="trailing" constant="20" type="default" id="PRV-Fh-wbg"/>
+                                    <constraint firstItem="ghy-aS-KhG" firstAttribute="top" secondItem="fdR-6W-yiM" secondAttribute="bottom" constant="2" type="user" id="cts-31-8cE"/>
+                                    <constraint firstItem="ghy-aS-KhG" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="20" type="default" id="g6c-ZW-n4k"/>
+                                    <constraint firstAttribute="bottom" secondItem="ghy-aS-KhG" secondAttribute="bottom" constant="4" type="user" id="gVz-aU-QZz"/>
                                     <constraint firstItem="fdR-6W-yiM" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="20" type="default" id="hzE-p8-4lj"/>
+                                    <constraint firstItem="fdR-6W-yiM" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" type="user" id="wfY-UB-gkl"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="header" destination="fdR-6W-yiM" id="4VF-Wm-jwt"/>
+                                    <outlet property="textField" destination="ghy-aS-KhG" id="ZbI-4A-wsO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -516,7 +528,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="MAu-Hh-k02" kind="push" id="GUg-co-UCf"/>
+                                    <segue destination="MAu-Hh-k02" kind="push" id="5rG-uc-ipy"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1591,6 +1603,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/StringCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="StringController" superclassName="UIViewController">
