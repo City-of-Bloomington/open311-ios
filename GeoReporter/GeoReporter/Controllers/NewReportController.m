@@ -213,9 +213,10 @@ static NSString * const kType       = @"type";
         multiValueListCell.fieldname = field[kFieldname];
         multiValueListCell.attribute = attribute;
         multiValueListCell.header.text = field[kLabel];
-        if (_report.postData[field[kFieldname]] != nil) {
-            multiValueListCell.selectedOption = _report.postData[field[kFieldname]];
-        }
+        if (_report.postData[field[kFieldname]] != nil)
+            multiValueListCell.selectedOptions = _report.postData[field[kFieldname]];
+        else
+            multiValueListCell.selectedOptions = nil;
         return multiValueListCell;
     }
     if ([type isEqualToString:kOpen311_SingleValueList]) {
@@ -226,10 +227,10 @@ static NSString * const kType       = @"type";
         singleValueListCell.fieldname = field[kFieldname];
         singleValueListCell.attribute = attribute;
         singleValueListCell.header.text = field[kLabel];
-        if (_report.postData[field[kFieldname]] != nil) {
+        if (_report.postData[field[kFieldname]] != nil) 
             singleValueListCell.selectedOption = _report.postData[field[kFieldname]];
-        }
-        else singleValueListCell.selectedOption = nil;
+        else
+            singleValueListCell.selectedOption = nil;
         return singleValueListCell;
     }
     if ([type isEqualToString:kOpen311_String]) {
@@ -337,7 +338,10 @@ static NSString * const kType       = @"type";
 #pragma mark - MultiValueDelegate
 - (void)didProvideValues:(NSArray *)values fromField:(NSString*)field
 {
-    _report.postData[field] = values;
+    if (values != nil)
+        _report.postData[field] = values;
+    else
+        [_report.postData removeObjectForKey:field];
     [self.tableView reloadData];
 }
 

@@ -36,7 +36,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning hardcoded
     return [self.attribute[kOpen311_Values] count];
 }
 
@@ -62,7 +61,7 @@
     if ([key isKindOfClass:[NSNumber class]]) {
         key = [(NSNumber *)key stringValue];
     }
-    if ([key isEqual:self.selectedOption]) {
+    if ([self.selectedOptions containsObject:key]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else
@@ -83,7 +82,28 @@
     if ([key isKindOfClass:[NSNumber class]]) {
         key = [(NSNumber *)key stringValue];
     }
-    [self.delegate didProvideValues:(NSArray *)key fromField:self.fieldname] ;
+    
+    NSMutableArray* selected = [self.selectedOptions mutableCopy];
+    if (selected != nil) {
+        if ([selected containsObject:key]) {
+            [selected removeObject:key];
+        }
+        else {
+            [selected addObject:key];
+        }
+    }
+    else {
+        selected = [[NSMutableArray alloc] init];
+        [selected addObject:key];
+    }
+    
+    [self.delegate didProvideValues:selected fromField:self.fieldname];
+//    if ([key isEqual:self.selectedOption]) {
+//        [self.delegate didProvideValues:nil fromField:self.fieldname] ;
+//    }
+//    else {
+//        [self.delegate didProvideValues:(NSArray *)key fromField:self.fieldname] ;
+//    }
     
 }
 
@@ -93,9 +113,9 @@
     [self.tableViewInsideCell reloadData];
 }
 
-- (void)setSelectedOption:(NSString *)selectedOption
+- (void)setSelectedOptions:(NSArray *)selectedOptions
 {
-    _selectedOption = selectedOption;
+    _selectedOptions = selectedOptions;
     [self.tableViewInsideCell reloadData];
 }
 

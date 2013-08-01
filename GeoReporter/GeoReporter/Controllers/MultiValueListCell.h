@@ -19,5 +19,5 @@
 @property (strong, nonatomic) NSDictionary *attribute;
 @property (weak, nonatomic) id <MultiValueDelegate> delegate;
 @property (strong, nonatomic) NSString* fieldname;
-@property (strong, nonatomic) NSString* selectedOption;
+@property (strong, nonatomic) NSArray* selectedOptions;
 @end
