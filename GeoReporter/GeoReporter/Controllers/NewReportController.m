@@ -163,10 +163,16 @@ static NSString * const kType       = @"type";
         CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
         return TEXT_CELL_BOTTOM_SPACE + TEXT_CELL_TEXT_VIEW_HEIGHT + headerSize.height;
     }
-    if ([type isEqualToString:kOpen311_SingleValueList])
-        return SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE + SINGLE_VALUE_INNER_CELL_HEADER + SINGLE_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
-    if ([type isEqualToString:kOpen311_MultiValueList])
-        return MULTI_VALUE_INNER_CELL_BOTTOM_SPACE + MULTI_VALUE_INNER_CELL_HEADER + MULTI_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
+    if ([type isEqualToString:kOpen311_SingleValueList]) {
+        NSString* text = fields[indexPath.section][indexPath.row][kLabel];
+        CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        return 2 + SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + SINGLE_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
+    }
+    if ([type isEqualToString:kOpen311_MultiValueList]){
+        NSString* text = fields[indexPath.section][indexPath.row][kLabel];
+        CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        return 2 + MULTI_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + MULTI_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
+    }
     if ([type isEqualToString:kOpen311_Address] && [indexPath isEqual: [tableView indexPathForSelectedRow]])
         return 150;
 #warning - hardcoded value

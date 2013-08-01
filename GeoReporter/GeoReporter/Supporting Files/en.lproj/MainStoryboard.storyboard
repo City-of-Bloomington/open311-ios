@@ -125,15 +125,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SingleValueListCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="AUe-Ma-LhH">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="20" type="user" id="zyS-r9-zpo"/>
-                                            </constraints>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SingleValueListCellHeader" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="AUe-Ma-LhH">
                                             <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="d4T-pC-z2V">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="d4T-pC-z2V">
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <prototypes>
                                                 <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inner_cell" textLabel="7KM-IX-pR7" style="IBUITableViewCellStyleDefault" id="jOX-Lm-dFI">
@@ -163,8 +160,8 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="d4T-pC-z2V" firstAttribute="top" secondItem="Blw-7i-Vys" secondAttribute="top" constant="20" type="user" id="2wI-O3-IS6"/>
-                                    <constraint firstItem="AUe-Ma-LhH" firstAttribute="top" secondItem="Blw-7i-Vys" secondAttribute="top" type="default" id="QzX-8s-xax"/>
+                                    <constraint firstItem="d4T-pC-z2V" firstAttribute="top" secondItem="AUe-Ma-LhH" secondAttribute="bottom" constant="2" type="user" id="3d9-iM-JVg"/>
+                                    <constraint firstItem="AUe-Ma-LhH" firstAttribute="top" secondItem="Blw-7i-Vys" secondAttribute="top" constant="2" type="user" id="QzX-8s-xax"/>
                                     <constraint firstItem="d4T-pC-z2V" firstAttribute="leading" secondItem="Blw-7i-Vys" secondAttribute="leading" constant="20" type="default" id="Vby-PM-jg9"/>
                                     <constraint firstAttribute="bottom" secondItem="d4T-pC-z2V" secondAttribute="bottom" constant="4" type="user" id="XQn-hp-Fa8"/>
                                     <constraint firstAttribute="trailing" secondItem="AUe-Ma-LhH" secondAttribute="trailing" constant="20" type="default" id="cWX-Wm-gHa"/>
@@ -185,13 +182,13 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MultiValueListCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="phE-zR-gSq">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="7h7-N5-0Li"/>
+                                                <constraint firstAttribute="height" constant="20" type="user" id="7h7-N5-0Li"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lKo-AZ-V20">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lKo-AZ-V20">
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <prototypes>
                                                 <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="inner_cell" textLabel="bJu-LS-iSv" style="IBUITableViewCellStyleDefault" id="ucf-Vg-vvz">
@@ -221,10 +218,10 @@
                                 </view>
                                 <constraints>
                                     <constraint firstItem="lKo-AZ-V20" firstAttribute="leading" secondItem="0Fu-gi-6Zc" secondAttribute="leading" constant="20" type="default" id="21k-Rb-3Pq"/>
-                                    <constraint firstItem="phE-zR-gSq" firstAttribute="top" secondItem="0Fu-gi-6Zc" secondAttribute="top" type="default" id="LTz-Kg-hyg"/>
+                                    <constraint firstItem="lKo-AZ-V20" firstAttribute="top" secondItem="phE-zR-gSq" secondAttribute="bottom" constant="2" type="user" id="I7u-Jp-eso"/>
+                                    <constraint firstItem="phE-zR-gSq" firstAttribute="top" secondItem="0Fu-gi-6Zc" secondAttribute="top" type="user" id="LTz-Kg-hyg"/>
                                     <constraint firstAttribute="trailing" secondItem="lKo-AZ-V20" secondAttribute="trailing" constant="20" type="default" id="RU9-LT-agY"/>
                                     <constraint firstItem="phE-zR-gSq" firstAttribute="leading" secondItem="0Fu-gi-6Zc" secondAttribute="leading" constant="20" type="default" id="eWQ-uJ-td1"/>
-                                    <constraint firstItem="lKo-AZ-V20" firstAttribute="top" secondItem="0Fu-gi-6Zc" secondAttribute="top" constant="20" type="user" id="pBV-1P-5T7"/>
                                     <constraint firstAttribute="trailing" secondItem="phE-zR-gSq" secondAttribute="trailing" constant="20" type="default" id="rFd-Wt-fpi"/>
                                     <constraint firstAttribute="bottom" secondItem="lKo-AZ-V20" secondAttribute="bottom" constant="4" type="user" id="rtV-H7-joN"/>
                                 </constraints>
@@ -519,7 +516,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="MAu-Hh-k02" kind="push" id="jci-AG-wVe"/>
+                                    <segue destination="MAu-Hh-k02" kind="push" id="GUg-co-UCf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
