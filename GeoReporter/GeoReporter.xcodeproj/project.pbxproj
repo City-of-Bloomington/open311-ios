@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29719D5D17AC6847007367AF /* MediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29719D5C17AC6847007367AF /* MediaCell.m */; };
+		29719D5F17AD14BE007367AF /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 29719D5E17AD14BE007367AF /* camera.png */; };
 		29907145179DB639003D4B2F /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907144179DB639003D4B2F /* LocationCell.m */; };
 		29907148179DB655003D4B2F /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907147179DB655003D4B2F /* TextCell.m */; };
 		2990714B179DB676003D4B2F /* SingleValueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2990714A179DB676003D4B2F /* SingleValueListCell.m */; };
@@ -100,6 +102,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29719D5B17AC6847007367AF /* MediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCell.h; sourceTree = "<group>"; };
+		29719D5C17AC6847007367AF /* MediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaCell.m; sourceTree = "<group>"; };
+		29719D5E17AD14BE007367AF /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		29907143179DB639003D4B2F /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		29907144179DB639003D4B2F /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		29907146179DB655003D4B2F /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
@@ -262,6 +267,8 @@
 				29907147179DB655003D4B2F /* TextCell.m */,
 				2990714F179DB6A2003D4B2F /* StringCell.h */,
 				29907150179DB6A2003D4B2F /* StringCell.m */,
+				29719D5B17AC6847007367AF /* MediaCell.h */,
+				29719D5C17AC6847007367AF /* MediaCell.m */,
 			);
 			name = ReportCells;
 			sourceTree = "<group>";
@@ -322,6 +329,7 @@
 				69FE9E6316D67BC2007021B9 /* Cities */,
 				69FE9E6816D67E99007021B9 /* accountTableCell.png */,
 				69FE9E6916D67E99007021B9 /* accountTableCell@2x.png */,
+				29719D5E17AD14BE007367AF /* camera.png */,
 				69B2464416D5410900C47475 /* chat.png */,
 				69B2464516D5410900C47475 /* chat@2x.png */,
 				69B2465416D552C100C47475 /* chatTableCell.png */,
@@ -587,6 +595,7 @@
 				6969386216D7CFC400D8C613 /* bonn@2x.png in Resources */,
 				69A4D2641732F55300AA1AC6 /* columbus.png in Resources */,
 				69A4D2651732F55300AA1AC6 /* columbus@2x.png in Resources */,
+				29719D5F17AD14BE007367AF /* camera.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,6 +688,7 @@
 				2990714B179DB676003D4B2F /* SingleValueListCell.m in Sources */,
 				2990714E179DB68F003D4B2F /* MultiValueListCell.m in Sources */,
 				29907151179DB6A2003D4B2F /* StringCell.m in Sources */,
+				29719D5D17AC6847007367AF /* MediaCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

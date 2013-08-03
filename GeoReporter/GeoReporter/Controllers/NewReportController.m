@@ -15,6 +15,7 @@
 #import "MultiValueListCell.h"
 #import "SingleValueListCell.h"
 #import "StringCell.h"
+#import "MediaCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -43,6 +44,7 @@ static NSString * const kReportLocationCell = @"report_location_cell";
 static NSString * const kReportSingleValueCell = @"report_sinlge_value_cell";
 static NSString * const kReportMultiValueCell = @"report_multi_value_cell";
 static NSString * const kReportStringCell = @"report_string_cell";
+static NSString * const kReportMediaCell = @"report_media_cell";
 static NSString * const kReportSwitchCell = @"report_switch_cell";
 static NSString * const kFieldname  = @"fieldname";
 static NSString * const kLabel      = @"label";
@@ -81,8 +83,9 @@ static NSString * const kType       = @"type";
     
     // First section: Photo and Location choosers
     fields = [[NSMutableArray alloc] init];
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
-        && [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
+#warning - uncomment the condition for camera
+    if (//[UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
+        /*&&*/ [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
         [fields addObject:@[
          @{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
          @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
@@ -181,6 +184,8 @@ static NSString * const kType       = @"type";
     if ([type isEqualToString:kOpen311_Address] && [indexPath isEqual: [tableView indexPathForSelectedRow]])
         return 150;
 #warning - hardcoded value
+    if ([type isEqualToString:kOpen311_Media])
+        return 60;
     return 100;
 }
 
@@ -264,11 +269,13 @@ static NSString * const kType       = @"type";
     
     
     if ([type isEqualToString:kOpen311_Media]) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportStringCell forIndexPath:indexPath];
-        StringCell* stringCell = (StringCell*) cell;
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMediaCell forIndexPath:indexPath];
+        MediaCell* mediaCell = (MediaCell*) cell;
 #warning - media image 
-        stringCell.header.text = @"image - hardcoded";
-        return stringCell;
+        mediaCell.header.text = @"Add image";
+        mediaCell.image.contentMode = UIViewContentModeScaleAspectFill;
+        mediaCell.image.image = [UIImage imageNamed:@"camera.png"];
+        return mediaCell;
         /*
         NSURL *url = _report.postData[kOpen311_Media];
         if (url != nil) {
