@@ -564,7 +564,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="MAu-Hh-k02" kind="push" id="onr-2T-Cup"/>
+                                    <segue destination="MAu-Hh-k02" kind="push" id="xGZ-aa-ebr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

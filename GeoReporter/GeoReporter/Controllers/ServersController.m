@@ -100,6 +100,31 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
     return @"Custom Servers";
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    NSString *sectionTitle;
+    if (section == 0) {
+        sectionTitle = @"Available Servers";
+    }
+    else {
+        sectionTitle = @"Custom Servers";
+    }
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.frame = CGRectMake(20, 8, 320, 20);
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
+    //    label.shadowColor = [UIColor grayColor];
+    //    label.shadowOffset = CGSizeMake(-1.0, 1.0);
+    label.font = [UIFont fontWithName:@"Heiti SC" size:15];
+    label.text = sectionTitle;
+    
+    UIView *view = [[UIView alloc] init];
+    [view addSubview:label];
+    
+    return view;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
