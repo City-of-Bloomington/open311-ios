@@ -37,6 +37,9 @@ static NSString * const kSegueToReport  = @"SegueToReport";
     
     services = [open311 getServicesForGroup:self.group];
     self.navigationItem.title = self.group;
+    
+    //add empty footer so that empty rows will not be shown at the end of the table
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

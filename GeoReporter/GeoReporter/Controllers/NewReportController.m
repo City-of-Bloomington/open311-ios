@@ -131,6 +131,9 @@ static NSString * const kType       = @"type";
         }
         [fields addObject:attributes];
     }
+    
+    //add empty footer so that empty rows will not be shown at the end of the table
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
 

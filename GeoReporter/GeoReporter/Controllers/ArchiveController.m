@@ -39,6 +39,9 @@ NSString * const kCellIdentifier = @"archive_cell";
     
     dateFormatterISO = [[NSDateFormatter alloc] init];
     [dateFormatterISO setDateFormat:kDate_ISO8601];
+    
+    //add empty footer so that empty rows will not be shown at the end of the table
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

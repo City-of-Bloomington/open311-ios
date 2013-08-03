@@ -29,6 +29,9 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
     [super viewDidLoad];
     open311 = [Open311 sharedInstance];
     self.navigationItem.title = NSLocalizedString(kUI_Report, nil);
+    
+    //add empty footer so that empty rows will not be shown at the end of the table
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
