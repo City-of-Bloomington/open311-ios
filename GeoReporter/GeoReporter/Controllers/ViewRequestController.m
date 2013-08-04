@@ -13,6 +13,7 @@
 #import "Strings.h"
 #import "Preferences.h"
 #import "Media.h"
+#import "FullImageController.h"
 
 @interface ViewRequestController ()
 
@@ -23,17 +24,26 @@
     NSDateFormatter *dateFormatterISO;
     NSURL *mediaUrl;
     UIImage *media;
+    UIImage *original;
+    UITapGestureRecognizer * gestureRecognizer;
+    BOOL loadedOnce;
 }
 static NSString * const kCellIdentifier  = @"request_cell";
 static NSString * const kMediaCell       = @"media_cell";
 static NSInteger  const kImageViewTag    = 100;
 static NSInteger  const kLabelTag    = 114;
 static CGFloat    const kMediaCellHeight = 122;
+static NSString * const kSegueToFullImage = @"segueToFullImage";
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.title = self.report.service[kOpen311_ServiceName];
+    
+    loadedOnce = NO;
+    
     
     dateFormatterDisplay = [[NSDateFormatter alloc] init];
     [dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
@@ -50,7 +60,7 @@ static CGFloat    const kMediaCellHeight = 122;
         [library assetForURL:mediaUrl
                  resultBlock:^(ALAsset *asset) {
                      ALAssetRepresentation *rep = [asset defaultRepresentation];
-                     UIImage *original = [UIImage imageWithCGImage:[rep fullScreenImage]];
+                     original = [UIImage imageWithCGImage:[rep fullScreenImage]];
                      media = [Media resizeImage:original toBoundingBox:100];
                  }
                 failureBlock:^(NSError *error) {
@@ -134,34 +144,6 @@ static CGFloat    const kMediaCellHeight = 122;
     }
 
 }
-//
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    if (section == 0) {
-//        NSDictionary *sr = _report.serviceRequest;
-//        NSDictionary *post = _report.postData;
-//        
-//        NSString *titleForHeader = nil;
-//        
-//        if ( sr ) {
-//            id srDescription = sr[kOpen311_Description];
-//            if ( srDescription != [NSNull null] ) {
-//                titleForHeader = srDescription;
-//            }
-//        }
-//        
-//        if ( titleForHeader == nil ) {
-//            id postDescription = post[kOpen311_Description];
-//            if ( postDescription != [NSNull null] ) {
-//                titleForHeader = postDescription;
-//            }
-//        }
-//        
-//        if ( titleForHeader )
-//            return titleForHeader;
-//    }
-//    return nil;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -201,12 +183,20 @@ static CGFloat    const kMediaCellHeight = 122;
             cell = [tableView dequeueReusableCellWithIdentifier:kMediaCell forIndexPath:indexPath];
             UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageViewTag];
             [imageView setImage:media];
+            imageView.userInteractionEnabled = YES;
+            
+            if (loadedOnce == NO) {
+                gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openFullScreenImage:)];
+                [cell addGestureRecognizer:gestureRecognizer];
+                loadedOnce = YES;
+            }
+            
         }
         else {
             //don't have image
             if (indexPath.row == 1) {
                 cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-                //TODO: fix string
+#warning - hardcoded string
                 cell.textLabel.text = @"Description of problem";
                 [cell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
                 [cell.detailTextLabel setNumberOfLines:0];
@@ -244,9 +234,22 @@ static CGFloat    const kMediaCellHeight = 122;
         CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         
         return size.height + 30.f;
-        //TODO: change height of tablecell dinamically, depending on the height of the label inside
     }
     return UITableViewAutomaticDimension;
+}
+
+#pragma mark - UITapGestureRecognizerSelector
+
+- (void) openFullScreenImage:(UITapGestureRecognizer *) sender
+{
+    [self performSegueWithIdentifier:kSegueToFullImage sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    FullImageController *controller = [segue destinationViewController];
+
+    [controller setImage:original];
 }
 
 @end
