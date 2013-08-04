@@ -12,5 +12,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ServersController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 - (NSDictionary *)getTargetServer:(NSInteger)index;
 @end

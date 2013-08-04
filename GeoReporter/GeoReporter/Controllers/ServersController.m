@@ -34,6 +34,33 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 
     availableServers = [Preferences getAvailableServers];
     prefs = [Preferences sharedInstance];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.numberOfLines = 0;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    NSString* tableHeaderText;
+    tableHeaderText = @"Select the server to which the issues are reported. \"Available Servers\" contains the official endpoints. \"Custom Servers\" may contain other custom Open311 servers.";
+    CGSize headerSize = [tableHeaderText sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    /*
+    CGSize headerSize = [tableHeaderText sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    label.frame = CGRectMake(20, 8, 280, headerSize.height);
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
+    label.font = [UIFont fontWithName:@"Heiti SC" size:13];
+    label.text = tableHeaderText;
+    
+    UIView *view = [[UIView alloc] init];
+    [view addSubview:label];
+    
+    self.tableView.tableHeaderView = view;
+     */
+
+    self.label.text = tableHeaderText;
+    //[self.label sizeToFit];
+    self.headerView.frame = CGRectMake(20, 4, 280, headerSize.height + 8 + 5);
 }
 
 - (void)viewWillAppear:(BOOL)animated

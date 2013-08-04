@@ -641,9 +641,26 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="BX1-J6-9Ew">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="bte-sG-HIC">
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="13"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="bte-sG-HIC" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="B5U-cM-ubn"/>
+                                <constraint firstItem="bte-sG-HIC" firstAttribute="leading" secondItem="BX1-J6-9Ew" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Pu8-Z7-gQe"/>
+                                <constraint firstItem="bte-sG-HIC" firstAttribute="top" secondItem="BX1-J6-9Ew" secondAttribute="top" constant="8" type="user" id="eo7-xw-nwM"/>
+                                <constraint firstAttribute="bottom" secondItem="bte-sG-HIC" secondAttribute="bottom" constant="5" type="user" id="vNN-F3-Cgw"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="server_cell" textLabel="HFf-k4-2NU" detailTextLabel="CgN-xM-6VT" style="IBUITableViewCellStyleSubtitle" id="FEg-Ei-NXY">
-                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <rect key="frame" x="0.0" y="80" width="320" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="1" width="300" height="43"/>
@@ -678,6 +695,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="headerView" destination="BX1-J6-9Ew" id="GH5-i2-cYT"/>
+                        <outlet property="label" destination="bte-sG-HIC" id="5ck-sZ-gnr"/>
                         <segue destination="eek-eb-DRb" kind="unwind" identifier="UnwindSegueFromServersToHome" unwindAction="didReturnFromServersController:" id="atu-ks-Ozy"/>
                     </connections>
                 </tableViewController>
@@ -1611,6 +1630,8 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1689,6 +1710,10 @@
         </class>
         <class className="ServersController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ServersController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="SingleValueListCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SingleValueListCell.h"/>
@@ -1737,6 +1762,9 @@
                 <relationship kind="outlet" name="label" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>
