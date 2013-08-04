@@ -134,8 +134,17 @@ static NSString * const kType       = @"type";
     
     //add empty footer so that empty rows will not be shown at the end of the table
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    
+    //add tabel header:
+    CGSize headerSize = [header sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    self.headerViewLabel.backgroundColor = [UIColor clearColor];
+    self.headerViewLabel.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
+    self.headerViewLabel.text = header;
+    self.headerView.frame = CGRectMake(20, 8, 280, headerSize.height + 5 + 8);
+    
+    self.tableView.tableHeaderView = self.headerView;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -155,37 +164,6 @@ static NSString * const kType       = @"type";
 {
     // Return the number of rows in the section.
     return [fields[section] count];
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    if (section == 0) {
-    
-        UILabel *label = [[UILabel alloc] init];
-        label.numberOfLines = 0;
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        CGSize headerSize = [header sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        
-        label.frame = CGRectMake(20, 8, 280, headerSize.height);
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
-        label.font = [UIFont fontWithName:@"Heiti SC" size:13];
-        label.text = header;
-        
-        UIView *view = [[UIView alloc] init];
-        [view addSubview:label];
-        view.backgroundColor = [UIColor whiteColor];
-        return view;
-    }
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        CGSize headerSize = [header sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        return 10 +headerSize.height;
-    }
-    return 0;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -334,58 +312,13 @@ static NSString * const kType       = @"type";
          
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView beginUpdates];
     [tableView endUpdates];
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+   
 }
 
 #pragma mark - TextEntryDelegate

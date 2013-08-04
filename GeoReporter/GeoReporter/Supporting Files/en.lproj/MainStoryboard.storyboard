@@ -49,9 +49,27 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Lyq-j8-xyU">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="fgA-3j-odi">
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="13"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="fgA-3j-odi" firstAttribute="leading" secondItem="Lyq-j8-xyU" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="ZJN-Bi-l7r"/>
+                                <constraint firstItem="fgA-3j-odi" firstAttribute="top" secondItem="Lyq-j8-xyU" secondAttribute="top" constant="8" type="user" id="afw-31-Hvn"/>
+                                <constraint firstAttribute="trailing" secondItem="fgA-3j-odi" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="dwb-sj-VOx"/>
+                                <constraint firstAttribute="bottom" secondItem="fgA-3j-odi" secondAttribute="bottom" constant="5" type="user" id="uOZ-Bq-FYY"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="report_text_cell" id="h7y-83-XDb" customClass="TextCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
@@ -87,7 +105,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_location_cell" id="tSw-OO-Mzm" customClass="LocationCell">
-                                <rect key="frame" x="0.0" y="122" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="166" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
@@ -119,7 +137,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_sinlge_value_cell" id="Blw-7i-Vys" customClass="SingleValueListCell">
-                                <rect key="frame" x="0.0" y="222" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="266" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
@@ -174,7 +192,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_multi_value_cell" id="0Fu-gi-6Zc" customClass="MultiValueListCell">
-                                <rect key="frame" x="0.0" y="322" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="366" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
@@ -231,7 +249,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_media_cell" id="zdW-k6-ZMP" customClass="MediaCell">
-                                <rect key="frame" x="0.0" y="422" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="466" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
@@ -267,7 +285,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_string_cell" id="9a5-eE-ASf" customClass="StringCell">
-                                <rect key="frame" x="0.0" y="522" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="566" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
@@ -312,6 +330,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ADZ-A6-2gy"/>
+                    <connections>
+                        <outlet property="headerView" destination="Lyq-j8-xyU" id="ZxD-mp-dd3"/>
+                        <outlet property="headerViewLabel" destination="fgA-3j-odi" id="9wS-rb-pej"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZS-ek-uXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -618,7 +640,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="MAu-Hh-k02" kind="push" id="vmj-wD-7Nn"/>
+                                    <segue destination="MAu-Hh-k02" kind="push" id="uJ7-aE-usl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1630,8 +1652,6 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
-                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1683,6 +1703,10 @@
         </class>
         <class className="NewReportController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewReportController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="headerViewLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="PersonalInfoController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoController.h"/>
@@ -1762,9 +1786,6 @@
                 <relationship kind="outlet" name="label" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>

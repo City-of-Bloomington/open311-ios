@@ -13,5 +13,7 @@
 
 @interface NewReportController : UITableViewController <TextEntryDelegate, MultiValueDelegate>
 @property NSDictionary *service;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UILabel *headerViewLabel;
 @property Report *report;
 @end
