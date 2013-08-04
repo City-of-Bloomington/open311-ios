@@ -35,22 +35,9 @@
     self.labelJurisdiction .text = NSLocalizedString(kUI_JurisdictionId, nil);
     self.labelApiKey       .text = NSLocalizedString(kUI_ApiKey,         nil);
     self.labelSupportsMedia.text = NSLocalizedString(kUI_SupportsMedia,  nil);
- 
-    
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard)];
-    gestureRecognizer.cancelsTouchesInView = NO;
-    [self.tableView addGestureRecognizer:gestureRecognizer];
-    
     
 }
-- (void)closeKeyboard
-{
-    [self.textFieldName resignFirstResponder];
-    [self.textFieldUrl resignFirstResponder];
-    [self.textFieldApiKey resignFirstResponder];
-    [self.textFieldJurisdiction resignFirstResponder];
-    
-}
+
 
 - (IBAction)save:(id)sender
 {

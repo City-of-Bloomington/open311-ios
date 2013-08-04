@@ -54,15 +54,7 @@
     [self.separator1 setHidden:YES];
     [self.separator2 setHidden:YES];
     [self.separator3 setHidden:YES];
-    
-    // uncomment for the view to scroll when keyboard is shown
-    //[self registerForKeyboardNotifications];
-    
-    
-    
-	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-	gestureRecognizer.cancelsTouchesInView = NO;
-	[self.tableView addGestureRecognizer:gestureRecognizer];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,13 +66,6 @@
     [preferences setValue:self.textFieldPhone    .text forKey:kOpen311_Phone];
     
     [super viewWillDisappear:animated];
-}
-
-- (void) hideKeyboard {
-		[self.textFieldFirstName resignFirstResponder];
-    	[self.textFieldLastName resignFirstResponder];
-		[self.textFieldEmail resignFirstResponder];
-		[self.textFieldPhone resignFirstResponder];
 }
 
 #pragma mark - Table view handlers
@@ -98,8 +83,6 @@
     label.frame = CGRectMake(20, 8, 320, 20);
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
-//    label.shadowColor = [UIColor grayColor];
-//    label.shadowOffset = CGSizeMake(-1.0, 1.0);
     label.font = [UIFont fontWithName:@"Heiti SC" size:15];
     label.text = sectionTitle;
     
