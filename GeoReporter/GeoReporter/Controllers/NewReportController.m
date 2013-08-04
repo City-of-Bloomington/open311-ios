@@ -157,6 +157,37 @@ static NSString * const kType       = @"type";
     return [fields[section] count];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0) {
+    
+        UILabel *label = [[UILabel alloc] init];
+        label.numberOfLines = 0;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
+        CGSize headerSize = [header sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        label.frame = CGRectMake(20, 8, 280, headerSize.height);
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
+        label.font = [UIFont fontWithName:@"Heiti SC" size:13];
+        label.text = header;
+        
+        UIView *view = [[UIView alloc] init];
+        [view addSubview:label];
+        view.backgroundColor = [UIColor whiteColor];
+        return view;
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        CGSize headerSize = [header sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        return 10 +headerSize.height;
+    }
+    return 0;
+}
+
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *field = fields[indexPath.section][indexPath.row];
