@@ -38,17 +38,18 @@ UIImage *mediaThumbnail;
 UIActivityIndicatorView *busyIcon;
 NSString *header;
 
-static NSString * const kReportCell = @"report_cell";
-static NSString * const kReportTextCell = @"report_text_cell";
-static NSString * const kReportLocationCell = @"report_location_cell";
-static NSString * const kReportSingleValueCell = @"report_sinlge_value_cell";
-static NSString * const kReportMultiValueCell = @"report_multi_value_cell";
-static NSString * const kReportStringCell = @"report_string_cell";
-static NSString * const kReportMediaCell = @"report_media_cell";
-static NSString * const kReportSwitchCell = @"report_switch_cell";
-static NSString * const kFieldname  = @"fieldname";
-static NSString * const kLabel      = @"label";
-static NSString * const kType       = @"type";
+static NSString * const kSegueToLocation        = @"SegueToLocation";
+static NSString * const kReportCell             = @"report_cell";
+static NSString * const kReportTextCell         = @"report_text_cell";
+static NSString * const kReportLocationCell     = @"report_location_cell";
+static NSString * const kReportSingleValueCell  = @"report_sinlge_value_cell";
+static NSString * const kReportMultiValueCell   = @"report_multi_value_cell";
+static NSString * const kReportStringCell       = @"report_string_cell";
+static NSString * const kReportMediaCell        = @"report_media_cell";
+static NSString * const kReportSwitchCell       = @"report_switch_cell";
+static NSString * const kFieldname              = @"fieldname";
+static NSString * const kLabel                  = @"label";
+static NSString * const kType                   = @"type";
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -193,8 +194,10 @@ static NSString * const kType       = @"type";
         CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
         return 2 + STRING_CELL_BOTTOM_SPACE + STRING_CELL_TEXT_FIELD_HEIGHT + headerSize.height;
     }
-    if ([type isEqualToString:kOpen311_Address] && [indexPath isEqual: [tableView indexPathForSelectedRow]])
-        return 150;
+    
+    if ([type isEqualToString:kOpen311_Address])
+        return 110;
+    
 #warning - hardcoded value
     if ([type isEqualToString:kOpen311_Media])
         return 60;
@@ -230,6 +233,33 @@ static NSString * const kType       = @"type";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportLocationCell forIndexPath:indexPath];
         LocationCell* locationCell = (LocationCell*) cell;
         locationCell.header.text = field[kLabel];
+        if (_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil) {
+            
+            // Create your coordinate
+            CLLocationCoordinate2D myCoordinate = {[_report.postData[kOpen311_Latitude] doubleValue], [_report.postData[kOpen311_Longitude] doubleValue]};
+            //Create your annotation
+            MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+            // Set your annotation to point at your coordinate
+            point.coordinate = myCoordinate;
+            //If you want to clear other pins/annotations this is how to do it
+            for (id annotation in locationCell.mapView.annotations) {
+                [locationCell.mapView removeAnnotation:annotation];
+            }
+            //Drop pin on map
+            [locationCell.mapView addAnnotation:point];
+            
+            MKCoordinateRegion region;
+            region.center.latitude  = myCoordinate.latitude;
+            region.center.longitude = myCoordinate.longitude;
+            MKCoordinateSpan span;
+            span.latitudeDelta  = 0.007;
+            span.longitudeDelta = 0.007;
+            region.span = span;
+            [locationCell.mapView setRegion:region animated:YES];
+        }
+        
+        
+        
         return locationCell;
     }
     if ([type isEqualToString:kOpen311_MultiValueList]) {
@@ -313,12 +343,17 @@ static NSString * const kType       = @"type";
 }
 
 #pragma mark - Table view delegate
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//   
+//}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [tableView beginUpdates];
-    [tableView endUpdates];
-   
+    [segue.destinationViewController setDelegate:self];
 }
 
 #pragma mark - TextEntryDelegate
@@ -338,6 +373,23 @@ static NSString * const kType       = @"type";
         _report.postData[field] = values;
     else
         [_report.postData removeObjectForKey:field];
+    [self.tableView reloadData];
+}
+
+#pragma mark - Location delegate
+- (void)didChooseLocation:(CLLocationCoordinate2D)location
+{
+    _report.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
+    _report.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude]
+                   completionHandler:^(NSArray *placemarks, NSError *error) {
+                       NSString *address = [placemarks[0] name];
+                       _report.postData[kOpen311_AddressString] = address ? address : @"";
+                       [self.tableView reloadData];
+                   }];
+    
     [self.tableView reloadData];
 }
 

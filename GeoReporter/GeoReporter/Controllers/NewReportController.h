@@ -10,8 +10,9 @@
 #import "Report.h"
 #import "TextEntryDelegate.h"
 #import "MultiValueDelegate.h"
+#import "LocationController.h"
 
-@interface NewReportController : UITableViewController <TextEntryDelegate, MultiValueDelegate>
+@interface NewReportController : UITableViewController <TextEntryDelegate, MultiValueDelegate, LocationChooserDelegate>
 @property NSDictionary *service;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerViewLabel;

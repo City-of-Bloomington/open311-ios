@@ -66,6 +66,7 @@ static NSInteger const kMapTypeSatelliteIndex = 1;
 - (IBAction)done:(id)sender
 {
     [self.delegate didChooseLocation:[self.map centerCoordinate]];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)centerOnLocation:(id)sender

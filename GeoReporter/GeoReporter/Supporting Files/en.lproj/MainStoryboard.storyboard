@@ -46,7 +46,7 @@
             <objects>
                 <tableViewController id="zXc-D2-iWn" customClass="NewReportController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="y7C-ch-ES6" customClass="TPKeyboardAvoidingTableView">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Lyq-j8-xyU">
@@ -134,6 +134,8 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="header" destination="hlh-vJ-yRs" id="RFS-Hd-STk"/>
+                                    <outlet property="mapView" destination="YgF-1n-Xbn" id="kck-gt-9Hu"/>
+                                    <segue destination="2KI-gM-Foh" kind="modal" identifier="SegueToLocation" id="tVh-gd-q8W"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="report_sinlge_value_cell" id="Blw-7i-Vys" customClass="SingleValueListCell">
@@ -507,7 +509,7 @@
             <objects>
                 <tableViewController id="MAu-Hh-k02" customClass="ReportController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="aax-01-BSl">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -546,7 +548,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="2KI-gM-Foh" kind="push" identifier="SegueToLocation" id="fOM-o6-y86"/>
                         <segue destination="aAT-zK-jfY" kind="push" identifier="SegueToSingleValueList" id="lZP-HD-Gw9"/>
                         <segue destination="E1f-iD-xYu" kind="push" identifier="SegueToText" id="ikZ-g1-o8m"/>
                         <segue destination="rvV-xd-gCY" kind="push" identifier="SegueToString" id="bGK-sV-n1W"/>
@@ -640,7 +641,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="MAu-Hh-k02" kind="push" id="uJ7-aE-usl"/>
+                                    <segue destination="zXc-D2-iWn" kind="push" id="dSM-j7-bUa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -975,28 +976,36 @@
             <objects>
                 <viewController id="2KI-gM-Foh" customClass="LocationController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f1y-As-GIM">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-6K-e3q">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-6K-e3q">
                                 <items>
                                     <barButtonItem image="iconLocation.png" id="gwd-WE-Aph">
                                         <connections>
                                             <action selector="centerOnLocation:" destination="2KI-gM-Foh" id="8zs-So-2Ws"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem width="18" style="plain" systemItem="fixedSpace" id="yHF-BV-LSH"/>
                                     <barButtonItem style="plain" id="Wsu-Dt-jZe">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="acZ-pK-YsY">
-                                            <rect key="frame" x="56" y="8" width="161" height="31"/>
+                                            <rect key="frame" x="74" y="8" width="161" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Standard"/>
                                                 <segment title="Satellite"/>
                                             </segments>
+                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="mapTypeChanged:" destination="2KI-gM-Foh" eventType="valueChanged" id="Zbz-xk-1sy"/>
                                             </connections>
                                         </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem width="18" style="plain" systemItem="fixedSpace" id="FQm-kX-ofC"/>
+                                    <barButtonItem title="Done" id="Y2W-6T-9cT">
+                                        <connections>
+                                            <action selector="done:" destination="2KI-gM-Foh" id="bv1-nV-j7s"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
@@ -1054,7 +1063,7 @@
             <objects>
                 <viewController id="aAT-zK-jfY" customClass="SingleValueListController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nbe-X3-Wlv">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHh-Rp-6Yw">
@@ -1103,7 +1112,7 @@
             <objects>
                 <viewController id="rvV-xd-gCY" customClass="StringController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jxU-e8-Ayj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="jyo-2U-1BN">
@@ -1147,7 +1156,7 @@
             <objects>
                 <viewController id="E1f-iD-xYu" customClass="TextController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vcQ-Xb-zhc">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="YYo-ip-Hfu">
@@ -1195,7 +1204,7 @@
             <objects>
                 <tableViewController id="e30-5K-jLZ" customClass="MultiValueListController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="RyU-YN-lG1">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1665,6 +1674,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
         <class className="LocationController" superclassName="UIViewController">
