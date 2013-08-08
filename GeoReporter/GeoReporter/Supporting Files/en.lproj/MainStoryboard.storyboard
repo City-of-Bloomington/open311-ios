@@ -266,22 +266,31 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEA-V8-Cwf">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="camera.png" translatesAutoresizingMaskIntoConstraints="NO" id="CEA-V8-Cwf">
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="Dgn-0W-1he"/>
                                                 <constraint firstAttribute="height" constant="40" id="gWS-OI-vSi"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView hidden="YES" contentMode="center" image="close.png" translatesAutoresizingMaskIntoConstraints="NO" id="mHM-OQ-DBr">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="ejs-XX-9HW"/>
+                                                <constraint firstAttribute="height" constant="40" id="jTm-b9-FVL"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="CEA-V8-Cwf" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" constant="9" id="8DM-Cv-hZW"/>
+                                    <constraint firstItem="CEA-V8-Cwf" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" constant="9" id="7XK-hL-3FG"/>
                                     <constraint firstItem="CEA-V8-Cwf" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="20" type="default" id="HKF-Yy-fQC"/>
-                                    <constraint firstAttribute="trailing" secondItem="fdR-6W-yiM" secondAttribute="trailing" constant="20" type="default" id="afk-WT-bj9"/>
-                                    <constraint firstItem="CEA-V8-Cwf" firstAttribute="centerY" secondItem="fdR-6W-yiM" secondAttribute="centerY" type="default" id="bpc-qb-D9g"/>
+                                    <constraint firstItem="fdR-6W-yiM" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" constant="20" type="default" id="QVu-Zv-fs2"/>
+                                    <constraint firstItem="fdR-6W-yiM" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="70" id="ZDX-sp-xgb"/>
+                                    <constraint firstItem="mHM-OQ-DBr" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" constant="-5" id="ZE1-4N-z7K"/>
+                                    <constraint firstItem="mHM-OQ-DBr" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="-6" id="Zow-HZ-GMU"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="closeImage" destination="mHM-OQ-DBr" id="HOn-BL-sPJ"/>
                                     <outlet property="header" destination="fdR-6W-yiM" id="bWD-Mz-NPk"/>
                                     <outlet property="image" destination="CEA-V8-Cwf" id="jFI-kx-QSJ"/>
                                 </connections>
@@ -1601,7 +1610,9 @@
     </scenes>
     <resources>
         <image name="accountTableCell.png" width="40" height="40"/>
+        <image name="camera.png" width="76" height="52"/>
         <image name="chatTableCell.png" width="40" height="40"/>
+        <image name="close.png" width="20" height="20"/>
         <image name="cross-hairs-small-black-cropped.png" width="70" height="70"/>
         <image name="home.png" width="30" height="30"/>
         <image name="iconLocation.png" width="20" height="20"/>
@@ -1690,6 +1701,7 @@
         <class className="MediaCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MediaCell.h"/>
             <relationships>
+                <relationship kind="outlet" name="closeImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="image" candidateClass="UIImageView"/>
             </relationships>

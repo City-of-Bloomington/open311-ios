@@ -11,5 +11,6 @@
 @interface MediaCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *header;
+@property (weak, nonatomic) IBOutlet UIImageView *closeImage;
 
 @end

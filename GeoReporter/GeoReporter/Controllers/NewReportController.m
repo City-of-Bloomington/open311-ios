@@ -38,6 +38,8 @@ UIImage *mediaThumbnail;
 UIActivityIndicatorView *busyIcon;
 NSString *header;
 
+
+
 static NSString * const kSegueToLocation        = @"SegueToLocation";
 static NSString * const kReportCell             = @"report_cell";
 static NSString * const kReportTextCell         = @"report_text_cell";
@@ -76,6 +78,7 @@ static NSString * const kType                   = @"type";
 {
     [super viewDidLoad];
     
+    
     currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
     
     self.navigationItem.title = _service[kOpen311_ServiceName];
@@ -84,9 +87,9 @@ static NSString * const kType                   = @"type";
     
     // First section: Photo and Location choosers
     fields = [[NSMutableArray alloc] init];
-#warning - uncomment the condition for camera
-    if (//[UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
-        /*&&*/ [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
+        && [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
         [fields addObject:@[
          @{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
          @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
@@ -257,9 +260,6 @@ static NSString * const kType                   = @"type";
             region.span = span;
             [locationCell.mapView setRegion:region animated:YES];
         }
-        
-        
-        
         return locationCell;
     }
     if ([type isEqualToString:kOpen311_MultiValueList]) {
@@ -314,11 +314,7 @@ static NSString * const kType                   = @"type";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMediaCell forIndexPath:indexPath];
         MediaCell* mediaCell = (MediaCell*) cell;
 #warning - media image 
-        mediaCell.header.text = @"Add image";
-        mediaCell.image.contentMode = UIViewContentModeScaleAspectFill;
-        mediaCell.image.image = [UIImage imageNamed:@"camera.png"];
-        return mediaCell;
-        /*
+        mediaCell.header.text = @"Add image";        
         NSURL *url = _report.postData[kOpen311_Media];
         if (url != nil) {
             // When the user-selected mediaUrl changes, we need to load a fresh thumbnail image
@@ -335,20 +331,42 @@ static NSString * const kType                   = @"type";
                         }];
             }
             if (mediaThumbnail != nil) {
-                [cell.imageView setImage:mediaThumbnail];
+                [mediaCell.image setImage:mediaThumbnail];
+                mediaCell.header.text = @"Change image";
+                mediaCell.closeImage.hidden = NO;
+               
             }
-        }*/
+        }
+        
+        return mediaCell;
     }
          
 }
 
 #pragma mark - Table view delegate
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//
-//   
-//}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *type = fields[indexPath.section][indexPath.row][kType];
+
+    if ([type isEqualToString:kOpen311_Media]) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
+            UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
+                                                               delegate:self
+                                                      cancelButtonTitle:nil
+                                                 destructiveButtonTitle:nil
+                                                      otherButtonTitles:nil, nil];
+            popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
+            [popup setCancelButtonIndex:2];
+            [popup showInView:self.view];
+        }
+    }
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -392,5 +410,61 @@ static NSString * const kType                   = @"type";
     
     [self.tableView reloadData];
 }
+
+#pragma mark - Image choosing handlers
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != 2) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = NO;
+        picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
+        picker.sourceType = buttonIndex == 0
+        ? UIImagePickerControllerSourceTypeCamera
+        : UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    if (info[UIImagePickerControllerMediaMetadata] != nil) {
+        // The user took a picture with the camera.
+        // We need to save that picture and just use the reference to it from the Saved Photos library.
+        [library writeImageToSavedPhotosAlbum:[image CGImage]
+                                     metadata:info[UIImagePickerControllerMediaMetadata]
+                              completionBlock:^(NSURL *assetURL, NSError *error) {
+                                  _report.postData[kOpen311_Media] = assetURL;
+                                  [self refreshMediaThumbnail];
+                              }];
+    }
+    else {
+        // The user chose an image from the library
+        _report.postData[kOpen311_Media] = info[UIImagePickerControllerReferenceURL];
+        [self refreshMediaThumbnail];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)refreshMediaThumbnail
+{
+    [library assetForURL:_report.postData[kOpen311_Media]
+             resultBlock:^(ALAsset *asset) {
+                 mediaThumbnail = [UIImage imageWithCGImage:[asset thumbnail]];
+                 [self.tableView reloadData];
+             }
+            failureBlock:^(NSError *error) {
+                DLog(@"Failed to load chosen image from library");
+            }];
+}
+
+
+
 
 @end

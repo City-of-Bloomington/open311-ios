@@ -19,6 +19,14 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+       
+    }
+    return self;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -26,4 +34,20 @@
     // Configure the view for the selected state
 }
 
+#pragma mark - UITapGestureRecognizerSelector
+
+- (void) deleteImage:(UITapGestureRecognizer *) sender
+{
+    self.image.image = [UIImage imageNamed:@"camera.png"];
+    self.closeImage.hidden = YES;
+}
+
+- (void)setCloseImage:(UIImageView *)closeImage
+{
+    _closeImage = closeImage;
+    self.closeImage.userInteractionEnabled = YES;
+    UITapGestureRecognizer * gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteImage:)];
+    [self.closeImage addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = YES;
+}
 @end
