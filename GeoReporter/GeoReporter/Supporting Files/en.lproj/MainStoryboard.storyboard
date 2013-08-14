@@ -340,13 +340,21 @@
                             <outlet property="delegate" destination="zXc-D2-iWn" id="6rx-Iy-jVu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ADZ-A6-2gy"/>
+                    <navigationItem key="navigationItem" id="ADZ-A6-2gy">
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="1P5-QI-miM">
+                            <connections>
+                                <action selector="send:" destination="zXc-D2-iWn" id="CDG-wa-Fav"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="headerView" destination="Lyq-j8-xyU" id="ZxD-mp-dd3"/>
                         <outlet property="headerViewLabel" destination="fgA-3j-odi" id="9wS-rb-pej"/>
+                        <segue destination="aHt-e7-HZl" kind="unwind" identifier="UnwindSegueFromReportToHome" unwindAction="didReturnAfterSendingReport:" id="anM-ii-Qg0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZS-ek-uXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="aHt-e7-HZl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1337" y="-2501"/>
         </scene>
@@ -1672,6 +1680,8 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1726,6 +1736,7 @@
         <class className="NewReportController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewReportController.h"/>
             <relationships>
+                <relationship kind="action" name="send:"/>
                 <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="headerViewLabel" candidateClass="UILabel"/>
             </relationships>
@@ -1808,6 +1819,9 @@
                 <relationship kind="outlet" name="label" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>

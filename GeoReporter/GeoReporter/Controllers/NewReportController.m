@@ -52,6 +52,7 @@ static NSString * const kReportSwitchCell       = @"report_switch_cell";
 static NSString * const kFieldname              = @"fieldname";
 static NSString * const kLabel                  = @"label";
 static NSString * const kType                   = @"type";
+static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportToHome";
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -371,7 +372,9 @@ static NSString * const kType                   = @"type";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [segue.destinationViewController setDelegate:self];
+    if ([segue.identifier isEqualToString:kSegueToLocation]) {
+        [segue.destinationViewController setDelegate:self];
+    }
 }
 
 #pragma mark - TextEntryDelegate
@@ -466,5 +469,43 @@ static NSString * const kType                   = @"type";
 
 
 
+#pragma mark send the report
+
+- (IBAction)send:(id)sender {
+    busyIcon = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    busyIcon.center = self.view.center;
+    [busyIcon setFrame:self.view.frame];
+    [busyIcon setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+    [busyIcon startAnimating];
+    [self.view addSubview:busyIcon];
+    
+    
+    Open311 *open311 = [Open311 sharedInstance];
+    
+    NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+    [notifications addObserver:self selector:@selector(postSucceeded) name:kNotification_PostSucceeded object:open311];
+    [notifications addObserver:self selector:@selector(postFailed)    name:kNotification_PostFailed    object:open311];
+    
+    [open311 startPostingServiceRequest:_report];
+}
+
+- (void)postSucceeded
+{
+    [busyIcon stopAnimating];
+    [busyIcon removeFromSuperview];
+    
+    // Remove the service so they cannot post this report again,
+    // without starting the process from scratch.
+    _service = nil;
+    
+    // Go to Home screen
+    [self performSegueWithIdentifier:kUnwindSegueFromReportToHome sender:self];
+}
+
+- (void)postFailed
+{
+    [busyIcon stopAnimating];
+    [busyIcon removeFromSuperview];
+}
 
 @end
