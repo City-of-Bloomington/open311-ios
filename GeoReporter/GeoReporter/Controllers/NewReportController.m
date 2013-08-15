@@ -213,7 +213,6 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
     NSDictionary *field = fields[indexPath.section][indexPath.row];
 
     NSString *type = field[kType];
-#warning - didn't cover the case for image cell
     
     
     if ([type isEqualToString:kOpen311_Text]) {
