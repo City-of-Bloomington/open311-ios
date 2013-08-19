@@ -50,7 +50,8 @@ static NSInteger const kMapTypeSatelliteIndex = 1;
     span.latitudeDelta  = 0.0025; // arbitrary value seems to look OK
     span.longitudeDelta = 0.0025; // arbitrary value seems to look OK
     region.span = span;
-    [self.map setRegion:region animated:YES];
+    //[self.map setRegion:region animated:YES];
+    [self.map setRegion:region animated:NO];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -58,13 +59,21 @@ static NSInteger const kMapTypeSatelliteIndex = 1;
     CLLocation* location = [locations lastObject];
     NSDate* eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 15.0) {
-        [self zoomToLocation:location];
+    if (self.selectedLocation == nil) {
+        if (abs(howRecent) < 15.0) {
+            [self zoomToLocation:location];
+        }
     }
+    else {
+        [self zoomToLocation:self.selectedLocation];
+    }
+    
 }
 
 - (IBAction)done:(id)sender
 {
+    CLLocation * location = [[CLLocation alloc] initWithLatitude:[self.map centerCoordinate].latitude longitude:[self.map centerCoordinate].longitude];
+    self.selectedLocation = location;
     [self.delegate didChooseLocation:[self.map centerCoordinate]];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

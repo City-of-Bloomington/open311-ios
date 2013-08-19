@@ -39,6 +39,7 @@ UIActivityIndicatorView *busyIcon;
 NSString *header;
 
 
+CLLocation *locationFromLocationController;
 
 static NSString * const kSegueToLocation        = @"SegueToLocation";
 static NSString * const kReportCell             = @"report_cell";
@@ -78,8 +79,7 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
+    locationFromLocationController = nil;
     currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
     
     self.navigationItem.title = _service[kOpen311_ServiceName];
@@ -373,6 +373,8 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
 {
     if ([segue.identifier isEqualToString:kSegueToLocation]) {
         [segue.destinationViewController setDelegate:self];
+        LocationController *destinationController = (LocationController*)segue.destinationViewController;
+        destinationController.selectedLocation = locationFromLocationController;
     }
 }
 
@@ -399,6 +401,8 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
 #pragma mark - Location delegate
 - (void)didChooseLocation:(CLLocationCoordinate2D)location
 {
+    locationFromLocationController = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+    
     _report.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
     _report.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
     
