@@ -201,9 +201,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MultiValueListCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="phE-zR-gSq">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="20" type="user" id="7h7-N5-0Li"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -239,7 +236,7 @@
                                 <constraints>
                                     <constraint firstItem="lKo-AZ-V20" firstAttribute="leading" secondItem="0Fu-gi-6Zc" secondAttribute="leading" constant="20" type="default" id="21k-Rb-3Pq"/>
                                     <constraint firstItem="lKo-AZ-V20" firstAttribute="top" secondItem="phE-zR-gSq" secondAttribute="bottom" constant="2" type="user" id="I7u-Jp-eso"/>
-                                    <constraint firstItem="phE-zR-gSq" firstAttribute="top" secondItem="0Fu-gi-6Zc" secondAttribute="top" type="user" id="LTz-Kg-hyg"/>
+                                    <constraint firstItem="phE-zR-gSq" firstAttribute="top" secondItem="0Fu-gi-6Zc" secondAttribute="top" constant="2" type="user" id="LTz-Kg-hyg"/>
                                     <constraint firstAttribute="trailing" secondItem="lKo-AZ-V20" secondAttribute="trailing" constant="20" type="default" id="RU9-LT-agY"/>
                                     <constraint firstItem="phE-zR-gSq" firstAttribute="leading" secondItem="0Fu-gi-6Zc" secondAttribute="leading" constant="20" type="default" id="eWQ-uJ-td1"/>
                                     <constraint firstAttribute="trailing" secondItem="phE-zR-gSq" secondAttribute="trailing" constant="20" type="default" id="rFd-Wt-fpi"/>
@@ -1717,7 +1714,6 @@
         <class className="MultiValueListCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MultiValueListCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="cellText" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="tableViewInsideCell" candidateClass="UITableView"/>
             </relationships>
