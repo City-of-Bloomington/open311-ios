@@ -215,7 +215,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="bJu-LS-iSv">
+                                                            <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="24" translatesAutoresizingMaskIntoConstraints="NO" id="bJu-LS-iSv">
                                                                 <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1411,6 +1411,43 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="xLB-DJ-hMi">
+                            <rect key="frame" x="0.0" y="234" width="320" height="74"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9l-wM-Jx8">
+                                    <connections>
+                                        <action selector="didChangeSwitchValue:" destination="ufC-lV-6kH" eventType="valueChanged" id="bSI-tf-AWe"/>
+                                    </connections>
+                                </switch>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Include contact info in report:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXI-DF-rCW">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="211" id="LNx-HZ-OAU"/>
+                                        <constraint firstAttribute="height" constant="21" id="rmm-cz-rGd"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="If the switch is &quot;off&quot;, the report will be anonymous" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="iTS-3c-8H5">
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="51" id="Kr0-GY-NAC"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="12"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="iTS-3c-8H5" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="1ni-bd-8lg"/>
+                                <constraint firstItem="iTS-3c-8H5" firstAttribute="bottom" secondItem="xLB-DJ-hMi" secondAttribute="bottom" type="default" id="Br0-uw-JAq"/>
+                                <constraint firstItem="iTS-3c-8H5" firstAttribute="leading" secondItem="xLB-DJ-hMi" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="DDQ-IN-Yjz"/>
+                                <constraint firstItem="hXI-DF-rCW" firstAttribute="leading" secondItem="xLB-DJ-hMi" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="IZ4-BH-IdO"/>
+                                <constraint firstAttribute="trailing" secondItem="g9l-wM-Jx8" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="LLX-DG-CdC"/>
+                                <constraint firstItem="g9l-wM-Jx8" firstAttribute="top" secondItem="xLB-DJ-hMi" secondAttribute="top" constant="8" id="mot-ri-p6o"/>
+                                <constraint firstItem="hXI-DF-rCW" firstAttribute="centerY" secondItem="g9l-wM-Jx8" secondAttribute="centerY" type="default" id="zpe-R3-9pU"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="Personal Info" id="7R9-Ca-c0C">
                                 <cells>
@@ -1594,6 +1631,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="rcO-0r-0BI"/>
                     <connections>
+                        <outlet property="anonymousSwitch" destination="g9l-wM-Jx8" id="VNG-zf-M7Q"/>
                         <outlet property="labelEmail" destination="iL4-Wn-efr" id="UVL-h1-KwB"/>
                         <outlet property="labelFirstName" destination="N9D-Lr-WAK" id="fhr-al-h4r"/>
                         <outlet property="labelLastName" destination="8NF-ka-iID" id="umh-e9-GEj"/>
@@ -1677,6 +1715,8 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1739,6 +1779,8 @@
         <class className="PersonalInfoController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoController.h"/>
             <relationships>
+                <relationship kind="action" name="didChangeSwitchValue:"/>
+                <relationship kind="outlet" name="anonymousSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelFirstName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelLastName" candidateClass="UILabel"/>

@@ -23,4 +23,7 @@
 @property (nonatomic, weak) IBOutlet UITextField *textFieldEmail;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldPhone;
 
+- (IBAction)didChangeSwitchValue:(id)sender;
+@property (weak, nonatomic) IBOutlet UISwitch *anonymousSwitch;
+
 @end

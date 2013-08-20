@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(kUI_PersonalInfo, nil);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self didChangeSwitchValue:nil];
     
     self.labelFirstName.text = NSLocalizedString(kUI_FirstName, nil);
     self.labelLastName .text = NSLocalizedString(kUI_LastName,  nil);
@@ -165,68 +166,46 @@
     }
 }
 
-#pragma mark - keyboard events
 
-#define kOFFSET_FOR_KEYBOARD 30.0
-
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-    
+- (IBAction)didChangeSwitchValue:(id)sender {
+    if (self.anonymousSwitch.isOn) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+        self.textFieldFirstName.enabled = NO;
+        self.textFieldLastName.enabled = NO;
+        self.textFieldEmail.enabled = NO;
+        self.textFieldPhone.enabled = NO;
+        
+        self.textFieldFirstName .placeholder = @"tap edit to insert";
+        self.textFieldLastName  .placeholder = @"tap edit to insert";
+        self.textFieldEmail     .placeholder = @"tap edit to insert";
+        self.textFieldPhone     .placeholder = @"tap edit to insert";
+    }
+    else {
+        [self setEditing:NO animated:YES];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+        self.textFieldFirstName.enabled = NO;
+        self.textFieldLastName.enabled = NO;
+        self.textFieldEmail.enabled = NO;
+        self.textFieldPhone.enabled = NO;
+        
+        self.textFieldFirstName .placeholder = @"anonymous";
+        self.textFieldLastName  .placeholder = @"";
+        self.textFieldEmail     .placeholder = @"";
+        self.textFieldPhone     .placeholder = @"";
+        
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        
+        self.textFieldFirstName.text = @"";
+        self.textFieldLastName .text = @"";
+        self.textFieldEmail    .text = @"";
+        self.textFieldPhone    .text = @"";
+        
+        [preferences setValue:self.textFieldFirstName.text forKey:kOpen311_FirstName];
+        [preferences setValue:self.textFieldLastName .text forKey:kOpen311_LastName];
+        [preferences setValue:self.textFieldEmail    .text forKey:kOpen311_Email];
+        [preferences setValue:self.textFieldPhone    .text forKey:kOpen311_Phone];
+    }
 }
-
--(void)keyboardWillShow {
-    // Animate the current view out of the way
-    if (self.view.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)keyboardWillHide {
-    if (self.view.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)setViewMovedUp:(BOOL)movedUp
-{
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
-    
-    CGRect rect = self.view.frame;
-    if (movedUp)
-    {
-        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
-        // 2. increase the size of the view so that the area behind the keyboard is covered up.
-        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-        rect.size.height += kOFFSET_FOR_KEYBOARD;
-    }
-    else
-    {
-        // revert back to the normal state.
-        rect.origin.y += kOFFSET_FOR_KEYBOARD;
-        rect.size.height -= kOFFSET_FOR_KEYBOARD;
-    }
-    self.view.frame = rect;
-    
-    [UIView commitAnimations];
-}
-
-
 @end
