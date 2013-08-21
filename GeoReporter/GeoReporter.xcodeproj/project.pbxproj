@@ -19,6 +19,14 @@
 		29AE3A4517AE838900447F21 /* FullImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29AE3A4417AE838900447F21 /* FullImageController.m */; };
 		29AE3A4717B3020300447F21 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29AE3A4617B3020300447F21 /* close@2x.png */; };
 		29AE3A4917B3077800447F21 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 29AE3A4817B3077800447F21 /* close.png */; };
+		29C28F3E17C556A000E38B51 /* radio_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F3C17C556A000E38B51 /* radio_selected.png */; };
+		29C28F3F17C556A000E38B51 /* radio_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F3D17C556A000E38B51 /* radio_selected@2x.png */; };
+		29C28F4217C5571500E38B51 /* radio_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4017C5571500E38B51 /* radio_unselected@2x.png */; };
+		29C28F4317C5571500E38B51 /* radio_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4117C5571500E38B51 /* radio_unselected.png */; };
+		29C28F4617C558C800E38B51 /* checkbox_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4417C558C800E38B51 /* checkbox_unselected.png */; };
+		29C28F4717C558C800E38B51 /* checkbox_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4517C558C800E38B51 /* checkbox_unselected@2x.png */; };
+		29C28F4A17C5598300E38B51 /* checkbox_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4817C5598300E38B51 /* checkbox_selected@2x.png */; };
+		29C28F4B17C5598300E38B51 /* checkbox_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4917C5598300E38B51 /* checkbox_selected.png */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		690D7A5016C2D737001DD365 /* SingleValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A4F16C2D737001DD365 /* SingleValueListController.m */; };
@@ -126,6 +134,14 @@
 		29AE3A4417AE838900447F21 /* FullImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullImageController.m; sourceTree = "<group>"; };
 		29AE3A4617B3020300447F21 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		29AE3A4817B3077800447F21 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		29C28F3C17C556A000E38B51 /* radio_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_selected.png; sourceTree = "<group>"; };
+		29C28F3D17C556A000E38B51 /* radio_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radio_selected@2x.png"; sourceTree = "<group>"; };
+		29C28F4017C5571500E38B51 /* radio_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radio_unselected@2x.png"; sourceTree = "<group>"; };
+		29C28F4117C5571500E38B51 /* radio_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_unselected.png; sourceTree = "<group>"; };
+		29C28F4417C558C800E38B51 /* checkbox_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_unselected.png; sourceTree = "<group>"; };
+		29C28F4517C558C800E38B51 /* checkbox_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_unselected@2x.png"; sourceTree = "<group>"; };
+		29C28F4817C5598300E38B51 /* checkbox_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_selected@2x.png"; sourceTree = "<group>"; };
+		29C28F4917C5598300E38B51 /* checkbox_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_selected.png; sourceTree = "<group>"; };
 		29E22401179B06D100F76C01 /* NewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReportController.h; sourceTree = "<group>"; };
 		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
@@ -341,6 +357,14 @@
 			children = (
 				69FE9E6316D67BC2007021B9 /* Cities */,
 				69FE9E6816D67E99007021B9 /* accountTableCell.png */,
+				29C28F4417C558C800E38B51 /* checkbox_unselected.png */,
+				29C28F4517C558C800E38B51 /* checkbox_unselected@2x.png */,
+				29C28F3C17C556A000E38B51 /* radio_selected.png */,
+				29C28F3D17C556A000E38B51 /* radio_selected@2x.png */,
+				29C28F4017C5571500E38B51 /* radio_unselected@2x.png */,
+				29C28F4817C5598300E38B51 /* checkbox_selected@2x.png */,
+				29C28F4917C5598300E38B51 /* checkbox_selected.png */,
+				29C28F4117C5571500E38B51 /* radio_unselected.png */,
 				69FE9E6916D67E99007021B9 /* accountTableCell@2x.png */,
 				29719D5E17AD14BE007367AF /* camera.png */,
 				69B2464416D5410900C47475 /* chat.png */,
@@ -617,6 +641,14 @@
 				29719D6717AD2CB3007367AF /* serverTableCell2x.png in Resources */,
 				29AE3A4717B3020300447F21 /* close@2x.png in Resources */,
 				29AE3A4917B3077800447F21 /* close.png in Resources */,
+				29C28F3E17C556A000E38B51 /* radio_selected.png in Resources */,
+				29C28F3F17C556A000E38B51 /* radio_selected@2x.png in Resources */,
+				29C28F4217C5571500E38B51 /* radio_unselected@2x.png in Resources */,
+				29C28F4317C5571500E38B51 /* radio_unselected.png in Resources */,
+				29C28F4617C558C800E38B51 /* checkbox_unselected.png in Resources */,
+				29C28F4717C558C800E38B51 /* checkbox_unselected@2x.png in Resources */,
+				29C28F4A17C5598300E38B51 /* checkbox_selected@2x.png in Resources */,
+				29C28F4B17C5598300E38B51 /* checkbox_selected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

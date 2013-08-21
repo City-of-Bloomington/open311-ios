@@ -62,11 +62,13 @@
         key = [(NSNumber *)key stringValue];
     }
     if ([key isEqual:self.selectedOption]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        //cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.imageView.image = [UIImage imageNamed:@"radio_selected"];
     }
     else
     {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        //cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.imageView.image = [UIImage imageNamed:@"radio_unselected"];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

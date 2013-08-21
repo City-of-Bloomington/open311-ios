@@ -62,11 +62,13 @@
         key = [(NSNumber *)key stringValue];
     }
     if ([self.selectedOptions containsObject:key]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        //cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.imageView.image = [UIImage imageNamed:@"checkbox_selected"];
     }
     else
     {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        //cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.imageView.image = [UIImage imageNamed:@"checkbox_unselected"];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
