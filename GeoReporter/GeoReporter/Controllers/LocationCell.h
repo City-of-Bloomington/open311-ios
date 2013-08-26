@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+#define LOCATION_CELL_HEIGHT 110
+
 @interface LocationCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;

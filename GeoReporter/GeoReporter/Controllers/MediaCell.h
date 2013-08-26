@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define MEDIA_CELL_HEIGHT 60
+
 @interface MediaCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *header;

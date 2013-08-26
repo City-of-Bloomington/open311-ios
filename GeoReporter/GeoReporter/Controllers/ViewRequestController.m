@@ -196,8 +196,8 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
             //don't have image
             if (indexPath.row == 1) {
                 cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-#warning - hardcoded string
-                cell.textLabel.text = @"Description of problem";
+                
+                cell.textLabel.text = kUI_DescriptionOfProblem;
                 [cell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
                 [cell.detailTextLabel setNumberOfLines:0];
                 cell.detailTextLabel.text = [self getReportDescription];

@@ -11,6 +11,8 @@
 
 @implementation SingleValueListCell
 
+static NSString * const kInnerCellIdentifier = @"inner_cell";
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -41,19 +43,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning hardcoded
     return 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning hardoced string inner cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"inner_cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kInnerCellIdentifier forIndexPath:indexPath];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                       reuseIdentifier:@"inner_cell"];
+                                       reuseIdentifier:kInnerCellIdentifier];
     }
     
     cell.textLabel.text = self.attribute[kOpen311_Values][indexPath.row][kOpen311_Name];

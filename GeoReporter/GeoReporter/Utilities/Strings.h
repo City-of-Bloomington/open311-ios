@@ -49,6 +49,7 @@ extern NSString * const kUI_Satellite;
 extern NSString * const kUI_ReportStatus;
 extern NSString * const kUI_ReportAttributes;
 extern NSString * const kUI_ReportDescription;
+extern NSString * const kUI_DescriptionOfProblem;
 extern NSString * const kUI_ReportDate;
 extern NSString * const kUI_Submit;
 extern NSString * const kUI_Cancel;

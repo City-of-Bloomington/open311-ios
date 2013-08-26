@@ -198,13 +198,10 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
         CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
         return 2 + STRING_CELL_BOTTOM_SPACE + STRING_CELL_TEXT_FIELD_HEIGHT + headerSize.height;
     }
-    
     if ([type isEqualToString:kOpen311_Address])
-        return 110;
-    
-#warning - hardcoded value
+        return LOCATION_CELL_HEIGHT;
     if ([type isEqualToString:kOpen311_Media])
-        return 60;
+        return MEDIA_CELL_HEIGHT;
     return 100;
 }
 
@@ -313,7 +310,7 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
     if ([type isEqualToString:kOpen311_Media]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMediaCell forIndexPath:indexPath];
         MediaCell* mediaCell = (MediaCell*) cell;
-#warning - media image 
+        
         mediaCell.header.text = @"Add image";        
         NSURL *url = _report.postData[kOpen311_Media];
         if (url != nil) {
