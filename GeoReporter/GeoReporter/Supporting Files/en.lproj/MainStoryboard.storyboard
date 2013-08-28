@@ -1008,14 +1008,15 @@
                                             <action selector="centerOnLocation:" destination="2KI-gM-Foh" id="8zs-So-2Ws"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="18" style="plain" systemItem="fixedSpace" id="yHF-BV-LSH"/>
+                                    <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="yHF-BV-LSH"/>
                                     <barButtonItem style="plain" id="Wsu-Dt-jZe">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="acZ-pK-YsY">
-                                            <rect key="frame" x="74" y="8" width="161" height="31"/>
+                                            <rect key="frame" x="66" y="8" width="178" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Standard"/>
                                                 <segment title="Satellite"/>
+                                                <segment title="Hybrid"/>
                                             </segments>
                                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -1023,7 +1024,7 @@
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
-                                    <barButtonItem width="18" style="plain" systemItem="fixedSpace" id="FQm-kX-ofC"/>
+                                    <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="FQm-kX-ofC"/>
                                     <barButtonItem title="Done" id="Y2W-6T-9cT">
                                         <connections>
                                             <action selector="done:" destination="2KI-gM-Foh" id="bv1-nV-j7s"/>

@@ -19,6 +19,7 @@
 
 static NSInteger const kMapTypeStandardIndex  = 0;
 static NSInteger const kMapTypeSatelliteIndex = 1;
+static NSInteger const kMapTypeHybridIndex = 2;
 
 @implementation LocationController {
     CLLocationManager *locationManager;
@@ -92,6 +93,9 @@ static NSInteger const kMapTypeSatelliteIndex = 1;
             
         case kMapTypeSatelliteIndex:
             [self.map setMapType:MKMapTypeSatellite];
+            break;
+        case kMapTypeHybridIndex:
+            [self.map setMapType:MKMapTypeHybrid];
             break;
     }
 }
