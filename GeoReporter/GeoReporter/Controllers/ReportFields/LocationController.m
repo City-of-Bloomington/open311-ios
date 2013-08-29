@@ -10,7 +10,6 @@
  */
 
 #import "LocationController.h"
-#import "ReportController.h"
 #import "Strings.h"
 
 @interface LocationController ()
@@ -51,7 +50,6 @@ static NSInteger const kMapTypeHybridIndex = 2;
     span.latitudeDelta  = 0.0025; // arbitrary value seems to look OK
     span.longitudeDelta = 0.0025; // arbitrary value seems to look OK
     region.span = span;
-    //[self.map setRegion:region animated:YES];
     [self.map setRegion:region animated:NO];
 }
 

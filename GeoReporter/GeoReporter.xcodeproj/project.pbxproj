@@ -29,10 +29,6 @@
 		29C28F4B17C5598300E38B51 /* checkbox_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4917C5598300E38B51 /* checkbox_selected.png */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
-		690D7A5016C2D737001DD365 /* SingleValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A4F16C2D737001DD365 /* SingleValueListController.m */; };
-		690D7A5316C2E0B2001DD365 /* MultiValueListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A5216C2E0B2001DD365 /* MultiValueListController.m */; };
-		690D7A5616C2E0CB001DD365 /* TextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A5516C2E0CB001DD365 /* TextController.m */; };
-		690D7A5B16C2F7C4001DD365 /* StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D7A5A16C2F7C4001DD365 /* StringController.m */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
 		692D042B16C1A2580011C190 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D042A16C1A2580011C190 /* LocationController.m */; };
 		692D042D16C1A5DA0011C190 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042C16C1A5DA0011C190 /* CoreLocation.framework */; };
@@ -46,7 +42,6 @@
 		6988CD1D16B2F1580066E796 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD1C16B2F1580066E796 /* HomeController.m */; };
 		6988CD2616B309450066E796 /* ServersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2516B309450066E796 /* ServersController.m */; };
 		6988CD2916B309560066E796 /* ArchiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2816B309560066E796 /* ArchiveController.m */; };
-		6988CD2C16B3097A0066E796 /* ReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2B16B3097A0066E796 /* ReportController.m */; };
 		6988CD2F16B30CF70066E796 /* PersonalInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6988CD2E16B30CF70066E796 /* PersonalInfoController.m */; };
 		69A4D2641732F55300AA1AC6 /* columbus.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A4D2621732F55300AA1AC6 /* columbus.png */; };
 		69A4D2651732F55300AA1AC6 /* columbus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A4D2631732F55300AA1AC6 /* columbus@2x.png */; };
@@ -146,15 +141,7 @@
 		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
 		690D7A4C16C2BE1D001DD365 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
-		690D7A4E16C2D737001DD365 /* SingleValueListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleValueListController.h; sourceTree = "<group>"; };
-		690D7A4F16C2D737001DD365 /* SingleValueListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleValueListController.m; sourceTree = "<group>"; };
-		690D7A5116C2E0B2001DD365 /* MultiValueListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiValueListController.h; sourceTree = "<group>"; };
-		690D7A5216C2E0B2001DD365 /* MultiValueListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueListController.m; sourceTree = "<group>"; };
-		690D7A5416C2E0CB001DD365 /* TextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextController.h; sourceTree = "<group>"; };
-		690D7A5516C2E0CB001DD365 /* TextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextController.m; sourceTree = "<group>"; };
 		690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextEntryDelegate.h; sourceTree = "<group>"; };
-		690D7A5916C2F7C4001DD365 /* StringController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringController.h; sourceTree = "<group>"; };
-		690D7A5A16C2F7C4001DD365 /* StringController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringController.m; sourceTree = "<group>"; };
 		692D042616C188B50011C190 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		692D042916C1A2580011C190 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		692D042A16C1A2580011C190 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
@@ -176,8 +163,6 @@
 		6988CD2516B309450066E796 /* ServersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServersController.m; sourceTree = "<group>"; };
 		6988CD2716B309560066E796 /* ArchiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveController.h; sourceTree = "<group>"; };
 		6988CD2816B309560066E796 /* ArchiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveController.m; sourceTree = "<group>"; };
-		6988CD2A16B3097A0066E796 /* ReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportController.h; sourceTree = "<group>"; };
-		6988CD2B16B3097A0066E796 /* ReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportController.m; sourceTree = "<group>"; };
 		6988CD2D16B30CF70066E796 /* PersonalInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoController.h; sourceTree = "<group>"; };
 		6988CD2E16B30CF70066E796 /* PersonalInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoController.m; sourceTree = "<group>"; };
 		69A4D2621732F55300AA1AC6 /* columbus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = columbus.png; sourceTree = "<group>"; };
@@ -305,15 +290,7 @@
 			children = (
 				692D042916C1A2580011C190 /* LocationController.h */,
 				692D042A16C1A2580011C190 /* LocationController.m */,
-				690D7A4E16C2D737001DD365 /* SingleValueListController.h */,
-				690D7A4F16C2D737001DD365 /* SingleValueListController.m */,
-				690D7A5116C2E0B2001DD365 /* MultiValueListController.h */,
-				690D7A5216C2E0B2001DD365 /* MultiValueListController.m */,
-				690D7A5416C2E0CB001DD365 /* TextController.h */,
-				690D7A5516C2E0CB001DD365 /* TextController.m */,
 				690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */,
-				690D7A5916C2F7C4001DD365 /* StringController.h */,
-				690D7A5A16C2F7C4001DD365 /* StringController.m */,
 				690A55E616C433A20076D6A5 /* MultiValueDelegate.h */,
 			);
 			path = ReportFields;
@@ -330,8 +307,6 @@
 				6988CD2516B309450066E796 /* ServersController.m */,
 				6988CD2716B309560066E796 /* ArchiveController.h */,
 				6988CD2816B309560066E796 /* ArchiveController.m */,
-				6988CD2A16B3097A0066E796 /* ReportController.h */,
-				6988CD2B16B3097A0066E796 /* ReportController.m */,
 				6988CD2D16B30CF70066E796 /* PersonalInfoController.h */,
 				6988CD2E16B30CF70066E796 /* PersonalInfoController.m */,
 				69C2AEFC16B32E330037ED57 /* AboutController.h */,
@@ -718,7 +693,6 @@
 				6988CD1D16B2F1580066E796 /* HomeController.m in Sources */,
 				6988CD2616B309450066E796 /* ServersController.m in Sources */,
 				6988CD2916B309560066E796 /* ArchiveController.m in Sources */,
-				6988CD2C16B3097A0066E796 /* ReportController.m in Sources */,
 				6988CD2F16B30CF70066E796 /* PersonalInfoController.m in Sources */,
 				69C062DC16B3193F005E4D67 /* Strings.m in Sources */,
 				69C2AEFE16B32E330037ED57 /* AboutController.m in Sources */,
@@ -729,10 +703,6 @@
 				69E57B6F16BC153A004B7094 /* ChooseServiceController.m in Sources */,
 				69ED1CF916BFFABF00A8DED2 /* Report.m in Sources */,
 				692D042B16C1A2580011C190 /* LocationController.m in Sources */,
-				690D7A5016C2D737001DD365 /* SingleValueListController.m in Sources */,
-				690D7A5316C2E0B2001DD365 /* MultiValueListController.m in Sources */,
-				690D7A5616C2E0CB001DD365 /* TextController.m in Sources */,
-				690D7A5B16C2F7C4001DD365 /* StringController.m in Sources */,
 				69F2E93916CAAC480027F580 /* ViewRequestController.m in Sources */,
 				69F2E93C16CACA6D0027F580 /* Media.m in Sources */,
 				29E22403179B06D100F76C01 /* NewReportController.m in Sources */,

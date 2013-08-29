@@ -361,7 +361,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZS-ek-uXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aHt-e7-HZl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1337" y="-2501"/>
+            <point key="canvasLocation" x="1467" y="-1771"/>
         </scene>
         <!--Archive Controller - Archive-->
         <scene sceneID="5cC-HS-u0q">
@@ -525,62 +525,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sfW-0K-J0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1307" y="479"/>
-        </scene>
-        <!--Report Controller-->
-        <scene sceneID="Vyr-4U-jyH">
-            <objects>
-                <tableViewController id="MAu-Hh-k02" customClass="ReportController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="aax-01-BSl">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="report_cell" textLabel="Gg3-Ny-bG9" detailTextLabel="4Fz-HB-jgU" style="IBUITableViewCellStyleSubtitle" id="nh7-BO-I9o">
-                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="280" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gg3-Ny-bG9">
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Fz-HB-jgU">
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="MAu-Hh-k02" id="PJg-eN-vSu"/>
-                            <outlet property="delegate" destination="MAu-Hh-k02" id="lZk-5A-aRx"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="0eY-AR-nai">
-                        <barButtonItem key="rightBarButtonItem" title="Send" style="done" id="dda-KV-Go6">
-                            <connections>
-                                <action selector="done:" destination="MAu-Hh-k02" id="iMt-SB-ObB"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="aAT-zK-jfY" kind="push" identifier="SegueToSingleValueList" id="lZP-HD-Gw9"/>
-                        <segue destination="E1f-iD-xYu" kind="push" identifier="SegueToText" id="ikZ-g1-o8m"/>
-                        <segue destination="rvV-xd-gCY" kind="push" identifier="SegueToString" id="bGK-sV-n1W"/>
-                        <segue destination="e30-5K-jLZ" kind="push" identifier="SegueToMultiValueList" id="FuP-tf-hyc"/>
-                        <segue destination="6tv-vy-nEQ" kind="unwind" identifier="UnwindSegueFromReportToHome" unwindAction="didReturnAfterSendingReport:" id="h4Q-PO-IBf"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h8F-GY-Vqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="6tv-vy-nEQ" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1337" y="-1771"/>
         </scene>
         <!--Choose Group Controller-->
         <scene sceneID="6gE-bR-p3p">
@@ -1080,190 +1024,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRM-0M-qEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1921" y="-1771"/>
-        </scene>
-        <!--Single Value List Controller-->
-        <scene sceneID="tmd-gM-3tH">
-            <objects>
-                <viewController id="aAT-zK-jfY" customClass="SingleValueListController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nbe-X3-Wlv">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHh-Rp-6Yw">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="UVt-A8-3Iz"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="aAT-zK-jfY" id="IY6-u1-BoC"/>
-                                    <outlet property="delegate" destination="aAT-zK-jfY" id="Cfy-2i-1gk"/>
-                                </connections>
-                            </pickerView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GOm-0T-ceu">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="GOm-0T-ceu" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="B4W-cf-QXH"/>
-                            <constraint firstItem="YHh-Rp-6Yw" firstAttribute="trailing" secondItem="nbe-X3-Wlv" secondAttribute="trailing" type="default" id="GkN-ug-oVF"/>
-                            <constraint firstItem="YHh-Rp-6Yw" firstAttribute="bottom" secondItem="nbe-X3-Wlv" secondAttribute="bottom" type="default" id="RgM-N4-V89"/>
-                            <constraint firstItem="YHh-Rp-6Yw" firstAttribute="leading" secondItem="nbe-X3-Wlv" secondAttribute="leading" type="default" id="cJv-Ml-EZW"/>
-                            <constraint firstItem="GOm-0T-ceu" firstAttribute="top" secondItem="nbe-X3-Wlv" secondAttribute="top" constant="20" symbolic="YES" type="default" id="pGl-Sg-4gz"/>
-                            <constraint firstItem="GOm-0T-ceu" firstAttribute="leading" secondItem="nbe-X3-Wlv" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="yqM-Uc-g6h"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="mux-RM-mpn">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="dEk-bn-G8I">
-                            <connections>
-                                <action selector="done:" destination="aAT-zK-jfY" id="s1i-pm-CF4"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="label" destination="GOm-0T-ceu" id="PPE-9h-Bg6"/>
-                        <outlet property="picker" destination="YHh-Rp-6Yw" id="wuR-bd-GfX"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dzG-da-S8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1921" y="481"/>
-        </scene>
-        <!--String Controller-->
-        <scene sceneID="f49-og-nPL">
-            <objects>
-                <viewController id="rvV-xd-gCY" customClass="StringController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jxU-e8-Ayj">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="jyo-2U-1BN">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yPt-K9-77B">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="yPt-K9-77B" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="A6A-tp-dXr"/>
-                            <constraint firstItem="yPt-K9-77B" firstAttribute="top" secondItem="jyo-2U-1BN" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="AA7-uf-DNa"/>
-                            <constraint firstAttribute="trailing" secondItem="jyo-2U-1BN" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="dIl-qY-kNL"/>
-                            <constraint firstItem="yPt-K9-77B" firstAttribute="leading" secondItem="jxU-e8-Ayj" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="fss-QF-Vzi"/>
-                            <constraint firstItem="jyo-2U-1BN" firstAttribute="top" secondItem="jxU-e8-Ayj" secondAttribute="top" constant="20" symbolic="YES" type="default" id="iad-zk-TWU"/>
-                            <constraint firstItem="jyo-2U-1BN" firstAttribute="leading" secondItem="jxU-e8-Ayj" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="n8W-3y-3OZ"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="IX1-hI-Y2g">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="hwC-TX-9YT">
-                            <connections>
-                                <action selector="done:" destination="rvV-xd-gCY" id="9Ft-CF-Asj"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="label" destination="jyo-2U-1BN" id="0er-n2-9P8"/>
-                        <outlet property="textField" destination="yPt-K9-77B" id="7Aa-K2-hvA"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZvK-XD-aoU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1921" y="-1037"/>
-        </scene>
-        <!--Text Controller-->
-        <scene sceneID="3Uq-AH-STK">
-            <objects>
-                <viewController id="E1f-iD-xYu" customClass="TextController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vcQ-Xb-zhc">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="YYo-ip-Hfu">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sdk-DQ-5Gv">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="H74-pP-JUn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="YYo-ip-Hfu" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="43I-yc-zXc"/>
-                            <constraint firstItem="YYo-ip-Hfu" firstAttribute="top" secondItem="vcQ-Xb-zhc" secondAttribute="top" constant="20" symbolic="YES" type="default" id="7mR-2v-SPQ"/>
-                            <constraint firstItem="sdk-DQ-5Gv" firstAttribute="leading" secondItem="vcQ-Xb-zhc" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="CCK-g6-iBJ"/>
-                            <constraint firstItem="YYo-ip-Hfu" firstAttribute="leading" secondItem="vcQ-Xb-zhc" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="MCR-E6-Wr2"/>
-                            <constraint firstItem="sdk-DQ-5Gv" firstAttribute="top" secondItem="YYo-ip-Hfu" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Z2u-jb-aFG"/>
-                            <constraint firstAttribute="trailing" secondItem="sdk-DQ-5Gv" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="bkK-VB-VZf"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="8vZ-6B-JBs">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8YP-mr-nQw">
-                            <connections>
-                                <action selector="done:" destination="E1f-iD-xYu" id="6Oy-ay-GiE"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="label" destination="YYo-ip-Hfu" id="OVc-Rr-99S"/>
-                        <outlet property="textView" destination="sdk-DQ-5Gv" id="fE9-6w-eiA"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="O73-64-k9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1921" y="-284"/>
-        </scene>
-        <!--Multi Value List Controller-->
-        <scene sceneID="YXS-r6-Zyw">
-            <objects>
-                <tableViewController id="e30-5K-jLZ" customClass="MultiValueListController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="RyU-YN-lG1">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="valueChoice_cell" textLabel="UVd-vQ-1Ii" style="IBUITableViewCellStyleDefault" id="XWv-AT-SfR">
-                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVd-vQ-1Ii">
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="e30-5K-jLZ" id="YtQ-jc-aT4"/>
-                            <outlet property="delegate" destination="e30-5K-jLZ" id="dt7-OK-c9S"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="kfG-sz-5Oy">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="aA7-LM-bb6">
-                            <connections>
-                                <action selector="done:" destination="e30-5K-jLZ" id="0Hk-2T-OZG"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="asD-Vc-gMP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1921" y="1216"/>
         </scene>
         <!--Home Controller-->
         <scene sceneID="Az5-DT-9Wa">
@@ -1767,13 +1527,6 @@
                 <relationship kind="outlet" name="tableViewInsideCell" candidateClass="UITableView"/>
             </relationships>
         </class>
-        <class className="MultiValueListController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MultiValueListController.h"/>
-            <relationships>
-                <relationship kind="action" name="done:"/>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-            </relationships>
-        </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
@@ -1805,12 +1558,6 @@
                 <relationship kind="outlet" name="textFieldPhone" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="ReportController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReportController.h"/>
-            <relationships>
-                <relationship kind="action" name="done:"/>
-            </relationships>
-        </class>
         <class className="ServersController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ServersController.h"/>
             <relationships>
@@ -1825,26 +1572,10 @@
                 <relationship kind="outlet" name="tableViewInsideCell" candidateClass="UITableView"/>
             </relationships>
         </class>
-        <class className="SingleValueListController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SingleValueListController.h"/>
-            <relationships>
-                <relationship kind="action" name="done:"/>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="picker" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
         <class className="StringCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/StringCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="StringController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StringController.h"/>
-            <relationships>
-                <relationship kind="action" name="done:"/>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
             </relationships>
         </class>
@@ -1856,14 +1587,6 @@
             <relationships>
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="text" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="TextController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextController.h"/>
-            <relationships>
-                <relationship kind="action" name="done:"/>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">

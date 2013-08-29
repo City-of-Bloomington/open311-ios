@@ -62,12 +62,9 @@ static NSString * const kInnerCellIdentifier = @"inner_cell";
         key = [(NSNumber *)key stringValue];
     }
     if ([key isEqual:self.selectedOption]) {
-        //cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.imageView.image = [UIImage imageNamed:@"radio_selected"];
     }
-    else
-    {
-        //cell.accessoryType = UITableViewCellAccessoryNone;
+    else {
         cell.imageView.image = [UIImage imageNamed:@"radio_unselected"];
     }
     

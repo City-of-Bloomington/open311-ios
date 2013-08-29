@@ -13,7 +13,6 @@
 #import "Preferences.h"
 #import "Open311.h"
 #import "Strings.h"
-#import "ReportController.h"
 #import "NewReportController.h"
 
 @interface ChooseServiceController ()
@@ -70,8 +69,7 @@ static NSString * const kSegueToReport  = @"SegueToReport";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ReportController *report = [segue destinationViewController];
-//    NewReportController *report = [segue destinationViewController];
+    NewReportController *report = [segue destinationViewController];
     report.service = services[[[self.tableView indexPathForSelectedRow] row]];
 }
 

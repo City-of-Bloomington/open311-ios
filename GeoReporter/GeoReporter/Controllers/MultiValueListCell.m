@@ -62,12 +62,9 @@ static NSString * const kInnerCellIdentifier = @"inner_cell";
         key = [(NSNumber *)key stringValue];
     }
     if ([self.selectedOptions containsObject:key]) {
-        //cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.imageView.image = [UIImage imageNamed:@"checkbox_selected"];
     }
-    else
-    {
-        //cell.accessoryType = UITableViewCellAccessoryNone;
+    else {
         cell.imageView.image = [UIImage imageNamed:@"checkbox_unselected"];
     }
     
@@ -100,12 +97,6 @@ static NSString * const kInnerCellIdentifier = @"inner_cell";
     }
     
     [self.delegate didProvideValues:selected fromField:self.fieldname];
-//    if ([key isEqual:self.selectedOption]) {
-//        [self.delegate didProvideValues:nil fromField:self.fieldname] ;
-//    }
-//    else {
-//        [self.delegate didProvideValues:(NSArray *)key fromField:self.fieldname] ;
-//    }
     
 }
 
