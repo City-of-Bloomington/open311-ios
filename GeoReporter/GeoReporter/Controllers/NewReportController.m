@@ -54,6 +54,8 @@ static NSString * const kFieldname              = @"fieldname";
 static NSString * const kLabel                  = @"label";
 static NSString * const kType                   = @"type";
 static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportToHome";
+CLLocationManager *locationManager;
+CLLocationCoordinate2D currentLocation;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -79,6 +81,13 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    locationManager.distanceFilter = 50;
+    [locationManager startUpdatingLocation];
+    
     locationFromLocationController = nil;
     currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
     
@@ -257,10 +266,19 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
             region.span = span;
             [locationCell.mapView setRegion:region animated:YES];
         }
+        else {
+            MKCoordinateRegion region;
+            region.center.latitude  = currentLocation.latitude;
+            region.center.longitude = currentLocation.longitude;
+            MKCoordinateSpan span;
+            span.latitudeDelta  = 0.007;
+            span.longitudeDelta = 0.007;
+            region.span = span;
+            [locationCell.mapView setRegion:region animated:YES];
+        }
         return locationCell;
     }
     if ([type isEqualToString:kOpen311_MultiValueList]) {
-        //TODO: make it multivalue (right now it's radio button style)
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMultiValueCell forIndexPath:indexPath];
         MultiValueListCell* multiValueListCell = (MultiValueListCell*) cell;
         NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
@@ -411,6 +429,13 @@ static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportTo
                        [self.tableView reloadData];
                    }];
     
+    [self.tableView reloadData];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation* location = [locations lastObject];
+    currentLocation = location.coordinate;
     [self.tableView reloadData];
 }
 

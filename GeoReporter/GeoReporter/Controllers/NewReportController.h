@@ -17,6 +17,7 @@
                                                         LocationChooserDelegate,
                                                         UINavigationControllerDelegate,
                                                         UIImagePickerControllerDelegate,
+                                                        CLLocationManagerDelegate,
                                                         UIActionSheetDelegate>
 @property NSDictionary *service;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
