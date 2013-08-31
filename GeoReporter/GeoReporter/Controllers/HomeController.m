@@ -31,7 +31,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 
 
 @implementation HomeController {
-    UIActivityIndicatorView *busyIcon;
+    //UIActivityIndicatorView *busyIcon;
 }
 
 - (void)viewDidLoad
@@ -60,25 +60,9 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
     [self refreshPersonalInfo];
 }
 
-- (void)startBusyIcon
-{
-    busyIcon = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    busyIcon.center = self.view.center;
-    [busyIcon setFrame:self.view.bounds];
-    [busyIcon setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
-    [busyIcon startAnimating];
-    [self.view addSubview:busyIcon];
-}
-
 - (IBAction)tapAboutButton:(id)sender {
     [self performSegueWithIdentifier:kSegueToAbout sender:self];
     
-}
-
-- (void)serviceListReady
-{
-    [busyIcon stopAnimating];
-    [busyIcon removeFromSuperview];
 }
 
 - (void) loadServer
@@ -91,19 +75,23 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
     }
     else {
         self.navigationItem.title = currentServer[kOpen311_Name];
-        
-        [self startBusyIcon];
-        Open311 *open311 = [Open311 sharedInstance];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(serviceListReady)
-                                                     name:kNotification_ServiceListReady
-                                                   object:open311];
-        [open311 loadAllMetadataForServer:currentServer];
+
+        HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
+        HUD.delegate = self;
+        HUD.labelText = @"Loading";
+        [HUD showWhileExecuting:@selector(loadServer:) onTarget:self withObject:currentServer animated:YES];
         
         NSString *filename = currentServer[kOpen311_SplashImage];
         if (!filename) { filename = @"open311"; }
         [self.splashImage setImage:[UIImage imageNamed:filename]];
     }
+}
+
+-(void) loadServer:(NSDictionary *)currentServer
+{
+    Open311 *open311 = [Open311 sharedInstance];
+    [open311 loadAllMetadataForServer:currentServer];
 }
 
 - (void)refreshPersonalInfo
@@ -183,7 +171,13 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 //      TODO: do something if it should open the Archive
 }
 
-
+#pragma mark MBProgressHUDDelegate methods
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+    HUD.labelText = nil;
+	HUD = nil;
+}
 
 
 

@@ -498,7 +498,7 @@ CLLocationCoordinate2D currentLocation;
 
 - (IBAction)send:(id)sender {
 
-    [SVProgressHUD showWithStatus:@"Sending" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"Sending" maskType:SVProgressHUDMaskTypeClear];
     
     Open311 *open311 = [Open311 sharedInstance];
     
