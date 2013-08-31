@@ -16,6 +16,7 @@
 #import "SingleValueListCell.h"
 #import "StringCell.h"
 #import "MediaCell.h"
+#import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -35,7 +36,6 @@ ALAssetsLibrary *library;
 NSURL   *mediaUrl;
 UIImage *mediaThumbnail;
 
-UIActivityIndicatorView *busyIcon;
 NSString *header;
 
 
@@ -497,13 +497,8 @@ CLLocationCoordinate2D currentLocation;
 #pragma mark send the report
 
 - (IBAction)send:(id)sender {
-    busyIcon = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    busyIcon.center = self.view.center;
-    [busyIcon setFrame:self.view.frame];
-    [busyIcon setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
-    [busyIcon startAnimating];
-    [self.view addSubview:busyIcon];
-    
+
+    [SVProgressHUD showWithStatus:@"Sending" maskType:SVProgressHUDMaskTypeBlack];
     
     Open311 *open311 = [Open311 sharedInstance];
     
@@ -516,8 +511,7 @@ CLLocationCoordinate2D currentLocation;
 
 - (void)postSucceeded
 {
-    [busyIcon stopAnimating];
-    [busyIcon removeFromSuperview];
+    [SVProgressHUD showSuccessWithStatus:@"Report sent"];
     
     // Remove the service so they cannot post this report again,
     // without starting the process from scratch.
@@ -529,8 +523,8 @@ CLLocationCoordinate2D currentLocation;
 
 - (void)postFailed
 {
-    [busyIcon stopAnimating];
-    [busyIcon removeFromSuperview];
+//    [SVProgressHUD showErrorWithStatus:@"Report could not be sent"];
+    [SVProgressHUD dismiss];
 }
 
 @end
