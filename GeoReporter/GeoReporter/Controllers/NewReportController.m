@@ -355,7 +355,8 @@ CLLocationCoordinate2D currentLocation;
         
         return mediaCell;
     }
-         
+    //it should NEVER get here. It should always go on an if branch
+    return nil;
 }
 
 #pragma mark - Table view delegate

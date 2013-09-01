@@ -30,9 +30,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 
 
 
-@implementation HomeController {
-    //UIActivityIndicatorView *busyIcon;
-}
+@implementation HomeController
 
 - (void)viewDidLoad
 {
@@ -100,18 +98,9 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
     NSString *text = @"";
     NSString *firstname = [defaults stringForKey:kOpen311_FirstName];
     NSString *lastname  = [defaults stringForKey:kOpen311_LastName];
-    //NSString *email     = [defaults stringForKey:kOpen311_Email];
-    //NSString *phone     = [defaults stringForKey:kOpen311_Phone];
     if ([firstname length] > 0 || [lastname length] > 0) {
         text = [text stringByAppendingFormat:@"%@ %@", firstname, lastname];
     }
-    /*
-    if ([email length] > 0) {
-        text = [text stringByAppendingFormat:@"\r%@", email];
-    }
-    if ([phone length] > 0) {
-        text = [text stringByAppendingFormat:@"\r%@", phone];
-    }*/
     if ([text length] == 0) {
         text = @"anonymous";
     }
