@@ -42,14 +42,16 @@ NSString * const kPostData          = @"postData";
         _postData[kOpen311_ServiceCode] = _service[kOpen311_ServiceCode];
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString *firstname = [prefs stringForKey:kOpen311_FirstName];
-        NSString *lastname  = [prefs stringForKey:kOpen311_LastName];
-        NSString *email     = [prefs stringForKey:kOpen311_Email];
-        NSString *phone     = [prefs stringForKey:kOpen311_Phone];
-        if (firstname != nil) { _postData[kOpen311_FirstName] = firstname; }
-        if (lastname  != nil) { _postData[kOpen311_LastName]  = lastname; }
-        if (email     != nil) { _postData[kOpen311_Email]     = email; }
-        if (phone     != nil) { _postData[kOpen311_Phone]     = phone; }
+        if ([[prefs stringForKey:kOpen311_IsAnonymous] isEqualToString:@"no"]) {
+            NSString *firstname = [prefs stringForKey:kOpen311_FirstName];
+            NSString *lastname  = [prefs stringForKey:kOpen311_LastName];
+            NSString *email     = [prefs stringForKey:kOpen311_Email];
+            NSString *phone     = [prefs stringForKey:kOpen311_Phone];
+            if (firstname != nil) { _postData[kOpen311_FirstName] = firstname; }
+            if (lastname  != nil) { _postData[kOpen311_LastName]  = lastname; }
+            if (email     != nil) { _postData[kOpen311_Email]     = email; }
+            if (phone     != nil) { _postData[kOpen311_Phone]     = phone; }
+        }
     }
     return self;
 }
@@ -66,6 +68,25 @@ NSString * const kPostData          = @"postData";
         _postData          = dictionary[kPostData];
     }
     return self;
+}
+
+- (void) checkAnonymousReporting
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *firstname = @"";
+    NSString *lastname  = @"";
+    NSString *email     = @"";
+    NSString *phone     = @"";
+    if ([[prefs stringForKey:kOpen311_IsAnonymous] isEqualToString:@"no"]) {
+        firstname = [prefs stringForKey:kOpen311_FirstName];
+        lastname  = [prefs stringForKey:kOpen311_LastName];
+        email     = [prefs stringForKey:kOpen311_Email];
+        phone     = [prefs stringForKey:kOpen311_Phone];
+    }
+    if (firstname != nil) { _postData[kOpen311_FirstName] = firstname; }
+    if (lastname  != nil) { _postData[kOpen311_LastName]  = lastname; }
+    if (email     != nil) { _postData[kOpen311_Email]     = email; }
+    if (phone     != nil) { _postData[kOpen311_Phone]     = phone; }
 }
 
 - (NSDictionary *)asDictionary

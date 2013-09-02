@@ -24,6 +24,7 @@
 
 - (id)initWithService:(NSDictionary *)service;
 - (id)initWithDictionary:(NSDictionary *)dictionary;
+- (void) checkAnonymousReporting;
 - (NSString *)attributeValueForKey:(NSString *)key atIndex:(NSInteger)index;
 - (NSDictionary *)asDictionary;
 

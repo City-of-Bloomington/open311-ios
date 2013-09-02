@@ -20,6 +20,17 @@
     return self;
 }
 
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Initialization code
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setValue:@"no" forKey:kOpen311_IsAnonymous];
+    }
+    return self;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -28,17 +39,12 @@
 }
 
 - (IBAction)didChangeSwitchValue:(id)sender {
-    if (self.anonymousSwitch.isOn) {
-        //restore values
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([self.anonymousSwitch isOn]) {
+        [preferences setValue:@"yes" forKey:kOpen311_IsAnonymous];
     }
     else {
-        
-//        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//        
-//        [preferences setValue:@"" forKey:kOpen311_FirstName];
-//        [preferences setValue:@"" forKey:kOpen311_LastName];
-//        [preferences setValue:@"" forKey:kOpen311_Email];
-//        [preferences setValue:@"" forKey:kOpen311_Phone];
+        [preferences setValue:@"no" forKey:kOpen311_IsAnonymous];
     }
 }
 @end

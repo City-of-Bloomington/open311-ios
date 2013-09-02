@@ -27,7 +27,6 @@
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(kUI_PersonalInfo, nil);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self didChangeSwitchValue:nil];
     
     self.labelFirstName.text = NSLocalizedString(kUI_FirstName, nil);
     self.labelLastName .text = NSLocalizedString(kUI_LastName,  nil);
@@ -93,14 +92,6 @@
     return view;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if      (indexPath.row == 0) { [self.textFieldFirstName becomeFirstResponder]; }
-    else if (indexPath.row == 1) { [self.textFieldLastName  becomeFirstResponder]; }
-    else if (indexPath.row == 2) { [self.textFieldEmail     becomeFirstResponder]; }
-    else if (indexPath.row == 3) { [self.textFieldPhone  becomeFirstResponder];    }
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
@@ -163,49 +154,6 @@
         [self.separator3 setHidden:YES];
         
         
-    }
-}
-
-
-- (IBAction)didChangeSwitchValue:(id)sender {
-    if (self.anonymousSwitch.isOn) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-        
-        self.textFieldFirstName.enabled = NO;
-        self.textFieldLastName.enabled = NO;
-        self.textFieldEmail.enabled = NO;
-        self.textFieldPhone.enabled = NO;
-        
-        self.textFieldFirstName .placeholder = @"tap edit to insert";
-        self.textFieldLastName  .placeholder = @"tap edit to insert";
-        self.textFieldEmail     .placeholder = @"tap edit to insert";
-        self.textFieldPhone     .placeholder = @"tap edit to insert";
-    }
-    else {
-        [self setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-        
-        self.textFieldFirstName.enabled = NO;
-        self.textFieldLastName.enabled = NO;
-        self.textFieldEmail.enabled = NO;
-        self.textFieldPhone.enabled = NO;
-        
-        self.textFieldFirstName .placeholder = @"anonymous";
-        self.textFieldLastName  .placeholder = @"";
-        self.textFieldEmail     .placeholder = @"";
-        self.textFieldPhone     .placeholder = @"";
-        
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        
-        self.textFieldFirstName.text = @"";
-        self.textFieldLastName .text = @"";
-        self.textFieldEmail    .text = @"";
-        self.textFieldPhone    .text = @"";
-        
-        [preferences setValue:self.textFieldFirstName.text forKey:kOpen311_FirstName];
-        [preferences setValue:self.textFieldLastName .text forKey:kOpen311_LastName];
-        [preferences setValue:self.textFieldEmail    .text forKey:kOpen311_Email];
-        [preferences setValue:self.textFieldPhone    .text forKey:kOpen311_Phone];
     }
 }
 @end

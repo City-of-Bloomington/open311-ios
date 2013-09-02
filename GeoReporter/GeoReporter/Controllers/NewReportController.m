@@ -382,25 +382,28 @@ CLLocationCoordinate2D currentLocation;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *type = fields[indexPath.section][indexPath.row][kType];
+    if ((indexPath.section != [fields count] - 1) || (indexPath.row != [fields[indexPath.section] count])) {
+        
+        NSString *type = fields[indexPath.section][indexPath.row][kType];
 
-    if ([type isEqualToString:kOpen311_Media]) {
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
-            UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
-                                                               delegate:self
-                                                      cancelButtonTitle:nil
-                                                 destructiveButtonTitle:nil
-                                                      otherButtonTitles:nil, nil];
-            popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-            [popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
-            [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
-            [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
-            [popup setCancelButtonIndex:2];
-            [popup showInView:self.view];
+        if ([type isEqualToString:kOpen311_Media]) {
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
+                UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
+                                                                   delegate:self
+                                                          cancelButtonTitle:nil
+                                                     destructiveButtonTitle:nil
+                                                          otherButtonTitles:nil, nil];
+                popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+                [popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
+                [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
+                [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
+                [popup setCancelButtonIndex:2];
+                [popup showInView:self.view];
+            }
         }
-    }
 
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 
@@ -525,7 +528,7 @@ CLLocationCoordinate2D currentLocation;
     NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
     [notifications addObserver:self selector:@selector(postSucceeded) name:kNotification_PostSucceeded object:open311];
     [notifications addObserver:self selector:@selector(postFailed)    name:kNotification_PostFailed    object:open311];
-    
+    [_report checkAnonymousReporting];
     [open311 startPostingServiceRequest:_report];
 }
 

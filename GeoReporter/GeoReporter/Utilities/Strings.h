@@ -97,6 +97,7 @@ extern NSString * const kOpen311_LastName;
 extern NSString * const kOpen311_Email;
 extern NSString * const kOpen311_Phone;
 extern NSString * const kOpen311_DeviceId;
+extern NSString * const kOpen311_IsAnonymous;
 // Custom field definition in service_definition
 extern NSString * const kOpen311_Metadata;
 extern NSString * const kOpen311_Attributes;

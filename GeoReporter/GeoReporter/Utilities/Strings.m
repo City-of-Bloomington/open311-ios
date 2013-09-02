@@ -99,6 +99,7 @@ NSString * const kOpen311_LastName  = @"last_name";
 NSString * const kOpen311_Email     = @"email";
 NSString * const kOpen311_Phone     = @"phone";
 NSString * const kOpen311_DeviceId  = @"device_id";
+NSString * const kOpen311_IsAnonymous=@"isAnonymous";
 // Custom field definition in service_definition
 NSString * const kOpen311_Metadata     = @"metadata";
 NSString * const kOpen311_Attributes   = @"attributes";

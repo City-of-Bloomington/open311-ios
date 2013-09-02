@@ -12,8 +12,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PersonalInfoController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @property (nonatomic, weak) IBOutlet UILabel *labelFirstName;
 @property (nonatomic, weak) IBOutlet UILabel *labelLastName;
 @property (nonatomic, weak) IBOutlet UILabel *labelEmail;
@@ -23,7 +21,5 @@
 @property (nonatomic, weak) IBOutlet UITextField *textFieldEmail;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldPhone;
 
-- (IBAction)didChangeSwitchValue:(id)sender;
-@property (weak, nonatomic) IBOutlet UISwitch *anonymousSwitch;
 
 @end
