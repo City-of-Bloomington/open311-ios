@@ -339,6 +339,49 @@
                                     <outlet property="textField" destination="aWJ-8G-Ezl" id="2aP-C6-hsC"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="report_footer_cell" id="u7a-Q0-0i9" customClass="FooterCell">
+                                <rect key="frame" x="0.0" y="666" width="320" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kZ2-ZO-At2">
+                                            <connections>
+                                                <action selector="didChangeSwitchValue:" destination="u7a-Q0-0i9" eventType="valueChanged" id="vgU-L2-k1N"/>
+                                            </connections>
+                                        </switch>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="If the switch is &quot;off&quot;, the report will be anonymous" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="JGB-Vy-EAw">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="19" id="8KB-1Z-QJB"/>
+                                                <constraint firstAttribute="width" constant="320" id="KRx-so-Njc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="12"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Include contact info in report:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8Q-Hg-yNV">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="oZN-YT-GOc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="JGB-Vy-EAw" firstAttribute="leading" secondItem="u7a-Q0-0i9" secondAttribute="leading" constant="20" type="default" id="9F8-TT-rnR"/>
+                                    <constraint firstItem="Q8Q-Hg-yNV" firstAttribute="leading" secondItem="u7a-Q0-0i9" secondAttribute="leading" constant="20" type="default" id="Cqx-lM-bHj"/>
+                                    <constraint firstAttribute="trailing" secondItem="kZ2-ZO-At2" secondAttribute="trailing" constant="20" type="default" id="KDw-pW-CEC"/>
+                                    <constraint firstItem="kZ2-ZO-At2" firstAttribute="centerY" secondItem="Q8Q-Hg-yNV" secondAttribute="centerY" type="default" id="XKq-a4-kI2"/>
+                                    <constraint firstItem="JGB-Vy-EAw" firstAttribute="top" secondItem="u7a-Q0-0i9" secondAttribute="top" constant="32" id="fhc-E8-aho"/>
+                                    <constraint firstItem="kZ2-ZO-At2" firstAttribute="top" secondItem="u7a-Q0-0i9" secondAttribute="top" constant="5" id="tph-fy-A1s"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="anonymousSwitch" destination="kZ2-ZO-At2" id="U6g-PZ-non"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="zXc-D2-iWn" id="qUV-D5-E65"/>
@@ -1476,6 +1519,13 @@
         <class className="ChooseServiceController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ChooseServiceController.h"/>
         </class>
+        <class className="FooterCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FooterCell.h"/>
+            <relationships>
+                <relationship kind="action" name="didChangeSwitchValue:"/>
+                <relationship kind="outlet" name="anonymousSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
         <class className="FullImageController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FullImageController.h"/>
             <relationships>
@@ -1486,6 +1536,8 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1588,6 +1640,9 @@
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="text" candidateClass="UITextView"/>
             </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>

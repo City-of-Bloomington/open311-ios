@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2936470117D536160078944B /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2936470017D536160078944B /* FooterCell.m */; };
 		29719D5D17AC6847007367AF /* MediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29719D5C17AC6847007367AF /* MediaCell.m */; };
 		29719D5F17AD14BE007367AF /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 29719D5E17AD14BE007367AF /* camera.png */; };
 		29719D6617AD2CB3007367AF /* serverTableCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 29719D6417AD2CB3007367AF /* serverTableCell.png */; };
@@ -110,6 +111,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		293646FF17D536160078944B /* FooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterCell.h; sourceTree = "<group>"; };
+		2936470017D536160078944B /* FooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterCell.m; sourceTree = "<group>"; };
 		29719D5B17AC6847007367AF /* MediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCell.h; sourceTree = "<group>"; };
 		29719D5C17AC6847007367AF /* MediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaCell.m; sourceTree = "<group>"; };
 		29719D5E17AD14BE007367AF /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				29907150179DB6A2003D4B2F /* StringCell.m */,
 				29719D5B17AC6847007367AF /* MediaCell.h */,
 				29719D5C17AC6847007367AF /* MediaCell.m */,
+				293646FF17D536160078944B /* FooterCell.h */,
+				2936470017D536160078944B /* FooterCell.m */,
 			);
 			name = ReportCells;
 			sourceTree = "<group>";
@@ -713,6 +718,7 @@
 				29907151179DB6A2003D4B2F /* StringCell.m in Sources */,
 				29719D5D17AC6847007367AF /* MediaCell.m in Sources */,
 				29AE3A4517AE838900447F21 /* FullImageController.m in Sources */,
+				2936470117D536160078944B /* FooterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

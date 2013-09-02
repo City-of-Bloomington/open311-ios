@@ -16,6 +16,7 @@
 #import "SingleValueListCell.h"
 #import "StringCell.h"
 #import "MediaCell.h"
+#import "FooterCell.h"
 #import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -44,6 +45,7 @@ CLLocation *locationFromLocationController;
 static NSString * const kSegueToLocation        = @"SegueToLocation";
 static NSString * const kReportCell             = @"report_cell";
 static NSString * const kReportTextCell         = @"report_text_cell";
+static NSString * const kFooterCell              = @"report_footer_cell";
 static NSString * const kReportLocationCell     = @"report_location_cell";
 static NSString * const kReportSingleValueCell  = @"report_sinlge_value_cell";
 static NSString * const kReportMultiValueCell   = @"report_multi_value_cell";
@@ -177,11 +179,20 @@ CLLocationCoordinate2D currentLocation;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    if (section == [fields count] - 1) {
+        //if it's the last section, return one extra cell for the footer
+        return [fields[section] count] + 1;
+    }
     return [fields[section] count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == [fields count] - 1 && indexPath.row == [fields[indexPath.section] count]) {
+        //if it's the last section, it is the extra cell for the footer
+           return 50;
+    }
+
     NSDictionary *field = fields[indexPath.section][indexPath.row];
     NSString *type = field[kType];
     //NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
@@ -215,7 +226,15 @@ CLLocationCoordinate2D currentLocation;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{   
+{
+    if ((indexPath.section == [fields count] - 1) && (indexPath.row == [fields[indexPath.section] count])) {
+    //if (indexPath.section == [fields count] - 1) {
+        //if it's the last section, it is the extra cell for the footer
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kFooterCell forIndexPath:indexPath];
+        FooterCell* footerCell = (FooterCell*) cell;
+        
+        return footerCell;
+    }
     NSDictionary *field = fields[indexPath.section][indexPath.row];
 
     NSString *type = field[kType];
