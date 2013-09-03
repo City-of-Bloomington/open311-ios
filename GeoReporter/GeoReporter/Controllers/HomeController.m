@@ -90,6 +90,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 {
     Open311 *open311 = [Open311 sharedInstance];
     [open311 loadAllMetadataForServer:currentServer];
+    usleep(500000);
 }
 
 - (void)refreshPersonalInfo
