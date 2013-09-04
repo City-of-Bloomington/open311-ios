@@ -10,8 +10,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "NBPhoneNumberUtil.h"
 
-@interface PersonalInfoController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PersonalInfoController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, weak) IBOutlet UILabel *labelFirstName;
 @property (nonatomic, weak) IBOutlet UILabel *labelLastName;
 @property (nonatomic, weak) IBOutlet UILabel *labelEmail;

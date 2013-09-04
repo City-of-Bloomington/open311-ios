@@ -156,4 +156,26 @@
         
     }
 }
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (textField == _textFieldPhone) {
+        
+        NBPhoneNumberUtil *phoneUtil = [NBPhoneNumberUtil sharedInstance];
+        
+        NSLocale *locale = [NSLocale currentLocale];
+        NSString *countryCode = [locale objectForKey: NSLocaleCountryCode];
+        
+        NSError *aError = nil;
+        NBPhoneNumber *myNumber = [phoneUtil parse:_textFieldPhone.text defaultRegion:countryCode error:&aError];
+        
+        if (aError == nil) {
+            // Check https://github.com/me2day/libPhoneNumber-iOS#sample-usage for usage example
+            
+            if ([phoneUtil isValidNumber:myNumber]) {
+                _textFieldPhone.text = [phoneUtil format:myNumber numberFormat:NBEPhoneNumberFormatINTERNATIONAL
+                                                   error:&aError];
+            }
+        }
+    }
+}
 @end

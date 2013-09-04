@@ -1378,6 +1378,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="ufC-lV-6kH" id="DxA-c4-UkK"/>
+                                                    </connections>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XyC-2i-3O3">
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1499,6 +1502,8 @@
         <class className="HomeController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeController.h"/>
             <relationships>
+                <relationship kind="action" name="didReturnAfterSendingReport:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="didReturnFromServersController:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="tapAboutButton:"/>
                 <relationship kind="outlet" name="archiveLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="personalInfoLabel" candidateClass="UILabel"/>
@@ -1554,8 +1559,6 @@
         <class className="PersonalInfoController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonalInfoController.h"/>
             <relationships>
-                <relationship kind="action" name="didChangeSwitchValue:"/>
-                <relationship kind="outlet" name="anonymousSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelFirstName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelLastName" candidateClass="UILabel"/>
@@ -1564,7 +1567,6 @@
                 <relationship kind="outlet" name="separator1" candidateClass="UIView"/>
                 <relationship kind="outlet" name="separator2" candidateClass="UIView"/>
                 <relationship kind="outlet" name="separator3" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="textFieldEmail" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="textFieldFirstName" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="textFieldLastName" candidateClass="UITextField"/>
@@ -1601,6 +1603,9 @@
                 <relationship kind="outlet" name="header" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="text" candidateClass="UITextView"/>
             </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
         <class className="ViewRequestController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewRequestController.h"/>
