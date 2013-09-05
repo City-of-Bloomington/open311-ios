@@ -157,6 +157,14 @@
     }
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField == _textFieldPhone) {
+        NSString * formattedPhoneNumber = _textFieldPhone.text;
+        _textFieldPhone.text = [[[[formattedPhoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"(" withString:@""] stringByReplacingOccurrencesOfString:@")" withString:@""] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    }
+
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField == _textFieldPhone) {
         
