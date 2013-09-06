@@ -28,6 +28,7 @@
 		29C28F4717C558C800E38B51 /* checkbox_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4517C558C800E38B51 /* checkbox_unselected@2x.png */; };
 		29C28F4A17C5598300E38B51 /* checkbox_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4817C5598300E38B51 /* checkbox_selected@2x.png */; };
 		29C28F4B17C5598300E38B51 /* checkbox_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4917C5598300E38B51 /* checkbox_selected.png */; };
+		29DC391717DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29DC391617DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
@@ -140,6 +141,7 @@
 		29C28F4517C558C800E38B51 /* checkbox_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_unselected@2x.png"; sourceTree = "<group>"; };
 		29C28F4817C5598300E38B51 /* checkbox_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_selected@2x.png"; sourceTree = "<group>"; };
 		29C28F4917C5598300E38B51 /* checkbox_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_selected.png; sourceTree = "<group>"; };
+		29DC391617DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainStoryboard_iPad.storyboard; path = ../MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		29E22401179B06D100F76C01 /* NewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReportController.h; sourceTree = "<group>"; };
 		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			children = (
 				69ED14F016B2EE4C00232245 /* AppDelegate.h */,
 				69ED14F116B2EE4C00232245 /* AppDelegate.m */,
+				29DC391617DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard */,
 				69ED14F916B2EE4C00232245 /* MainStoryboard.storyboard */,
 				6988CD1616B2F0900066E796 /* Controllers */,
 				6988CD1916B2F0B40066E796 /* Utilities */,
@@ -629,6 +632,7 @@
 				29C28F4717C558C800E38B51 /* checkbox_unselected@2x.png in Resources */,
 				29C28F4A17C5598300E38B51 /* checkbox_selected@2x.png in Resources */,
 				29C28F4B17C5598300E38B51 /* checkbox_selected.png in Resources */,
+				29DC391717DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,8 +841,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoReporter/Supporting Files/GeoReporter-Prefix.pch";
 				INFOPLIST_FILE = "GeoReporter/Supporting Files/GeoReporter-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -850,8 +855,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoReporter/Supporting Files/GeoReporter-Prefix.pch";
 				INFOPLIST_FILE = "GeoReporter/Supporting Files/GeoReporter-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
