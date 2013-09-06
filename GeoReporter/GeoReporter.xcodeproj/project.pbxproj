@@ -31,6 +31,10 @@
 		29DC391717DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29DC391617DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard */; };
 		29DC392617DA87BE00B8EE94 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392417DA87BE00B8EE94 /* Icon-72.png */; };
 		29DC392717DA87BE00B8EE94 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392517DA87BE00B8EE94 /* Icon-72@2x.png */; };
+		29DC392C17DA94A900B8EE94 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392817DA94A900B8EE94 /* Default-Landscape.png */; };
+		29DC392D17DA94AA00B8EE94 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392917DA94A900B8EE94 /* Default-Landscape@2x.png */; };
+		29DC392E17DA94AA00B8EE94 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392A17DA94A900B8EE94 /* Default-Portrait.png */; };
+		29DC392F17DA94AA00B8EE94 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392B17DA94A900B8EE94 /* Default-Portrait@2x.png */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
@@ -146,6 +150,10 @@
 		29DC391617DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainStoryboard_iPad.storyboard; path = ../MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		29DC392417DA87BE00B8EE94 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		29DC392517DA87BE00B8EE94 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		29DC392817DA94A900B8EE94 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
+		29DC392917DA94A900B8EE94 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
+		29DC392A17DA94A900B8EE94 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		29DC392B17DA94A900B8EE94 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		29E22401179B06D100F76C01 /* NewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReportController.h; sourceTree = "<group>"; };
 		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
@@ -464,6 +472,10 @@
 				69ED14E916B2EE4C00232245 /* GeoReporter-Info.plist */,
 				69ED14EA16B2EE4C00232245 /* InfoPlist.strings */,
 				69ED14ED16B2EE4C00232245 /* main.m */,
+				29DC392817DA94A900B8EE94 /* Default-Landscape.png */,
+				29DC392917DA94A900B8EE94 /* Default-Landscape@2x.png */,
+				29DC392A17DA94A900B8EE94 /* Default-Portrait.png */,
+				29DC392B17DA94A900B8EE94 /* Default-Portrait@2x.png */,
 				69ED14EF16B2EE4C00232245 /* GeoReporter-Prefix.pch */,
 				69ED14F316B2EE4C00232245 /* Default.png */,
 				69ED14F516B2EE4C00232245 /* Default@2x.png */,
@@ -641,6 +653,10 @@
 				29DC391717DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard in Resources */,
 				29DC392617DA87BE00B8EE94 /* Icon-72.png in Resources */,
 				29DC392717DA87BE00B8EE94 /* Icon-72@2x.png in Resources */,
+				29DC392C17DA94A900B8EE94 /* Default-Landscape.png in Resources */,
+				29DC392D17DA94AA00B8EE94 /* Default-Landscape@2x.png in Resources */,
+				29DC392E17DA94AA00B8EE94 /* Default-Portrait.png in Resources */,
+				29DC392F17DA94AA00B8EE94 /* Default-Portrait@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
