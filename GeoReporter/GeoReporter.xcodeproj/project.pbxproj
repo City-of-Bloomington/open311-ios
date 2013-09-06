@@ -29,6 +29,8 @@
 		29C28F4A17C5598300E38B51 /* checkbox_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4817C5598300E38B51 /* checkbox_selected@2x.png */; };
 		29C28F4B17C5598300E38B51 /* checkbox_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 29C28F4917C5598300E38B51 /* checkbox_selected.png */; };
 		29DC391717DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29DC391617DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard */; };
+		29DC392617DA87BE00B8EE94 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392417DA87BE00B8EE94 /* Icon-72.png */; };
+		29DC392717DA87BE00B8EE94 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392517DA87BE00B8EE94 /* Icon-72@2x.png */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
@@ -142,6 +144,8 @@
 		29C28F4817C5598300E38B51 /* checkbox_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_selected@2x.png"; sourceTree = "<group>"; };
 		29C28F4917C5598300E38B51 /* checkbox_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_selected.png; sourceTree = "<group>"; };
 		29DC391617DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainStoryboard_iPad.storyboard; path = ../MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		29DC392417DA87BE00B8EE94 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		29DC392517DA87BE00B8EE94 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		29E22401179B06D100F76C01 /* NewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReportController.h; sourceTree = "<group>"; };
 		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
@@ -451,6 +455,8 @@
 		69ED14E816B2EE4C00232245 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				29DC392417DA87BE00B8EE94 /* Icon-72.png */,
+				29DC392517DA87BE00B8EE94 /* Icon-72@2x.png */,
 				69C2AEFF16B32F7D0037ED57 /* about.html */,
 				69C2AF0016B32F7D0037ED57 /* AvailableServers.plist */,
 				69CB209D16B32BCA009E9BAB /* Icon@2x.png */,
@@ -633,6 +639,8 @@
 				29C28F4A17C5598300E38B51 /* checkbox_selected@2x.png in Resources */,
 				29C28F4B17C5598300E38B51 /* checkbox_selected.png in Resources */,
 				29DC391717DA7FDF00B8EE94 /* MainStoryboard_iPad.storyboard in Resources */,
+				29DC392617DA87BE00B8EE94 /* Icon-72.png in Resources */,
+				29DC392717DA87BE00B8EE94 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
