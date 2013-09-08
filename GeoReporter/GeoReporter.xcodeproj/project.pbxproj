@@ -35,6 +35,7 @@
 		29DC392D17DA94AA00B8EE94 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392917DA94A900B8EE94 /* Default-Landscape@2x.png */; };
 		29DC392E17DA94AA00B8EE94 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392A17DA94A900B8EE94 /* Default-Portrait.png */; };
 		29DC392F17DA94AA00B8EE94 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DC392B17DA94A900B8EE94 /* Default-Portrait@2x.png */; };
+		29DC393217DBBB7100B8EE94 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DC393117DBBB7100B8EE94 /* HomeCell.m */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
@@ -154,14 +155,16 @@
 		29DC392917DA94A900B8EE94 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		29DC392A17DA94A900B8EE94 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		29DC392B17DA94A900B8EE94 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
+		29DC393017DBBB7100B8EE94 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		29DC393117DBBB7100B8EE94 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		29E22401179B06D100F76C01 /* NewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewReportController.h; sourceTree = "<group>"; };
 		29E22402179B06D100F76C01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
-		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValueDelegate.h; sourceTree = "<group>"; };
+		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MultiValueDelegate.h; path = ReportFields/MultiValueDelegate.h; sourceTree = "<group>"; };
 		690D7A4C16C2BE1D001DD365 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
-		690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextEntryDelegate.h; sourceTree = "<group>"; };
+		690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TextEntryDelegate.h; path = ReportFields/TextEntryDelegate.h; sourceTree = "<group>"; };
 		692D042616C188B50011C190 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		692D042916C1A2580011C190 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
-		692D042A16C1A2580011C190 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
+		692D042916C1A2580011C190 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationController.h; path = ReportFields/LocationController.h; sourceTree = "<group>"; };
+		692D042A16C1A2580011C190 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationController.m; path = ReportFields/LocationController.m; sourceTree = "<group>"; };
 		692D042C16C1A5DA0011C190 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		692D042E16C1AA330011C190 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		692D043016C1B0B60011C190 /* cross-hairs-small-black-cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross-hairs-small-black-cropped.png"; sourceTree = "<group>"; };
@@ -283,9 +286,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		29907142179DB604003D4B2F /* ReportCells */ = {
+		29DC393317DBBE2800B8EE94 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				29DC393017DBBB7100B8EE94 /* HomeCell.h */,
+				29DC393117DBBB7100B8EE94 /* HomeCell.m */,
 				29907143179DB639003D4B2F /* LocationCell.h */,
 				29907144179DB639003D4B2F /* LocationCell.m */,
 				29907149179DB676003D4B2F /* SingleValueListCell.h */,
@@ -301,27 +306,27 @@
 				293646FF17D536160078944B /* FooterCell.h */,
 				2936470017D536160078944B /* FooterCell.m */,
 			);
-			name = ReportCells;
+			name = CustomCells;
 			sourceTree = "<group>";
 		};
-		692D042816C1A2200011C190 /* ReportFields */ = {
+		29DC393417DBBE5E00B8EE94 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				692D042916C1A2580011C190 /* LocationController.h */,
-				692D042A16C1A2580011C190 /* LocationController.m */,
 				690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */,
 				690A55E616C433A20076D6A5 /* MultiValueDelegate.h */,
 			);
-			path = ReportFields;
+			name = Delegates;
 			sourceTree = "<group>";
 		};
 		6988CD1616B2F0900066E796 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				692D042816C1A2200011C190 /* ReportFields */,
-				29907142179DB604003D4B2F /* ReportCells */,
+				29DC393317DBBE2800B8EE94 /* CustomCells */,
+				29DC393417DBBE5E00B8EE94 /* Delegates */,
 				6988CD1B16B2F1580066E796 /* HomeController.h */,
 				6988CD1C16B2F1580066E796 /* HomeController.m */,
+				692D042916C1A2580011C190 /* LocationController.h */,
+				692D042A16C1A2580011C190 /* LocationController.m */,
 				6988CD2416B309450066E796 /* ServersController.h */,
 				6988CD2516B309450066E796 /* ServersController.m */,
 				6988CD2716B309560066E796 /* ArchiveController.h */,
@@ -747,6 +752,7 @@
 				29719D5D17AC6847007367AF /* MediaCell.m in Sources */,
 				29AE3A4517AE838900447F21 /* FullImageController.m in Sources */,
 				2936470117D536160078944B /* FooterCell.m in Sources */,
+				29DC393217DBBB7100B8EE94 /* HomeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
