@@ -17,6 +17,7 @@
 		2990714B179DB676003D4B2F /* SingleValueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2990714A179DB676003D4B2F /* SingleValueListCell.m */; };
 		2990714E179DB68F003D4B2F /* MultiValueListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2990714D179DB68F003D4B2F /* MultiValueListCell.m */; };
 		29907151179DB6A2003D4B2F /* StringCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29907150179DB6A2003D4B2F /* StringCell.m */; };
+		29927D4717DDF0F2000392D0 /* PersonalInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29927D4617DDF0F2000392D0 /* PersonalInfoCell.m */; };
 		29AE3A4517AE838900447F21 /* FullImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29AE3A4417AE838900447F21 /* FullImageController.m */; };
 		29AE3A4717B3020300447F21 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29AE3A4617B3020300447F21 /* close@2x.png */; };
 		29AE3A4917B3077800447F21 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 29AE3A4817B3077800447F21 /* close.png */; };
@@ -136,6 +137,8 @@
 		2990714D179DB68F003D4B2F /* MultiValueListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueListCell.m; sourceTree = "<group>"; };
 		2990714F179DB6A2003D4B2F /* StringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringCell.h; sourceTree = "<group>"; };
 		29907150179DB6A2003D4B2F /* StringCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringCell.m; sourceTree = "<group>"; };
+		29927D4517DDF0F2000392D0 /* PersonalInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoCell.h; sourceTree = "<group>"; };
+		29927D4617DDF0F2000392D0 /* PersonalInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoCell.m; sourceTree = "<group>"; };
 		29AE3A4317AE838900447F21 /* FullImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullImageController.h; sourceTree = "<group>"; };
 		29AE3A4417AE838900447F21 /* FullImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullImageController.m; sourceTree = "<group>"; };
 		29AE3A4617B3020300447F21 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 			children = (
 				29DC393017DBBB7100B8EE94 /* HomeCell.h */,
 				29DC393117DBBB7100B8EE94 /* HomeCell.m */,
+				29927D4517DDF0F2000392D0 /* PersonalInfoCell.h */,
+				29927D4617DDF0F2000392D0 /* PersonalInfoCell.m */,
 				29907143179DB639003D4B2F /* LocationCell.h */,
 				29907144179DB639003D4B2F /* LocationCell.m */,
 				29907149179DB676003D4B2F /* SingleValueListCell.h */,
@@ -753,6 +758,7 @@
 				29AE3A4517AE838900447F21 /* FullImageController.m in Sources */,
 				2936470117D536160078944B /* FooterCell.m in Sources */,
 				29DC393217DBBB7100B8EE94 /* HomeCell.m in Sources */,
+				29927D4717DDF0F2000392D0 /* PersonalInfoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -68,19 +68,37 @@
     [super viewWillDisappear:animated];
 }
 
-#pragma mark - Table view handlers
+//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+//{
+//    [self.tableView beginUpdates];
+//    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+//    [self.tableView endUpdates];
+//}
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    return NSLocalizedString(kUI_PersonalInfo, nil);
+    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 }
+
+#pragma mark - Table view handlers
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     NSString *sectionTitle = NSLocalizedString(kUI_PersonalInfo, nil);
     
     UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(20, 8, 320, 20);
+    CGRect frame = CGRectMake(20, 8, 320, 20);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // The device is an iPad running iOS 3.2 or later.
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        
+        if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+            // The iPad is orientated Landscape
+            frame = CGRectMake(120, 8, 320, 20);
+        }
+    }
+    
+    label.frame = frame;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
     label.font = [UIFont fontWithName:@"Heiti SC" size:15];
