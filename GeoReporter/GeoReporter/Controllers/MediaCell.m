@@ -40,6 +40,7 @@
 {
     self.image.image = [UIImage imageNamed:@"camera.png"];
     self.closeImage.hidden = YES;
+    self.header.text = @"Add image";
 }
 
 - (void)setCloseImage:(UIImageView *)closeImage
