@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		291B1FC517DEFE8900E07812 /* ServersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 291B1FC417DEFE8900E07812 /* ServersCell.m */; };
+		291B1FC917DF0F9500E07812 /* AddServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 291B1FC817DF0F9400E07812 /* AddServerCell.m */; };
 		2936470117D536160078944B /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2936470017D536160078944B /* FooterCell.m */; };
 		29719D5D17AC6847007367AF /* MediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29719D5C17AC6847007367AF /* MediaCell.m */; };
 		29719D5F17AD14BE007367AF /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 29719D5E17AD14BE007367AF /* camera.png */; };
@@ -123,6 +124,8 @@
 /* Begin PBXFileReference section */
 		291B1FC317DEFE8900E07812 /* ServersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServersCell.h; sourceTree = "<group>"; };
 		291B1FC417DEFE8900E07812 /* ServersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServersCell.m; sourceTree = "<group>"; };
+		291B1FC717DF0F9400E07812 /* AddServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddServerCell.h; sourceTree = "<group>"; };
+		291B1FC817DF0F9400E07812 /* AddServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerCell.m; sourceTree = "<group>"; };
 		293646FF17D536160078944B /* FooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterCell.h; sourceTree = "<group>"; };
 		2936470017D536160078944B /* FooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterCell.m; sourceTree = "<group>"; };
 		29719D5B17AC6847007367AF /* MediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCell.h; sourceTree = "<group>"; };
@@ -323,6 +326,8 @@
 				29927D4617DDF0F2000392D0 /* PersonalInfoCell.m */,
 				291B1FC317DEFE8900E07812 /* ServersCell.h */,
 				291B1FC417DEFE8900E07812 /* ServersCell.m */,
+				291B1FC717DF0F9400E07812 /* AddServerCell.h */,
+				291B1FC817DF0F9400E07812 /* AddServerCell.m */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -773,6 +778,7 @@
 				29DC393217DBBB7100B8EE94 /* HomeCell.m in Sources */,
 				29927D4717DDF0F2000392D0 /* PersonalInfoCell.m in Sources */,
 				291B1FC517DEFE8900E07812 /* ServersCell.m in Sources */,
+				291B1FC917DF0F9500E07812 /* AddServerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

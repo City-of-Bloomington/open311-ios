@@ -786,7 +786,7 @@
                         <sections>
                             <tableViewSection headerTitle="button_add_server" id="p9y-ZA-j0g">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="DJK-iT-HAt">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="DJK-iT-HAt" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="54" width="768" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -805,7 +805,6 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a63-Sh-SUc">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="EdJ-Sm-t1k"/>
-                                                        <constraint firstAttribute="width" constant="156" id="JeY-gB-bYM"/>
                                                     </constraints>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -819,17 +818,18 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="n6l-ok-8B9" firstAttribute="top" secondItem="DJK-iT-HAt" secondAttribute="top" constant="13" id="60J-sV-xNe"/>
+                                            <constraint firstAttribute="trailing" secondItem="a63-Sh-SUc" secondAttribute="trailing" constant="65" type="user" id="M2I-lZ-0IT"/>
                                             <constraint firstItem="2C4-H9-jJL" firstAttribute="centerY" secondItem="DJK-iT-HAt" secondAttribute="centerY" type="default" id="RKN-ql-Nhp"/>
                                             <constraint firstItem="n6l-ok-8B9" firstAttribute="leading" secondItem="DJK-iT-HAt" secondAttribute="leading" constant="160" id="VHC-2z-8Jm"/>
                                             <constraint firstItem="2C4-H9-jJL" firstAttribute="leading" secondItem="DJK-iT-HAt" secondAttribute="leading" constant="65" id="YFh-Zz-vhF"/>
-                                            <constraint firstItem="a63-Sh-SUc" firstAttribute="leading" secondItem="DJK-iT-HAt" secondAttribute="leading" constant="169" id="fV3-Oj-KYg"/>
+                                            <constraint firstItem="a63-Sh-SUc" firstAttribute="leading" secondItem="DJK-iT-HAt" secondAttribute="leading" constant="169" type="user" id="fV3-Oj-KYg"/>
                                             <constraint firstItem="a63-Sh-SUc" firstAttribute="top" secondItem="DJK-iT-HAt" secondAttribute="top" constant="9" id="heI-oP-uN1"/>
                                             <constraint firstItem="n6l-ok-8B9" firstAttribute="centerY" secondItem="a63-Sh-SUc" secondAttribute="centerY" type="default" id="kLh-PN-8Cn"/>
                                             <constraint firstItem="a63-Sh-SUc" firstAttribute="leading" secondItem="n6l-ok-8B9" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="u6S-ee-vyt"/>
                                             <constraint firstItem="a63-Sh-SUc" firstAttribute="baseline" secondItem="2C4-H9-jJL" secondAttribute="baseline" type="default" id="wnm-Pt-MUP"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="9bi-cl-O4E">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="9bi-cl-O4E" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="99" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -848,7 +848,6 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KmE-4e-ZKQ">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="TfT-ez-x6X"/>
-                                                        <constraint firstAttribute="width" constant="156" id="mCf-85-nhB"/>
                                                     </constraints>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -862,16 +861,17 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="KmE-4e-ZKQ" firstAttribute="centerY" secondItem="9Jh-GZ-bcO" secondAttribute="centerY" type="default" id="ITJ-vm-mIb"/>
-                                            <constraint firstItem="KmE-4e-ZKQ" firstAttribute="leading" secondItem="9bi-cl-O4E" secondAttribute="leading" constant="169" id="Vxn-X9-YN9"/>
+                                            <constraint firstItem="KmE-4e-ZKQ" firstAttribute="leading" secondItem="9bi-cl-O4E" secondAttribute="leading" constant="169" type="user" id="Vxn-X9-YN9"/>
                                             <constraint firstItem="IfG-b7-ZQC" firstAttribute="centerY" secondItem="9bi-cl-O4E" secondAttribute="centerY" type="default" id="aIL-Vs-0OH"/>
                                             <constraint firstItem="IfG-b7-ZQC" firstAttribute="top" secondItem="9Jh-GZ-bcO" secondAttribute="top" type="default" id="afW-nz-gAN"/>
+                                            <constraint firstAttribute="trailing" secondItem="KmE-4e-ZKQ" secondAttribute="trailing" constant="65" type="user" id="b4k-kH-YMn"/>
                                             <constraint firstItem="IfG-b7-ZQC" firstAttribute="leading" secondItem="9bi-cl-O4E" secondAttribute="leading" constant="160" id="dd6-pQ-IDn"/>
                                             <constraint firstItem="9Jh-GZ-bcO" firstAttribute="leading" secondItem="9bi-cl-O4E" secondAttribute="leading" constant="65" id="l52-v0-Hgw"/>
                                             <constraint firstItem="IfG-b7-ZQC" firstAttribute="bottom" secondItem="KmE-4e-ZKQ" secondAttribute="bottom" type="default" id="mA5-Uc-aCG"/>
                                             <constraint firstItem="KmE-4e-ZKQ" firstAttribute="leading" secondItem="IfG-b7-ZQC" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="o3S-Wi-Pju"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LY7-qr-hr7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LY7-qr-hr7" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="143" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -888,7 +888,6 @@
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Re-nj-5Of">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="156" id="5Ts-sR-ADm"/>
                                                         <constraint firstAttribute="height" constant="30" id="QA0-xC-saB"/>
                                                     </constraints>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -903,16 +902,17 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="byz-TU-Drc" firstAttribute="leading" secondItem="LY7-qr-hr7" secondAttribute="leading" constant="160" id="06t-ya-Kfu"/>
+                                            <constraint firstAttribute="trailing" secondItem="1Re-nj-5Of" secondAttribute="trailing" constant="65" type="user" id="4tO-ft-euB"/>
                                             <constraint firstItem="1Re-nj-5Of" firstAttribute="leading" secondItem="byz-TU-Drc" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="9Mo-Z3-G6V"/>
                                             <constraint firstItem="byz-TU-Drc" firstAttribute="centerY" secondItem="1Re-nj-5Of" secondAttribute="centerY" type="default" id="Dpe-un-FQg"/>
                                             <constraint firstItem="bxg-jm-lPw" firstAttribute="top" secondItem="LY7-qr-hr7" secondAttribute="top" constant="11" id="V1A-Cf-YLX"/>
                                             <constraint firstItem="bxg-jm-lPw" firstAttribute="leading" secondItem="LY7-qr-hr7" secondAttribute="leading" constant="65" id="ZYs-ld-swh"/>
                                             <constraint firstItem="1Re-nj-5Of" firstAttribute="centerY" secondItem="LY7-qr-hr7" secondAttribute="centerY" type="default" id="b39-LH-Nk9"/>
                                             <constraint firstItem="byz-TU-Drc" firstAttribute="top" secondItem="bxg-jm-lPw" secondAttribute="top" type="default" id="h4d-d7-l7b"/>
-                                            <constraint firstItem="1Re-nj-5Of" firstAttribute="leading" secondItem="LY7-qr-hr7" secondAttribute="leading" constant="169" id="xYJ-JD-FLF"/>
+                                            <constraint firstItem="1Re-nj-5Of" firstAttribute="leading" secondItem="LY7-qr-hr7" secondAttribute="leading" constant="169" type="user" id="xYJ-JD-FLF"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Jd2-cQ-1g5">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Jd2-cQ-1g5" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="187" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -930,7 +930,6 @@
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DxT-9t-o7D">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="156" id="aiQ-nc-b3y"/>
                                                         <constraint firstAttribute="height" constant="30" id="mCM-nL-PdR"/>
                                                     </constraints>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -944,17 +943,18 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="DxT-9t-o7D" secondAttribute="trailing" constant="65" type="user" id="0Q9-4R-BmL"/>
                                             <constraint firstItem="G5Z-gL-Ire" firstAttribute="centerY" secondItem="DxT-9t-o7D" secondAttribute="centerY" type="default" id="Aet-fr-Th3"/>
                                             <constraint firstItem="DxT-9t-o7D" firstAttribute="leading" secondItem="G5Z-gL-Ire" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="B8l-5g-ZST"/>
                                             <constraint firstItem="G5Z-gL-Ire" firstAttribute="leading" secondItem="Jd2-cQ-1g5" secondAttribute="leading" constant="160" id="Dhq-5V-NH2"/>
-                                            <constraint firstItem="DxT-9t-o7D" firstAttribute="leading" secondItem="Jd2-cQ-1g5" secondAttribute="leading" constant="169" id="HL2-l1-HWy"/>
+                                            <constraint firstItem="DxT-9t-o7D" firstAttribute="leading" secondItem="Jd2-cQ-1g5" secondAttribute="leading" constant="169" type="user" id="HL2-l1-HWy"/>
                                             <constraint firstItem="Br9-it-sks" firstAttribute="leading" secondItem="Jd2-cQ-1g5" secondAttribute="leading" constant="65" id="TZm-ov-Joc"/>
                                             <constraint firstItem="G5Z-gL-Ire" firstAttribute="top" secondItem="Br9-it-sks" secondAttribute="top" type="default" id="ZQf-nf-ccT"/>
                                             <constraint firstItem="DxT-9t-o7D" firstAttribute="centerY" secondItem="Jd2-cQ-1g5" secondAttribute="centerY" type="default" id="s4U-oy-0Zh"/>
                                             <constraint firstItem="Br9-it-sks" firstAttribute="top" secondItem="Jd2-cQ-1g5" secondAttribute="top" constant="11" id="x82-lV-Vee"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WfF-KB-gLb">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WfF-KB-gLb" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="231" width="768" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1523,6 +1523,9 @@
             <relationships>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
             </relationships>
+        </class>
+        <class className="AddServerCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddServerCell.h"/>
         </class>
         <class className="AddServerController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddServerController.h"/>
