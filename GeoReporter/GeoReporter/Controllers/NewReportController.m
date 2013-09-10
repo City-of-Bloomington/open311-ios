@@ -219,6 +219,10 @@ CLLocationCoordinate2D currentLocation;
         return 2 + STRING_CELL_BOTTOM_SPACE + STRING_CELL_TEXT_FIELD_HEIGHT + headerSize.height;
     }
     if ([type isEqualToString:kOpen311_Address])
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            // The device is an iPad running iOS 3.2 or later.
+            return LOCATION_CELL_HEIGHT_IPAD;
+        }
         return LOCATION_CELL_HEIGHT;
     if ([type isEqualToString:kOpen311_Media])
         return MEDIA_CELL_HEIGHT;
