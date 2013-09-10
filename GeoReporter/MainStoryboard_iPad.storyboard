@@ -709,9 +709,9 @@
                             <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="yxR-tM-cZ9">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="yxR-tM-cZ9">
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="280" id="KnH-KZ-hcL"/>
+                                        <constraint firstAttribute="width" constant="728" type="user" id="yr1-dM-5qa"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="13"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -719,13 +719,13 @@
                                 </label>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="yxR-tM-cZ9" firstAttribute="leading" secondItem="ZuW-ea-ebQ" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="CtH-jU-uNB"/>
+                                <constraint firstAttribute="centerX" secondItem="yxR-tM-cZ9" secondAttribute="centerX" type="user" id="ZNF-WA-pn7"/>
                                 <constraint firstItem="yxR-tM-cZ9" firstAttribute="top" secondItem="ZuW-ea-ebQ" secondAttribute="top" constant="8" type="user" id="lRn-Wg-NW6"/>
                                 <constraint firstAttribute="bottom" secondItem="yxR-tM-cZ9" secondAttribute="bottom" constant="5" type="user" id="t2A-zS-m55"/>
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="server_cell" textLabel="VhZ-hS-ZjH" detailTextLabel="Zbf-7S-VHw" style="IBUITableViewCellStyleSubtitle" id="KjH-1k-wJC">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="server_cell" textLabel="VhZ-hS-ZjH" detailTextLabel="Zbf-7S-VHw" style="IBUITableViewCellStyleSubtitle" id="KjH-1k-wJC" customClass="ServersCell">
                                 <rect key="frame" x="0.0" y="78" width="768" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1650,6 +1650,9 @@
                 <relationship kind="outlet" name="textFieldLastName" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="textFieldPhone" candidateClass="UITextField"/>
             </relationships>
+        </class>
+        <class className="ServersCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ServersCell.h"/>
         </class>
         <class className="ServersController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ServersController.h"/>
