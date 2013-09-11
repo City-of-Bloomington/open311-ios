@@ -991,15 +991,15 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-6K-e3q">
                                 <items>
-                                    <barButtonItem image="iconLocation.png" id="gwd-WE-Aph">
+                                    <barButtonItem title="Cancel" id="gwd-WE-Aph">
                                         <connections>
-                                            <action selector="centerOnLocation:" destination="2KI-gM-Foh" id="8zs-So-2Ws"/>
+                                            <action selector="cancel:" destination="2KI-gM-Foh" id="a0y-Lo-7xJ"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="yHF-BV-LSH"/>
+                                    <barButtonItem style="plain" systemItem="fixedSpace" id="yHF-BV-LSH"/>
                                     <barButtonItem style="plain" id="Wsu-Dt-jZe">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="acZ-pK-YsY">
-                                            <rect key="frame" x="66" y="8" width="178" height="31"/>
+                                            <rect key="frame" x="76" y="8" width="178" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Standard"/>
@@ -1012,7 +1012,7 @@
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
-                                    <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="FQm-kX-ofC"/>
+                                    <barButtonItem style="plain" systemItem="fixedSpace" id="FQm-kX-ofC"/>
                                     <barButtonItem title="Done" id="Y2W-6T-9cT">
                                         <connections>
                                             <action selector="done:" destination="2KI-gM-Foh" id="bv1-nV-j7s"/>
@@ -1029,6 +1029,23 @@
                                             <constraint firstAttribute="width" constant="240" id="WTl-uj-mh8"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZR-3O-qB3">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="3hO-gO-maK"/>
+                                            <constraint firstAttribute="width" constant="48" id="kcK-T4-T0O"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="iconLocation.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="centerOnLocation:" destination="2KI-gM-Foh" eventType="touchUpInside" id="ihd-uA-jD0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1037,7 +1054,9 @@
                                     <constraint firstItem="xGN-g3-q6Q" firstAttribute="leading" secondItem="CJc-R7-tG5" secondAttribute="leading" type="default" id="RaE-GC-O7n"/>
                                     <constraint firstItem="xGN-g3-q6Q" firstAttribute="bottom" secondItem="CJc-R7-tG5" secondAttribute="bottom" type="default" id="Xza-X0-61p"/>
                                     <constraint firstItem="XHN-s9-Idd" firstAttribute="centerY" secondItem="xGN-g3-q6Q" secondAttribute="centerY" type="default" id="ksD-Tp-Egq"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZZR-3O-qB3" secondAttribute="bottom" constant="12" id="nXt-vR-6g1"/>
                                     <constraint firstItem="XHN-s9-Idd" firstAttribute="centerX" secondItem="xGN-g3-q6Q" secondAttribute="centerX" type="default" id="uzI-fS-rrl"/>
+                                    <constraint firstItem="ZZR-3O-qB3" firstAttribute="leading" secondItem="CJc-R7-tG5" secondAttribute="leading" type="default" id="xgj-Y9-mzu"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1532,6 +1551,7 @@
         <class className="LocationController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationController.h"/>
             <relationships>
+                <relationship kind="action" name="cancel:"/>
                 <relationship kind="action" name="centerOnLocation:"/>
                 <relationship kind="action" name="done:"/>
                 <relationship kind="action" name="mapTypeChanged:"/>

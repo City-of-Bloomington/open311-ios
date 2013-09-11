@@ -265,7 +265,8 @@ CLLocationCoordinate2D currentLocation;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportLocationCell forIndexPath:indexPath];
         LocationCell* locationCell = (LocationCell*) cell;
         locationCell.header.text = field[kLabel];
-        if (_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil) {
+        if (_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil &&
+            _report.postData[kOpen311_Latitude] != 0   && _report.postData[kOpen311_Longitude] != 0) {
             
             // Create your coordinate
             CLLocationCoordinate2D myCoordinate = {[_report.postData[kOpen311_Latitude] doubleValue], [_report.postData[kOpen311_Longitude] doubleValue]};
@@ -416,7 +417,9 @@ CLLocationCoordinate2D currentLocation;
     if ([segue.identifier isEqualToString:kSegueToLocation]) {
         [segue.destinationViewController setDelegate:self];
         LocationController *destinationController = (LocationController*)segue.destinationViewController;
-        destinationController.selectedLocation = locationFromLocationController;
+        if (locationFromLocationController.coordinate.latitude != 0 && locationFromLocationController.coordinate.longitude != 0) {
+            destinationController.selectedLocation = locationFromLocationController;
+        }
     }
 }
 
@@ -444,18 +447,21 @@ CLLocationCoordinate2D currentLocation;
 - (void)didChooseLocation:(CLLocationCoordinate2D)location
 {
     locationFromLocationController = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
-    
-    _report.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
-    _report.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
-    
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude]
-                   completionHandler:^(NSArray *placemarks, NSError *error) {
-                       NSString *address = [placemarks[0] name];
-                       _report.postData[kOpen311_AddressString] = address ? address : @"";
-                       [self.tableView reloadData];
-                   }];
-    
+    if (location.latitude != 0 && location.longitude != 0) {
+        
+        _report.postData[kOpen311_Latitude]  = [NSString stringWithFormat:@"%f", location.latitude];
+        _report.postData[kOpen311_Longitude] = [NSString stringWithFormat:@"%f", location.longitude];
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude]
+                       completionHandler:^(NSArray *placemarks, NSError *error) {
+                           NSString *address = [placemarks[0] name];
+                           _report.postData[kOpen311_AddressString] = address ? address : @"";
+                           [self.tableView reloadData];
+                       }];
+        
+        
+    }
     [self.tableView reloadData];
 }
 
@@ -553,5 +559,6 @@ CLLocationCoordinate2D currentLocation;
 //    [SVProgressHUD showErrorWithStatus:@"Report could not be sent"];
     [SVProgressHUD dismiss];
 }
+
 
 @end

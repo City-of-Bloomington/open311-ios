@@ -97,6 +97,10 @@ static NSInteger const kMapTypeHybridIndex = 2;
             break;
     }
 }
+
+- (IBAction)cancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)viewDidUnload {
     [self setSegmentedControl:nil];
     [super viewDidUnload];
