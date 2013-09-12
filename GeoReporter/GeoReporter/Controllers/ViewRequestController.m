@@ -14,6 +14,7 @@
 #import "Preferences.h"
 #import "Media.h"
 #import "FullImageController.h"
+#import "ViewReportLocationCell.h"
 
 @interface ViewRequestController ()
 
@@ -30,6 +31,7 @@
 }
 static NSString * const kCellIdentifier  = @"request_cell";
 static NSString * const kMediaCell       = @"media_cell";
+static NSString * const kLocationCell       = @"location_cell";
 static NSInteger  const kImageViewTag    = 100;
 static NSInteger  const kLabelTag    = 114;
 static CGFloat    const kMediaCellHeight = 122;
@@ -133,14 +135,18 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    int numberOfRows = 1;    //we always have the "Description" cell
     if (section == 0) {
         return 3;
     }
     else {
         if (mediaUrl) {
-            return 3;
+            numberOfRows += 1;
         }
-        return 2;
+        if (_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil) {
+            numberOfRows += 1;
+        }
+    return numberOfRows;
     }
 
 }
@@ -178,49 +184,74 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
         }
     }
     else {
-        if (mediaUrl && indexPath.row == 0) {
-            //have image
-            cell = [tableView dequeueReusableCellWithIdentifier:kMediaCell forIndexPath:indexPath];
-            UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageViewTag];
-            [imageView setImage:media];
-            imageView.userInteractionEnabled = YES;
+        if (indexPath.row == 0) {
+        // description cell
+            cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
             
-            if (loadedOnce == NO) {
-                gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openFullScreenImage:)];
-                [cell addGestureRecognizer:gestureRecognizer];
-                loadedOnce = YES;
-            }
-            
+            cell.textLabel.text = kUI_DescriptionOfProblem;
+            [cell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
+            [cell.detailTextLabel setNumberOfLines:0];
+            cell.detailTextLabel.text = [self getReportDescription];
         }
         else {
-            //don't have image
-            if (indexPath.row == 1) {
-                cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-                
-                cell.textLabel.text = kUI_DescriptionOfProblem;
-                [cell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
-                [cell.detailTextLabel setNumberOfLines:0];
-                cell.detailTextLabel.text = [self getReportDescription];
-                
-            }
-            else {
-                cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-                cell.textLabel.text = NSLocalizedString(kUI_Location, nil);
+            if (indexPath.row == 1 && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil) {
+                ViewReportLocationCell *locationCell = [tableView dequeueReusableCellWithIdentifier:kLocationCell forIndexPath:indexPath];
+                locationCell.titleLabel.text = NSLocalizedString(kUI_Location, nil);
                 
                 NSString *text = nil;
                 if (sr          &&   sr[kOpen311_Address]       != [NSNull null]) { text =   sr[kOpen311_Address];       }
                 if (text == nil && post[kOpen311_AddressString] != [NSNull null]) { text = post[kOpen311_AddressString]; }
-                if (text != nil) { cell.detailTextLabel.text = text; }
+                if (text != nil) { locationCell.description.text = text; }
+                
+                MKCoordinateRegion region;
+                region.center.latitude  = [(NSNumber*)_report.postData[kOpen311_Latitude] doubleValue];
+                region.center.longitude = [(NSNumber*)_report.postData[kOpen311_Longitude] doubleValue];
+                MKCoordinateSpan span;
+                span.latitudeDelta  = 0.0025;
+                span.longitudeDelta = 0.0025;
+                region.span = span;
+                [locationCell.mapView setRegion:region animated:YES];
+                
+                MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+                // Set your annotation to point at your coordinate
+                point.coordinate = region.center;
+                //Drop pin on map
+                [locationCell.mapView addAnnotation:point];
+                
+                return locationCell;
+            }
+            else {
+                //media cell
+                cell = [tableView dequeueReusableCellWithIdentifier:kMediaCell forIndexPath:indexPath];
+                UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageViewTag];
+                [imageView setImage:media];
+                imageView.userInteractionEnabled = YES;
+                
+                if (loadedOnce == NO) {
+                    gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openFullScreenImage:)];
+                    [cell addGestureRecognizer:gestureRecognizer];
+                    loadedOnce = YES;
+                }
             }
         }
     }
-    return cell;
+
+
+        return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (mediaUrl && indexPath.section==1 && indexPath.row==0) {
-        return 122;
+    if (mediaUrl && indexPath.section==1 && indexPath.row==1) {
+        return MEDIA_CELL_HEIGHT;
+    }
+    if ((_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==2) ||
+        (!mediaUrl && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==1)) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            // The device is an iPad running iOS 3.2 or later.
+            return LOCATION_CELL_HEIGHT_IPAD;
+        }
+        return LOCATION_CELL_HEIGHT;
     }
     
     #define FONT_SIZE 14.0f

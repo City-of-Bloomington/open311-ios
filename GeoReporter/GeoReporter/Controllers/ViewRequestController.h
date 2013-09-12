@@ -13,6 +13,10 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Report.h"
 
+#define MEDIA_CELL_HEIGHT 122
+#define LOCATION_CELL_HEIGHT 122
+#define LOCATION_CELL_HEIGHT_IPAD 222
+
 @interface ViewRequestController : UITableViewController <ServiceRequestDelegate>
 @property Report *report;
 @property NSInteger reportIndex;
