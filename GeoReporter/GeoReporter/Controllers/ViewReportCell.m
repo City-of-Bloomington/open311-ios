@@ -1,14 +1,14 @@
 //
-//  ViewReportLocationCell.m
+//  ViewReportCell.m
 //  GeoReporter
 //
-//  Created by Marius Constantinescu on 9/12/13.
+//  Created by Marius Constantinescu on 9/13/13.
 //  Copyright (c) 2013 City of Bloomington. All rights reserved.
 //
 
-#import "ViewReportLocationCell.h"
+#import "ViewReportCell.h"
 
-@implementation ViewReportLocationCell
+@implementation ViewReportCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -32,8 +32,8 @@
         UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
         
         if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-            frame.origin.x += VIEW_REPORT_LOCATION_CELL_IPAD_OFFSET;
-            frame.size.width -= 2 * VIEW_REPORT_LOCATION_CELL_IPAD_OFFSET;
+            frame.origin.x += VIEW_REPORT_CELL_IPAD_OFFSET;
+            frame.size.width -= 2 * VIEW_REPORT_CELL_IPAD_OFFSET;
         }
     }
     else {
@@ -41,6 +41,5 @@
     }
     [super setFrame:frame];
 }
-
 
 @end

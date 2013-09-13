@@ -10,6 +10,7 @@
 		291B1FC517DEFE8900E07812 /* ServersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 291B1FC417DEFE8900E07812 /* ServersCell.m */; };
 		291B1FC917DF0F9500E07812 /* AddServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 291B1FC817DF0F9400E07812 /* AddServerCell.m */; };
 		292A9C4117E1F25F009D4CCA /* ViewReportLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 292A9C4017E1F25F009D4CCA /* ViewReportLocationCell.m */; };
+		292A9C4417E3B13F009D4CCA /* ViewReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 292A9C4317E3B13F009D4CCA /* ViewReportCell.m */; };
 		2936470117D536160078944B /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2936470017D536160078944B /* FooterCell.m */; };
 		29719D5D17AC6847007367AF /* MediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29719D5C17AC6847007367AF /* MediaCell.m */; };
 		29719D5F17AD14BE007367AF /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 29719D5E17AD14BE007367AF /* camera.png */; };
@@ -129,6 +130,8 @@
 		291B1FC817DF0F9400E07812 /* AddServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerCell.m; sourceTree = "<group>"; };
 		292A9C3F17E1F25F009D4CCA /* ViewReportLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewReportLocationCell.h; sourceTree = "<group>"; };
 		292A9C4017E1F25F009D4CCA /* ViewReportLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewReportLocationCell.m; sourceTree = "<group>"; };
+		292A9C4217E3B13E009D4CCA /* ViewReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewReportCell.h; sourceTree = "<group>"; };
+		292A9C4317E3B13F009D4CCA /* ViewReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewReportCell.m; sourceTree = "<group>"; };
 		293646FF17D536160078944B /* FooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterCell.h; sourceTree = "<group>"; };
 		2936470017D536160078944B /* FooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterCell.m; sourceTree = "<group>"; };
 		29719D5B17AC6847007367AF /* MediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCell.h; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 				291B1FC817DF0F9400E07812 /* AddServerCell.m */,
 				292A9C3F17E1F25F009D4CCA /* ViewReportLocationCell.h */,
 				292A9C4017E1F25F009D4CCA /* ViewReportLocationCell.m */,
+				292A9C4217E3B13E009D4CCA /* ViewReportCell.h */,
+				292A9C4317E3B13F009D4CCA /* ViewReportCell.m */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -785,6 +790,7 @@
 				291B1FC517DEFE8900E07812 /* ServersCell.m in Sources */,
 				291B1FC917DF0F9500E07812 /* AddServerCell.m in Sources */,
 				292A9C4117E1F25F009D4CCA /* ViewReportLocationCell.m in Sources */,
+				292A9C4417E3B13F009D4CCA /* ViewReportCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
