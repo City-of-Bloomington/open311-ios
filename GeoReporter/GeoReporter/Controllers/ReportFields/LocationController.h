@@ -26,10 +26,14 @@
 @property (strong, nonatomic) CLLocation *selectedLocation;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftSpace;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *rightSpace;
+
 - (IBAction)done:(id)sender;
 - (IBAction)centerOnLocation:(id)sender;
 - (IBAction)mapTypeChanged:(id)sender;
 - (IBAction)cancel:(id)sender;
+
 
 - (void)zoomToLocation:(CLLocation *)location;
 @end

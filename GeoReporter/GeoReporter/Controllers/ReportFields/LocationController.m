@@ -39,7 +39,55 @@ static NSInteger const kMapTypeHybridIndex = 2;
     
     [self.segmentedControl setTitle:NSLocalizedString(kUI_Standard,  nil) forSegmentAtIndex:kMapTypeStandardIndex];
     [self.segmentedControl setTitle:NSLocalizedString(kUI_Satellite, nil) forSegmentAtIndex:kMapTypeSatelliteIndex];
+    
+    [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
+
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+//{
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+//        // The device is an iPad running iOS 3.2 or later.
+//        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+//        
+//        if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+//            //change from landscape to portrait
+//            self.leftSpace.width = 223;
+//            self.rightSpace.width = 223;
+//        }
+//        else {
+//            //change from portrait to landscape
+//            self.leftSpace.width = 351;
+//            self.rightSpace.width = 351;
+//        }
+//    }
+//    else {
+//        // The device is an iPhone or iPod touch. We use the default frame of the superclass (TableViewCell)
+//    }
+//}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // The device is an iPad running iOS 3.2 or later.
+        //UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        
+        if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+            //change from landscape to portrait
+            self.leftSpace.width = 351;
+            self.rightSpace.width = 351;
+
+        }
+        else {
+            //change from portrait to landscape
+            self.leftSpace.width = 223;
+            self.rightSpace.width = 223;
+        }
+    }
+    else {
+        // The device is an iPhone or iPod touch. We use the default frame of the superclass (TableViewCell)
+    }
+}
+
 
 - (void)zoomToLocation:(CLLocation *)location
 {
