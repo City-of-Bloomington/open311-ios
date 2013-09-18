@@ -10,7 +10,10 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ServiceDelegate.h"
 
 @interface ChooseServiceController : UITableViewController
-@property NSString *group;
+@property (nonatomic) NSString *group;
+@property (weak, nonatomic) id <ServiceDelegate> delegate;
+
 @end

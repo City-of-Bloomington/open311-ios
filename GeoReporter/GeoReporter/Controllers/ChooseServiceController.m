@@ -25,15 +25,14 @@
     NSArray *services;
 }
 static NSString * const kCellIdentifier = @"service_cell";
-static NSString * const kSegueToReport  = @"SegueToReport";
+static NSString * const kSegueToNewReport = @"SegueToNewReport";
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     open311 = [Open311 sharedInstance];
-    
     currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
-    
     services = [open311 getServicesForGroup:self.group];
     self.navigationItem.title = self.group;
     
@@ -67,10 +66,49 @@ static NSString * const kSegueToReport  = @"SegueToReport";
     return cell;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewReportController *report = [segue destinationViewController];
-    report.service = services[[[self.tableView indexPathForSelectedRow] row]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // The device is an iPad running iOS 3.2 or later.
+        [self.delegate didSelectService:services[tableView.indexPathForSelectedRow.row]];
+    }
+    else {
+        // The device is an iPhone or iPod touch.
+        [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+    }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // The device is an iPad running iOS 3.2 or later.
+    }
+    else {
+        // The device is an iPhone or iPod touch.
+        NewReportController *report = [segue destinationViewController];
+        report.service = services[[[self.tableView indexPathForSelectedRow] row]];
+
+    }
+}
+
+- (void)setGroup:(NSString *)group
+{
+    _group = group;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // The device is an iPad running iOS 3.2 or later.
+        open311 = [Open311 sharedInstance];
+        
+        currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
+        
+        services = [open311 getServicesForGroup:self.group];
+        //self.navigationItem.title = self.group;
+        [self.tableView reloadData];
+    }
+    else {
+        //The device is an iPhone or iPod
+    }
+    
+}
 @end

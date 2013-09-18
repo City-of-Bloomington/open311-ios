@@ -10,8 +10,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "GroupDelegate.h"
 
 @interface ChooseGroupController : UITableViewController
 - (IBAction)cancel:(id)sender;
+@property (strong, nonatomic) NSString* chosenGroup;
+@property (weak, nonatomic) id <GroupDelegate> delegate;
 
 @end

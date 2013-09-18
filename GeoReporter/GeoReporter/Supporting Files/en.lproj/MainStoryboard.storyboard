@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4Gh-8H-htc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4Gh-8H-htc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -645,9 +645,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="AwV-Tf-YDd" kind="push" identifier="SegueToChooseService" id="U8k-tK-w82"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -662,6 +659,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="AwV-Tf-YDd" kind="push" identifier="SegueToChooseService" id="1YZ-VD-Nzn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fD-hk-eHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -696,9 +696,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="zXc-D2-iWn" kind="push" id="dSM-j7-bUa"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -707,6 +704,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="AWl-QS-mss"/>
+                    <connections>
+                        <segue destination="zXc-D2-iWn" kind="push" identifier="SegueToNewReport" id="Byf-Xq-tN1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeg-vK-1Lh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1601,7 +1601,9 @@
                 <relationship kind="action" name="centerOnLocation:"/>
                 <relationship kind="action" name="done:"/>
                 <relationship kind="action" name="mapTypeChanged:"/>
+                <relationship kind="outlet" name="leftSpace" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="rightSpace" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>
@@ -1683,6 +1685,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewReportLocationCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>

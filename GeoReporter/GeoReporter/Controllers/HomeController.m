@@ -21,6 +21,7 @@
 
 static NSString * const kSegueToSettings = @"SegueToSettings";
 static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
+static NSString * const kSegueToContainerView = @"SegueToChooseGroupiPad";
 static NSString * const kSegueToServers = @"SegueToServers";
 static NSString * const kSegueToArchive = @"SegueToArchive";
 static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServersToHome";
@@ -131,7 +132,14 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
     
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self performSegueWithIdentifier:kSegueToChooseGroup sender:self];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                // The device is an iPad running iOS 3.2 or later.
+                [self performSegueWithIdentifier:kSegueToContainerView sender:self];
+            }
+            else {
+                // The device is an iPhone or iPod touch.
+                [self performSegueWithIdentifier:kSegueToChooseGroup sender:self];
+            }            
         } else if (indexPath.row == 1) {
             [self performSegueWithIdentifier:kSegueToArchive sender:self];
         }

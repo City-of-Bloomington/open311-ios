@@ -30,6 +30,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
     open311 = [Open311 sharedInstance];
     self.navigationItem.title = NSLocalizedString(kUI_Report, nil);
     
+    
     //add empty footer so that empty rows will not be shown at the end of the table
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
@@ -74,10 +75,33 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
     return cell;
 }
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // The device is an iPad running iOS 3.2 or later.
+        self.chosenGroup = open311.groups[indexPath.row];
+        [self.delegate didSelectGroup:self.chosenGroup];
+    }
+    else {
+        // The device is an iPhone or iPod touch.
+        [self performSegueWithIdentifier:kSegueToChooseService sender:self];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ChooseServiceController *controller = [segue destinationViewController];
-    controller.group = [open311.groups objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // The device is an iPad running iOS 3.2 or later.
+        
+    }
+    else {
+        // The device is an iPhone or iPod touch.
+        ChooseServiceController *controller = [segue destinationViewController];
+        controller.group = [open311.groups objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+    }
+    
 }
 
 @end
