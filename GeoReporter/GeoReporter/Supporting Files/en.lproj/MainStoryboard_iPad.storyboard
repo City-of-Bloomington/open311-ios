@@ -320,9 +320,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T77-UZ-t0o">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="74" id="FE4-NX-iY2"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
@@ -331,7 +328,7 @@
                                         </textField>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="StringCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="vOw-0n-ypI">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" type="user" id="Tfg-nU-l4L"/>
+                                                <constraint firstAttribute="height" constant="20" type="user" id="zEV-yo-PWW"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -342,11 +339,12 @@
                                 </view>
                                 <constraints>
                                     <constraint firstItem="vOw-0n-ypI" firstAttribute="top" secondItem="adX-Gc-i3K" secondAttribute="top" constant="2" type="user" id="1dv-bd-fE4"/>
-                                    <constraint firstItem="vOw-0n-ypI" firstAttribute="trailing" secondItem="T77-UZ-t0o" secondAttribute="trailing" type="default" id="BYw-Nf-nKJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="T77-UZ-t0o" secondAttribute="trailing" constant="20" type="user" id="Ajh-q1-nl5"/>
                                     <constraint firstItem="T77-UZ-t0o" firstAttribute="leading" secondItem="adX-Gc-i3K" secondAttribute="leading" constant="20" type="default" id="D6h-VU-vSs"/>
-                                    <constraint firstAttribute="trailing" secondItem="vOw-0n-ypI" secondAttribute="trailing" constant="20" type="default" id="DzX-zN-PL6"/>
-                                    <constraint firstItem="T77-UZ-t0o" firstAttribute="top" secondItem="adX-Gc-i3K" secondAttribute="top" constant="22" id="VNt-iB-HWf"/>
+                                    <constraint firstAttribute="trailing" secondItem="vOw-0n-ypI" secondAttribute="trailing" constant="20" type="user" id="DzX-zN-PL6"/>
                                     <constraint firstItem="vOw-0n-ypI" firstAttribute="leading" secondItem="adX-Gc-i3K" secondAttribute="leading" constant="20" type="default" id="Wp1-iz-IV7"/>
+                                    <constraint firstAttribute="bottom" secondItem="T77-UZ-t0o" secondAttribute="bottom" constant="4" type="user" id="eQv-eF-RCf"/>
+                                    <constraint firstItem="T77-UZ-t0o" firstAttribute="top" secondItem="vOw-0n-ypI" secondAttribute="bottom" constant="6" type="user" id="lJu-ca-isY"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="header" destination="vOw-0n-ypI" id="zKz-uJ-Zoe"/>
