@@ -21,12 +21,12 @@ extern NSString * const kNotification_PostFailed;
 
 + (id)sharedInstance;
 
-- (void)loadAllMetadataForServer:(NSDictionary *)server;
+- (void)loadAllMetadataForServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion;
 - (void)loadFailedWithError:(NSError *)error;
 
 - (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender;
 
-- (void)loadServiceList;
+- (void)loadServiceListWithCompletion:(void(^)(void)) completion;
 - (void)loadServiceDefinitions;
 - (NSArray *)getServicesForGroup:(NSString *)group;
 

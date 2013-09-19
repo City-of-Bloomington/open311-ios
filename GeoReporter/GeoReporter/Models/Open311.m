@@ -20,6 +20,7 @@
 #import <AFNetworking/AFHTTPClient.h>
 #import <AFNetworking/AFJSONRequestOperation.h>
 #import "Media.h"
+#import <MBProgressHUD.h>
 
 NSString * const kNotification_ServiceListReady = @"serviceListReady";
 NSString * const kNotification_PostSucceeded    = @"postSucceeded";
@@ -33,7 +34,7 @@ NSString * const kNotification_PostFailed       = @"postFailed";
 SHARED_SINGLETON(Open311);
 
 // Make sure to call this method before doing any other work
-- (void)loadAllMetadataForServer:(NSDictionary *)server
+- (void)loadAllMetadataForServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion
 {
     currentServer = server;
     
@@ -48,7 +49,7 @@ SHARED_SINGLETON(Open311);
     if (_serviceDefinitions == nil) { _serviceDefinitions = [[NSMutableDictionary alloc] init]; } else { [_serviceDefinitions removeAllObjects]; }
     
     httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[server objectForKey:kOpen311_Url]]];
-    [self loadServiceList];
+    [self loadServiceListWithCompletion:completion];
 }
 
 - (void)loadFailedWithError:(NSError *)error
@@ -89,13 +90,14 @@ SHARED_SINGLETON(Open311);
 }
 
 #pragma mark - GET Service List
-- (void)loadServiceList
+- (void)loadServiceListWithCompletion:(void(^)(void)) completion
 {
     [httpClient getPath:@"services.json"
              parameters:_endpointParameters
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSError *error;
                     serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                    completion();
                     if (!error) {
                         [self loadServiceDefinitions];
                     }
