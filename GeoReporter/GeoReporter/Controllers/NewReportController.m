@@ -530,7 +530,8 @@ CLLocationCoordinate2D currentLocation;
 #pragma mark send the report
 
 - (IBAction)send:(id)sender {
-
+    
+    [self.tableView endEditing:YES];
     [SVProgressHUD showWithStatus:@"Sending" maskType:SVProgressHUDMaskTypeClear];
     
     Open311 *open311 = [Open311 sharedInstance];
