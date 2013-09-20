@@ -84,6 +84,10 @@ CLLocationCoordinate2D currentLocation;
 {
     [super viewDidLoad];
     
+    //make view controller start below navigation bar; this wrks in iOS 7
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;

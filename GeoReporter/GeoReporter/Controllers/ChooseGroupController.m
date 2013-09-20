@@ -27,6 +27,11 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //make view controller start below navigation bar; this wrks in iOS 7
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     open311 = [Open311 sharedInstance];
     self.navigationItem.title = NSLocalizedString(kUI_Report, nil);
     
