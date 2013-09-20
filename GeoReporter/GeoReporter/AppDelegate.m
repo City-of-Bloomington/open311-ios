@@ -16,7 +16,26 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [self applyTheme];
     return YES;
+}
+
+-(void)applyTheme
+{
+    NSDictionary *barButtonTitleTextAttributes = @{
+                                                  UITextAttributeFont:[UIFont systemFontOfSize:13.f],
+                                                  UITextAttributeTextColor: [UIColor orangeColor],
+                                                  UITextAttributeTextShadowColor: [UIColor colorWithWhite:0.0f alpha:0.5f],
+                                                  UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0.0f, 0.0f)]
+                                                  };
+    UIBarButtonItem *barButton = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
+	[barButton setTitleTextAttributes:barButtonTitleTextAttributes forState:UIControlStateNormal];
+    
+	[barButton setTitleTextAttributes:barButtonTitleTextAttributes forState:UIControlStateHighlighted];
+    
+    
+
 }
 
 @end
