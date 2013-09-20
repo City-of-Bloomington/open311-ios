@@ -22,7 +22,7 @@
 @end
 
 @interface LocationController : UIViewController <CLLocationManagerDelegate>
-@property id<LocationChooserDelegate>delegate;
+@property (weak, nonatomic) id<LocationChooserDelegate>delegate;
 @property (strong, nonatomic) CLLocation *selectedLocation;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;

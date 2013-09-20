@@ -16,7 +16,7 @@
 @interface TextCell : UITableViewCell <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UITextView *text;
-@property id<TextEntryDelegate>delegate;
+@property (weak, nonatomic) id<TextEntryDelegate>delegate;
 @property (strong, nonatomic) NSString* fieldname;
 
 @end
