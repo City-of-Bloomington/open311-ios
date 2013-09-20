@@ -83,7 +83,8 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationNone];
+    //refresh table so that the section headers are redrawn according to their new position in the new orientation.
+    [self.tableView reloadData];
 }
 
 /**
