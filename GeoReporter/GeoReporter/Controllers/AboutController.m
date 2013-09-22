@@ -21,9 +21,10 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	//make view controller start below navigation bar; this wrks in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+	//make view controller start below navigation bar; this works in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
 		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
 	
 	self.navigationItem.title = NSLocalizedString(kUI_About, nil);
 	

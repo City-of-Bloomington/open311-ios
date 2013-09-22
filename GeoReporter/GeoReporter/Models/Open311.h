@@ -28,7 +28,6 @@ extern NSString * const kNotification_PostFailed;
 
 - (void)loadServiceListWithCompletion:(void(^)(void)) completion;
 - (void)loadGroups;
-- (void)loadServiceDefinitions;
 - (NSArray *)getServicesForGroup:(NSString *)group;
 - (void)getMetadataForService:(NSDictionary*) serviceCode WithCompletion:(void(^)(void)) completion;
 

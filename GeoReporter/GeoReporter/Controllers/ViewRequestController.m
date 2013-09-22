@@ -42,9 +42,10 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 {
 	[super viewDidLoad];
 	
-	//make view controller start below navigation bar; this wrks in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+	//make view controller start below navigation bar; this works in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
 		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
 	
 	self.navigationItem.title = self.report.service[kOpen311_ServiceName];
 	
@@ -280,6 +281,7 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	[self performSegueWithIdentifier:kSegueToFullImage sender:self];
 }
 
+# pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	FullImageController *controller = [segue destinationViewController];

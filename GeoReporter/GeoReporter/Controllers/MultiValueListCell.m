@@ -36,7 +36,7 @@ static NSString * const kInnerCellIdentifier = @"inner_cell";
 	// Configure the view for the selected state
 }
 
-#pragma mark table view stuff
+#pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -77,10 +77,10 @@ static NSString * const kInnerCellIdentifier = @"inner_cell";
 	
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	
-	
-	
 	return cell;
 }
+
+#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -103,8 +103,7 @@ static NSString * const kInnerCellIdentifier = @"inner_cell";
 		[selected addObject:key];
 	}
 	
-	[self.delegate didProvideValues:selected fromField:self.fieldname];
-	
+	[self.delegate didProvideValues:selected fromField:self.fieldname];	
 }
 
 - (void)setAttribute:(NSDictionary *)attribute

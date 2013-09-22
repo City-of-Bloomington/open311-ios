@@ -44,7 +44,8 @@
 	// Configure the view for the selected state
 }
 
-- (IBAction)didChangeSwitchValue:(id)sender {
+- (IBAction)didChangeSwitchValue:(id)sender
+{
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	if ([self.anonymousSwitch isOn]) {
 		[preferences setValue:@"yes" forKey:kOpen311_IsAnonymous];

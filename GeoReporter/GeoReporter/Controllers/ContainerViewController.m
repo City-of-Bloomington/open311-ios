@@ -43,8 +43,9 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 	// Do any additional setup after loading the view.
 	
 	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
 		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,7 +85,7 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 }
 
 
-
+# pragma mark Segue
 - (void) prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender
 {
 	if ([segue.identifier isEqualToString:kEmbeddedSegueToService])    {
@@ -104,9 +105,7 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 			NewReportController *report = [segue destinationViewController];
 			report.service = self.selectedService;
 		}
-	}
-	
-	
+	}	
 }
 
 #pragma mark MBProgressHUDDelegate methods

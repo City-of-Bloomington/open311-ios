@@ -162,51 +162,6 @@ SHARED_SINGLETON(Open311);
 }
 
 
-// |serviceList| must already be loaded before calling this method.
-//
-// Loads unique |groups| from the |serviceList|
-//
-// Kicks off an HTTP Request for any and all |serviceDefinitions| that are needed.
-// We do not wait around for them to finish.  Instead, we leave them in
-// the background.  We can send the user on to the Group and Service choosing
-// screens right away.  Hopefully, by the time the user has chosen a service
-// to report, the HTTP request for that particular service will have finished.
-// If not, the user will just not see any attributes that would have been defined
-// in the service definition.
-
-// Not used anymore
-- (void)loadServiceDefinitions
-{
-	
-	int count = [_serviceList count];
-	for (int i=0; i<count; i++) {
-		NSDictionary *service = [_serviceList objectAtIndex:i];
-		
-		// Add the current group if it's not already there
-		NSString *group = [service objectForKey:kOpen311_Group];
-		if (group == nil) { group = kUI_Uncategorized; }
-		if (![_groups containsObject:group]) { [_groups addObject:group]; }
-		// Fire off a service definition request, if needed
-		__block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
-		if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
-			[_httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
-					  parameters:_endpointParameters
-						 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-							 NSError *error;
-							 _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-							 if (error) {
-								 [self loadFailedWithError:error];
-							 }
-						 }
-						 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-							 [self loadFailedWithError:error];
-						 }
-			 ];
-		}
-	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
-}
-
 /**
  * Returns an array of service dictionaries from |serviceList|
  */

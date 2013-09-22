@@ -34,7 +34,9 @@
 	// Configure the view for the selected state
 }
 
-- (void)setFrame:(CGRect)frame {
+// Override the setFrame method to customize the table width for the iPad
+- (void)setFrame:(CGRect)frame
+{
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 		// The device is an iPad running iOS 3.2 or later.
 		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;

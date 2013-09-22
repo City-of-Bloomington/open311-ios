@@ -30,9 +30,10 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 {
 	[super viewDidLoad];
 	
-	//make view controller start below navigation bar; this wrks in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+	//make view controller start below navigation bar; this works in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
 		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
 	
 	
 	_open311 = [Open311 sharedInstance];
@@ -99,6 +100,7 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 	}
 }
 
+# pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

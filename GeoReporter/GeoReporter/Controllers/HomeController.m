@@ -49,9 +49,9 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 	self.reportingAsLabel.text = NSLocalizedString(kUI_ReportingAs, nil);
 	self.serversLabel.text = NSLocalizedString(kUI_Servers, nil);
 	
-	UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
-	
-	[[self navigationItem] setBackBarButtonItem: newBackButton];
+//	UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+//	
+//	[[self navigationItem] setBackBarButtonItem: newBackButton];
 }
 
 /**
@@ -153,8 +153,6 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 }
 
 
-
-
 #pragma mark -unwind segue
 -(IBAction) didReturnFromServersController:(UIStoryboardSegue *)sender
 {
@@ -170,7 +168,8 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 }
 
 #pragma mark MBProgressHUDDelegate methods
-- (void)hudWasHidden:(MBProgressHUD *)hud {
+- (void)hudWasHidden:(MBProgressHUD *)hud
+{
 	// Remove HUD from screen when the HUD was hidded
 	[HUD removeFromSuperview];
 	HUD.labelText = nil;

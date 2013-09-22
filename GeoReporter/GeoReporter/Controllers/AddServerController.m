@@ -28,9 +28,10 @@
 {
 	[super viewDidLoad];
 	
-	//make view controller start below navigation bar; this wrks in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+	//make view controller start below navigation bar; this works in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
 		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
 	
 	self.navigationItem.title = NSLocalizedString(kUI_ButtonAddServer, nil);
 	
@@ -101,8 +102,6 @@
 	label.frame = frame;
 	label.backgroundColor = [UIColor clearColor];
 	label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
-	//    label.shadowColor = [UIColor grayColor];
-	//    label.shadowOffset = CGSizeMake(-1.0, 1.0);
 	label.font = [UIFont fontWithName:@"Heiti SC" size:15];
 	label.text = sectionTitle;
 	
@@ -110,26 +109,6 @@
 	[view addSubview:label];
 	
 	return view;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	switch (indexPath.row) {
-		case 0:
-			[self.textFieldName becomeFirstResponder];
-			break;
-		case 1:
-			[self.textFieldUrl becomeFirstResponder];
-			break;
-		case 2:
-			[self.textFieldJurisdiction becomeFirstResponder];
-			break;
-		case 3:
-			[self.textFieldApiKey becomeFirstResponder];
-			break;
-		default:
-			break;
-	}
 }
 
 

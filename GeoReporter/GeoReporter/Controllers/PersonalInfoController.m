@@ -26,9 +26,10 @@
 {
 	[super viewDidLoad];
 	
-	//make view controller start below navigation bar; this wrks in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+	//make view controller start below navigation bar; this works in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
 		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
 	
 	self.navigationItem.title = NSLocalizedString(kUI_PersonalInfo, nil);
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -59,7 +60,6 @@
 	[self.separator1 setHidden:YES];
 	[self.separator2 setHidden:YES];
 	[self.separator3 setHidden:YES];
-	
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -73,13 +73,6 @@
 	[super viewWillDisappear:animated];
 }
 
-//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-//{
-//    [self.tableView beginUpdates];
-//    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-//    [self.tableView endUpdates];
-//}
-
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
@@ -87,8 +80,8 @@
 
 #pragma mark - Table view handlers
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
 	NSString *sectionTitle = NSLocalizedString(kUI_PersonalInfo, nil);
 	
 	UILabel *label = [[UILabel alloc] init];
@@ -131,7 +124,8 @@
 }
 
 
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
 	[super setEditing:editing animated:animated];
 	if(editing) {
 		self.textFieldFirstName.clearButtonMode = UITextFieldViewModeAlways;
@@ -180,7 +174,8 @@
 	}
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
 	if (textField == _textFieldPhone) {
 		NSString * formattedPhoneNumber = _textFieldPhone.text;
 		_textFieldPhone.text = [[[[formattedPhoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"(" withString:@""] stringByReplacingOccurrencesOfString:@")" withString:@""] stringByReplacingOccurrencesOfString:@"-" withString:@""];
@@ -188,7 +183,8 @@
 	
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
 	if (textField == _textFieldPhone) {
 		
 		NBPhoneNumberUtil *phoneUtil = [NBPhoneNumberUtil sharedInstance];
