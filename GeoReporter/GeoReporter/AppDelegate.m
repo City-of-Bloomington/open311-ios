@@ -10,6 +10,7 @@
  */
 
 #import "AppDelegate.h"
+#import <UIKit/UIKit.h>
 
 @implementation AppDelegate
 
@@ -17,10 +18,23 @@
 {
     // Override point for customization after application launch.
     
-    [self applyTheme];
+    if (isRunningiOS7()) {
+        [self applyTheme];
+    }
     return YES;
 }
 
+
+static BOOL isRunningiOS7() {
+    #if defined(__IPHONE_7_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0)
+    // compiled with >= iOS 7 SDK
+    // flat when compiled with >= iOS 7 SDK and running on >= iOS 7:
+    return (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0);
+    #else
+    // compiled with < iOS 7 SDK; we're never in Flat Mode
+    return NO;
+    #endif
+}
 -(void)applyTheme
 {
     NSDictionary *barButtonTitleTextAttributes = @{
