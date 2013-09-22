@@ -25,8 +25,12 @@ static NSInteger const kMapTypeHybridIndex = 2;
 {
 	[super viewDidLoad];
 	//make view controller start below navigation bar; this wrks in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-		self.edgesForExtendedLayout = UIRectEdgeNone;
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+		self.navigationController.toolbar.tintColor = [UIColor orangeColor];
+		self.segmentedControl.tintColor = [UIColor whiteColor];
+		self.cancelButton.tintColor = [UIColor orangeColor];
+		self.doneButton.tintColor = [UIColor orangeColor];
+	}
 	
 	_locationManager = [[CLLocationManager alloc] init];
 	_locationManager.delegate = self;

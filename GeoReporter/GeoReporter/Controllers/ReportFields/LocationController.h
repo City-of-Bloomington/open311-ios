@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftSpace;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightSpace;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 
 - (IBAction)done:(id)sender;
 - (IBAction)centerOnLocation:(id)sender;
