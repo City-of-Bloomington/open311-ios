@@ -21,29 +21,29 @@ static NSInteger const kMapTypeSatelliteIndex = 1;
 static NSInteger const kMapTypeHybridIndex = 2;
 
 @implementation LocationController {
-    CLLocationManager *locationManager;
+	CLLocationManager *locationManager;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    //make view controller start below navigation bar; this wrks in iOS 7
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    locationManager.distanceFilter = 50;
-    [locationManager startUpdatingLocation];
-    
-    MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.map];
-    [self.navigationController.toolbar setItems:@[button]];
-    
-    [self.segmentedControl setTitle:NSLocalizedString(kUI_Standard,  nil) forSegmentAtIndex:kMapTypeStandardIndex];
-    [self.segmentedControl setTitle:NSLocalizedString(kUI_Satellite, nil) forSegmentAtIndex:kMapTypeSatelliteIndex];
-    
-    [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
+	[super viewDidLoad];
+	//make view controller start below navigation bar; this wrks in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+		self.edgesForExtendedLayout = UIRectEdgeNone;
+	
+	locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self;
+	locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+	locationManager.distanceFilter = 50;
+	[locationManager startUpdatingLocation];
+	
+	MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.map];
+	[self.navigationController.toolbar setItems:@[button]];
+	
+	[self.segmentedControl setTitle:NSLocalizedString(kUI_Standard,  nil) forSegmentAtIndex:kMapTypeStandardIndex];
+	[self.segmentedControl setTitle:NSLocalizedString(kUI_Satellite, nil) forSegmentAtIndex:kMapTypeSatelliteIndex];
+	
+	[self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
 
 //- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -51,7 +51,7 @@ static NSInteger const kMapTypeHybridIndex = 2;
 //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 //        // The device is an iPad running iOS 3.2 or later.
 //        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-//        
+//
 //        if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
 //            //change from landscape to portrait
 //            self.leftSpace.width = 223;
@@ -70,90 +70,90 @@ static NSInteger const kMapTypeHybridIndex = 2;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        // The device is an iPad running iOS 3.2 or later.
-        //UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-        
-        if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-            //change from landscape to portrait
-            self.leftSpace.width = 351;
-            self.rightSpace.width = 351;
-
-        }
-        else {
-            //change from portrait to landscape
-            self.leftSpace.width = 223;
-            self.rightSpace.width = 223;
-        }
-    }
-    else {
-        // The device is an iPhone or iPod touch. We use the default frame of the superclass (TableViewCell)
-    }
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		// The device is an iPad running iOS 3.2 or later.
+		//UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+		
+		if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+			//change from landscape to portrait
+			self.leftSpace.width = 351;
+			self.rightSpace.width = 351;
+			
+		}
+		else {
+			//change from portrait to landscape
+			self.leftSpace.width = 223;
+			self.rightSpace.width = 223;
+		}
+	}
+	else {
+		// The device is an iPhone or iPod touch. We use the default frame of the superclass (TableViewCell)
+	}
 }
 
 
 - (void)zoomToLocation:(CLLocation *)location
 {
-    MKCoordinateRegion region;
-    region.center.latitude  = location.coordinate.latitude;
-    region.center.longitude = location.coordinate.longitude;
-    MKCoordinateSpan span;
-    span.latitudeDelta  = 0.0025; // arbitrary value seems to look OK
-    span.longitudeDelta = 0.0025; // arbitrary value seems to look OK
-    region.span = span;
-    [self.map setRegion:region animated:NO];
+	MKCoordinateRegion region;
+	region.center.latitude  = location.coordinate.latitude;
+	region.center.longitude = location.coordinate.longitude;
+	MKCoordinateSpan span;
+	span.latitudeDelta  = 0.0025; // arbitrary value seems to look OK
+	span.longitudeDelta = 0.0025; // arbitrary value seems to look OK
+	region.span = span;
+	[self.map setRegion:region animated:NO];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    CLLocation* location = [locations lastObject];
-    NSDate* eventDate = location.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (self.selectedLocation == nil) {
-        if (abs(howRecent) < 15.0) {
-            [self zoomToLocation:location];
-        }
-    }
-    else {
-        [self zoomToLocation:self.selectedLocation];
-    }
-    
+	CLLocation* location = [locations lastObject];
+	NSDate* eventDate = location.timestamp;
+	NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+	if (self.selectedLocation == nil) {
+		if (abs(howRecent) < 15.0) {
+			[self zoomToLocation:location];
+		}
+	}
+	else {
+		[self zoomToLocation:self.selectedLocation];
+	}
+	
 }
 
 - (IBAction)done:(id)sender
 {
-    CLLocation * location = [[CLLocation alloc] initWithLatitude:[self.map centerCoordinate].latitude longitude:[self.map centerCoordinate].longitude];
-    self.selectedLocation = location;
-    [self.delegate didChooseLocation:[self.map centerCoordinate]];
-    [self dismissViewControllerAnimated:YES completion:nil];
+	CLLocation * location = [[CLLocation alloc] initWithLatitude:[self.map centerCoordinate].latitude longitude:[self.map centerCoordinate].longitude];
+	self.selectedLocation = location;
+	[self.delegate didChooseLocation:[self.map centerCoordinate]];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)centerOnLocation:(id)sender
 {
-    [self zoomToLocation:locationManager.location];
+	[self zoomToLocation:locationManager.location];
 }
 
 - (IBAction)mapTypeChanged:(id)sender
 {
-    switch (((UISegmentedControl *)sender).selectedSegmentIndex) {
-        case kMapTypeStandardIndex:
-            [self.map setMapType:MKMapTypeStandard];
-            break;
-            
-        case kMapTypeSatelliteIndex:
-            [self.map setMapType:MKMapTypeSatellite];
-            break;
-        case kMapTypeHybridIndex:
-            [self.map setMapType:MKMapTypeHybrid];
-            break;
-    }
+	switch (((UISegmentedControl *)sender).selectedSegmentIndex) {
+		case kMapTypeStandardIndex:
+			[self.map setMapType:MKMapTypeStandard];
+			break;
+			
+		case kMapTypeSatelliteIndex:
+			[self.map setMapType:MKMapTypeSatellite];
+			break;
+		case kMapTypeHybridIndex:
+			[self.map setMapType:MKMapTypeHybrid];
+			break;
+	}
 }
 
 - (IBAction)cancel:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)viewDidUnload {
-    [self setSegmentedControl:nil];
-    [super viewDidUnload];
+	[self setSegmentedControl:nil];
+	[super viewDidUnload];
 }
 @end

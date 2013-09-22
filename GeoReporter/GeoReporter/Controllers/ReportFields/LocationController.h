@@ -34,6 +34,5 @@
 - (IBAction)mapTypeChanged:(id)sender;
 - (IBAction)cancel:(id)sender;
 
-
 - (void)zoomToLocation:(CLLocation *)location;
 @end

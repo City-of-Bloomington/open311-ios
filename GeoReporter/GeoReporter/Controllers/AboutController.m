@@ -20,50 +20,50 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    //make view controller start below navigation bar; this wrks in iOS 7
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    self.navigationItem.title = NSLocalizedString(kUI_About, nil);
-
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]]];
-    [self removeScrollBackground:self.webView];
-    
+	[super viewDidLoad];
+	//make view controller start below navigation bar; this wrks in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+		self.edgesForExtendedLayout = UIRectEdgeNone;
+	
+	self.navigationItem.title = NSLocalizedString(kUI_About, nil);
+	
+	[self.webView loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"about" withExtension:@"html"]]];
+	[self removeScrollBackground:self.webView];
+	
 }
 
 - (void)removeScrollBackground:(UIWebView *)webView
 {
-    webView.backgroundColor = [UIColor whiteColor];
-    for (UIView* subView in [webView subviews])
-    {
-        if ([subView isKindOfClass:[UIScrollView class]]) {
-            for (UIView* shadowView in [subView subviews])
-            {
-                if ([shadowView isKindOfClass:[UIImageView class]]) {
-                    [shadowView setHidden:YES];
-                }
-            }
-        }
-    }
+	webView.backgroundColor = [UIColor whiteColor];
+	for (UIView* subView in [webView subviews])
+	{
+		if ([subView isKindOfClass:[UIScrollView class]]) {
+			for (UIView* shadowView in [subView subviews])
+			{
+				if ([shadowView isKindOfClass:[UIImageView class]]) {
+					[shadowView setHidden:YES];
+				}
+			}
+		}
+	}
 }
 
 #pragma mark - Web View Handlers
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:[request URL]];
-        return NO;
-    }
-    return YES;
+	if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+		[[UIApplication sharedApplication] openURL:[request URL]];
+		return NO;
+	}
+	return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *script = [NSString stringWithFormat:@"document.getElementById('version').innerHTML='v%@'", version];
-    [webView stringByEvaluatingJavaScriptFromString:script];
+	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+	NSString *script = [NSString stringWithFormat:@"document.getElementById('version').innerHTML='v%@'", version];
+	[webView stringByEvaluatingJavaScriptFromString:script];
 }
 
 @end
