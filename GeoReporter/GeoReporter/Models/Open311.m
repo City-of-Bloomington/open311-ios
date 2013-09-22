@@ -99,7 +99,8 @@ SHARED_SINGLETON(Open311);
                     serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
                     completion();
                     if (!error) {
-                        [self loadServiceDefinitions];
+                        //[self loadServiceDefinitions];
+                        [self loadGroups];
                     }
                     else {
                         [self loadFailedWithError:error];
@@ -108,6 +109,53 @@ SHARED_SINGLETON(Open311);
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [self loadFailedWithError:error];
                 }];
+}
+
+// |serviceList| must already be loaded before calling this method.
+//
+// Loads unique |groups| from the |serviceList|
+- (void) loadGroups
+{
+    int count = [serviceList count];
+    for (int i=0; i<count; i++) {
+        NSDictionary *service = [serviceList objectAtIndex:i];
+        
+        // Add the current group if it's not already there
+        NSString *group = [service objectForKey:kOpen311_Group];
+        if (group == nil) { group = kUI_Uncategorized; }
+        if (![_groups containsObject:group]) { [_groups addObject:group]; }
+    }
+}
+
+
+// Kicks off an HTTP Request for one |serviceDefinition| that is needed.
+// This is called when the user selects a service. Then a progress hud
+// will be shown while the request is being processed
+
+- (void)getMetadataForService:(NSDictionary*) service WithCompletion:(void(^)(void)) completion
+{
+    
+    
+    // Fire off a service definition request, if needed
+    __block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
+    if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
+        [httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
+                 parameters:_endpointParameters
+                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        NSError *error;
+                        _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                        completion();
+                        if (error) {
+                            [self loadFailedWithError:error];
+                        }
+                    }
+                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        completion();
+                        [self loadFailedWithError:error];
+                    }
+         ];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
 }
 
 
@@ -122,8 +170,11 @@ SHARED_SINGLETON(Open311);
 // to report, the HTTP request for that particular service will have finished.
 // If not, the user will just not see any attributes that would have been defined
 // in the service definition.
+
+// Not used anymore
 - (void)loadServiceDefinitions
 {
+    
     int count = [serviceList count];
     for (int i=0; i<count; i++) {
         NSDictionary *service = [serviceList objectAtIndex:i];
@@ -132,7 +183,6 @@ SHARED_SINGLETON(Open311);
         NSString *group = [service objectForKey:kOpen311_Group];
         if (group == nil) { group = kUI_Uncategorized; }
         if (![_groups containsObject:group]) { [_groups addObject:group]; }
-        
         // Fire off a service definition request, if needed
         __block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
         if ([[service objectForKey:kOpen311_Metadata] boolValue]) {

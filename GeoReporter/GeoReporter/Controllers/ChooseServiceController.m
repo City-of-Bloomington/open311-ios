@@ -81,7 +81,22 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
     }
     else {
         // The device is an iPhone or iPod touch.
-        [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+        NSDictionary* service =services[[[self.tableView indexPathForSelectedRow] row]];
+        if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
+            HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+            [self.navigationController.view addSubview:HUD];
+            HUD.delegate = self;
+            HUD.labelText = @"Loading";
+            [HUD show:YES];
+            [open311 getMetadataForService:services[[[self.tableView indexPathForSelectedRow] row]] WithCompletion:^() {
+                [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+                [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+            }];
+        }
+        else {
+            [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+        }
+        
     }
 }
 
@@ -115,5 +130,13 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
         //The device is an iPhone or iPod
     }
     
+}
+
+#pragma mark MBProgressHUDDelegate methods
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+    HUD.labelText = nil;
+	HUD = nil;
 }
 @end

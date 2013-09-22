@@ -11,6 +11,7 @@
 #import "ChooseGroupController.h"
 #import "NewReportController.h"
 #import "Open311.h"
+#import "Strings.h"
 
 @interface ContainerViewController ()
 
@@ -38,7 +39,7 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    //make view controller start below navigation bar; this wrks in iOS 7
+    //make view controller start below navigation bar; this works in iOS 7
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
 }
@@ -62,7 +63,21 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 - (void) didSelectService:(NSDictionary *) service
 {
     self.selectedService = service;
-    [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+    if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
+        HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
+        HUD.delegate = self;
+        HUD.labelText = @"Loading";
+        [HUD show:YES];
+        Open311* open311 = [Open311 sharedInstance];
+        [open311 getMetadataForService:service WithCompletion:^() {
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+        }];
+    }
+    else {
+        [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+    }
 }
 
 
@@ -89,6 +104,14 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
     }
     
 
+}
+
+#pragma mark MBProgressHUDDelegate methods
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+    HUD.labelText = nil;
+	HUD = nil;
 }
 
 @end

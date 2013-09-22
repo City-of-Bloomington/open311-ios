@@ -11,8 +11,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ServiceDelegate.h"
+#import <MBProgressHUD.h>
 
-@interface ChooseServiceController : UITableViewController
+@interface ChooseServiceController : UITableViewController<MBProgressHUDDelegate> {
+    MBProgressHUD *HUD;
+}
+
 @property (nonatomic) NSString *group;
 @property (weak, nonatomic) id <ServiceDelegate> delegate;
 

@@ -27,8 +27,10 @@ extern NSString * const kNotification_PostFailed;
 - (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender;
 
 - (void)loadServiceListWithCompletion:(void(^)(void)) completion;
+- (void)loadGroups;
 - (void)loadServiceDefinitions;
 - (NSArray *)getServicesForGroup:(NSString *)group;
+- (void)getMetadataForService:(NSDictionary*) serviceCode WithCompletion:(void(^)(void)) completion;
 
 - (void)startPostingServiceRequest:(Report *)report;
 - (NSMutableURLRequest *)preparePostForReport:(Report *)report withMedia:(UIImage *)media;
