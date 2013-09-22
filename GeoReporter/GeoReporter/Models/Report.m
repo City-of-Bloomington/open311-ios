@@ -12,10 +12,12 @@
 #import "Open311.h"
 #import <AFNetworking/AFJSONRequestOperation.h>
 
-@implementation Report {
-	AFHTTPClient *httpClient;
-	NSMutableDictionary *parameters;
-}
+@interface Report ()
+@property AFHTTPClient *httpClient;
+@property NSMutableDictionary *parameters;
+@end
+@implementation Report
+
 NSString * const kServer            = @"server";
 NSString * const kService           = @"service";
 NSString * const kServiceDefinition = @"serviceDefinition";
@@ -129,22 +131,22 @@ NSString * const kPostData          = @"postData";
 #pragma mark - Refresh Service Request data
 - (AFHTTPClient *)getHttpClient
 {
-	if ([httpClient baseURL] == NULL) {
-		httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[_server objectForKey:kOpen311_Url]]];
+	if ([_httpClient baseURL] == NULL) {
+		_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[_server objectForKey:kOpen311_Url]]];
 	}
-	return httpClient;
+	return _httpClient;
 }
 
 - (NSMutableDictionary *)getEndpointParameters
 {
-	if (!parameters) {
-		parameters = [[NSMutableDictionary alloc] init];
+	if (!_parameters) {
+		_parameters = [[NSMutableDictionary alloc] init];
 		NSString *jurisdictionId = _server[kOpen311_Jurisdiction];
 		NSString *apiKey         = _server[kOpen311_ApiKey];
-		if (jurisdictionId != nil) { parameters[kOpen311_Jurisdiction] = jurisdictionId; }
-		if (apiKey         != nil) { parameters[kOpen311_ApiKey]       = apiKey; }
+		if (jurisdictionId != nil) { _parameters[kOpen311_Jurisdiction] = jurisdictionId; }
+		if (apiKey         != nil) { _parameters[kOpen311_ApiKey]       = apiKey; }
 	}
-	return parameters;
+	return _parameters;
 }
 
 - (void)startLoadingServiceRequest:(NSString *)serviceRequestId delegate:(id<ServiceRequestDelegate>)delegate

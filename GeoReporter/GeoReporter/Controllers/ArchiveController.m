@@ -17,14 +17,13 @@
 #import "ViewRequestController.h"
 
 @interface ArchiveController ()
-
+@property NSMutableArray  *archivedReports;
+@property NSDateFormatter *dateFormatterDisplay;
+@property NSDateFormatter *dateFormatterISO;
 @end
 
-@implementation ArchiveController {
-	NSMutableArray  *archivedReports;
-	NSDateFormatter *dateFormatterDisplay;
-	NSDateFormatter *dateFormatterISO;
-}
+@implementation ArchiveController
+
 NSString * const kCellIdentifier = @"archive_cell";
 
 - (void)viewDidLoad
@@ -37,12 +36,12 @@ NSString * const kCellIdentifier = @"archive_cell";
 	
 	self.navigationItem.title = NSLocalizedString(kUI_Archive, nil);
 	
-	dateFormatterDisplay = [[NSDateFormatter alloc] init];
-	[dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
-	[dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];
+	_dateFormatterDisplay = [[NSDateFormatter alloc] init];
+	[_dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
+	[_dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];
 	
-	dateFormatterISO = [[NSDateFormatter alloc] init];
-	[dateFormatterISO setDateFormat:kDate_ISO8601];
+	_dateFormatterISO = [[NSDateFormatter alloc] init];
+	[_dateFormatterISO setDateFormat:kDate_ISO8601];
 	
 	//add empty footer so that empty rows will not be shown at the end of the table
 	[self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
@@ -52,13 +51,13 @@ NSString * const kCellIdentifier = @"archive_cell";
 {
 	[super viewWillAppear:animated];
 	
-	archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
+	_archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
 	[self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[[Preferences sharedInstance] saveArchivedReports:archivedReports];
+	[[Preferences sharedInstance] saveArchivedReports:_archivedReports];
 	
 	[super viewWillDisappear:animated];
 }
@@ -67,7 +66,7 @@ NSString * const kCellIdentifier = @"archive_cell";
 {
 	ViewRequestController *controller = [segue destinationViewController];
 	NSInteger reportIndex = [[self.tableView indexPathForSelectedRow] row];
-	Report *sr = [[Report alloc] initWithDictionary:[archivedReports objectAtIndex:reportIndex]];
+	Report *sr = [[Report alloc] initWithDictionary:[_archivedReports objectAtIndex:reportIndex]];
 	
 	[controller setReport:sr];
 	[controller setReportIndex:reportIndex];
@@ -77,18 +76,18 @@ NSString * const kCellIdentifier = @"archive_cell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [archivedReports count];
+	return [_archivedReports count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
 	// Reports from the archive must be hydrated before using
-	Report *sr = [[Report alloc] initWithDictionary:archivedReports[indexPath.row]];
+	Report *sr = [[Report alloc] initWithDictionary:_archivedReports[indexPath.row]];
 	
 	cell.textLabel.text = sr.service[kOpen311_ServiceName];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@",
-								 [dateFormatterDisplay stringFromDate:[dateFormatterISO dateFromString:sr.serviceRequest[kOpen311_RequestedDatetime]]],
+								 [_dateFormatterDisplay stringFromDate:[_dateFormatterISO dateFromString:sr.serviceRequest[kOpen311_RequestedDatetime]]],
 								 sr.server[kOpen311_Name]];
 	return cell;
 }
@@ -107,7 +106,7 @@ NSString * const kCellIdentifier = @"archive_cell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[archivedReports removeObjectAtIndex:indexPath.row];
+		[_archivedReports removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }

@@ -15,12 +15,11 @@
 #import "ChooseServiceController.h"
 
 @interface ChooseGroupController ()
-
+@property Open311 *open311;
 @end
 
-@implementation ChooseGroupController {
-	Open311 *open311;
-}
+@implementation ChooseGroupController
+
 static NSString * const kCellIdentifier       = @"group_cell";
 static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
@@ -32,7 +31,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
 		self.edgesForExtendedLayout = UIRectEdgeNone;
 	
-	open311 = [Open311 sharedInstance];
+	_open311 = [Open311 sharedInstance];
 	self.navigationItem.title = NSLocalizedString(kUI_Report, nil);
 	
 	
@@ -42,7 +41,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	if ([open311.groups count] == 1) {
+	if ([_open311.groups count] == 1) {
 		[self performSegueWithIdentifier:kSegueToChooseService sender:self];
 	}
 	else {
@@ -68,16 +67,16 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [open311.groups count];
+	return [_open311.groups count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
 	
-	NSString *group = open311.groups[indexPath.row];
+	NSString *group = _open311.groups[indexPath.row];
 	NSString *serviceList = @"";
-	for (NSDictionary *service in [open311 getServicesForGroup:group]) {
+	for (NSDictionary *service in [_open311 getServicesForGroup:group]) {
 		serviceList = [serviceList stringByAppendingFormat:@"%@,", service[kOpen311_ServiceName]];
 	}
 	
@@ -93,7 +92,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 {
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 		// The device is an iPad running iOS 3.2 or later.
-		self.chosenGroup = open311.groups[indexPath.row];
+		self.chosenGroup = _open311.groups[indexPath.row];
 		[self.delegate didSelectGroup:self.chosenGroup];
 	}
 	else {
@@ -111,7 +110,7 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 	else {
 		// The device is an iPhone or iPod touch.
 		ChooseServiceController *controller = [segue destinationViewController];
-		controller.group = [open311.groups objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+		controller.group = [_open311.groups objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
 	}
 	
 }

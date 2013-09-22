@@ -9,10 +9,13 @@
 #import "Preferences.h"
 #import "Strings.h"
 
-@implementation Preferences {
-	NSDictionary *availableServers;
-	NSDictionary *currentServer;
-}
+@interface Preferences ()
+@property (nonatomic, strong) NSDictionary *availableServers;
+@property (nonatomic, strong) NSDictionary *currentServer;
+@end
+
+@implementation Preferences
+
 static NSString * const kCustomServers = @"custom_servers";
 static NSString * const kArchiveFilename = @"reports.archive";
 
@@ -61,24 +64,24 @@ SHARED_SINGLETON(Preferences);
  */
 - (NSDictionary *)getCurrentServer
 {
-	if (currentServer == nil) {
+	if (_currentServer == nil) {
 		NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:kOpen311_Name];
 		if (![name isEqualToString:@""]) {
 			NSArray *servers = [Preferences getAvailableServers];
 			int count = [servers count];
 			for (int i=0; i<count; i++) {
 				if ([servers[i][kOpen311_Name] isEqualToString:name]) {
-					currentServer = servers[i];
+					_currentServer = servers[i];
 				}
 			}
 		}
 	}
-	return currentServer;
+	return _currentServer;
 }
 
 - (void)setCurrentServer:(NSDictionary *)server
 {
-	currentServer = server;
+	_currentServer = server;
 	[[NSUserDefaults standardUserDefaults] setObject:server[kOpen311_Name] forKey:kOpen311_Name];
 }
 

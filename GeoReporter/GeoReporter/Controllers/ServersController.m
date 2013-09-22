@@ -14,15 +14,13 @@
 #import "Preferences.h"
 
 @interface ServersController ()
-
+@property Preferences *prefs;
+@property NSArray *availableServers;
+@property NSMutableArray *customServers;
 @end
 
-@implementation ServersController {
-	Preferences *prefs;
-	NSArray *availableServers;
-	NSMutableArray *customServers;
-	
-}
+@implementation ServersController
+
 static NSString * const kCellIdentifier = @"server_cell";
 static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServersToHome";
 
@@ -36,8 +34,8 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 	
 	self.navigationItem.title = NSLocalizedString(kUI_Servers, nil);
 	
-	availableServers = [Preferences getAvailableServers];
-	prefs = [Preferences sharedInstance];
+	_availableServers = [Preferences getAvailableServers];
+	_prefs = [Preferences sharedInstance];
 	
 	UILabel *label = [[UILabel alloc] init];
 	label.numberOfLines = 0;
@@ -65,18 +63,18 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 {
 	[super viewWillAppear:animated];
 	
-	NSDictionary *currentServer = [prefs getCurrentServer];
+	NSDictionary *currentServer = [_prefs getCurrentServer];
 	if (currentServer == nil) {
 		[[self navigationItem] setHidesBackButton:YES];
 	}
 	
-	customServers = [NSMutableArray arrayWithArray:[prefs getCustomServers]];
+	_customServers = [NSMutableArray arrayWithArray:[_prefs getCustomServers]];
 	[self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[prefs saveCustomServers:customServers];
+	[_prefs saveCustomServers:_customServers];
 	
 	[super viewWillDisappear:animated];
 }
@@ -96,13 +94,13 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
  */
 - (NSDictionary *)getTargetServer:(NSInteger)index
 {
-	NSUInteger numAvailableServers = [availableServers count];
+	NSUInteger numAvailableServers = [_availableServers count];
 	if (index < numAvailableServers) {
-		return availableServers[index];
+		return _availableServers[index];
 	}
 	else {
 		index = index - numAvailableServers;
-		return customServers[index];
+		return _customServers[index];
 	}
 }
 
@@ -111,7 +109,7 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 #pragma mark - Table View Handlers
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	if ([customServers count] > 0) {
+	if ([_customServers count] > 0) {
 		return 2;
 	}
 	return 1;
@@ -120,9 +118,9 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if (section == 0) {
-		return [availableServers count];
+		return [_availableServers count];
 	}
-	return [customServers count];
+	return [_customServers count];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -179,7 +177,7 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 		server = [self getTargetServer:indexPath.row];
 	}
 	else {
-		server = [self getTargetServer:(indexPath.row + [availableServers count])];
+		server = [self getTargetServer:(indexPath.row + [_availableServers count])];
 	}
 	
 	
@@ -187,7 +185,7 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 	cell.textLabel      .text = server[kOpen311_Name];
 	cell.detailTextLabel.text = server[kOpen311_Url];
 	cell.accessoryType = UITableViewCellAccessoryNone;
-	if ([[prefs getCurrentServer][kOpen311_Name] isEqualToString:cell.textLabel.text]) {
+	if ([[_prefs getCurrentServer][kOpen311_Name] isEqualToString:cell.textLabel.text]) {
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	}
 	return cell;
@@ -196,10 +194,10 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.section == 0) {
-		[prefs setCurrentServer:[self getTargetServer:indexPath.row]];
+		[_prefs setCurrentServer:[self getTargetServer:indexPath.row]];
 	}
 	else {
-		[prefs setCurrentServer:[self getTargetServer:(indexPath.row + [availableServers count])]];
+		[_prefs setCurrentServer:[self getTargetServer:(indexPath.row + [_availableServers count])]];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:NO];
 	
@@ -230,12 +228,12 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		if ([tableView numberOfRowsInSection:[indexPath section]] > 1) {
-			[customServers removeObjectAtIndex:indexPath.row];
+			[_customServers removeObjectAtIndex:indexPath.row];
 			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 		}
 		else
 		{
-			[customServers removeObjectAtIndex:indexPath.row];
+			[_customServers removeObjectAtIndex:indexPath.row];
 			[tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 		}
 	}

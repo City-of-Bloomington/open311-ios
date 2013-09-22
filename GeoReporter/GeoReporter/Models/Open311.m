@@ -26,21 +26,24 @@ NSString * const kNotification_ServiceListReady = @"serviceListReady";
 NSString * const kNotification_PostSucceeded    = @"postSucceeded";
 NSString * const kNotification_PostFailed       = @"postFailed";
 
-@implementation Open311 {
-	AFHTTPClient *httpClient;
-	NSDictionary *currentServer;
-	NSArray *serviceList;
-}
+
+@interface Open311 ()
+@property AFHTTPClient *httpClient;
+@property NSDictionary *currentServer;
+@property NSArray *serviceList;
+@end
+
+@implementation Open311
 SHARED_SINGLETON(Open311);
 
 // Make sure to call this method before doing any other work
 - (void)loadAllMetadataForServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion
 {
-	currentServer = server;
+	_currentServer = server;
 	
 	NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-	NSString *jurisdictionId = currentServer[kOpen311_Jurisdiction];
-	NSString *apiKey         = currentServer[kOpen311_ApiKey];
+	NSString *jurisdictionId = _currentServer[kOpen311_Jurisdiction];
+	NSString *apiKey         = _currentServer[kOpen311_ApiKey];
 	if (jurisdictionId != nil) { params[kOpen311_Jurisdiction] = jurisdictionId; }
 	if (apiKey         != nil) { params[kOpen311_ApiKey]       = apiKey; }
 	_endpointParameters = [NSDictionary dictionaryWithDictionary:params];
@@ -48,7 +51,7 @@ SHARED_SINGLETON(Open311);
 	if (_groups             == nil) { _groups             = [[NSMutableArray      alloc] init]; } else { [_groups             removeAllObjects]; }
 	if (_serviceDefinitions == nil) { _serviceDefinitions = [[NSMutableDictionary alloc] init]; } else { [_serviceDefinitions removeAllObjects]; }
 	
-	httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[server objectForKey:kOpen311_Url]]];
+	_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[server objectForKey:kOpen311_Url]]];
 	[self loadServiceListWithCompletion:completion];
 }
 
@@ -66,24 +69,24 @@ SHARED_SINGLETON(Open311);
 
 - (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender
 {
-	httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:serverURL]];
+	_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:serverURL]];
 	
-	[httpClient getPath:@"services.json"
-			 parameters:_endpointParameters
-				success:^(AFHTTPRequestOperation *operation, id responseObject) {
-					NSError *error;
-					serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-					if (!error) {
-						//[self loadServiceDefinitions];
-						[sender performSelector:@selector(didFinishSaving)];
-					}
-					else {
-						[self loadFailedWithError:error];
-					}
-				}
-				failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-					[self loadFailedWithError:error];
-				}];
+	[_httpClient getPath:@"services.json"
+			  parameters:_endpointParameters
+				 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+					 NSError *error;
+					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+					 if (!error) {
+						 //[self loadServiceDefinitions];
+						 [sender performSelector:@selector(didFinishSaving)];
+					 }
+					 else {
+						 [self loadFailedWithError:error];
+					 }
+				 }
+				 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+					 [self loadFailedWithError:error];
+				 }];
 	
 	
 	
@@ -92,23 +95,23 @@ SHARED_SINGLETON(Open311);
 #pragma mark - GET Service List
 - (void)loadServiceListWithCompletion:(void(^)(void)) completion
 {
-	[httpClient getPath:@"services.json"
-			 parameters:_endpointParameters
-				success:^(AFHTTPRequestOperation *operation, id responseObject) {
-					NSError *error;
-					serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-					completion();
-					if (!error) {
-						//[self loadServiceDefinitions];
-						[self loadGroups];
-					}
-					else {
-						[self loadFailedWithError:error];
-					}
-				}
-				failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-					[self loadFailedWithError:error];
-				}];
+	[_httpClient getPath:@"services.json"
+			  parameters:_endpointParameters
+				 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+					 NSError *error;
+					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+					 completion();
+					 if (!error) {
+						 //[self loadServiceDefinitions];
+						 [self loadGroups];
+					 }
+					 else {
+						 [self loadFailedWithError:error];
+					 }
+				 }
+				 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+					 [self loadFailedWithError:error];
+				 }];
 }
 
 // |serviceList| must already be loaded before calling this method.
@@ -116,9 +119,9 @@ SHARED_SINGLETON(Open311);
 // Loads unique |groups| from the |serviceList|
 - (void) loadGroups
 {
-	int count = [serviceList count];
+	int count = [_serviceList count];
 	for (int i=0; i<count; i++) {
-		NSDictionary *service = [serviceList objectAtIndex:i];
+		NSDictionary *service = [_serviceList objectAtIndex:i];
 		
 		// Add the current group if it's not already there
 		NSString *group = [service objectForKey:kOpen311_Group];
@@ -139,20 +142,20 @@ SHARED_SINGLETON(Open311);
 	// Fire off a service definition request, if needed
 	__block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
 	if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
-		[httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
-				 parameters:_endpointParameters
-					success:^(AFHTTPRequestOperation *operation, id responseObject) {
-						NSError *error;
-						_serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-						completion();
-						if (error) {
-							[self loadFailedWithError:error];
-						}
-					}
-					failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-						completion();
-						[self loadFailedWithError:error];
-					}
+		[_httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
+				  parameters:_endpointParameters
+					 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+						 NSError *error;
+						 _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+						 completion();
+						 if (error) {
+							 [self loadFailedWithError:error];
+						 }
+					 }
+					 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+						 completion();
+						 [self loadFailedWithError:error];
+					 }
 		 ];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
@@ -175,9 +178,9 @@ SHARED_SINGLETON(Open311);
 - (void)loadServiceDefinitions
 {
 	
-	int count = [serviceList count];
+	int count = [_serviceList count];
 	for (int i=0; i<count; i++) {
-		NSDictionary *service = [serviceList objectAtIndex:i];
+		NSDictionary *service = [_serviceList objectAtIndex:i];
 		
 		// Add the current group if it's not already there
 		NSString *group = [service objectForKey:kOpen311_Group];
@@ -186,18 +189,18 @@ SHARED_SINGLETON(Open311);
 		// Fire off a service definition request, if needed
 		__block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
 		if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
-			[httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
-					 parameters:_endpointParameters
-						success:^(AFHTTPRequestOperation *operation, id responseObject) {
-							NSError *error;
-							_serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-							if (error) {
-								[self loadFailedWithError:error];
-							}
-						}
-						failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-							[self loadFailedWithError:error];
-						}
+			[_httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
+					  parameters:_endpointParameters
+						 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+							 NSError *error;
+							 _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+							 if (error) {
+								 [self loadFailedWithError:error];
+							 }
+						 }
+						 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+							 [self loadFailedWithError:error];
+						 }
 			 ];
 		}
 	}
@@ -210,7 +213,7 @@ SHARED_SINGLETON(Open311);
 - (NSArray *)getServicesForGroup:(NSString *)group
 {
 	NSMutableArray *services = [[NSMutableArray alloc] init];
-	for (NSDictionary *service in serviceList) {
+	for (NSDictionary *service in _serviceList) {
 		NSString *sg = service[kOpen311_Group];
 		
 		if (![group isEqualToString:kUI_Uncategorized]) {
@@ -280,18 +283,18 @@ SHARED_SINGLETON(Open311);
 	NSMutableURLRequest *post;
 	if (media) {
 		[parameters removeObjectForKey:kOpen311_Media];
-		post = [httpClient multipartFormRequestWithMethod:@"POST"
-													 path:@"requests.json"
-											   parameters:parameters
-								constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-									[formData appendPartWithFileData:UIImagePNGRepresentation(media)
-																name:kOpen311_Media
-															fileName:@"media.png"
-															mimeType:@"image/png"];
-								}];
+		post = [_httpClient multipartFormRequestWithMethod:@"POST"
+													  path:@"requests.json"
+												parameters:parameters
+								 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+									 [formData appendPartWithFileData:UIImagePNGRepresentation(media)
+																 name:kOpen311_Media
+															 fileName:@"media.png"
+															 mimeType:@"image/png"];
+								 }];
 	}
 	else {
-		post = [httpClient requestWithMethod:@"POST" path:@"requests.json" parameters:parameters];
+		post = [_httpClient requestWithMethod:@"POST" path:@"requests.json" parameters:parameters];
 	}
 	return post;
 }
@@ -340,39 +343,39 @@ SHARED_SINGLETON(Open311);
 - (void)postReport:(Report *)report withPost:(NSMutableURLRequest *)post
 {
 	AFHTTPRequestOperation *operation;
-	operation = [httpClient HTTPRequestOperationWithRequest:post
-													success:^(AFHTTPRequestOperation *operation, id responseObject) {
-														NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
-														
-														NSError *error;
-														NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-														if (!error) {
-															NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:serviceRequests[0]];
-															if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
-																if (!sr[kOpen311_RequestedDatetime]) {
-																	NSDateFormatter *df = [[NSDateFormatter alloc] init];
-																	[df setDateFormat:kDate_ISO8601];
-																	sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
-																}
-																report.server         = currentServer;
-																report.serviceRequest = sr;
-																[[Preferences sharedInstance] saveReport:report forIndex:-1];
-																[notifications postNotificationName:kNotification_PostSucceeded object:self];
-															}
-															else {
-																// We got a 200 response back in the correct format
-																// However, it did not include a token or a service_request_id
-																[notifications postNotificationName:kNotification_PostFailed object:self];
-															}
-														}
-														else {
-															// We got a 200 response, but it was not valid JSON
-															[notifications postNotificationName:kNotification_PostFailed object:self];
-														}
-													}
-													failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-														[self postFailedWithError:error forOperation:operation];
-													}];
+	operation = [_httpClient HTTPRequestOperationWithRequest:post
+													 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+														 NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+														 
+														 NSError *error;
+														 NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+														 if (!error) {
+															 NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:serviceRequests[0]];
+															 if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
+																 if (!sr[kOpen311_RequestedDatetime]) {
+																	 NSDateFormatter *df = [[NSDateFormatter alloc] init];
+																	 [df setDateFormat:kDate_ISO8601];
+																	 sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
+																 }
+																 report.server         = _currentServer;
+																 report.serviceRequest = sr;
+																 [[Preferences sharedInstance] saveReport:report forIndex:-1];
+																 [notifications postNotificationName:kNotification_PostSucceeded object:self];
+															 }
+															 else {
+																 // We got a 200 response back in the correct format
+																 // However, it did not include a token or a service_request_id
+																 [notifications postNotificationName:kNotification_PostFailed object:self];
+															 }
+														 }
+														 else {
+															 // We got a 200 response, but it was not valid JSON
+															 [notifications postNotificationName:kNotification_PostFailed object:self];
+														 }
+													 }
+													 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+														 [self postFailedWithError:error forOperation:operation];
+													 }];
 	[operation start];
 }
 

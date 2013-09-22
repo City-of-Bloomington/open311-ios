@@ -13,17 +13,14 @@
 #import "Strings.h"
 
 @interface LocationController ()
-
+@property CLLocationManager *locationManager;
 @end
 
 static NSInteger const kMapTypeStandardIndex  = 0;
 static NSInteger const kMapTypeSatelliteIndex = 1;
 static NSInteger const kMapTypeHybridIndex = 2;
 
-@implementation LocationController {
-	CLLocationManager *locationManager;
-}
-
+@implementation LocationController
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
@@ -31,11 +28,11 @@ static NSInteger const kMapTypeHybridIndex = 2;
 	if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
 		self.edgesForExtendedLayout = UIRectEdgeNone;
 	
-	locationManager = [[CLLocationManager alloc] init];
-	locationManager.delegate = self;
-	locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-	locationManager.distanceFilter = 50;
-	[locationManager startUpdatingLocation];
+	_locationManager = [[CLLocationManager alloc] init];
+	_locationManager.delegate = self;
+	_locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+	_locationManager.distanceFilter = 50;
+	[_locationManager startUpdatingLocation];
 	
 	MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.map];
 	[self.navigationController.toolbar setItems:@[button]];
@@ -130,7 +127,7 @@ static NSInteger const kMapTypeHybridIndex = 2;
 
 - (IBAction)centerOnLocation:(id)sender
 {
-	[self zoomToLocation:locationManager.location];
+	[self zoomToLocation:_locationManager.location];
 }
 
 - (IBAction)mapTypeChanged:(id)sender

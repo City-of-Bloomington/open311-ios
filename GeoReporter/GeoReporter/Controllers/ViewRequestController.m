@@ -17,18 +17,17 @@
 #import "ViewReportLocationCell.h"
 
 @interface ViewRequestController ()
-
+@property NSDateFormatter *dateFormatterDisplay;
+@property NSDateFormatter *dateFormatterISO;
+@property NSURL *mediaUrl;
+@property UIImage *media;
+@property UIImage *original;
+@property UITapGestureRecognizer * gestureRecognizer;
+@property BOOL loadedOnce;
 @end
 
-@implementation ViewRequestController {
-	NSDateFormatter *dateFormatterDisplay;
-	NSDateFormatter *dateFormatterISO;
-	NSURL *mediaUrl;
-	UIImage *media;
-	UIImage *original;
-	UITapGestureRecognizer * gestureRecognizer;
-	BOOL loadedOnce;
-}
+@implementation ViewRequestController
+
 static NSString * const kCellIdentifier  = @"request_cell";
 static NSString * const kMediaCell       = @"media_cell";
 static NSString * const kLocationCell       = @"location_cell";
@@ -49,26 +48,26 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	
 	self.navigationItem.title = self.report.service[kOpen311_ServiceName];
 	
-	loadedOnce = NO;
+	_loadedOnce = NO;
 	
 	
-	dateFormatterDisplay = [[NSDateFormatter alloc] init];
-	[dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
-	[dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];
+	_dateFormatterDisplay = [[NSDateFormatter alloc] init];
+	[_dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
+	[_dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];
 	
-	dateFormatterISO = [[NSDateFormatter alloc] init];
-	[dateFormatterISO setDateFormat:kDate_ISO8601];
+	_dateFormatterISO = [[NSDateFormatter alloc] init];
+	[_dateFormatterISO setDateFormat:kDate_ISO8601];
 	
 	[self startRefreshingServiceRequest];
 	
-	mediaUrl = _report.postData[kOpen311_Media];
-	if (mediaUrl) {
+	_mediaUrl = _report.postData[kOpen311_Media];
+	if (_mediaUrl) {
 		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-		[library assetForURL:mediaUrl
+		[library assetForURL:_mediaUrl
 				 resultBlock:^(ALAsset *asset) {
 					 ALAssetRepresentation *rep = [asset defaultRepresentation];
-					 original = [UIImage imageWithCGImage:[rep fullScreenImage]];
-					 media = [Media resizeImage:original toBoundingBox:100];
+					 _original = [UIImage imageWithCGImage:[rep fullScreenImage]];
+					 _media = [Media resizeImage:_original toBoundingBox:100];
 				 }
 				failureBlock:^(NSError *error) {
 					DLog(@"Failed to load media from library");
@@ -145,7 +144,7 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 		return 3;
 	}
 	else {
-		if (mediaUrl) {
+		if (_mediaUrl) {
 			numberOfRows += 1;
 		}
 		if (_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil) {
@@ -169,7 +168,7 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 			case 0:
 				//date
 				cell.textLabel.text = NSLocalizedString(kUI_ReportDate, nil);
-				cell.detailTextLabel.text = [dateFormatterDisplay stringFromDate:[dateFormatterISO dateFromString:sr[kOpen311_RequestedDatetime]]];
+				cell.detailTextLabel.text = [_dateFormatterDisplay stringFromDate:[_dateFormatterISO dateFromString:sr[kOpen311_RequestedDatetime]]];
 				break;
 				
 			case 1:
@@ -229,13 +228,13 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 				//media cell
 				cell = [tableView dequeueReusableCellWithIdentifier:kMediaCell forIndexPath:indexPath];
 				UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageViewTag];
-				[imageView setImage:media];
+				[imageView setImage:_media];
 				imageView.userInteractionEnabled = YES;
 				
-				if (loadedOnce == NO) {
-					gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openFullScreenImage:)];
-					[cell addGestureRecognizer:gestureRecognizer];
-					loadedOnce = YES;
+				if (_loadedOnce == NO) {
+					_gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openFullScreenImage:)];
+					[cell addGestureRecognizer:_gestureRecognizer];
+					_loadedOnce = YES;
 				}
 			}
 		}
@@ -247,11 +246,11 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (mediaUrl && indexPath.section==1 && indexPath.row==1) {
+	if (_mediaUrl && indexPath.section==1 && indexPath.row==1) {
 		return MEDIA_CELL_HEIGHT;
 	}
 	if ((_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==2) ||
-		(!mediaUrl && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==1)) {
+		(!_mediaUrl && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==1)) {
 		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 			// The device is an iPad running iOS 3.2 or later.
 			return LOCATION_CELL_HEIGHT_IPAD;
@@ -263,8 +262,8 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 #define CELL_CONTENT_WIDTH 290.0f
 #define CELL_CONTENT_MARGIN 10.0f
 	
-	if  ((indexPath.section == 1 && indexPath.row == 1 && !mediaUrl) ||
-		 (indexPath.section == 1 && indexPath.row == 2 && mediaUrl)) {
+	if  ((indexPath.section == 1 && indexPath.row == 1 && !_mediaUrl) ||
+		 (indexPath.section == 1 && indexPath.row == 2 && _mediaUrl)) {
 		CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH, 20000.0f);
 		
 		CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
@@ -285,7 +284,7 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 {
 	FullImageController *controller = [segue destinationViewController];
 	
-	[controller setImage:original];
+	[controller setImage:_original];
 }
 
 @end
