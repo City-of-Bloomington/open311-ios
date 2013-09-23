@@ -19,5 +19,7 @@
 #define VIEW_REPORT_CELL_IPAD_OFFSET 100
 
 @interface ViewReportCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @end

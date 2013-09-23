@@ -15,6 +15,7 @@
 #import "Media.h"
 #import "FullImageController.h"
 #import "ViewReportLocationCell.h"
+#import "ViewReportCell.h"
 
 @interface ViewRequestController ()
 @property NSDateFormatter *dateFormatterDisplay;
@@ -164,24 +165,27 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	NSDictionary *post = _report.postData;
 	if (indexPath.section == 0) {
 		//date, status, responsible
-		cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+		ViewReportCell* reportCell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
 		switch (indexPath.row) {
 			case 0:
 				//date
-				cell.textLabel.text = NSLocalizedString(kUI_ReportDate, nil);
-				cell.detailTextLabel.text = [_dateFormatterDisplay stringFromDate:[_dateFormatterISO dateFromString:sr[kOpen311_RequestedDatetime]]];
+				reportCell.titleLabel.text = NSLocalizedString(kUI_ReportDate, nil);
+				reportCell.descriptionLabel.text = [_dateFormatterDisplay stringFromDate:[_dateFormatterISO dateFromString:sr[kOpen311_RequestedDatetime]]];
+				return reportCell;
 				break;
 				
 			case 1:
 				//status
-				cell.textLabel.text = NSLocalizedString(kUI_ReportStatus, nil);
-				cell.detailTextLabel.text = (sr && sr[kOpen311_Status]!=[NSNull null]) ? sr[kOpen311_Status] : kUI_Pending;
+				reportCell.titleLabel.text = NSLocalizedString(kUI_ReportStatus, nil);
+				reportCell.descriptionLabel.text = (sr && sr[kOpen311_Status]!=[NSNull null]) ? sr[kOpen311_Status] : kUI_Pending;
+				return reportCell;
 				break;
 				
 			case 2:
 				//responsible
-				cell.textLabel.text = NSLocalizedString(kOpen311_AgencyResponsible, nil);
-				cell.detailTextLabel.text = (sr && sr[kOpen311_AgencyResponsible]!=[NSNull null]) ? sr[kOpen311_AgencyResponsible] : @"";
+				reportCell.titleLabel.text = NSLocalizedString(kOpen311_AgencyResponsible, nil);
+				reportCell.descriptionLabel.text = (sr && sr[kOpen311_AgencyResponsible]!=[NSNull null]) ? sr[kOpen311_AgencyResponsible] : @"";
+				return reportCell;
 				break;
 				
 			default:
@@ -191,12 +195,13 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	else {
 		if (indexPath.row == 0) {
 			// description cell
-			cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+			ViewReportCell* reportCell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
 			
-			cell.textLabel.text = kUI_DescriptionOfProblem;
-			[cell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
-			[cell.detailTextLabel setNumberOfLines:0];
-			cell.detailTextLabel.text = [self getReportDescription];
+			reportCell.titleLabel.text = kUI_DescriptionOfProblem;
+			[reportCell.descriptionLabel setLineBreakMode:NSLineBreakByWordWrapping];
+			[reportCell.descriptionLabel setNumberOfLines:0];
+			reportCell.descriptionLabel.text = [self getReportDescription];
+			return reportCell;
 		}
 		else {
 			if (indexPath.row == 1 && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil) {
