@@ -16,12 +16,6 @@
 #import "Open311.h"
 #import "ViewRequestController.h"
 
-@interface ArchiveController ()
-@property NSMutableArray  *archivedReports;
-@property NSDateFormatter *dateFormatterDisplay;
-@property NSDateFormatter *dateFormatterISO;
-@end
-
 @implementation ArchiveController
 
 NSString * const kCellIdentifier = @"archive_cell";

@@ -16,10 +16,6 @@
 #import "Open311.h"
 #import "Strings.h"
 
-@interface ContainerViewController ()
-
-@end
-
 @implementation ContainerViewController
 static NSString * const kEmbeddedSegueToGroup = @"EmbeddedSegueToGroup";
 static NSString * const kEmbeddedSegueToService = @"EmbeddedSegueToService";

@@ -21,6 +21,9 @@
 @property (nonatomic, weak) IBOutlet UITextField *textFieldLastName;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldEmail;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldPhone;
-
+@property (weak, nonatomic) IBOutlet UIView *separator0;
+@property (weak, nonatomic) IBOutlet UIView *separator1;
+@property (weak, nonatomic) IBOutlet UIView *separator2;
+@property (weak, nonatomic) IBOutlet UIView *separator3;
 
 @end

@@ -21,6 +21,8 @@
 @property NSDictionary *serviceDefinition;
 @property NSMutableDictionary *serviceRequest;
 @property NSMutableDictionary *postData;
+@property AFHTTPClient *httpClient;
+@property NSMutableDictionary *parameters;
 
 - (id)initWithService:(NSDictionary *)service;
 - (id)initWithDictionary:(NSDictionary *)dictionary;

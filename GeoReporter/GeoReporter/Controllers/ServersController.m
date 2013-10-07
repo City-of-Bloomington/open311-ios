@@ -11,13 +11,6 @@
 
 #import "ServersController.h"
 #import "Strings.h"
-#import "Preferences.h"
-
-@interface ServersController ()
-@property Preferences *prefs;
-@property NSArray *availableServers;
-@property NSMutableArray *customServers;
-@end
 
 @implementation ServersController
 

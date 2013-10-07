@@ -9,11 +9,6 @@
 #import "Preferences.h"
 #import "Strings.h"
 
-@interface Preferences ()
-@property (nonatomic, strong) NSDictionary *availableServers;
-@property (nonatomic, strong) NSDictionary *currentServer;
-@end
-
 @implementation Preferences
 
 static NSString * const kCustomServers = @"custom_servers";

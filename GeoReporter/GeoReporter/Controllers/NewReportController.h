@@ -26,5 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerViewLabel;
 @property Report *report;
+
 - (IBAction)send:(id)sender;
+
 @end

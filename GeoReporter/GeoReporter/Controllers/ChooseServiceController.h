@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "ServiceDelegate.h"
 #import <MBProgressHUD.h>
+#import "Open311.h"
 
 @interface ChooseServiceController : UITableViewController<MBProgressHUDDelegate> {
     MBProgressHUD *HUD;
@@ -19,5 +20,8 @@
 
 @property (nonatomic) NSString *group;
 @property (weak, nonatomic) id <ServiceDelegate> delegate;
+@property Open311 *open311;
+@property NSString *currentServerName;
+@property NSArray *services;
 
 @end

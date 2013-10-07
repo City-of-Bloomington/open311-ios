@@ -12,10 +12,6 @@
 #import "AboutController.h"
 #import "Strings.h"
 
-@interface AboutController ()
-
-@end
-
 @implementation AboutController
 
 - (void)viewDidLoad

@@ -14,14 +14,6 @@
 #import "Preferences.h"
 #import "Open311.h"
 
-@interface AddServerController ()
-@property (weak, nonatomic) IBOutlet UIView *separator0;
-@property (weak, nonatomic) IBOutlet UIView *separator1;
-@property (weak, nonatomic) IBOutlet UIView *separator2;
-@property (weak, nonatomic) IBOutlet UIView *separator3;
-
-@end
-
 @implementation AddServerController
 
 - (void)viewDidLoad

@@ -18,6 +18,9 @@ extern NSString * const kNotification_PostFailed;
 @property (readonly) NSDictionary *endpointParameters;
 @property (readonly) NSMutableArray *groups;
 @property (readonly) NSMutableDictionary *serviceDefinitions;
+@property AFHTTPClient *httpClient;
+@property NSDictionary *currentServer;
+@property NSArray *serviceList;
 
 + (id)sharedInstance;
 

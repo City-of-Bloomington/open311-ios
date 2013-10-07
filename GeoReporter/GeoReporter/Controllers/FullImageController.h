@@ -14,5 +14,7 @@
 @interface FullImageController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) UIImage *image;
+
 - (IBAction)close:(id)sender;
+
 @end

@@ -12,10 +12,6 @@
 #import "LocationController.h"
 #import "Strings.h"
 
-@interface LocationController ()
-@property CLLocationManager *locationManager;
-@end
-
 static NSInteger const kMapTypeStandardIndex  = 0;
 static NSInteger const kMapTypeSatelliteIndex = 1;
 static NSInteger const kMapTypeHybridIndex = 2;

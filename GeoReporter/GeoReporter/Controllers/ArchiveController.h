@@ -12,5 +12,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ArchiveController : UITableViewController
+@property NSMutableArray  *archivedReports;
+@property NSDateFormatter *dateFormatterDisplay;
+@property NSDateFormatter *dateFormatterISO;
 
 @end

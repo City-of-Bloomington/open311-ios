@@ -12,14 +12,6 @@
 #import "PersonalInfoController.h"
 #import "Strings.h"
 
-@interface PersonalInfoController ()
-@property (weak, nonatomic) IBOutlet UIView *separator0;
-@property (weak, nonatomic) IBOutlet UIView *separator1;
-@property (weak, nonatomic) IBOutlet UIView *separator2;
-@property (weak, nonatomic) IBOutlet UIView *separator3;
-
-@end
-
 @implementation PersonalInfoController
 
 - (void)viewDidLoad

@@ -11,10 +11,6 @@
 
 #import "FullImageController.h"
 
-@interface FullImageController ()
-
-@end
-
 @implementation FullImageController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

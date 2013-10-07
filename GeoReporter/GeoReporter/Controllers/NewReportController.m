@@ -23,14 +23,6 @@
 #import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
-
-
-
-
-@interface NewReportController ()
-
-@end
-
 @implementation NewReportController
 NSMutableArray *fields;
 NSIndexPath *currentIndexPath;

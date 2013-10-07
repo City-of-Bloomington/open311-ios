@@ -24,6 +24,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldApiKey;
 @property (weak, nonatomic) IBOutlet UISwitch *switchSupportsMedia;
 
+@property (weak, nonatomic) IBOutlet UIView *separator0;
+@property (weak, nonatomic) IBOutlet UIView *separator1;
+@property (weak, nonatomic) IBOutlet UIView *separator2;
+@property (weak, nonatomic) IBOutlet UIView *separator3;
+
 - (IBAction)save:(id)sender;
 
 @end

@@ -11,15 +11,8 @@
 
 #import "ChooseServiceController.h"
 #import "Preferences.h"
-#import "Open311.h"
 #import "Strings.h"
 #import "NewReportController.h"
-
-@interface ChooseServiceController ()
-@property Open311 *open311;
-@property NSString *currentServerName;
-@property NSArray *services;
-@end
 
 @implementation ChooseServiceController
 

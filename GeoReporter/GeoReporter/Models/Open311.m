@@ -26,13 +26,6 @@ NSString * const kNotification_ServiceListReady = @"serviceListReady";
 NSString * const kNotification_PostSucceeded    = @"postSucceeded";
 NSString * const kNotification_PostFailed       = @"postFailed";
 
-
-@interface Open311 ()
-@property AFHTTPClient *httpClient;
-@property NSDictionary *currentServer;
-@property NSArray *serviceList;
-@end
-
 @implementation Open311
 SHARED_SINGLETON(Open311);
 

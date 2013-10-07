@@ -17,16 +17,6 @@
 #import "ViewReportLocationCell.h"
 #import "ViewReportCell.h"
 
-@interface ViewRequestController ()
-@property NSDateFormatter *dateFormatterDisplay;
-@property NSDateFormatter *dateFormatterISO;
-@property NSURL *mediaUrl;
-@property UIImage *media;
-@property UIImage *original;
-@property UITapGestureRecognizer * gestureRecognizer;
-@property BOOL loadedOnce;
-@end
-
 @implementation ViewRequestController
 
 static NSString * const kCellIdentifier  = @"request_cell";
@@ -263,10 +253,6 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 		}
 		return LOCATION_CELL_HEIGHT;
 	}
-	
-#define FONT_SIZE 14.0f
-#define CELL_CONTENT_WIDTH 290.0f
-#define CELL_CONTENT_MARGIN 10.0f
 	
 	if  ((indexPath.section == 1 && indexPath.row == 1 && !_mediaUrl) ||
 		 (indexPath.section == 1 && indexPath.row == 2 && _mediaUrl)) {

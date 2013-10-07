@@ -15,10 +15,6 @@
 #import "Open311.h"
 #import <AFNetworking/AFJSONRequestOperation.h>
 
-@interface HomeController ()
-
-@end
-
 static NSString * const kSegueToSettings = @"SegueToSettings";
 static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
 static NSString * const kSegueToContainerView = @"SegueToChooseGroupiPad";
@@ -27,9 +23,6 @@ static NSString * const kSegueToArchive = @"SegueToArchive";
 static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServersToHome";
 static NSString * const kUnwindSegueFromReportToHome = @"UnwindSegueFromReportToHome";
 static NSString * const kSegueToAbout = @"SegueToAbout";
-
-
-
 
 @implementation HomeController
 

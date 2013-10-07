@@ -11,10 +11,13 @@
 
 #import <UIKit/UIKit.h>
 #import "GroupDelegate.h"
+#import "Open311.h"
 
 @interface ChooseGroupController : UITableViewController
-- (IBAction)cancel:(id)sender;
 @property (strong, nonatomic) NSString* chosenGroup;
 @property (weak, nonatomic) id <GroupDelegate> delegate;
+@property Open311 *open311;
+
+- (IBAction)cancel:(id)sender;
 
 @end

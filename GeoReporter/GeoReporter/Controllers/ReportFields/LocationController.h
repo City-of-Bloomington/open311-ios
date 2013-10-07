@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightSpace;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property CLLocationManager *locationManager;
 
 - (IBAction)done:(id)sender;
 - (IBAction)centerOnLocation:(id)sender;

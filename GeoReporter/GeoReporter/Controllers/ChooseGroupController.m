@@ -11,12 +11,7 @@
 
 #import "ChooseGroupController.h"
 #import "Strings.h"
-#import "Open311.h"
 #import "ChooseServiceController.h"
-
-@interface ChooseGroupController ()
-@property Open311 *open311;
-@end
 
 @implementation ChooseGroupController
 

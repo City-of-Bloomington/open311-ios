@@ -12,10 +12,6 @@
 #import "Open311.h"
 #import <AFNetworking/AFJSONRequestOperation.h>
 
-@interface Report ()
-@property AFHTTPClient *httpClient;
-@property NSMutableDictionary *parameters;
-@end
 @implementation Report
 
 NSString * const kServer            = @"server";
