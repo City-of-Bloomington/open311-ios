@@ -196,22 +196,26 @@ SHARED_SINGLETON(Open311);
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNotification_PostFailed object:self];
 	NSString *title = NSLocalizedString(kUI_FailurePostingService, nil);
 	NSString *message = [error localizedDescription];
+    
+    if (operation) {
+        NSData *responseData = [operation responseData];
+        if (responseData) {
+            NSError *e;
+            NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseData options:nil error:&e];
+            NSInteger statusCode = [[operation response] statusCode];
+            if (!e) {
+                NSDictionary *sr = serviceRequests[0];
+                if (sr[kOpen311_Description]) {
+                    message = sr[kOpen311_Description];
+                }
+            }
+            
+            if (statusCode == 403) {
+                title = NSLocalizedString(kUI_Error403, nil);
+            }
+        }
+    }
 	
-	if (operation) {
-		NSError *e;
-		NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:[operation responseData] options:nil error:&e];
-		NSInteger statusCode = [[operation response] statusCode];
-		if (!e) {
-			NSDictionary *sr = serviceRequests[0];
-			if (sr[kOpen311_Description]) {
-				message = sr[kOpen311_Description];
-			}
-		}
-		
-		if (statusCode == 403) {
-			title = NSLocalizedString(kUI_Error403, nil);
-		}
-	}
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
 													message:message
 												   delegate:self
