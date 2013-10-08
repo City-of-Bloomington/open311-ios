@@ -19,5 +19,6 @@
 
 @protocol TextEntryDelegate <NSObject>
 @required
+@property IBOutlet UITextView *currentTextEntry;
 - (void)didProvideValue:(NSString *)value fromField:(NSString*)field;
 @end

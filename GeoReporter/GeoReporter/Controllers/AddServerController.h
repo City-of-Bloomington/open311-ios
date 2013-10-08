@@ -11,7 +11,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddServerController : UITableViewController
+@interface AddServerController : UITableViewController <UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUrl;
 @property (weak, nonatomic) IBOutlet UILabel *labelJurisdiction;
@@ -28,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIView *separator1;
 @property (weak, nonatomic) IBOutlet UIView *separator2;
 @property (weak, nonatomic) IBOutlet UIView *separator3;
+
+@property IBOutlet UITextField *currentField;
 
 - (IBAction)save:(id)sender;
 

@@ -51,7 +51,7 @@ SHARED_SINGLETON(Open311);
 - (void)loadFailedWithError:(NSError *)error
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
-	NSLog(@"ERROR:\t%@", [error localizedDescription]);
+	DLog(@"ERROR:\t%@", [error localizedDescription]);
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_FailureLoadingServices, nil)
 													message:NSLocalizedString(kUI_URLError, nil)
 												   delegate:self
@@ -60,6 +60,13 @@ SHARED_SINGLETON(Open311);
 	[alert show];
 }
 
+/**
+ * Checks if an Open311 endpoint is reachable
+ *
+ * Tries to load the services for the given Open311 endpoint.
+ * Handles displaying the failure alert if there's a problem.
+ *
+ */
 - (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender
 {
 	_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:serverURL]];
@@ -70,7 +77,6 @@ SHARED_SINGLETON(Open311);
 					 NSError *error;
 					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
 					 if (!error) {
-						 //[self loadServiceDefinitions];
 						 [sender performSelector:@selector(didFinishSaving)];
 					 }
 					 else {
@@ -80,9 +86,6 @@ SHARED_SINGLETON(Open311);
 				 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 					 [self loadFailedWithError:error];
 				 }];
-	
-	
-	
 }
 
 #pragma mark - GET Service List

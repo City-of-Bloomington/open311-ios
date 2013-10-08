@@ -51,7 +51,9 @@
 											  otherButtonTitles:nil];
 		[alert show];
 	}
-	else [[Open311 sharedInstance] checkServerValidity:self.textFieldUrl.text fromSender:self];
+	else {
+        [[Open311 sharedInstance] checkServerValidity:self.textFieldUrl.text fromSender:self];   
+    }
 }
 
 - (void)didFinishSaving
@@ -103,5 +105,54 @@
 	return view;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+            _currentField = _textFieldName;
+            break;
+        case 1:
+            _currentField = _textFieldUrl;
+            break;
+        case 2:
+            _currentField = _textFieldJurisdiction;
+            break;
+        case 3:
+            _currentField = _textFieldApiKey;
+            break;
+        default:
+            [_currentField resignFirstResponder];
+            _currentField = nil;
+            break;
+    }
+    if (_currentField) {
+        [_currentField becomeFirstResponder];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
 
+#pragma mark - Keyboard handlers
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, _currentField.frame.origin) ) {
+        [self.tableView scrollRectToVisible:_currentField.frame animated:YES];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return TRUE;
+}
 @end

@@ -33,11 +33,21 @@
 	// Configure the view for the selected state
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    self.delegate.currentTextEntry = textView;
+}
 
 - (void) textViewDidEndEditing:(UITextView *)textView
 {
-	[self.delegate didProvideValue:textView.text fromField:self.fieldname] ;
+    self.delegate.currentTextEntry = nil;
+	[self.delegate didProvideValue:textView.text fromField:self.fieldname];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    //hides keyboard when another part of layout was touched
+    [_text endEditing:YES];
+    [super touchesBegan:touches withEvent:event];
+}
 
 @end

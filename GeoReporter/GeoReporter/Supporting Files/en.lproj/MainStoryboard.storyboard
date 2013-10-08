@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4Gh-8H-htc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4Gh-8H-htc">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -47,7 +47,7 @@
         <scene sceneID="BUu-0Z-s6V">
             <objects>
                 <tableViewController id="zXc-D2-iWn" customClass="NewReportController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="y7C-ch-ES6" customClass="TPKeyboardAvoidingTableView">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="y7C-ch-ES6">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -412,6 +412,7 @@
                     <connections>
                         <outlet property="headerView" destination="Lyq-j8-xyU" id="ZxD-mp-dd3"/>
                         <outlet property="headerViewLabel" destination="fgA-3j-odi" id="9wS-rb-pej"/>
+                        <outlet property="tableView" destination="y7C-ch-ES6" id="wRd-Pc-tbi"/>
                         <segue destination="aHt-e7-HZl" kind="unwind" identifier="UnwindSegueFromReportToHome" unwindAction="didReturnAfterSendingReport:" id="anM-ii-Qg0"/>
                     </connections>
                 </tableViewController>
@@ -823,7 +824,7 @@
         <scene sceneID="ikj-44-dtn">
             <objects>
                 <tableViewController id="aT5-GZ-6jH" customClass="AddServerController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="p5q-Zg-HYZ" customClass="TPKeyboardAvoidingTableView">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="p5q-Zg-HYZ">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -857,6 +858,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="namePhonePad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="aT5-GZ-6jH" id="xcz-fe-61n"/>
+                                                    </connections>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0AL-Tq-xjG">
                                                     <rect key="frame" x="125" y="13" width="1" height="22"/>
@@ -902,6 +906,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="aT5-GZ-6jH" id="Sog-22-HEy"/>
+                                                    </connections>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I3R-lc-Kp2">
                                                     <rect key="frame" x="125" y="11" width="1" height="22"/>
@@ -945,6 +952,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="aT5-GZ-6jH" id="jZR-LF-QY3"/>
+                                                    </connections>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ece-Va-oNK">
                                                     <rect key="frame" x="125" y="11" width="1" height="22"/>
@@ -989,6 +999,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="aT5-GZ-6jH" id="ieo-7A-ELg"/>
+                                                    </connections>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Nc-Dk-ke6">
                                                     <rect key="frame" x="125" y="11" width="1" height="22"/>
@@ -1062,6 +1075,7 @@
                         <outlet property="separator2" destination="Ece-Va-oNK" id="FbV-gk-1fc"/>
                         <outlet property="separator3" destination="1Nc-Dk-ke6" id="22a-nK-ulE"/>
                         <outlet property="switchSupportsMedia" destination="qAH-F3-FTm" id="TRh-KQ-2ib"/>
+                        <outlet property="tableView" destination="p5q-Zg-HYZ" id="1t8-2S-Zar"/>
                         <outlet property="textFieldApiKey" destination="ofd-cZ-vTS" id="G3z-7i-IRb"/>
                         <outlet property="textFieldJurisdiction" destination="lhi-ce-heM" id="Afk-IK-2TZ"/>
                         <outlet property="textFieldName" destination="ihV-q7-l7h" id="1K6-C0-C1z"/>
@@ -1353,7 +1367,7 @@
         <scene sceneID="qyp-Cj-xUI">
             <objects>
                 <tableViewController id="ufC-lV-6kH" customClass="PersonalInfoController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="DDv-Ha-KnH" customClass="TPKeyboardAvoidingTableView">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="DDv-Ha-KnH">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -1559,6 +1573,7 @@
                         <outlet property="separator1" destination="0lo-5u-iqo" id="eZX-je-3ic"/>
                         <outlet property="separator2" destination="q8Q-fW-N4N" id="T8r-D1-7hV"/>
                         <outlet property="separator3" destination="XyC-2i-3O3" id="jfi-la-l5p"/>
+                        <outlet property="tableView" destination="DDv-Ha-KnH" id="NzH-DA-ECO"/>
                         <outlet property="textFieldEmail" destination="wV8-Ad-ol6" id="dQm-lU-7ev"/>
                         <outlet property="textFieldFirstName" destination="Hxc-1i-Qz4" id="rzn-HB-Pth"/>
                         <outlet property="textFieldLastName" destination="udE-Hs-9XP" id="aOa-Pm-9v4"/>

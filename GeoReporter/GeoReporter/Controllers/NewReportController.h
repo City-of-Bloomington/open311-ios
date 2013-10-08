@@ -23,8 +23,10 @@
                                                         CLLocationManagerDelegate,
                                                         UIActionSheetDelegate>
 @property NSDictionary *service;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerViewLabel;
+@property IBOutlet UITextView *currentTextEntry;
 @property Report *report;
 
 - (IBAction)send:(id)sender;

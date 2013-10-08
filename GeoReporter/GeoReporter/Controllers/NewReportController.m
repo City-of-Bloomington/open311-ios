@@ -424,12 +424,32 @@ CLLocationCoordinate2D currentLocation;
 }
 
 #pragma mark - TextEntryDelegate
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, _currentTextEntry.frame.origin) ) {
+        [self.tableView scrollRectToVisible:_currentTextEntry.frame animated:YES];
+    }
+}
+
 - (void)didProvideValue:(NSString *)value fromField:(NSString *)field
 {
-	if (value != nil)
+	if (value != nil) {
 		_report.postData[field] = value;
-	else
+    }
+	else {
 		[_report.postData removeObjectForKey:field];
+    }
 	[self.tableView reloadData];
 }
 
