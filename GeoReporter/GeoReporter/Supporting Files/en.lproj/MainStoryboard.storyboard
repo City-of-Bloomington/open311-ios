@@ -25,26 +25,15 @@
         <scene sceneID="lC6-Yr-iM1">
             <objects>
                 <viewController id="OFD-Z8-qm9" customClass="AboutController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ldS-Qh-vHy"/>
-                        <viewControllerLayoutGuide type="bottom" id="jl2-P6-m8F"/>
-                    </layoutGuides>
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="SG7-x6-yLH">
+                    <webView key="view" contentMode="scaleToFill" id="VY5-dN-FW0">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VY5-dN-FW0">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="OFD-Z8-qm9" id="PGO-f5-2UQ"/>
-                                </connections>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </scrollView>
+                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                        <connections>
+                            <outlet property="delegate" destination="OFD-Z8-qm9" id="PGO-f5-2UQ"/>
+                        </connections>
+                    </webView>
                     <navigationItem key="navigationItem" id="wgh-OS-nKX"/>
                     <connections>
                         <outlet property="webView" destination="VY5-dN-FW0" id="Esu-Jr-Fpv"/>
