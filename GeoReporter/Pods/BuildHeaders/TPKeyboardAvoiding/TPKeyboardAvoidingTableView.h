@@ -1,1 +1,1 @@
-../../TPKeyboardAvoiding/TPKeyboardAvoidingTableView.h
+../../TPKeyboardAvoiding/TPKeyboardAvoiding/TPKeyboardAvoidingTableView.h
