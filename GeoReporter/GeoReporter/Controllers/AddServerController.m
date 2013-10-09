@@ -21,7 +21,7 @@
 	[super viewDidLoad];
 	
 	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
 		self.edgesForExtendedLayout = UIRectEdgeNone;
 	}
 	
@@ -107,52 +107,32 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0:
-            _currentField = _textFieldName;
-            break;
-        case 1:
-            _currentField = _textFieldUrl;
-            break;
-        case 2:
-            _currentField = _textFieldJurisdiction;
-            break;
-        case 3:
-            _currentField = _textFieldApiKey;
-            break;
-        default:
-            [_currentField resignFirstResponder];
-            _currentField = nil;
-            break;
-    }
-    if (_currentField) {
-        [_currentField becomeFirstResponder];
-    }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    switch (indexPath.row) {
+        case 0: [_textFieldName         becomeFirstResponder]; break;
+        case 1: [_textFieldUrl          becomeFirstResponder]; break;
+        case 2: [_textFieldJurisdiction becomeFirstResponder]; break;
+        case 3: [_textFieldApiKey       becomeFirstResponder]; break;
+        default:
+            break;
+    }
 }
 
-#pragma mark - Keyboard handlers
-- (void)keyboardWasShown:(NSNotification*)aNotification
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    self.tableView.contentInset = contentInsets;
-    self.tableView.scrollIndicatorInsets = contentInsets;
-    
-    // If active text field is hidden by keyboard, scroll it so it's visible
-    // Your app might not need or want this behavior.
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= kbSize.height;
-    if (!CGRectContainsPoint(aRect, _currentField.frame.origin) ) {
-        [self.tableView scrollRectToVisible:_currentField.frame animated:YES];
-    }
+    CGPoint location = [self.tableView convertPoint:textField.frame.origin fromView:textField.superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+    if      (textField == _textFieldName)         { [_textFieldUrl          becomeFirstResponder]; }
+    else if (textField == _textFieldUrl)          { [_textFieldJurisdiction becomeFirstResponder]; }
+    else if (textField == _textFieldJurisdiction) { [_textFieldApiKey       becomeFirstResponder]; }
+    else { [textField resignFirstResponder]; }
     return TRUE;
 }
+
 @end

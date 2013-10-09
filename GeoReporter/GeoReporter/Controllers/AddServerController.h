@@ -30,8 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIView *separator2;
 @property (weak, nonatomic) IBOutlet UIView *separator3;
 
-@property IBOutlet UITextField *currentField;
-
 - (IBAction)save:(id)sender;
 
 @end
