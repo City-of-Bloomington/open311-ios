@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="UnT-84-hgS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="UnT-84-hgS">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -919,7 +919,7 @@
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.56098882299999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a63-Sh-SUc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a63-Sh-SUc">
                                                     <rect key="frame" x="169" y="9" width="534" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="EdJ-Sm-t1k"/>
@@ -967,7 +967,7 @@
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.56098882299999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KmE-4e-ZKQ">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KmE-4e-ZKQ">
                                                     <rect key="frame" x="169" y="10" width="534" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="TfT-ez-x6X"/>
@@ -1013,7 +1013,7 @@
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.56098882299999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Re-nj-5Of">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1Re-nj-5Of">
                                                     <rect key="frame" x="169" y="7" width="534" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="QA0-xC-saB"/>
@@ -1060,7 +1060,7 @@
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.56098882299999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DxT-9t-o7D">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DxT-9t-o7D">
                                                     <rect key="frame" x="169" y="7" width="534" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="mCM-nL-PdR"/>
@@ -1528,7 +1528,7 @@
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.55939210770000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PYQ-0F-hAo">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PYQ-0F-hAo">
                                                     <rect key="frame" x="153" y="7" width="550" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="57z-9E-Ton"/>
@@ -1578,7 +1578,7 @@
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.56258553830000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vpD-cw-Yo6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vpD-cw-Yo6">
                                                     <rect key="frame" x="153" y="7" width="550" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Xmv-Rm-DIj"/>
@@ -1628,7 +1628,7 @@
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.56098882299999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QOx-dC-18f">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TextField" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QOx-dC-18f">
                                                     <rect key="frame" x="153" y="8" width="550" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="qEC-1P-kl0"/>
