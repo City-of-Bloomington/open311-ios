@@ -901,7 +901,7 @@
                         <sections>
                             <tableViewSection headerTitle="button_add_server" id="p9y-ZA-j0g">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="DJK-iT-HAt" customClass="AddServerCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="DJK-iT-HAt" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="55" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DJK-iT-HAt" id="CaY-Vm-9kV">
@@ -946,7 +946,7 @@
                                             <constraint firstItem="a63-Sh-SUc" firstAttribute="leading" secondItem="DJK-iT-HAt" secondAttribute="leading" constant="169" id="psA-Aq-nCp"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="9bi-cl-O4E" customClass="AddServerCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="9bi-cl-O4E" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="99" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9bi-cl-O4E" id="bzI-P4-CDA">
@@ -990,7 +990,7 @@
                                             <constraint firstItem="KmE-4e-ZKQ" firstAttribute="leading" secondItem="IfG-b7-ZQC" secondAttribute="trailing" constant="8" symbolic="YES" id="n61-gl-KNt"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LY7-qr-hr7" customClass="AddServerCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LY7-qr-hr7" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="143" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LY7-qr-hr7" id="tvE-KN-zdk">
@@ -1033,7 +1033,7 @@
                                             <constraint firstItem="1Re-nj-5Of" firstAttribute="leading" secondItem="LY7-qr-hr7" secondAttribute="leading" constant="169" id="wsu-zH-jOW"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Jd2-cQ-1g5" customClass="AddServerCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Jd2-cQ-1g5" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="187" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jd2-cQ-1g5" id="iOP-Ec-gSH">
@@ -1077,7 +1077,7 @@
                                             <constraint firstItem="G5Z-gL-Ire" firstAttribute="leading" secondItem="Jd2-cQ-1g5" secondAttribute="leading" constant="160" id="uyB-RR-5I5"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WfF-KB-gLb" customClass="AddServerCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WfF-KB-gLb" customClass="AddServerCell">
                                         <rect key="frame" x="0.0" y="231" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WfF-KB-gLb" id="yFI-pS-LSz">
