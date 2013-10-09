@@ -75,14 +75,6 @@ A different license may apply to other ressources included in this package,
 including Joseph Wain's Glyphish Icons. Please consult their 
 respective headers for the terms of their individual licenses.
 
-## TPKeyboardAvoiding
-
- Free for commercial use and redistribution in any form. Credit is appreciated but not essential. Oh, and there aint no warranty!
-
-Michael Tyson, A Tasty Pixel  
-michael@atastypixel.com
-
-
 ## libPhoneNumber-iOS
 
                                  Apache License

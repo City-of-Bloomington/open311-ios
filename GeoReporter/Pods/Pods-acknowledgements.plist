@@ -100,18 +100,6 @@ respective headers for the terms of their individual licenses.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string> Free for commercial use and redistribution in any form. Credit is appreciated but not essential. Oh, and there aint no warranty!
-
-Michael Tyson, A Tasty Pixel  
-michael@atastypixel.com
-</string>
-			<key>Title</key>
-			<string>TPKeyboardAvoiding</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

@@ -3,20 +3,17 @@ PODS:
   - libPhoneNumber-iOS (0.5.7.1)
   - MBProgressHUD (0.8)
   - SVProgressHUD (0.9)
-  - TPKeyboardAvoiding (1.2.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.2)
   - libPhoneNumber-iOS
   - MBProgressHUD
   - SVProgressHUD
-  - TPKeyboardAvoiding
 
 SPEC CHECKSUMS:
   AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
   libPhoneNumber-iOS: 42aaad0f25935f82eb3730f634ba0bf73e368c37
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
-  TPKeyboardAvoiding: 0536c563e6c8b8e95a7c4bf87fca9c0991f5e826
 
-COCOAPODS: 0.22.3
+COCOAPODS: 0.25.0
