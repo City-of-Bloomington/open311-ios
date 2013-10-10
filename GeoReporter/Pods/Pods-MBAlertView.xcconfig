@@ -1,0 +1,1 @@
+PODS_MBALERTVIEW_OTHER_LDFLAGS = -framework QuartzCore

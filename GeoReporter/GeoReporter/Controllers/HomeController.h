@@ -10,15 +10,18 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
-@interface HomeController : UITableViewController
+@interface HomeController : UITableViewController <MBProgressHUDDelegate> {
+    MBProgressHUD *HUD;
+}
 @property (weak, nonatomic) IBOutlet UIImageView *splashImage;
 @property (weak, nonatomic) IBOutlet UILabel *reportLabel;
 @property (weak, nonatomic) IBOutlet UILabel *archiveLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reportingAsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *personalInfoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *serversLabel;
 
-- (void)serviceListReady;
-- (void)startBusyIcon;
+- (IBAction)tapAboutButton:(id)sender;
 - (void)refreshPersonalInfo;
 @end

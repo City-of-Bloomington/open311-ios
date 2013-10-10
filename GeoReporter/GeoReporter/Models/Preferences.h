@@ -10,6 +10,9 @@
 #import "Report.h"
 
 @interface Preferences : NSObject
+@property (nonatomic, strong) NSDictionary *availableServers;
+@property (nonatomic, strong) NSDictionary *currentServer;
+
 + (id)sharedInstance;
 
 + (NSArray *)getAvailableServers;

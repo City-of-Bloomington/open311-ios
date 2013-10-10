@@ -49,6 +49,7 @@ extern NSString * const kUI_Satellite;
 extern NSString * const kUI_ReportStatus;
 extern NSString * const kUI_ReportAttributes;
 extern NSString * const kUI_ReportDescription;
+extern NSString * const kUI_DescriptionOfProblem;
 extern NSString * const kUI_ReportDate;
 extern NSString * const kUI_Submit;
 extern NSString * const kUI_Cancel;
@@ -60,6 +61,9 @@ extern NSString * const kUI_Uncategorized;
 extern NSString * const kUI_FailureLoadingServices;
 extern NSString * const kUI_FailurePostingService;
 extern NSString * const kUI_Error403;
+extern NSString * const kUI_URLError;
+extern NSString * const kUI_ServerNameError;
+extern NSString * const kUI_ServerNameErrorMessage;
 
 // Open311 Key Strings
 // Global required fields
@@ -93,6 +97,7 @@ extern NSString * const kOpen311_LastName;
 extern NSString * const kOpen311_Email;
 extern NSString * const kOpen311_Phone;
 extern NSString * const kOpen311_DeviceId;
+extern NSString * const kOpen311_IsAnonymous;
 // Custom field definition in service_definition
 extern NSString * const kOpen311_Metadata;
 extern NSString * const kOpen311_Attributes;

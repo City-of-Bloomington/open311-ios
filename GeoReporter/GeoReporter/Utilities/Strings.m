@@ -50,6 +50,7 @@ NSString * const kUI_Satellite              = @"map_button_satellite";
 NSString * const kUI_ReportStatus           = @"report_status";
 NSString * const kUI_ReportAttributes       = @"report_attributes";
 NSString * const kUI_ReportDescription      = @"report_description";
+NSString * const kUI_DescriptionOfProblem   = @"Description of problem";
 NSString * const kUI_ReportDate             = @"report_date";
 NSString * const kUI_Submit                 = @"submit";
 NSString * const kUI_Cancel                 = @"cancel";
@@ -61,6 +62,10 @@ NSString * const kUI_Uncategorized          = @"uncategorized";
 NSString * const kUI_FailureLoadingServices = @"failure_loading_services";
 NSString * const kUI_FailurePostingService  = @"failure_posting_service";
 NSString * const kUI_Error403               = @"error_403";
+NSString * const kUI_URLError               = @"wrong_url";
+NSString * const kUI_ServerNameError        = @"servername_error_title";
+NSString * const kUI_ServerNameErrorMessage = @"servername_error_message";
+
 
 // Open311 Key Strings
 // Global required fields
@@ -94,6 +99,7 @@ NSString * const kOpen311_LastName  = @"last_name";
 NSString * const kOpen311_Email     = @"email";
 NSString * const kOpen311_Phone     = @"phone";
 NSString * const kOpen311_DeviceId  = @"device_id";
+NSString * const kOpen311_IsAnonymous=@"isAnonymous";
 // Custom field definition in service_definition
 NSString * const kOpen311_Metadata     = @"metadata";
 NSString * const kOpen311_Attributes   = @"attributes";

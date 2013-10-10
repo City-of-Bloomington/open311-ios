@@ -10,7 +10,14 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "Preferences.h"
 
 @interface ServersController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property Preferences *prefs;
+@property NSArray *availableServers;
+@property NSMutableArray *customServers;
+
 - (NSDictionary *)getTargetServer:(NSInteger)index;
 @end

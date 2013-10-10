@@ -22,12 +22,20 @@
 @end
 
 @interface LocationController : UIViewController <CLLocationManagerDelegate>
-@property id<LocationChooserDelegate>delegate;
+@property (weak, nonatomic) id<LocationChooserDelegate>delegate;
+@property (strong, nonatomic) CLLocation *selectedLocation;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftSpace;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *rightSpace;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property CLLocationManager *locationManager;
+
 - (IBAction)done:(id)sender;
 - (IBAction)centerOnLocation:(id)sender;
 - (IBAction)mapTypeChanged:(id)sender;
+- (IBAction)cancel:(id)sender;
 
 - (void)zoomToLocation:(CLLocation *)location;
 @end

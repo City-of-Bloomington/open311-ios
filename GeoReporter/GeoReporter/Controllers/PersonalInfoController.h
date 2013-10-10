@@ -10,10 +10,10 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "NBPhoneNumberUtil.h"
 
-@interface PersonalInfoController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PersonalInfoController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @property (nonatomic, weak) IBOutlet UILabel *labelFirstName;
 @property (nonatomic, weak) IBOutlet UILabel *labelLastName;
 @property (nonatomic, weak) IBOutlet UILabel *labelEmail;
@@ -22,5 +22,9 @@
 @property (nonatomic, weak) IBOutlet UITextField *textFieldLastName;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldEmail;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldPhone;
+@property (weak, nonatomic) IBOutlet UIView *separator0;
+@property (weak, nonatomic) IBOutlet UIView *separator1;
+@property (weak, nonatomic) IBOutlet UIView *separator2;
+@property (weak, nonatomic) IBOutlet UIView *separator3;
 
 @end

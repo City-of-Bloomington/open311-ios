@@ -1,6 +1,6 @@
 /**
  * @copyright 2013 City of Bloomington, Indiana. All Rights Reserved
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @author Marius Constantinescu <constantinescu.marius@gmail.com>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,5 +14,16 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+
+// iOS6 compatibility
+#ifndef kCFCoreFoundationVersionNumber_iOS_6_0
+#define kCFCoreFoundationVersionNumber_iOS_6_0 788.0
+#endif
+
+// iOS7 compatibility
+#ifndef kCFCoreFoundationVersionNumber_iOS_7_0
+#define kCFCoreFoundationVersionNumber_iOS_7_0 838.0
+#endif
 
 @end

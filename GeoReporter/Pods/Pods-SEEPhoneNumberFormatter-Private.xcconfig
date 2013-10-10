@@ -1,0 +1,5 @@
+#include "Pods-SEEPhoneNumberFormatter.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/SEEPhoneNumberFormatter" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/MBProgressHUD" "${PODS_ROOT}/Headers/SEEPhoneNumberFormatter" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/TPKeyboardAvoiding"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}

@@ -18,15 +18,21 @@ extern NSString * const kNotification_PostFailed;
 @property (readonly) NSDictionary *endpointParameters;
 @property (readonly) NSMutableArray *groups;
 @property (readonly) NSMutableDictionary *serviceDefinitions;
+@property AFHTTPClient *httpClient;
+@property NSDictionary *currentServer;
+@property NSArray *serviceList;
 
 + (id)sharedInstance;
 
-- (void)loadAllMetadataForServer:(NSDictionary *)server;
+- (void)loadAllMetadataForServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion;
 - (void)loadFailedWithError:(NSError *)error;
 
-- (void)loadServiceList;
-- (void)loadServiceDefinitions;
+- (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender;
+
+- (void)loadServiceListWithCompletion:(void(^)(void)) completion;
+- (void)loadGroups;
 - (NSArray *)getServicesForGroup:(NSString *)group;
+- (void)getMetadataForService:(NSDictionary*) serviceCode WithCompletion:(void(^)(void)) completion;
 
 - (void)startPostingServiceRequest:(Report *)report;
 - (NSMutableURLRequest *)preparePostForReport:(Report *)report withMedia:(UIImage *)media;

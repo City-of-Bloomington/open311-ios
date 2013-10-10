@@ -13,8 +13,23 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Report.h"
 
+#define MEDIA_CELL_HEIGHT 122
+#define LOCATION_CELL_HEIGHT 122
+#define LOCATION_CELL_HEIGHT_IPAD 222
+#define FONT_SIZE 14.0f
+#define CELL_CONTENT_WIDTH 290.0f
+#define CELL_CONTENT_MARGIN 10.0f
+
 @interface ViewRequestController : UITableViewController <ServiceRequestDelegate>
 @property Report *report;
 @property NSInteger reportIndex;
+@property NSDateFormatter *dateFormatterDisplay;
+@property NSDateFormatter *dateFormatterISO;
+@property NSURL *mediaUrl;
+@property UIImage *media;
+@property UIImage *original;
+@property UITapGestureRecognizer * gestureRecognizer;
+@property BOOL loadedOnce;
+
 - (void)startRefreshingServiceRequest;
 @end

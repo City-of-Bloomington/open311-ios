@@ -43,3 +43,6 @@
 "failure_loading_services"="Failed to load service information";
 "failure_posting_service"="Posting report failed";
 "error_403"="This app does not have permission";
+"wrong_url"="The provided URL is not responding";
+"servername_error_title"="Server name error";
+"servername_error_message"="Please insert a name for the new server";

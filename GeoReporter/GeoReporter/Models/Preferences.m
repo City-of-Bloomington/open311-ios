@@ -9,10 +9,8 @@
 #import "Preferences.h"
 #import "Strings.h"
 
-@implementation Preferences {
-    NSDictionary *availableServers;
-    NSDictionary *currentServer;
-}
+@implementation Preferences
+
 static NSString * const kCustomServers = @"custom_servers";
 static NSString * const kArchiveFilename = @"reports.archive";
 
@@ -24,53 +22,62 @@ SHARED_SINGLETON(Preferences);
  */
 + (NSArray *)getAvailableServers
 {
-    NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AvailableServers" ofType:@"plist"]];
-    return [plist objectForKey:@"Servers"];
+	NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AvailableServers" ofType:@"plist"]];
+	return [plist objectForKey:@"Servers"];
 }
 
 - (NSArray *)getCustomServers
 {
-    NSString *json = [[NSUserDefaults standardUserDefaults] objectForKey:kCustomServers];
-    if (json != nil) {
-        return [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-    }
-    return nil;
+	NSString *json = [[NSUserDefaults standardUserDefaults] objectForKey:kCustomServers];
+	if (json != nil) {
+		return [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+	}
+	return nil;
 }
 
 - (void)saveCustomServers:(NSMutableArray *)customServers
 {
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:customServers options:0 error:nil];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    [[NSUserDefaults standardUserDefaults] setValue:jsonString forKey:kCustomServers];
+	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:customServers options:0 error:nil];
+	NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+	[[NSUserDefaults standardUserDefaults] setValue:jsonString forKey:kCustomServers];
 }
 
 - (void)addCustomServer:(NSDictionary *)server
 {
-    NSMutableArray *customServers = [NSMutableArray arrayWithArray:[self getCustomServers]];
-    [customServers addObject:server];
-    [self saveCustomServers:customServers];
+	NSMutableArray *customServers = [NSMutableArray arrayWithArray:[self getCustomServers]];
+	[customServers addObject:server];
+	[self saveCustomServers:customServers];
 }
 
 #pragma mark - Current Server
 /**
  * Lazy load the current server information
  *
- * This is modified from GeoReporter to support single-city apps.
- * This function will always return the first entry in AvailableServers
+ * We only store the name of the current server on the phone.
+ * Since the defintions for the servers can change, we must always
+ * load the fresh definition for the server from AvailableServers.
  */
 - (NSDictionary *)getCurrentServer
 {
-    if (currentServer == nil) {
-        NSArray *servers = [Preferences getAvailableServers];
-        currentServer = servers[0];
-    }
-    return currentServer;
+	if (_currentServer == nil) {
+		NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:kOpen311_Name];
+		if (![name isEqualToString:@""]) {
+			NSArray *servers = [Preferences getAvailableServers];
+			int count = [servers count];
+			for (int i=0; i<count; i++) {
+				if ([servers[i][kOpen311_Name] isEqualToString:name]) {
+					_currentServer = servers[i];
+				}
+			}
+		}
+	}
+	return _currentServer;
 }
 
 - (void)setCurrentServer:(NSDictionary *)server
 {
-    currentServer = server;
-    [[NSUserDefaults standardUserDefaults] setObject:server[kOpen311_Name] forKey:kOpen311_Name];
+	_currentServer = server;
+	[[NSUserDefaults standardUserDefaults] setObject:server[kOpen311_Name] forKey:kOpen311_Name];
 }
 
 
@@ -78,7 +85,7 @@ SHARED_SINGLETON(Preferences);
 
 + (NSString *)getArchiveFilePath
 {
-    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:kArchiveFilename];
+	return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:kArchiveFilename];
 }
 
 /**
@@ -90,12 +97,12 @@ SHARED_SINGLETON(Preferences);
  */
 - (NSArray *)getArchivedReports
 {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[Preferences getArchiveFilePath]]) {
-        return [NSKeyedUnarchiver unarchiveObjectWithFile:[Preferences getArchiveFilePath]];
-    }
-    else {
-        return @[];
-    }
+	if ([[NSFileManager defaultManager] fileExistsAtPath:[Preferences getArchiveFilePath]]) {
+		return [NSKeyedUnarchiver unarchiveObjectWithFile:[Preferences getArchiveFilePath]];
+	}
+	else {
+		return @[];
+	}
 }
 
 /**
@@ -103,15 +110,15 @@ SHARED_SINGLETON(Preferences);
  */
 - (void)saveArchivedReports:(NSMutableArray *)archive
 {
-    BOOL success = [NSKeyedArchiver archiveRootObject:archive toFile:[Preferences getArchiveFilePath]];
-    if (!success) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"failed to save archive file"
-                                                        message:nil
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
+	BOOL success = [NSKeyedArchiver archiveRootObject:archive toFile:[Preferences getArchiveFilePath]];
+	if (!success) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"failed to save archive file"
+														message:nil
+													   delegate:self
+											  cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
+											  otherButtonTitles:nil];
+		[alert show];
+	}
 }
 
 /**
@@ -124,17 +131,17 @@ SHARED_SINGLETON(Preferences);
  * must only contain NSDictionaries.  Each report added to the
  * archive must be converted to an NSDictionary
  */
- - (void)saveReport:(Report *)report forIndex:(NSInteger)index
+- (void)saveReport:(Report *)report forIndex:(NSInteger)index
 {
-    NSMutableArray *archive = [NSMutableArray arrayWithArray:[self getArchivedReports]];
-    NSDictionary *sr = [report asDictionary];
-    if (index < 0) {
-        [archive insertObject:sr atIndex:0];
-    }
-    else {
-        [archive setObject:sr atIndexedSubscript:index];
-    }
-    [self saveArchivedReports:archive];
+	NSMutableArray *archive = [NSMutableArray arrayWithArray:[self getArchivedReports]];
+	NSDictionary *sr = [report asDictionary];
+	if (index < 0) {
+		[archive insertObject:sr atIndex:0];
+	}
+	else {
+		[archive setObject:sr atIndexedSubscript:index];
+	}
+	[self saveArchivedReports:archive];
 }
 
 @end

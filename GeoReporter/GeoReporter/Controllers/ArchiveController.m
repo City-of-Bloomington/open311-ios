@@ -16,97 +16,99 @@
 #import "Open311.h"
 #import "ViewRequestController.h"
 
-@interface ArchiveController ()
+@implementation ArchiveController
 
-@end
-
-@implementation ArchiveController {
-    NSMutableArray  *archivedReports;
-    NSDateFormatter *dateFormatterDisplay;
-    NSDateFormatter *dateFormatterISO;
-}
 NSString * const kCellIdentifier = @"archive_cell";
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    self.navigationItem.title = NSLocalizedString(kUI_Archive, nil);
-    
-    dateFormatterDisplay = [[NSDateFormatter alloc] init];
-    [dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];
-    
-    dateFormatterISO = [[NSDateFormatter alloc] init];
-    [dateFormatterISO setDateFormat:kDate_ISO8601];
+	[super viewDidLoad];
+	
+	//make view controller start below navigation bar; this works in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
+	
+	self.navigationItem.title = NSLocalizedString(kUI_Archive, nil);
+	
+	_dateFormatterDisplay = [[NSDateFormatter alloc] init];
+	[_dateFormatterDisplay setDateStyle:NSDateFormatterMediumStyle];
+	[_dateFormatterDisplay setTimeStyle:NSDateFormatterShortStyle];
+	
+	_dateFormatterISO = [[NSDateFormatter alloc] init];
+	[_dateFormatterISO setDateFormat:kDate_ISO8601];
+	
+	//add empty footer so that empty rows will not be shown at the end of the table
+	[self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
-    archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
-    [self.tableView reloadData];
+	[super viewWillAppear:animated];
+	
+	_archivedReports = [NSMutableArray arrayWithArray:[[Preferences sharedInstance] getArchivedReports]];
+	[self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[Preferences sharedInstance] saveArchivedReports:archivedReports];
-
-    [super viewWillDisappear:animated];
+	[[Preferences sharedInstance] saveArchivedReports:_archivedReports];
+	
+	[super viewWillDisappear:animated];
 }
 
+# pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ViewRequestController *controller = [segue destinationViewController];
-    NSInteger reportIndex = [[self.tableView indexPathForSelectedRow] row];
-    Report *sr = [[Report alloc] initWithDictionary:[archivedReports objectAtIndex:reportIndex]];
-    
-    [controller setReport:sr];
-    [controller setReportIndex:reportIndex];
+	ViewRequestController *controller = [segue destinationViewController];
+	NSInteger reportIndex = [[self.tableView indexPathForSelectedRow] row];
+	Report *sr = [[Report alloc] initWithDictionary:[_archivedReports objectAtIndex:reportIndex]];
+	
+	[controller setReport:sr];
+	[controller setReportIndex:reportIndex];
 }
 
 #pragma mark - Table handling functions
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [archivedReports count];
+	return [_archivedReports count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
-    // Reports from the archive must be hydrated before using
-    Report *sr = [[Report alloc] initWithDictionary:archivedReports[indexPath.row]];
-    
-    cell.textLabel.text = sr.service[kOpen311_ServiceName];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@",
-                                     [dateFormatterDisplay stringFromDate:[dateFormatterISO dateFromString:sr.serviceRequest[kOpen311_RequestedDatetime]]],
-                                     sr.server[kOpen311_Name]];
-    return cell;
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+	// Reports from the archive must be hydrated before using
+	Report *sr = [[Report alloc] initWithDictionary:_archivedReports[indexPath.row]];
+	
+	cell.textLabel.text = sr.service[kOpen311_ServiceName];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %@",
+								 [_dateFormatterDisplay stringFromDate:[_dateFormatterISO dateFromString:sr.serviceRequest[kOpen311_RequestedDatetime]]],
+								 sr.server[kOpen311_Name]];
+	return cell;
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    [super setEditing:editing animated:animated];
-    [self.tableView setEditing:editing animated:animated];
+	[super setEditing:editing animated:animated];
+	[self.tableView setEditing:editing animated:animated];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleDelete;
+	return UITableViewCellEditingStyleDelete;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [archivedReports removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		[_archivedReports removeObjectAtIndex:indexPath.row];
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 @end

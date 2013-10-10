@@ -31,11 +31,11 @@
 		newHeight =  size;
 		newWidth = newHeight * smallerDimensionMultiplier;
 	}
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
-    [image drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+	UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
+	[image drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
 	UIImage *output = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return output;
+	UIGraphicsEndImageContext();
+	
+	return output;
 }
 @end

@@ -1,6 +1,6 @@
 /**
  * @copyright 2013 City of Bloomington, Indiana. All Rights Reserved
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @author Marius Constantinescu <constantinescu.marius@gmail.com>
  * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
  *
  * This program is free software: you can redistribute it and/or modify
@@ -10,7 +10,18 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ServiceDelegate.h"
+#import <MBProgressHUD.h>
+#import "Open311.h"
 
-@interface ChooseServiceController : UITableViewController
-@property NSString *group;
+@interface ChooseServiceController : UITableViewController<MBProgressHUDDelegate> {
+    MBProgressHUD *HUD;
+}
+
+@property (nonatomic) NSString *group;
+@property (weak, nonatomic) id <ServiceDelegate> delegate;
+@property Open311 *open311;
+@property NSString *currentServerName;
+@property NSArray *services;
+
 @end

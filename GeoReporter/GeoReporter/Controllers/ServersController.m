@@ -11,42 +11,72 @@
 
 #import "ServersController.h"
 #import "Strings.h"
-#import "Preferences.h"
 
-@interface ServersController ()
+@implementation ServersController
 
-@end
-
-@implementation ServersController {
-    Preferences *prefs;
-    NSArray *availableServers;
-    NSMutableArray *customServers;
-}
 static NSString * const kCellIdentifier = @"server_cell";
+static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServersToHome";
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    self.navigationItem.title = NSLocalizedString(kUI_Servers, nil);
-
-    availableServers = [Preferences getAvailableServers];
-    prefs = [Preferences sharedInstance];
+	[super viewDidLoad];
+	
+	//make view controller start below navigation bar; this works in iOS 7
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
+	
+	self.navigationItem.title = NSLocalizedString(kUI_Servers, nil);
+	
+	_availableServers = [Preferences getAvailableServers];
+	_prefs = [Preferences sharedInstance];
+	
+	UILabel *label = [[UILabel alloc] init];
+	label.numberOfLines = 0;
+	label.lineBreakMode = NSLineBreakByWordWrapping;
+	
+	NSString* tableHeaderText;
+	tableHeaderText = @"Select the server to which the issues are reported. \"Available Servers\" contains the official endpoints. \"Custom Servers\" may contain other custom Open311 servers.";
+	float headerWidth;
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		// The device is an iPad running iOS 3.2 or later.
+		headerWidth = 728;
+	}
+	else {
+		// The device is an iPhone or iPod touch.
+		headerWidth = 280;
+	}
+	
+	CGSize headerSize = [tableHeaderText sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(headerWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+	
+	self.label.text = tableHeaderText;
+	self.headerView.frame = CGRectMake(20, 4, headerWidth, headerSize.height + 8 + 5);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
-    customServers = [NSMutableArray arrayWithArray:[prefs getCustomServers]];
-    [self.tableView reloadData];
+	[super viewWillAppear:animated];
+	
+	NSDictionary *currentServer = [_prefs getCurrentServer];
+	if (currentServer == nil) {
+		[[self navigationItem] setHidesBackButton:YES];
+	}
+	
+	_customServers = [NSMutableArray arrayWithArray:[_prefs getCustomServers]];
+	[self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [prefs saveCustomServers:customServers];
-    
-    [super viewWillDisappear:animated];
+	[_prefs saveCustomServers:_customServers];
+	
+	[super viewWillDisappear:animated];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	//refresh table so that the section headers are redrawn according to their new position in the new orientation.
+	[self.tableView reloadData];
 }
 
 /**
@@ -58,72 +88,146 @@ static NSString * const kCellIdentifier = @"server_cell";
  */
 - (NSDictionary *)getTargetServer:(NSInteger)index
 {
-    NSUInteger numAvailableServers = [availableServers count];
-    if (index < numAvailableServers) {
-        return availableServers[index];
-    }
-    else {
-        index = index - numAvailableServers;
-        return customServers[index];
-    }
+	NSUInteger numAvailableServers = [_availableServers count];
+	if (index < numAvailableServers) {
+		return _availableServers[index];
+	}
+	else {
+		index = index - numAvailableServers;
+		return _customServers[index];
+	}
 }
 
+
+
 #pragma mark - Table View Handlers
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	if ([_customServers count] > 0) {
+		return 2;
+	}
+	return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [availableServers count] + [customServers count];
+	if (section == 0) {
+		return [_availableServers count];
+	}
+	return [_customServers count];
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	if (section == 0) return @"Available Servers";
+	return @"Custom Servers";
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	
+	NSString *sectionTitle;
+	if (section == 0) {
+		sectionTitle = @"Available Servers";
+	}
+	else {
+		sectionTitle = @"Custom Servers";
+	}
+	
+	UILabel *label = [[UILabel alloc] init];
+	CGRect frame = CGRectMake(20, 8, 320, 20);
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		// The device is an iPad running iOS 3.2 or later.
+		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+		
+		if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+			// The iPad is orientated Landscape
+			frame = CGRectMake(120, 8, 320, 20);
+		}
+	}
+	
+	label.frame = frame;
+	label.backgroundColor = [UIColor clearColor];
+	label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
+	label.font = [UIFont fontWithName:@"Heiti SC" size:15];
+	label.text = sectionTitle;
+	
+	UIView *view = [[UIView alloc] init];
+	[view addSubview:label];
+	
+	return view;
+	
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
-    }
-    
-    NSDictionary *server = [self getTargetServer:indexPath.row];
-    cell.textLabel      .text = server[kOpen311_Name];
-    cell.detailTextLabel.text = server[kOpen311_Url];
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    if ([[prefs getCurrentServer][kOpen311_Name] isEqualToString:cell.textLabel.text]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    return cell;
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+	if (cell == nil) {
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
+	}
+	NSDictionary *server;
+	if (indexPath.section == 0) {
+		server = [self getTargetServer:indexPath.row];
+	}
+	else {
+		server = [self getTargetServer:(indexPath.row + [_availableServers count])];
+	}
+	
+	
+	
+	cell.textLabel      .text = server[kOpen311_Name];
+	cell.detailTextLabel.text = server[kOpen311_Url];
+	cell.accessoryType = UITableViewCellAccessoryNone;
+	if ([[_prefs getCurrentServer][kOpen311_Name] isEqualToString:cell.textLabel.text]) {
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+	}
+	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [prefs setCurrentServer:[self getTargetServer:indexPath.row]];
-    [self.tabBarController setSelectedIndex:kTab_Home];
+	if (indexPath.section == 0) {
+		[_prefs setCurrentServer:[self getTargetServer:indexPath.row]];
+	}
+	else {
+		[_prefs setCurrentServer:[self getTargetServer:(indexPath.row + [_availableServers count])]];
+	}
+	[tableView deselectRowAtIndexPath:indexPath animated:NO];
+	
+	[self performSegueWithIdentifier:kUnwindSegueFromServersToHome sender:self];
 }
 
 #pragma mark - Table View Deletion Handlers
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row >= [availableServers count]) {
-        return TRUE;
-    }
-    return FALSE;
+	if (indexPath.section == 1) {
+		return TRUE;
+	}
+	return FALSE;
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    [super setEditing:editing animated:animated];
-    [self.tableView setEditing:editing animated:animated];
+	[super setEditing:editing animated:animated];
+	[self.tableView setEditing:editing animated:animated];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleDelete;
+	return UITableViewCellEditingStyleDelete;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSInteger index = indexPath.row - [availableServers count];
-        [customServers removeObjectAtIndex:index];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		if ([tableView numberOfRowsInSection:[indexPath section]] > 1) {
+			[_customServers removeObjectAtIndex:indexPath.row];
+			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		}
+		else
+		{
+			[_customServers removeObjectAtIndex:indexPath.row];
+			[tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+		}
+	}
 }
 @end
