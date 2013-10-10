@@ -36,4 +36,11 @@
 {
 	[self.delegate didProvideValue:textField.text fromField:self.fieldname] ;
 }
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    //hides keyboard when another part of layout was touched
+    [_textField endEditing:YES];
+    [super touchesBegan:touches withEvent:event];
+}
+
 @end
