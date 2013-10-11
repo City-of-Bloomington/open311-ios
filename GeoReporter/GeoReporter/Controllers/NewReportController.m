@@ -40,7 +40,7 @@ CLLocation *locationFromLocationController;
 static NSString * const kSegueToLocation        = @"SegueToLocation";
 static NSString * const kReportCell             = @"report_cell";
 static NSString * const kReportTextCell         = @"report_text_cell";
-static NSString * const kFooterCell              = @"report_footer_cell";
+static NSString * const kFooterCell             = @"report_footer_cell";
 static NSString * const kReportLocationCell     = @"report_location_cell";
 static NSString * const kReportSingleValueCell  = @"report_sinlge_value_cell";
 static NSString * const kReportMultiValueCell   = @"report_multi_value_cell";
@@ -55,20 +55,10 @@ CLLocationManager *locationManager;
 CLLocationCoordinate2D currentLocation;
 
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-	self = [super initWithStyle:style];
-	if (self) {
-		// Custom initialization
-	}
-	return self;
-}
-
-
 // Creates a multi-dimensional array to represent the fields to display in
 // the table view.
 //
-// You can access indivual cells like so:
+// You can access individual cells like so:
 // fields[section][row][fieldname]
 //                     [label]
 //                     [type]
@@ -103,23 +93,23 @@ CLLocationCoordinate2D currentLocation;
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
 		&& [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
 		[fields addObject:@[
-  @{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
-  @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
-  ]];
+            @{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
+            @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
+        ]];
 		
 		// Initialize the Asset Library object for saving/reading images
 		library = [[ALAssetsLibrary alloc] init];
 	}
 	else {
 		[fields addObject:@[
-  @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
-  ]];
+            @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
+        ]];
 	}
 	
 	// Second section: Report Description
 	[fields addObject:@[
-  @{kFieldname:kOpen311_Description, kLabel:NSLocalizedString(kUI_ReportDescription, nil), kType:kOpen311_Text}
-  ]];
+        @{kFieldname:kOpen311_Description, kLabel:NSLocalizedString(kUI_ReportDescription, nil), kType:kOpen311_Text}
+    ]];
 	
 	// Third section: Attributes
 	// Attributes with variable=false will be appended to the section header
@@ -162,12 +152,6 @@ CLLocationCoordinate2D currentLocation;
 	self.tableView.tableHeaderView = self.headerView;
 }
 
-- (void)didReceiveMemoryWarning
-{
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -196,6 +180,7 @@ CLLocationCoordinate2D currentLocation;
 	NSDictionary *field = fields[indexPath.section][indexPath.row];
 	NSString *type = field[kType];
 	//NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
+    DLog(@"%@", _report.serviceDefinition);
 	NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
 	
 	if ([type isEqualToString:kOpen311_Text]) {
@@ -280,25 +265,10 @@ CLLocationCoordinate2D currentLocation;
 			}
 			//Drop pin on map
 			[locationCell.mapView addAnnotation:point];
-			
-			MKCoordinateRegion region;
-			region.center.latitude  = myCoordinate.latitude;
-			region.center.longitude = myCoordinate.longitude;
-			MKCoordinateSpan span;
-			span.latitudeDelta  = 0.007;
-			span.longitudeDelta = 0.007;
-			region.span = span;
-			[locationCell.mapView setRegion:region animated:YES];
+            [self zoomMap:locationCell.mapView toCoordinate:myCoordinate];
 		}
 		else {
-			MKCoordinateRegion region;
-			region.center.latitude  = currentLocation.latitude;
-			region.center.longitude = currentLocation.longitude;
-			MKCoordinateSpan span;
-			span.latitudeDelta  = 0.007;
-			span.longitudeDelta = 0.007;
-			region.span = span;
-			[locationCell.mapView setRegion:region animated:YES];
+            [self zoomMap:locationCell.mapView toCoordinate:currentLocation];
 		}
 		return locationCell;
 	}
@@ -347,8 +317,6 @@ CLLocationCoordinate2D currentLocation;
 		}
 		return stringCell;
 	}
-	
-	
 	if ([type isEqualToString:kOpen311_Media]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMediaCell forIndexPath:indexPath];
 		MediaCell* mediaCell = (MediaCell*) cell;
@@ -373,10 +341,8 @@ CLLocationCoordinate2D currentLocation;
 				[mediaCell.image setImage:mediaThumbnail];
 				mediaCell.header.text = @"Change image";
 				mediaCell.closeImage.hidden = NO;
-				
 			}
 		}
-		
 		return mediaCell;
 	}
 	//it should NEVER get here. It should always go on an if branch
@@ -430,7 +396,7 @@ CLLocationCoordinate2D currentLocation;
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    self.tableView.contentInset = contentInsets;
+    self.tableView.contentInset          = contentInsets;
     self.tableView.scrollIndicatorInsets = contentInsets;
     
     // If active text field is hidden by keyboard, scroll it so it's visible
@@ -456,14 +422,28 @@ CLLocationCoordinate2D currentLocation;
 #pragma mark - MultiValueDelegate
 - (void)didProvideValues:(NSArray *)values fromField:(NSString*)field
 {
-	if (values != nil)
+	if (values != nil) {
 		_report.postData[field] = values;
-	else
+    }
+	else {
 		[_report.postData removeObjectForKey:field];
+    }
 	[self.tableView reloadData];
 }
 
 #pragma mark - Location delegate
+- (void)zoomMap:(MKMapView *)map toCoordinate:(CLLocationCoordinate2D)point
+{
+    MKCoordinateRegion region;
+    region.center.latitude  = point.latitude;
+    region.center.longitude = point.longitude;
+    MKCoordinateSpan span;
+    span.latitudeDelta  = 0.007;
+    span.longitudeDelta = 0.007;
+    region.span = span;
+    [map setRegion:region animated:YES];
+}
+
 - (void)didChooseLocation:(CLLocationCoordinate2D)location
 {
 	locationFromLocationController = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
@@ -501,8 +481,8 @@ CLLocationCoordinate2D currentLocation;
 		picker.allowsEditing = NO;
 		picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
 		picker.sourceType = buttonIndex == 0
-		? UIImagePickerControllerSourceTypeCamera
-		: UIImagePickerControllerSourceTypePhotoLibrary;
+            ? UIImagePickerControllerSourceTypeCamera
+            : UIImagePickerControllerSourceTypePhotoLibrary;
 		[self presentViewController:picker animated:YES completion:nil];
 	}
 }

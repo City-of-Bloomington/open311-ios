@@ -30,5 +30,5 @@
 @property Report *report;
 
 - (IBAction)send:(id)sender;
-
+- (void)zoomMap:(MKMapView *)map toCoordinate:(CLLocationCoordinate2D)point;
 @end

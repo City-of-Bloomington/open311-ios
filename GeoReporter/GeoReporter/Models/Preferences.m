@@ -22,7 +22,8 @@ SHARED_SINGLETON(Preferences);
  */
 + (NSArray *)getAvailableServers
 {
-	NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AvailableServers" ofType:@"plist"]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"AvailableServers" ofType:@"plist"];
+	NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:path];
 	return [plist objectForKey:@"Servers"];
 }
 

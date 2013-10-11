@@ -80,7 +80,9 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 		HUD.labelText = @"Loading";
 		[HUD show:YES];
 		Open311 *open311 = [Open311 sharedInstance];
-		[open311 loadAllMetadataForServer:currentServer withCompletion:^() { [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES]; }];
+		[open311 loadAllMetadataForServer:currentServer withCompletion:^() {
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        }];
 		NSString *filename = currentServer[kOpen311_SplashImage];
 		if (!filename) { filename = @"open311"; }
 		[self.splashImage setImage:[UIImage imageNamed:filename]];

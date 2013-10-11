@@ -51,7 +51,6 @@ static NSInteger const kMapTypeHybridIndex = 2;
 			//change from landscape to portrait
 			self.leftSpace.width = 351;
 			self.rightSpace.width = 351;
-			
 		}
 		else {
 			//change from portrait to landscape
@@ -116,6 +115,7 @@ static NSInteger const kMapTypeHybridIndex = 2;
 		case kMapTypeSatelliteIndex:
 			[self.map setMapType:MKMapTypeSatellite];
 			break;
+            
 		case kMapTypeHybridIndex:
 			[self.map setMapType:MKMapTypeHybrid];
 			break;
@@ -125,6 +125,7 @@ static NSInteger const kMapTypeHybridIndex = 2;
 - (IBAction)cancel:(id)sender {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)viewDidUnload {
 	[self setSegmentedControl:nil];
 	[super viewDidUnload];

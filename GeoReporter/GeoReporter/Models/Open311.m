@@ -113,7 +113,7 @@ SHARED_SINGLETON(Open311);
 // |serviceList| must already be loaded before calling this method.
 //
 // Loads unique |groups| from the |serviceList|
-- (void) loadGroups
+- (void)loadGroups
 {
 	int count = [_serviceList count];
 	for (int i=0; i<count; i++) {

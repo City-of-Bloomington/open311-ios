@@ -172,8 +172,6 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 		server = [self getTargetServer:(indexPath.row + [_availableServers count])];
 	}
 	
-	
-	
 	cell.textLabel      .text = server[kOpen311_Name];
 	cell.detailTextLabel.text = server[kOpen311_Url];
 	cell.accessoryType = UITableViewCellAccessoryNone;

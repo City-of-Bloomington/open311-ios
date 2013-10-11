@@ -27,8 +27,6 @@ static NSInteger  const kLabelTag    = 114;
 static CGFloat    const kMediaCellHeight = 122;
 static NSString * const kSegueToFullImage = @"segueToFullImage";
 
-
-
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
@@ -245,20 +243,28 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	if (_mediaUrl && indexPath.section==1 && indexPath.row==1) {
 		return MEDIA_CELL_HEIGHT;
 	}
-	if ((_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==2) ||
-		(!_mediaUrl && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==1)) {
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			// The device is an iPad running iOS 3.2 or later.
-			return LOCATION_CELL_HEIGHT_IPAD;
-		}
-		return LOCATION_CELL_HEIGHT;
+	if ((    _report.postData[kOpen311_Latitude ] != nil
+          && _report.postData[kOpen311_Longitude] != nil
+          && indexPath.section==1 && indexPath.row==2)
+        ||
+		(   !_mediaUrl
+         && _report.postData[kOpen311_Latitude ] != nil
+         && _report.postData[kOpen311_Longitude] != nil
+         && indexPath.section==1 && indexPath.row==1)) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            // The device is an iPad running iOS 3.2 or later.
+            return LOCATION_CELL_HEIGHT_IPAD;
+        }
+        return LOCATION_CELL_HEIGHT;
 	}
 	
 	if  ((indexPath.section == 1 && indexPath.row == 1 && !_mediaUrl) ||
 		 (indexPath.section == 1 && indexPath.row == 2 && _mediaUrl)) {
 		CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH, 20000.0f);
 		
-		CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+		CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE]
+                                              constrainedToSize:constraint
+                                                  lineBreakMode:NSLineBreakByWordWrapping];
 		
 		return size.height + 30.f;
 	}
