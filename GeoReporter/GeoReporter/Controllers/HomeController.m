@@ -31,20 +31,16 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 	[super viewDidLoad];
 	
 	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
 		self.edgesForExtendedLayout = UIRectEdgeNone;
 		self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
 	}
 	
 	[self loadServer];
-	self.reportLabel     .text = NSLocalizedString(kUI_Report,  nil);
-	self.archiveLabel    .text = NSLocalizedString(kUI_Archive, nil);
+	self.reportLabel     .text = NSLocalizedString(kUI_Report,      nil);
+	self.archiveLabel    .text = NSLocalizedString(kUI_Archive,     nil);
 	self.reportingAsLabel.text = NSLocalizedString(kUI_ReportingAs, nil);
-	self.serversLabel.text = NSLocalizedString(kUI_Servers, nil);
-	
-//	UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
-//	
-//	[[self navigationItem] setBackBarButtonItem: newBackButton];
+	self.serversLabel    .text = NSLocalizedString(kUI_Servers,     nil);
 }
 
 /**
@@ -80,7 +76,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 		HUD.labelText = @"Loading";
 		[HUD show:YES];
 		Open311 *open311 = [Open311 sharedInstance];
-		[open311 loadAllMetadataForServer:currentServer withCompletion:^() {
+		[open311 loadServer:currentServer withCompletion:^() {
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         }];
 		NSString *filename = currentServer[kOpen311_SplashImage];

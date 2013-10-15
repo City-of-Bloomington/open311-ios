@@ -22,15 +22,21 @@
 #import "Media.h"
 #import <MBProgressHUD.h>
 
-NSString * const kNotification_ServiceListReady = @"serviceListReady";
 NSString * const kNotification_PostSucceeded    = @"postSucceeded";
 NSString * const kNotification_PostFailed       = @"postFailed";
 
 @implementation Open311
 SHARED_SINGLETON(Open311);
 
-// Make sure to call this method before doing any other work
-- (void)loadAllMetadataForServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion
+/**
+ * Loads the service list from the given server
+ *
+ * Only loads the service list.  We're going to wait to load service
+ * definitions until we really need them.
+ * This server becomes the CurrentServer, which caches all metadata
+ * from this server, so we don't have to request it again.
+ */
+- (void)loadServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion
 {
 	_currentServer = server;
 	
@@ -41,7 +47,8 @@ SHARED_SINGLETON(Open311);
 	if (apiKey         != nil) { params[kOpen311_ApiKey]       = apiKey; }
 	_endpointParameters = [NSDictionary dictionaryWithDictionary:params];
 	
-	if (_groups             == nil) { _groups             = [[NSMutableArray      alloc] init]; } else { [_groups             removeAllObjects]; }
+	// Clear out any previously cached metadata
+    if (_groups             == nil) { _groups             = [[NSMutableArray      alloc] init]; } else { [_groups             removeAllObjects]; }
 	if (_serviceDefinitions == nil) { _serviceDefinitions = [[NSMutableDictionary alloc] init]; } else { [_serviceDefinitions removeAllObjects]; }
 	
 	_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[server objectForKey:kOpen311_Url]]];
@@ -50,7 +57,6 @@ SHARED_SINGLETON(Open311);
 
 - (void)loadFailedWithError:(NSError *)error
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
 	DLog(@"ERROR:\t%@", [error localizedDescription]);
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_FailureLoadingServices, nil)
 													message:NSLocalizedString(kUI_URLError, nil)
@@ -89,21 +95,20 @@ SHARED_SINGLETON(Open311);
 }
 
 #pragma mark - GET Service List
-- (void)loadServiceListWithCompletion:(void(^)(void)) completion
+- (void)loadServiceListWithCompletion:(void(^)(void))completion
 {
 	[_httpClient getPath:@"services.json"
 			  parameters:_endpointParameters
 				 success:^(AFHTTPRequestOperation *operation, id responseObject) {
 					 NSError *error;
 					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-					 completion();
 					 if (!error) {
-						 //[self loadServiceDefinitions];
 						 [self loadGroups];
 					 }
 					 else {
 						 [self loadFailedWithError:error];
 					 }
+					 completion();
 				 }
 				 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 					 [self loadFailedWithError:error];
@@ -127,34 +132,36 @@ SHARED_SINGLETON(Open311);
 }
 
 
-// Kicks off an HTTP Request for one |serviceDefinition| that is needed.
-// This is called when the user selects a service. Then a progress hud
-// will be shown while the request is being processed
-
-- (void)getMetadataForService:(NSDictionary*) service WithCompletion:(void(^)(void)) completion
+/**
+ * Lazy-load a service defintion from the server
+ * 
+ * If we've already loaded a definition, it will be in |_serviceDefinitions|
+ */
+- (void)getServiceDefinition:(NSDictionary *)service withCompletion:(void (^)(NSDictionary *))completion
 {
-	
-	
-	// Fire off a service definition request, if needed
 	__block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
-	if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
-		[_httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
-				  parameters:_endpointParameters
-					 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-						 NSError *error;
-						 _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
-						 completion();
-						 if (error) {
-							 [self loadFailedWithError:error];
-						 }
-					 }
-					 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-						 completion();
-						 [self loadFailedWithError:error];
-					 }
-		 ];
-	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNotification_ServiceListReady object:self];
+    
+    if (![_serviceDefinitions objectForKey:serviceCode] && [[service objectForKey:kOpen311_Metadata] boolValue]) {
+        [_httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
+                  parameters:_endpointParameters
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         NSError *error;
+                         _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                         if (error) {
+                             [self loadFailedWithError:error];
+                         }
+                         completion(_serviceDefinitions[serviceCode]);
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         [self loadFailedWithError:error];
+                     }
+         ];
+    }
+    else {
+        // There is no definition for this service.
+        // We can return immediately
+        completion(_serviceDefinitions[serviceCode]);
+    }
 }
 
 

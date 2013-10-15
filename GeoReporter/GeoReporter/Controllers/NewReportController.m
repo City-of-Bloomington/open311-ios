@@ -33,6 +33,7 @@ NSURL   *mediaUrl;
 UIImage *mediaThumbnail;
 
 NSString *header;
+UIFont *headerFont;
 
 
 CLLocation *locationFromLocationController;
@@ -55,16 +56,20 @@ CLLocationManager *locationManager;
 CLLocationCoordinate2D currentLocation;
 
 
-// Creates a multi-dimensional array to represent the fields to display in
-// the table view.
-//
-// You can access individual cells like so:
-// fields[row][fieldname]
-//            [label]
-//            [type]
-//
-// The actual stuff the user enters will be stored in the ServiceRequest
-// This data structure is only for display
+/**
+ * Creates a multi-dimensional array to represent the fields to display in the table view.
+ *
+ * You can access individual cells like so:
+ * fields[row][@"fieldname"]
+ *            [@"label"]
+ *            [@"type"]
+ *
+ * Pointers to the full attribute definitions will also be stored in |fields|
+ * fields[row][@"attribute"] = NSDictionary *attribute
+ *
+ * The actual stuff the user enters will be stored in the ServiceRequest
+ * This data structure is only for display
+ */
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
@@ -83,38 +88,22 @@ CLLocationCoordinate2D currentLocation;
 	locationFromLocationController = nil;
 	currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
 	
-	self.navigationItem.title = _service[kOpen311_ServiceName];
-	
-	_report = [[Report alloc] initWithService:_service];
-	
 	// First section: Photo and Location choosers
 	fields = [[NSMutableArray alloc] init];
 	
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES
 		&& [[[Preferences sharedInstance] getCurrentServer][kOpen311_SupportsMedia] boolValue]) {
-		[fields addObject:@[
-            @{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto, nil), kType:kOpen311_Media },
-            @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
-        ]];
-		
 		// Initialize the Asset Library object for saving/reading images
 		library = [[ALAssetsLibrary alloc] init];
+        [fields addObject:@{kFieldname:kOpen311_Media,   kLabel:NSLocalizedString(kUI_AddPhoto,          nil), kType:kOpen311_Media  }];
 	}
-	else {
-		[fields addObject:@[
-            @{kFieldname:kOpen311_Address, kLabel:NSLocalizedString(kUI_Location, nil), kType:kOpen311_Address}
-        ]];
-	}
-	
-	// Second section: Report Description
-	[fields addObject:@[
-        @{kFieldname:kOpen311_Description, kLabel:NSLocalizedString(kUI_ReportDescription, nil), kType:kOpen311_Text}
-    ]];
+    [fields addObject:@{kFieldname:kOpen311_Address,     kLabel:NSLocalizedString(kUI_Location,          nil), kType:kOpen311_Address}];
+	[fields addObject:@{kFieldname:kOpen311_Description, kLabel:NSLocalizedString(kUI_ReportDescription, nil), kType:kOpen311_Text}];
 	
 	// Third section: Attributes
 	// Attributes with variable=false will be appended to the section header
-	header = _service[kOpen311_Description];
-	if (_service[kOpen311_Metadata]) {
+	header = _report.service[kOpen311_Description];
+	if (_report.service[kOpen311_Metadata]) {
 		for (NSDictionary *attribute in _report.serviceDefinition[kOpen311_Attributes]) {
 			// According to the spec, attribute paramters need to be named:
 			// attribute[code]
@@ -126,7 +115,7 @@ CLLocationCoordinate2D currentLocation;
 				NSString *code = [NSString stringWithFormat:@"%@[%@]", kOpen311_Attribute, attribute[kOpen311_Code]];
 				NSString *type = attribute[kOpen311_Datatype];
 				
-				[fields addObject:@{kFieldname:code, kLabel:attribute[kOpen311_Description], kType:type}];
+				[fields addObject:@{kFieldname:code, kLabel:attribute[kOpen311_Description], kType:type, kOpen311_Attribute:attribute}];
 			}
 			else {
 				// This is an information-only attribute.
@@ -135,12 +124,15 @@ CLLocationCoordinate2D currentLocation;
 			}
 		}
 	}
+    
+	self.navigationItem.title = _report.service[kOpen311_ServiceName];
 	
 	//add empty footer so that empty rows will not be shown at the end of the table
 	[self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 	
-	//add tabel header:
-	CGSize headerSize = [header sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+	// Table Header
+    headerFont = [UIFont fontWithName:@"Heiti SC" size:13];
+	CGSize headerSize = [header sizeWithFont:headerFont constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
 	
 	self.headerViewLabel.backgroundColor = [UIColor clearColor];
 	self.headerViewLabel.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
@@ -148,6 +140,10 @@ CLLocationCoordinate2D currentLocation;
 	self.headerView.frame = CGRectMake(20, 8, 280, headerSize.height + 5 + 8);
 	
 	self.tableView.tableHeaderView = self.headerView;
+}
+
+- (void)prepareFieldsForReport
+{
 }
 
 #pragma mark - Table view data source
@@ -160,76 +156,65 @@ CLLocationCoordinate2D currentLocation;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	// Return the number of rows in the section.
-	if (section == [fields count] - 1) {
-		//if it's the last section, return one extra cell for the footer
-		return [fields[section] count] + 1;
-	}
-	return [fields[section] count];
+    return [fields count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.section == [fields count] - 1 && indexPath.row == [fields[indexPath.section] count]) {
-		//if it's the last section, it is the extra cell for the footer
+    // The last row in the table is the anonymous switch cell
+    if (indexPath.row == [fields count] - 1) {
 		return 50;
-	}
+    }
 	
-	NSDictionary *field = fields[indexPath.section][indexPath.row];
-	NSString *type = field[kType];
-	//NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][currentIndexPath.row];
-    DLog(@"%@", _report.serviceDefinition);
-	NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
-	
+	NSDictionary *field = fields[indexPath.row];
+	NSString *type  = field[kType];
+    NSString *label = field[kLabel];
+    CGSize headerSize = [label sizeWithFont:headerFont constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    NSUInteger numValues = ([type isEqualToString:kOpen311_SingleValueList] || [type isEqualToString:kOpen311_MultiValueList])
+        ? [field[kOpen311_Attribute][kOpen311_Values] count]
+        : 0;
+    
 	if ([type isEqualToString:kOpen311_Text]) {
-		NSString* text = fields[indexPath.section][indexPath.row][kLabel];
-		CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
 		return TEXT_CELL_BOTTOM_SPACE + TEXT_CELL_TEXT_VIEW_HEIGHT + headerSize.height;
 	}
-	if ([type isEqualToString:kOpen311_SingleValueList]) {
-		NSString* text = fields[indexPath.section][indexPath.row][kLabel];
-		CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-		return 2 + SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + SINGLE_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
+	else if ([type isEqualToString:kOpen311_SingleValueList]) {
+		return 2 + SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + SINGLE_VALUE_INNER_CELL_HEIGHT * numValues;
 	}
-	if ([type isEqualToString:kOpen311_MultiValueList]){
-		NSString* text = fields[indexPath.section][indexPath.row][kLabel];
-		CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-		return 2 + MULTI_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + MULTI_VALUE_INNER_CELL_HEIGHT * [attribute[kOpen311_Values] count];
+	else if ([type isEqualToString:kOpen311_MultiValueList]){
+		return 2 + MULTI_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + MULTI_VALUE_INNER_CELL_HEIGHT * numValues;
 	}
-	if ([type isEqualToString:kOpen311_String]) {
-		NSString* text = fields[indexPath.section][indexPath.row][kLabel];
-		CGSize headerSize = [text sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+	else if ([type isEqualToString:kOpen311_String]) {
 		return 2 + STRING_CELL_BOTTOM_SPACE + STRING_CELL_TEXT_FIELD_HEIGHT + headerSize.height;
 	}
-	if ([type isEqualToString:kOpen311_Address])
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			// The device is an iPad running iOS 3.2 or later.
-			return LOCATION_CELL_HEIGHT_IPAD;
-		}
-	return LOCATION_CELL_HEIGHT;
-	if ([type isEqualToString:kOpen311_Media])
+	else if ([type isEqualToString:kOpen311_Address]) {
+		return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+            ? LOCATION_CELL_HEIGHT_IPAD
+            : LOCATION_CELL_HEIGHT;
+    }
+	if ([type isEqualToString:kOpen311_Media]) {
 		return MEDIA_CELL_HEIGHT;
+    }
 	return 100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if ((indexPath.section == [fields count] - 1) && (indexPath.row == [fields[indexPath.section] count])) {
-		//if (indexPath.section == [fields count] - 1) {
+    if (indexPath.row == [fields count] - 1) {
 		//if it's the last section, it is the extra cell for the footer
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kFooterCell forIndexPath:indexPath];
 		FooterCell* footerCell = (FooterCell*) cell;
 		
 		return footerCell;
 	}
-	NSDictionary *field = fields[indexPath.section][indexPath.row];
-	
-	NSString *type = field[kType];
-	
+	NSDictionary *field = fields[indexPath.row];
+	NSString *type  = field[kType];
+    NSString *label = field[kLabel];
 	
 	if ([type isEqualToString:kOpen311_Text]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportTextCell forIndexPath:indexPath];
 		TextCell* textCell = (TextCell*) cell;
-		textCell.header.text = field[kLabel];
+		textCell.header.text = label;
 		textCell.delegate = self;
 		textCell.fieldname = field[kFieldname];
 		// appearance customization
@@ -246,7 +231,7 @@ CLLocationCoordinate2D currentLocation;
 	if ([type isEqualToString:kOpen311_Address]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportLocationCell forIndexPath:indexPath];
 		LocationCell* locationCell = (LocationCell*) cell;
-		locationCell.header.text = field[kLabel];
+		locationCell.header.text = label;
 		if (_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil &&
 			_report.postData[kOpen311_Latitude] != 0   && _report.postData[kOpen311_Longitude] != 0) {
 			
@@ -272,11 +257,10 @@ CLLocationCoordinate2D currentLocation;
 	if ([type isEqualToString:kOpen311_MultiValueList]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMultiValueCell forIndexPath:indexPath];
 		MultiValueListCell* multiValueListCell = (MultiValueListCell*) cell;
-		NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
 		multiValueListCell.delegate = self;
 		multiValueListCell.fieldname = field[kFieldname];
-		multiValueListCell.attribute = attribute;
-		multiValueListCell.header.text = field[kLabel];
+		multiValueListCell.attribute = field[kOpen311_Attribute];
+		multiValueListCell.header.text = label;
 		if (_report.postData[field[kFieldname]] != nil)
 			multiValueListCell.selectedOptions = _report.postData[field[kFieldname]];
 		else
@@ -286,10 +270,9 @@ CLLocationCoordinate2D currentLocation;
 	if ([type isEqualToString:kOpen311_SingleValueList]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportSingleValueCell forIndexPath:indexPath];
 		SingleValueListCell* singleValueListCell = (SingleValueListCell*) cell;
-		NSDictionary *attribute = _report.serviceDefinition[kOpen311_Attributes][indexPath.row];
 		singleValueListCell.delegate = self;
 		singleValueListCell.fieldname = field[kFieldname];
-		singleValueListCell.attribute = attribute;
+		singleValueListCell.attribute = field[kOpen311_Attribute];
 		singleValueListCell.header.text = field[kLabel];
 		if (_report.postData[field[kFieldname]] != nil)
 			singleValueListCell.selectedOption = _report.postData[field[kFieldname]];
@@ -300,7 +283,7 @@ CLLocationCoordinate2D currentLocation;
 	if ([type isEqualToString:kOpen311_String]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportStringCell forIndexPath:indexPath];
 		StringCell* stringCell = (StringCell*) cell;
-		stringCell.header.text = field[kLabel];
+		stringCell.header.text = label;
 		stringCell.delegate = self;
 		stringCell.fieldname = field[kFieldname];
 		// appearance customization
@@ -350,28 +333,25 @@ CLLocationCoordinate2D currentLocation;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if ((indexPath.section != [fields count] - 1) || (indexPath.row != [fields[indexPath.section] count])) {
-		
-		NSString *type = fields[indexPath.section][indexPath.row][kType];
-		
-		if ([type isEqualToString:kOpen311_Media]) {
-			if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
-				UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
-																   delegate:self
-														  cancelButtonTitle:nil
-													 destructiveButtonTitle:nil
-														  otherButtonTitles:nil, nil];
-				popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-				[popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
-				[popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
-				[popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
-				[popup setCancelButtonIndex:2];
-				[popup showInView:self.view];
-			}
-		}
-		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	}
+    NSString *type = fields[indexPath.row][kType];
+    
+    if ([type isEqualToString:kOpen311_Media]) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
+            UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
+                                                               delegate:self
+                                                      cancelButtonTitle:nil
+                                                 destructiveButtonTitle:nil
+                                                      otherButtonTitles:nil, nil];
+            popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
+            [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
+            [popup setCancelButtonIndex:2];
+            [popup showInView:self.view];
+        }
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 # pragma mark Segue
@@ -544,9 +524,9 @@ CLLocationCoordinate2D currentLocation;
 {
 	[SVProgressHUD showSuccessWithStatus:@"Report sent"];
 	
-	// Remove the service so they cannot post this report again,
+	// Remove the report so they cannot post this report again,
 	// without starting the process from scratch.
-	_service = nil;
+	_report = nil;
 	
 	// Go to Home screen
 	[self performSegueWithIdentifier:kUnwindSegueFromReportToHome sender:self];
@@ -554,7 +534,6 @@ CLLocationCoordinate2D currentLocation;
 
 - (void)postFailed
 {
-	//    [SVProgressHUD showErrorWithStatus:@"Report could not be sent"];
 	[SVProgressHUD dismiss];
 }
 

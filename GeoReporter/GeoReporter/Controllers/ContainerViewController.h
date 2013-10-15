@@ -19,6 +19,5 @@
 }
 
 @property (weak, nonatomic) NSString* selectedGroup;
-@property (weak, nonatomic) NSDictionary* selectedService;
 @property (strong, nonatomic) ChooseServiceController* serviceController;
 @end

@@ -16,8 +16,10 @@
 
 @implementation ChooseServiceController
 
-static NSString * const kCellIdentifier = @"service_cell";
+static NSString * const kCellIdentifier   = @"service_cell";
 static NSString * const kSegueToNewReport = @"SegueToNewReport";
+
+Report *report;
 
 - (void)viewDidLoad
 {
@@ -81,16 +83,19 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 			HUD.delegate = self;
 			HUD.labelText = @"Loading";
 			[HUD show:YES];
-			[_open311 getMetadataForService:_services[[[self.tableView indexPathForSelectedRow] row]] WithCompletion:^() {
+            
+            [_open311 getServiceDefinition:service withCompletion:^(NSDictionary * serviceDefinition) {
+                report = [[Report alloc] initWithService:service serviceDefinition:serviceDefinition];
 				[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
 				[self performSegueWithIdentifier:kSegueToNewReport sender:self];
-			}];
+            }];
 		}
 		else {
 			[self performSegueWithIdentifier:kSegueToNewReport sender:self];
 		}
 		
 	}
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 # pragma mark Segue
@@ -101,9 +106,8 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 	}
 	else {
 		// The device is an iPhone or iPod touch.
-		NewReportController *report = [segue destinationViewController];
-		report.service = _services[[[self.tableView indexPathForSelectedRow] row]];
-		
+		NewReportController *controller = [segue destinationViewController];
+        controller.report = report;
 	}
 }
 

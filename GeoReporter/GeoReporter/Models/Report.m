@@ -25,15 +25,14 @@ NSString * const kPostData          = @"postData";
 // This does not load any user-submitted data and should only
 // be used for initial startup.  Subsequent loads should be done
 // using the String version
-- (id)initWithService:(NSDictionary *)service
+- (id)initWithService:(NSDictionary *)service serviceDefinition:(NSDictionary *)serviceDefinition
 {
 	self = [super init];
 	if (self) {
 		_service  = service;
 		
-		if ([_service[kOpen311_Metadata] boolValue]) {
-			Open311 *open311 = [Open311 sharedInstance];
-			_serviceDefinition = open311.serviceDefinitions[_service[kOpen311_ServiceCode]];
+		if ([_service[kOpen311_Metadata] boolValue] && serviceDefinition) {
+            _serviceDefinition = serviceDefinition;
 		}
 		
 		_postData = [[NSMutableDictionary alloc] init];
@@ -68,7 +67,7 @@ NSString * const kPostData          = @"postData";
 	return self;
 }
 
-- (void) checkAnonymousReporting
+- (void)checkAnonymousReporting
 {
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	NSString *firstname = @"";

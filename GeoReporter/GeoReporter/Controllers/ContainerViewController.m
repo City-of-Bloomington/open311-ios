@@ -17,9 +17,10 @@
 #import "Strings.h"
 
 @implementation ContainerViewController
-static NSString * const kEmbeddedSegueToGroup = @"EmbeddedSegueToGroup";
+static NSString * const kEmbeddedSegueToGroup   = @"EmbeddedSegueToGroup";
 static NSString * const kEmbeddedSegueToService = @"EmbeddedSegueToService";
-static NSString * const kSegueToNewReport = @"SegueToNewReport";
+static NSString * const kSegueToNewReport       = @"SegueToNewReport";
+Report *report;
 
 - (void)viewDidLoad
 {
@@ -41,23 +42,23 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 }
 
 # pragma mark ServiceDelegate
-
-- (void) didSelectService:(NSDictionary *) service
+- (void)didSelectService:(NSDictionary *)service
 {
-	self.selectedService = service;
 	if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
 		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 		[self.navigationController.view addSubview:HUD];
 		HUD.delegate = self;
 		HUD.labelText = @"Loading";
 		[HUD show:YES];
-		Open311* open311 = [Open311 sharedInstance];
-		[open311 getMetadataForService:service WithCompletion:^() {
+        
+        [[Open311 sharedInstance] getServiceDefinition:service withCompletion:^(NSDictionary *serviceDefinition) {
+            report = [[Report alloc] initWithService:service serviceDefinition:serviceDefinition];
 			[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
 			[self performSegueWithIdentifier:kSegueToNewReport sender:self];
-		}];
+        }];
 	}
 	else {
+        report = [[Report alloc] initWithService:service serviceDefinition:nil];
 		[self performSegueWithIdentifier:kSegueToNewReport sender:self];
 	}
 }
@@ -80,8 +81,8 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 	else if ([segue.identifier isEqualToString:kSegueToNewReport]){
 		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 			// The device is an iPad running iOS 3.2 or later.
-			NewReportController *report = [segue destinationViewController];
-			report.service = self.selectedService;
+			NewReportController *controller = [segue destinationViewController];
+            controller.report = report;
 		}
 	}	
 }
