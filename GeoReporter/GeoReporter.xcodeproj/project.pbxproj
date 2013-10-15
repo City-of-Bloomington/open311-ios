@@ -38,6 +38,7 @@
 		29DC393217DBBB7100B8EE94 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DC393117DBBB7100B8EE94 /* HomeCell.m */; };
 		29E22403179B06D100F76C01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E22402179B06D100F76C01 /* NewReportController.m */; };
 		690D7A4D16C2BE1D001DD365 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D7A4C16C2BE1D001DD365 /* iconLocation.png */; };
+		691BC165180892B10009D308 /* Maps.m in Sources */ = {isa = PBXBuildFile; fileRef = 691BC164180892B10009D308 /* Maps.m */; };
 		692D042716C188B50011C190 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042616C188B50011C190 /* AssetsLibrary.framework */; };
 		692D042B16C1A2580011C190 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D042A16C1A2580011C190 /* LocationController.m */; };
 		692D042D16C1A5DA0011C190 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 692D042C16C1A5DA0011C190 /* CoreLocation.framework */; };
@@ -166,6 +167,8 @@
 		690A55E616C433A20076D6A5 /* MultiValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MultiValueDelegate.h; path = ReportFields/MultiValueDelegate.h; sourceTree = "<group>"; };
 		690D7A4C16C2BE1D001DD365 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
 		690D7A5816C2E9E5001DD365 /* TextEntryDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TextEntryDelegate.h; path = ReportFields/TextEntryDelegate.h; sourceTree = "<group>"; };
+		691BC163180892B10009D308 /* Maps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maps.h; sourceTree = "<group>"; };
+		691BC164180892B10009D308 /* Maps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Maps.m; sourceTree = "<group>"; };
 		692D042616C188B50011C190 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		692D042916C1A2580011C190 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationController.h; path = ReportFields/LocationController.h; sourceTree = "<group>"; };
 		692D042A16C1A2580011C190 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationController.m; path = ReportFields/LocationController.m; sourceTree = "<group>"; };
@@ -430,6 +433,8 @@
 				69C062DB16B3193F005E4D67 /* Strings.m */,
 				69F2E93A16CACA6D0027F580 /* Media.h */,
 				69F2E93B16CACA6D0027F580 /* Media.m */,
+				691BC163180892B10009D308 /* Maps.h */,
+				691BC164180892B10009D308 /* Maps.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -733,6 +738,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691BC165180892B10009D308 /* Maps.m in Sources */,
 				69ED14EE16B2EE4C00232245 /* main.m in Sources */,
 				69ED14F216B2EE4C00232245 /* AppDelegate.m in Sources */,
 				6988CD1D16B2F1580066E796 /* HomeController.m in Sources */,

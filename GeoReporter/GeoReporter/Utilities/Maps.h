@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @interface Maps : NSObject
++ (void)zoomMap:(MKMapView *)map toCoordinate:(CLLocationCoordinate2D)point withMarker:(BOOL)marker;
 
 @end

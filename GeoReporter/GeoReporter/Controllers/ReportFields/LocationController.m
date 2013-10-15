@@ -11,10 +11,11 @@
 
 #import "LocationController.h"
 #import "Strings.h"
+#import "Maps.h"
 
 static NSInteger const kMapTypeStandardIndex  = 0;
 static NSInteger const kMapTypeSatelliteIndex = 1;
-static NSInteger const kMapTypeHybridIndex = 2;
+static NSInteger const kMapTypeHybridIndex    = 2;
 
 @implementation LocationController
 - (void)viewDidLoad
@@ -46,34 +47,20 @@ static NSInteger const kMapTypeHybridIndex = 2;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later		
 		if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
 			//change from landscape to portrait
-			self.leftSpace.width = 351;
+			self.leftSpace .width = 351;
 			self.rightSpace.width = 351;
 		}
 		else {
 			//change from portrait to landscape
-			self.leftSpace.width = 223;
+			self.leftSpace .width = 223;
 			self.rightSpace.width = 223;
 		}
 	}
 	else {
 		// The device is an iPhone or iPod touch. We use the default frame of the superclass (TableViewCell)
 	}
-}
-
-
-- (void)zoomToLocation:(CLLocation *)location
-{
-	MKCoordinateRegion region;
-	region.center.latitude  = location.coordinate.latitude;
-	region.center.longitude = location.coordinate.longitude;
-	MKCoordinateSpan span;
-	span.latitudeDelta  = 0.0025; // arbitrary value seems to look OK
-	span.longitudeDelta = 0.0025; // arbitrary value seems to look OK
-	region.span = span;
-	[self.map setRegion:region animated:NO];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -83,11 +70,11 @@ static NSInteger const kMapTypeHybridIndex = 2;
 	NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
 	if (self.selectedLocation == nil) {
 		if (abs(howRecent) < 15.0) {
-			[self zoomToLocation:location];
+            [Maps zoomMap:_map toCoordinate:location.coordinate withMarker:NO];
 		}
 	}
 	else {
-		[self zoomToLocation:self.selectedLocation];
+        [Maps zoomMap:_map toCoordinate:_selectedLocation.coordinate withMarker:NO];
 	}
 	
 }
@@ -102,7 +89,7 @@ static NSInteger const kMapTypeHybridIndex = 2;
 
 - (IBAction)centerOnLocation:(id)sender
 {
-	[self zoomToLocation:_locationManager.location];
+    [Maps zoomMap:_map toCoordinate:_locationManager.location.coordinate withMarker:NO];
 }
 
 - (IBAction)mapTypeChanged:(id)sender

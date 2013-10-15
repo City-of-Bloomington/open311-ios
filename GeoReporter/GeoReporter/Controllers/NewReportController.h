@@ -30,5 +30,4 @@
 
 - (void)prepareFieldsForReport;
 - (IBAction)send:(id)sender;
-- (void)zoomMap:(MKMapView *)map toCoordinate:(CLLocationCoordinate2D)point;
 @end

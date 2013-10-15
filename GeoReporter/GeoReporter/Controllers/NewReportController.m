@@ -22,6 +22,7 @@
 #import "FooterCell.h"
 #import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Maps.h"
 
 @implementation NewReportController
 NSMutableArray *fields;
@@ -235,22 +236,14 @@ CLLocationCoordinate2D currentLocation;
 		if (_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil &&
 			_report.postData[kOpen311_Latitude] != 0   && _report.postData[kOpen311_Longitude] != 0) {
 			
-			// Create your coordinate
-			CLLocationCoordinate2D myCoordinate = {[_report.postData[kOpen311_Latitude] doubleValue], [_report.postData[kOpen311_Longitude] doubleValue]};
-			//Create your annotation
-			MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-			// Set your annotation to point at your coordinate
-			point.coordinate = myCoordinate;
-			//If you want to clear other pins/annotations this is how to do it
-			for (id annotation in locationCell.mapView.annotations) {
-				[locationCell.mapView removeAnnotation:annotation];
-			}
-			//Drop pin on map
-			[locationCell.mapView addAnnotation:point];
-            [self zoomMap:locationCell.mapView toCoordinate:myCoordinate];
+			CLLocationCoordinate2D point = {
+                [_report.postData[kOpen311_Latitude ] doubleValue],
+                [_report.postData[kOpen311_Longitude] doubleValue]
+            };
+            [Maps zoomMap:locationCell.mapView toCoordinate:point withMarker:YES];
 		}
 		else {
-            [self zoomMap:locationCell.mapView toCoordinate:currentLocation];
+            [Maps zoomMap:locationCell.mapView toCoordinate:currentLocation withMarker:NO];
 		}
 		return locationCell;
 	}
@@ -409,18 +402,6 @@ CLLocationCoordinate2D currentLocation;
 }
 
 #pragma mark - Location delegate
-- (void)zoomMap:(MKMapView *)map toCoordinate:(CLLocationCoordinate2D)point
-{
-    MKCoordinateRegion region;
-    region.center.latitude  = point.latitude;
-    region.center.longitude = point.longitude;
-    MKCoordinateSpan span;
-    span.latitudeDelta  = 0.007;
-    span.longitudeDelta = 0.007;
-    region.span = span;
-    [map setRegion:region animated:YES];
-}
-
 - (void)didChooseLocation:(CLLocationCoordinate2D)location
 {
 	locationFromLocationController = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
