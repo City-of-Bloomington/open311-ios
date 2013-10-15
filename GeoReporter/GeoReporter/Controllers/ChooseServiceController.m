@@ -91,6 +91,7 @@ Report *report;
             }];
 		}
 		else {
+            report = [[Report alloc] initWithService:service serviceDefinition:nil];
 			[self performSegueWithIdentifier:kSegueToNewReport sender:self];
 		}
 		

@@ -99,9 +99,8 @@ CLLocationCoordinate2D currentLocation;
     [fields addObject:@{kFieldname:kOpen311_Address,     kLabel:NSLocalizedString(kUI_Location,          nil), kType:kOpen311_Address}];
 	[fields addObject:@{kFieldname:kOpen311_Description, kLabel:NSLocalizedString(kUI_ReportDescription, nil), kType:kOpen311_Text}];
 	
-	// Third section: Attributes
-	// Attributes with variable=false will be appended to the section header
 	header = _report.service[kOpen311_Description];
+    DLog(@"%@", header);
 	if (_report.service[kOpen311_Metadata]) {
 		for (NSDictionary *attribute in _report.serviceDefinition[kOpen311_Attributes]) {
 			// According to the spec, attribute paramters need to be named:
@@ -119,7 +118,7 @@ CLLocationCoordinate2D currentLocation;
 			else {
 				// This is an information-only attribute.
 				// Save it somewhere so we can display those differently
-				header = [header stringByAppendingFormat:@"\n%@", attribute[kOpen311_Description]];
+				//header = [header stringByAppendingFormat:@"\n%@", attribute[kOpen311_Description]];
 			}
 		}
 	}
@@ -140,6 +139,8 @@ CLLocationCoordinate2D currentLocation;
 	self.headerView.frame = CGRectMake(20, 8, 280, headerSize.height + 5 + 8);
 	
 	self.tableView.tableHeaderView = self.headerView;
+    
+    DLog(@"Prepared fields: %@", fields);
 }
 
 #pragma mark - Table view data source
@@ -151,13 +152,16 @@ CLLocationCoordinate2D currentLocation;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [fields count];
+    return [fields count] + 1;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // The last row in the table is the anonymous switch cell
-    if (indexPath.row == [fields count] - 1) { return 50; }
+    // It does not have an entry in |fields|
+    if (indexPath.row == [fields count]) {
+        return 50;
+    }
 	
 	NSDictionary *field = fields[indexPath.row];
 	NSString *type  = field[kType];
@@ -193,8 +197,9 @@ CLLocationCoordinate2D currentLocation;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == [fields count] - 1) {
-		//if it's the last section, it is the extra cell for the footer
+    // The last row in the table is the anonymous switch cell
+    // It does not have an entry in |fields|
+    if (indexPath.row == [fields count]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kFooterCell forIndexPath:indexPath];
 		FooterCell* footerCell = (FooterCell*) cell;
 		
@@ -203,6 +208,8 @@ CLLocationCoordinate2D currentLocation;
 	NSDictionary *field = fields[indexPath.row];
 	NSString *type  = field[kType];
     NSString *label = field[kLabel];
+    
+    DLog(@"Drawing cell for label: %@", label);
 	
 	if ([type isEqualToString:kOpen311_Text]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportTextCell forIndexPath:indexPath];
@@ -246,10 +253,12 @@ CLLocationCoordinate2D currentLocation;
 		multiValueListCell.fieldname = field[kFieldname];
 		multiValueListCell.attribute = field[kOpen311_Attribute];
 		multiValueListCell.header.text = label;
-		if (_report.postData[field[kFieldname]] != nil)
+		if (_report.postData[field[kFieldname]] != nil) {
 			multiValueListCell.selectedOptions = _report.postData[field[kFieldname]];
-		else
+        }
+		else {
 			multiValueListCell.selectedOptions = nil;
+        }
 		return multiValueListCell;
 	}
 	if ([type isEqualToString:kOpen311_SingleValueList]) {
@@ -259,10 +268,12 @@ CLLocationCoordinate2D currentLocation;
 		singleValueListCell.fieldname = field[kFieldname];
 		singleValueListCell.attribute = field[kOpen311_Attribute];
 		singleValueListCell.header.text = field[kLabel];
-		if (_report.postData[field[kFieldname]] != nil)
+		if (_report.postData[field[kFieldname]] != nil) {
 			singleValueListCell.selectedOption = _report.postData[field[kFieldname]];
-		else
+        }
+		else {
 			singleValueListCell.selectedOption = nil;
+        }
 		return singleValueListCell;
 	}
 	if ([type isEqualToString:kOpen311_String]) {
