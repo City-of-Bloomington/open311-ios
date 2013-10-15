@@ -59,9 +59,9 @@ CLLocationCoordinate2D currentLocation;
 // the table view.
 //
 // You can access individual cells like so:
-// fields[section][row][fieldname]
-//                     [label]
-//                     [type]
+// fields[row][fieldname]
+//            [label]
+//            [type]
 //
 // The actual stuff the user enters will be stored in the ServiceRequest
 // This data structure is only for display
@@ -115,7 +115,6 @@ CLLocationCoordinate2D currentLocation;
 	// Attributes with variable=false will be appended to the section header
 	header = _service[kOpen311_Description];
 	if (_service[kOpen311_Metadata]) {
-		NSMutableArray *attributes = [[NSMutableArray alloc] init];
 		for (NSDictionary *attribute in _report.serviceDefinition[kOpen311_Attributes]) {
 			// According to the spec, attribute paramters need to be named:
 			// attribute[code]
@@ -127,7 +126,7 @@ CLLocationCoordinate2D currentLocation;
 				NSString *code = [NSString stringWithFormat:@"%@[%@]", kOpen311_Attribute, attribute[kOpen311_Code]];
 				NSString *type = attribute[kOpen311_Datatype];
 				
-				[attributes addObject:@{kFieldname:code, kLabel:attribute[kOpen311_Description], kType:type}];
+				[fields addObject:@{kFieldname:code, kLabel:attribute[kOpen311_Description], kType:type}];
 			}
 			else {
 				// This is an information-only attribute.
@@ -135,7 +134,6 @@ CLLocationCoordinate2D currentLocation;
 				header = [header stringByAppendingFormat:@"\n%@", attribute[kOpen311_Description]];
 			}
 		}
-		[fields addObject:attributes];
 	}
 	
 	//add empty footer so that empty rows will not be shown at the end of the table
@@ -156,8 +154,7 @@ CLLocationCoordinate2D currentLocation;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	// Return the number of sections.
-	return [fields count];
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
