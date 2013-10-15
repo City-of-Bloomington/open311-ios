@@ -34,8 +34,6 @@ NSURL   *mediaUrl;
 UIImage *mediaThumbnail;
 
 NSString *header;
-UIFont *headerFont;
-
 
 CLLocation *locationFromLocationController;
 
@@ -132,8 +130,9 @@ CLLocationCoordinate2D currentLocation;
 	[self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 	
 	// Table Header
-    headerFont = [UIFont fontWithName:@"Heiti SC" size:13];
-	CGSize headerSize = [header sizeWithFont:headerFont constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+	CGSize headerSize = [header sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13]
+                           constrainedToSize:CGSizeMake(280, CGFLOAT_MAX)
+                               lineBreakMode:NSLineBreakByWordWrapping];
 	
 	self.headerViewLabel.backgroundColor = [UIColor clearColor];
 	self.headerViewLabel.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
@@ -141,10 +140,6 @@ CLLocationCoordinate2D currentLocation;
 	self.headerView.frame = CGRectMake(20, 8, 280, headerSize.height + 5 + 8);
 	
 	self.tableView.tableHeaderView = self.headerView;
-}
-
-- (void)prepareFieldsForReport
-{
 }
 
 #pragma mark - Table view data source
@@ -156,46 +151,43 @@ CLLocationCoordinate2D currentLocation;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	// Return the number of rows in the section.
     return [fields count];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // The last row in the table is the anonymous switch cell
-    if (indexPath.row == [fields count] - 1) {
-		return 50;
-    }
+    if (indexPath.row == [fields count] - 1) { return 50; }
 	
 	NSDictionary *field = fields[indexPath.row];
 	NSString *type  = field[kType];
     NSString *label = field[kLabel];
-    CGSize headerSize = [label sizeWithFont:headerFont constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize headerSize = [label sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:15]
+                          constrainedToSize:CGSizeMake(280, CGFLOAT_MAX)
+                              lineBreakMode:NSLineBreakByWordWrapping];
     
     NSUInteger numValues = ([type isEqualToString:kOpen311_SingleValueList] || [type isEqualToString:kOpen311_MultiValueList])
         ? [field[kOpen311_Attribute][kOpen311_Values] count]
         : 0;
     
 	if ([type isEqualToString:kOpen311_Text]) {
-		return TEXT_CELL_BOTTOM_SPACE + TEXT_CELL_TEXT_VIEW_HEIGHT + headerSize.height;
+		return headerSize.height + TEXT_CELL_BOTTOM_SPACE + TEXT_CELL_TEXT_VIEW_HEIGHT;
 	}
 	else if ([type isEqualToString:kOpen311_SingleValueList]) {
-		return 2 + SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + SINGLE_VALUE_INNER_CELL_HEIGHT * numValues;
+		return headerSize.height + 2 + SINGLE_VALUE_INNER_CELL_BOTTOM_SPACE + SINGLE_VALUE_INNER_CELL_HEIGHT * numValues;
 	}
 	else if ([type isEqualToString:kOpen311_MultiValueList]){
-		return 2 + MULTI_VALUE_INNER_CELL_BOTTOM_SPACE + headerSize.height + MULTI_VALUE_INNER_CELL_HEIGHT * numValues;
+		return headerSize.height + 2 + MULTI_VALUE_INNER_CELL_BOTTOM_SPACE  + MULTI_VALUE_INNER_CELL_HEIGHT  * numValues;
 	}
 	else if ([type isEqualToString:kOpen311_String]) {
-		return 2 + STRING_CELL_BOTTOM_SPACE + STRING_CELL_TEXT_FIELD_HEIGHT + headerSize.height;
+		return headerSize.height + 2 + STRING_CELL_BOTTOM_SPACE + STRING_CELL_TEXT_FIELD_HEIGHT;
 	}
 	else if ([type isEqualToString:kOpen311_Address]) {
 		return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             ? LOCATION_CELL_HEIGHT_IPAD
             : LOCATION_CELL_HEIGHT;
     }
-	if ([type isEqualToString:kOpen311_Media]) {
-		return MEDIA_CELL_HEIGHT;
-    }
+	else if ([type isEqualToString:kOpen311_Media]) { return MEDIA_CELL_HEIGHT; }
 	return 100;
 }
 

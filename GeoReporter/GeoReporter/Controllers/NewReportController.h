@@ -28,6 +28,5 @@
 @property IBOutlet UITextView *currentTextEntry;
 @property Report *report;
 
-- (void)prepareFieldsForReport;
 - (IBAction)send:(id)sender;
 @end
