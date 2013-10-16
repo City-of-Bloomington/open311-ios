@@ -100,7 +100,6 @@ CLLocationCoordinate2D currentLocation;
 	[fields addObject:@{kFieldname:kOpen311_Description, kLabel:NSLocalizedString(kUI_ReportDescription, nil), kType:kOpen311_Text}];
 	
 	header = _report.service[kOpen311_Description];
-    DLog(@"%@", header);
 	if (_report.service[kOpen311_Metadata]) {
 		for (NSDictionary *attribute in _report.serviceDefinition[kOpen311_Attributes]) {
 			// According to the spec, attribute paramters need to be named:
@@ -139,8 +138,6 @@ CLLocationCoordinate2D currentLocation;
 	self.headerView.frame = CGRectMake(20, 8, 280, headerSize.height + 5 + 8);
 	
 	self.tableView.tableHeaderView = self.headerView;
-    
-    DLog(@"Prepared fields: %@", fields);
 }
 
 #pragma mark - Table view data source
@@ -209,8 +206,6 @@ CLLocationCoordinate2D currentLocation;
 	NSString *type  = field[kType];
     NSString *label = field[kLabel];
     
-    DLog(@"Drawing cell for label: %@", label);
-	
 	if ([type isEqualToString:kOpen311_Text]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportTextCell forIndexPath:indexPath];
 		TextCell* textCell = (TextCell*) cell;
@@ -218,10 +213,8 @@ CLLocationCoordinate2D currentLocation;
 		textCell.delegate = self;
 		textCell.fieldname = field[kFieldname];
 		// appearance customization
-		textCell.text.layer.cornerRadius=8.0f;
-		textCell.text.layer.masksToBounds=YES;
-		textCell.text.layer.borderColor = [[UIColor orangeColor] CGColor];
-		textCell.text.layer.borderWidth = 1.0f;
+        textCell.text.layer.borderColor = [[UIColor orangeColor] CGColor];
+        
 		// get text from the datasource
 		if (_report.postData[field[kFieldname]] != nil) {
 			textCell.text.text = _report.postData[field[kFieldname]];
@@ -283,10 +276,7 @@ CLLocationCoordinate2D currentLocation;
 		stringCell.delegate = self;
 		stringCell.fieldname = field[kFieldname];
 		// appearance customization
-		stringCell.textField.layer.cornerRadius=8.0f;
-		stringCell.textField.layer.masksToBounds=YES;
 		stringCell.textField.layer.borderColor = [[UIColor orangeColor] CGColor];
-		stringCell.textField.layer.borderWidth = 1.0f;
 		// get text from the datasource
 		if (_report.postData[field[kFieldname]] != nil) {
 			stringCell.textField.text = _report.postData[field[kFieldname]];
