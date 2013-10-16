@@ -280,7 +280,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ImageCellHeader" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="211" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-6W-yiM">
-                                            <rect key="frame" x="70" y="20" width="211" height="20"/>
+                                            <rect key="frame" x="74" y="20" width="211" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="211" id="1CW-Gl-eUv"/>
                                                 <constraint firstAttribute="height" constant="20" id="8BJ-rt-KNa"/>
@@ -290,7 +290,7 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="camera.png" translatesAutoresizingMaskIntoConstraints="NO" id="CEA-V8-Cwf">
-                                            <rect key="frame" x="20" y="9" width="40" height="40"/>
+                                            <rect key="frame" x="30" y="9" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="Dgn-0W-1he"/>
                                                 <constraint firstAttribute="height" constant="40" id="gWS-OI-vSi"/>
@@ -307,8 +307,8 @@
                                 </tableViewCellContentView>
                                 <constraints>
                                     <constraint firstItem="mHM-OQ-DBr" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" constant="-5" id="8S8-7j-De6"/>
-                                    <constraint firstItem="CEA-V8-Cwf" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="20" id="EKv-5a-JAr"/>
-                                    <constraint firstItem="fdR-6W-yiM" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="70" id="H7S-F0-e0U"/>
+                                    <constraint firstItem="CEA-V8-Cwf" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="30" id="EKv-5a-JAr"/>
+                                    <constraint firstItem="fdR-6W-yiM" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="74" id="H7S-F0-e0U"/>
                                     <constraint firstItem="fdR-6W-yiM" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" constant="20" id="fsU-F7-4hn"/>
                                     <constraint firstItem="CEA-V8-Cwf" firstAttribute="top" secondItem="zdW-k6-ZMP" secondAttribute="top" constant="9" id="gJ3-Ym-Bqj"/>
                                     <constraint firstItem="mHM-OQ-DBr" firstAttribute="leading" secondItem="zdW-k6-ZMP" secondAttribute="leading" constant="-6" id="teb-UC-zl0"/>
