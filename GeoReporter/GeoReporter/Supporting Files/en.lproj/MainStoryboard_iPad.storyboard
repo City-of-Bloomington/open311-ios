@@ -1172,39 +1172,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="02D-1j-n5X">
-                                <rect key="frame" x="0.0" y="980" width="768" height="44"/>
-                                <color key="backgroundColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
-                                <items>
-                                    <barButtonItem title="Cancel" id="O0W-dv-asb">
-                                        <connections>
-                                            <action selector="cancel:" destination="oUG-PC-rnM" id="XMu-lk-RgE"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="223" style="plain" systemItem="fixedSpace" id="LhZ-RE-n4p"/>
-                                    <barButtonItem style="plain" id="0Bz-xg-87G">
-                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="LBf-im-yra">
-                                            <rect key="frame" x="303" y="7" width="178" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <segments>
-                                                <segment title="Standard"/>
-                                                <segment title="Satellite"/>
-                                                <segment title="Hybrid"/>
-                                            </segments>
-                                            <connections>
-                                                <action selector="mapTypeChanged:" destination="oUG-PC-rnM" eventType="valueChanged" id="01p-f3-y4B"/>
-                                            </connections>
-                                        </segmentedControl>
-                                    </barButtonItem>
-                                    <barButtonItem width="223" style="plain" systemItem="fixedSpace" id="D5t-tM-6Fs"/>
-                                    <barButtonItem title="Done" id="CST-o7-RXT">
-                                        <connections>
-                                            <action selector="done:" destination="oUG-PC-rnM" id="f8U-Fe-fCo"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dbV-Ql-twF">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="981"/>
                                 <subviews>
@@ -1249,34 +1216,29 @@
                                     <constraint firstItem="2uB-KA-Mun" firstAttribute="bottom" secondItem="dbV-Ql-twF" secondAttribute="bottom" id="ge3-LT-YHh"/>
                                 </constraints>
                             </view>
+                            <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="dlv-7a-zub">
+                                <rect key="frame" x="0.0" y="980" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
+                                <items/>
+                                <color key="tintColor" red="0.17172716560000001" green="0.3656257987" blue="0.56096031020000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dbV-Ql-twF" firstAttribute="top" secondItem="JM8-Ge-Np8" secondAttribute="top" id="7Hs-on-1PU"/>
+                            <constraint firstAttribute="bottom" secondItem="dlv-7a-zub" secondAttribute="bottom" id="C5A-19-k8B"/>
                             <constraint firstItem="dbV-Ql-twF" firstAttribute="leading" secondItem="JM8-Ge-Np8" secondAttribute="leading" id="GuJ-L0-9Ki"/>
-                            <constraint firstItem="02D-1j-n5X" firstAttribute="trailing" secondItem="JM8-Ge-Np8" secondAttribute="trailing" id="L9H-Gl-ygW"/>
-                            <constraint firstItem="02D-1j-n5X" firstAttribute="bottom" secondItem="JM8-Ge-Np8" secondAttribute="bottom" id="NSR-b2-kQM"/>
-                            <constraint firstItem="02D-1j-n5X" firstAttribute="leading" secondItem="JM8-Ge-Np8" secondAttribute="leading" id="XFf-x6-vwA"/>
+                            <constraint firstAttribute="trailing" secondItem="dlv-7a-zub" secondAttribute="trailing" id="KY4-7d-dhb"/>
                             <constraint firstItem="dbV-Ql-twF" firstAttribute="trailing" secondItem="JM8-Ge-Np8" secondAttribute="trailing" id="YTC-47-fju"/>
-                            <constraint firstItem="02D-1j-n5X" firstAttribute="bottom" secondItem="JM8-Ge-Np8" secondAttribute="bottom" id="vkk-XU-zMl"/>
+                            <constraint firstItem="dlv-7a-zub" firstAttribute="leading" secondItem="JM8-Ge-Np8" secondAttribute="leading" id="rIi-kN-uAF"/>
                             <constraint firstAttribute="bottom" secondItem="dbV-Ql-twF" secondAttribute="bottom" constant="43" id="zPm-6f-PSa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KXe-RL-ltD">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="fmW-P6-UL5">
-                            <connections>
-                                <action selector="done:" destination="oUG-PC-rnM" id="cKR-b9-GK4"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
                     <connections>
-                        <outlet property="cancelButton" destination="O0W-dv-asb" id="fML-fu-99c"/>
-                        <outlet property="doneButton" destination="CST-o7-RXT" id="6jj-Bk-InO"/>
-                        <outlet property="leftSpace" destination="LhZ-RE-n4p" id="8aJ-by-5GK"/>
                         <outlet property="map" destination="2uB-KA-Mun" id="ujy-FE-2EM"/>
-                        <outlet property="rightSpace" destination="D5t-tM-6Fs" id="D6i-ZI-whN"/>
-                        <outlet property="segmentedControl" destination="LBf-im-yra" id="X3e-Mj-uZT"/>
+                        <outlet property="toolbar" destination="dlv-7a-zub" id="Nf7-5n-pzX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eLG-Jf-YUz" userLabel="First Responder" sceneMemberID="firstResponder"/>

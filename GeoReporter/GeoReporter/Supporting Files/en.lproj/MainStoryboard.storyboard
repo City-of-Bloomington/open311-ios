@@ -1119,39 +1119,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-6K-e3q">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <color key="backgroundColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
-                                <items>
-                                    <barButtonItem title="Cancel" id="gwd-WE-Aph">
-                                        <connections>
-                                            <action selector="cancel:" destination="2KI-gM-Foh" id="a0y-Lo-7xJ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="1" style="plain" systemItem="fixedSpace" id="yHF-BV-LSH"/>
-                                    <barButtonItem style="plain" id="Wsu-Dt-jZe">
-                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="acZ-pK-YsY">
-                                            <rect key="frame" x="81" y="7" width="178" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <segments>
-                                                <segment title="Standard"/>
-                                                <segment title="Satellite"/>
-                                                <segment title="Hybrid"/>
-                                            </segments>
-                                            <connections>
-                                                <action selector="mapTypeChanged:" destination="2KI-gM-Foh" eventType="valueChanged" id="Zbz-xk-1sy"/>
-                                            </connections>
-                                        </segmentedControl>
-                                    </barButtonItem>
-                                    <barButtonItem width="1" style="plain" systemItem="fixedSpace" id="FQm-kX-ofC"/>
-                                    <barButtonItem title="Done" id="Y2W-6T-9cT">
-                                        <connections>
-                                            <action selector="done:" destination="2KI-gM-Foh" id="bv1-nV-j7s"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJc-R7-tG5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="525"/>
                                 <subviews>
@@ -1196,31 +1163,24 @@
                                     <constraint firstItem="ZZR-3O-qB3" firstAttribute="leading" secondItem="CJc-R7-tG5" secondAttribute="leading" id="qyK-R9-jHM"/>
                                 </constraints>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="RbR-K8-pi1">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="CJc-R7-tG5" secondAttribute="bottom" constant="43" id="0Ce-jc-mFn"/>
-                            <constraint firstItem="Od0-6K-e3q" firstAttribute="leading" secondItem="f1y-As-GIM" secondAttribute="leading" id="7EW-tt-8oe"/>
-                            <constraint firstItem="Od0-6K-e3q" firstAttribute="bottom" secondItem="f1y-As-GIM" secondAttribute="bottom" id="FGx-0d-reO"/>
                             <constraint firstItem="CJc-R7-tG5" firstAttribute="trailing" secondItem="f1y-As-GIM" secondAttribute="trailing" id="GjR-vx-Lah"/>
                             <constraint firstItem="CJc-R7-tG5" firstAttribute="top" secondItem="f1y-As-GIM" secondAttribute="top" id="i64-NE-7BH"/>
-                            <constraint firstItem="Od0-6K-e3q" firstAttribute="bottom" secondItem="f1y-As-GIM" secondAttribute="bottom" id="pSV-DS-o9U"/>
                             <constraint firstItem="CJc-R7-tG5" firstAttribute="leading" secondItem="f1y-As-GIM" secondAttribute="leading" id="uKP-Hk-YSd"/>
-                            <constraint firstItem="Od0-6K-e3q" firstAttribute="trailing" secondItem="f1y-As-GIM" secondAttribute="trailing" id="zYb-ey-qxf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="NgS-sY-Tzi">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="dk4-JB-idg">
-                            <connections>
-                                <action selector="done:" destination="2KI-gM-Foh" id="Ysl-Qc-pgX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
-                        <outlet property="cancelButton" destination="gwd-WE-Aph" id="g9P-NB-cQR"/>
-                        <outlet property="doneButton" destination="Y2W-6T-9cT" id="nKe-pM-FZs"/>
                         <outlet property="map" destination="xGN-g3-q6Q" id="vmp-yf-zMJ"/>
-                        <outlet property="segmentedControl" destination="acZ-pK-YsY" id="dgi-sN-eqU"/>
+                        <outlet property="toolbar" destination="RbR-K8-pi1" id="T3P-qi-RBo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRM-0M-qEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
