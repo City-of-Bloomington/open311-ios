@@ -35,11 +35,15 @@ static NSInteger const kMapTypeHybridIndex    = 2;
 	_locationManager.distanceFilter = 50;
 	[_locationManager startUpdatingLocation];
 	
+	[self.cancelButton setTitle:NSLocalizedString(kUI_Cancel, nil)];
+	[self.doneButton setTitle:NSLocalizedString(kUI_Save, nil)];
+	
 	MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.map];
 	[self.navigationController.toolbar setItems:@[button]];
 	
 	[self.segmentedControl setTitle:NSLocalizedString(kUI_Standard,  nil) forSegmentAtIndex:kMapTypeStandardIndex];
 	[self.segmentedControl setTitle:NSLocalizedString(kUI_Satellite, nil) forSegmentAtIndex:kMapTypeSatelliteIndex];
+	[self.segmentedControl setTitle:NSLocalizedString(kUI_Hybrid, nil) forSegmentAtIndex:kMapTypeHybridIndex];
 	
 	[self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }

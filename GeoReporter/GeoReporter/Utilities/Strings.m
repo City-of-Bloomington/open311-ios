@@ -47,10 +47,10 @@ NSString * const kUI_Gallery                = @"gallery";
 NSString * const kUI_Location               = @"location";
 NSString * const kUI_Standard               = @"map_button_standard";
 NSString * const kUI_Satellite              = @"map_button_satellite";
+NSString * const kUI_Hybrid					= @"map_button_hybrid";
 NSString * const kUI_ReportStatus           = @"report_status";
 NSString * const kUI_ReportAttributes       = @"report_attributes";
 NSString * const kUI_ReportDescription      = @"report_description";
-NSString * const kUI_DescriptionOfProblem   = @"Description of problem";
 NSString * const kUI_ReportDate             = @"report_date";
 NSString * const kUI_Submit                 = @"submit";
 NSString * const kUI_Cancel                 = @"cancel";
@@ -65,6 +65,18 @@ NSString * const kUI_Error403               = @"error_403";
 NSString * const kUI_URLError               = @"wrong_url";
 NSString * const kUI_ServerNameError        = @"servername_error_title";
 NSString * const kUI_ServerNameErrorMessage = @"servername_error_message";
+NSString * const kUI_HudLoadingMessage		= @"loading_message";
+NSString * const kUI_AnonymousName			= @"anonymous";
+NSString * const kUI_ChangePhoto			= @"change_photo";
+NSString * const kUI_HudSendingMessage		= @"sending";
+NSString * const kUI_HudSuccessMessage		= @"send_success";
+NSString * const kUI_ServersControllerHeader= @"servers_controller_header";
+NSString * const kUI_AvailableServers		= @"available_servers";
+NSString * const kUI_CustomServers			= @"custom_servers";
+NSString * const kUI_ReportAnonymousHeader	= @"report_anonymously_header";
+NSString * const kUI_ReportAnonymousDetails	= @"report_anonymously_details";
+
+
 
 
 // Open311 Key Strings

@@ -381,7 +381,7 @@
                                                 <action selector="didChangeSwitchValue:" destination="u7a-Q0-0i9" eventType="valueChanged" id="vgU-L2-k1N"/>
                                             </connections>
                                         </switch>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="If the switch is &quot;on&quot;, the report will be anonymous" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="JGB-Vy-EAw">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="report_anonymous_details" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="JGB-Vy-EAw">
                                             <rect key="frame" x="20" y="32" width="320" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="19" id="8KB-1Z-QJB"/>
@@ -390,7 +390,7 @@
                                             <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Report anonymously:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8Q-Hg-yNV">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="report_anonymous_header" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8Q-Hg-yNV">
                                             <rect key="frame" x="20" y="9" width="187" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="oZN-YT-GOc"/>
@@ -411,6 +411,8 @@
                                     <constraint firstItem="kZ2-ZO-At2" firstAttribute="top" secondItem="u7a-Q0-0i9" secondAttribute="top" constant="5" id="vUr-WE-xW2"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="anonymousDetails" destination="JGB-Vy-EAw" id="U7Q-jS-ZTO"/>
+                                    <outlet property="anonymousHeader" destination="Q8Q-Hg-yNV" id="nzt-nA-T8H"/>
                                     <outlet property="anonymousSwitch" destination="kZ2-ZO-At2" id="U6g-PZ-non"/>
                                 </connections>
                             </tableViewCell>
@@ -421,7 +423,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ADZ-A6-2gy">
-                        <barButtonItem key="rightBarButtonItem" title="Send" id="1P5-QI-miM">
+                        <barButtonItem key="rightBarButtonItem" title="submit" id="1P5-QI-miM">
                             <connections>
                                 <action selector="send:" destination="zXc-D2-iWn" id="CDG-wa-Fav"/>
                             </connections>
@@ -430,6 +432,7 @@
                     <connections>
                         <outlet property="headerView" destination="Lyq-j8-xyU" id="ZxD-mp-dd3"/>
                         <outlet property="headerViewLabel" destination="fgA-3j-odi" id="9wS-rb-pej"/>
+                        <outlet property="sendButton" destination="1P5-QI-miM" id="5v5-CJ-PXw"/>
                         <outlet property="tableView" destination="y7C-ch-ES6" id="wRd-Pc-tbi"/>
                         <segue destination="aHt-e7-HZl" kind="unwind" identifier="UnwindSegueFromReportToHome" unwindAction="didReturnAfterSendingReport:" id="anM-ii-Qg0"/>
                     </connections>
@@ -857,7 +860,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVB-Ka-JT5">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVB-Ka-JT5">
                                                     <rect key="frame" x="30" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="3WC-hr-TsM"/>
@@ -905,7 +908,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="url" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0J-1Z-bDR">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="url" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W0J-1Z-bDR">
                                                     <rect key="frame" x="30" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="c8R-Se-xPb"/>
@@ -952,7 +955,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="jurisdiction_id" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7t6-vA-Vi8">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="jurisdiction_id" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7t6-vA-Vi8">
                                                     <rect key="frame" x="30" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="sOA-W1-wws"/>
@@ -998,7 +1001,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="api_key" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywX-zW-SnW">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="api_key" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ywX-zW-SnW">
                                                     <rect key="frame" x="30" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="3Fk-dc-olQ"/>
@@ -1045,11 +1048,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="supports_media" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAj-73-usf">
-                                                    <rect key="frame" x="21" y="10" width="110" height="24"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="supports_media" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAj-73-usf">
+                                                    <rect key="frame" x="21" y="10" width="197" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="B5n-Kf-Wnf"/>
-                                                        <constraint firstAttribute="width" constant="110" id="Wqr-eW-btx"/>
+                                                        <constraint firstAttribute="width" constant="197" id="Wqr-eW-btx"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="14"/>
                                                     <color key="textColor" red="0.17172716560000001" green="0.3656257987" blue="0.56098882299999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1399,7 +1402,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="first_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9D-Lr-WAK">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="first_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N9D-Lr-WAK">
                                                     <rect key="frame" x="30" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="d1A-wO-WDf"/>
@@ -1447,7 +1450,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="last_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8NF-ka-iID">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="last_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8NF-ka-iID">
                                                     <rect key="frame" x="30" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="5F4-ZV-V8N"/>
@@ -1494,7 +1497,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iL4-Wn-efr">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iL4-Wn-efr">
                                                     <rect key="frame" x="30" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="ZGv-2o-IiQ"/>
@@ -1541,7 +1544,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="phone" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QY4-9g-odE">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="phone" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QY4-9g-odE">
                                                     <rect key="frame" x="30" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="67" id="mND-mT-2dz"/>

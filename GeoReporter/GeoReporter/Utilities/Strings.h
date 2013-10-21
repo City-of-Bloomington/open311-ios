@@ -64,6 +64,18 @@ extern NSString * const kUI_Error403;
 extern NSString * const kUI_URLError;
 extern NSString * const kUI_ServerNameError;
 extern NSString * const kUI_ServerNameErrorMessage;
+extern NSString * const kUI_HudLoadingMessage;
+extern NSString * const kUI_AnonymousName;
+extern NSString * const kUI_ChangePhoto;
+extern NSString * const kUI_HudSendingMessage;
+extern NSString * const kUI_HudSuccessMessage;
+extern NSString * const kUI_ServersControllerHeader;
+extern NSString * const kUI_AvailableServers;
+extern NSString * const kUI_CustomServers;
+extern NSString * const kUI_ReportAnonymousHeader;
+extern NSString * const kUI_ReportAnonymousDetails;
+extern NSString * const kUI_Hybrid;
+
 
 // Open311 Key Strings
 // Global required fields

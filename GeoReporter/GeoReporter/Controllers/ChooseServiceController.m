@@ -81,7 +81,7 @@ Report *report;
 			HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 			[self.navigationController.view addSubview:HUD];
 			HUD.delegate = self;
-			HUD.labelText = @"Loading";
+			HUD.labelText = NSLocalizedString(kUI_HudLoadingMessage, nil);
 			[HUD show:YES];
             
             [_open311 getServiceDefinition:service withCompletion:^(NSDictionary * serviceDefinition) {

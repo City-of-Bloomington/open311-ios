@@ -12,6 +12,7 @@
  * Custom cell which shows an image, for the Media field in the New Report
  */
 #import "MediaCell.h"
+#import "Strings.h"
 
 @implementation MediaCell
 
@@ -21,7 +22,7 @@
 {
 	self.image.image = [UIImage imageNamed:@"camera.png"];
 	self.closeImage.hidden = YES;
-	self.header.text = @"Add image";
+	self.header.text = NSLocalizedString(kUI_AddPhoto, nil);
 }
 
 - (void)setCloseImage:(UIImageView *)closeImage

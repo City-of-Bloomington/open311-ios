@@ -36,7 +36,7 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 	label.lineBreakMode = NSLineBreakByWordWrapping;
 	
 	NSString* tableHeaderText;
-	tableHeaderText = @"Select the server to which the issues are reported. \"Available Servers\" contains the official endpoints. \"Custom Servers\" may contain other custom Open311 servers.";
+	tableHeaderText = NSLocalizedString(kUI_ServersControllerHeader, nil);
 	float headerWidth;
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 		// The device is an iPad running iOS 3.2 or later.
@@ -119,18 +119,18 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	if (section == 0) return @"Available Servers";
-	return @"Custom Servers";
+	if (section == 0) return NSLocalizedString(kUI_AvailableServers, nil);
+	return NSLocalizedString(kUI_CustomServers, nil);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 	
 	NSString *sectionTitle;
 	if (section == 0) {
-		sectionTitle = @"Available Servers";
+		sectionTitle = NSLocalizedString(kUI_AvailableServers, nil);
 	}
 	else {
-		sectionTitle = @"Custom Servers";
+		sectionTitle = NSLocalizedString(kUI_CustomServers, nil);
 	}
 	
 	UILabel *label = [[UILabel alloc] init];

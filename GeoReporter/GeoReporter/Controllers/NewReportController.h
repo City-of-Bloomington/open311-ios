@@ -26,6 +26,7 @@
 @property (weak, nonatomic)   IBOutlet UIView      *headerView;
 @property (weak, nonatomic)   IBOutlet UILabel     *headerViewLabel;
 @property IBOutlet UITextView *currentTextEntry;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sendButton;
 @property Report *report;
 
 - (IBAction)send:(id)sender;

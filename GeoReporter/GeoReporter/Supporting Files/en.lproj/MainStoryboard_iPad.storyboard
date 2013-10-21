@@ -372,7 +372,7 @@
                                                 <action selector="didChangeSwitchValue:" destination="VE4-KD-nnc" eventType="valueChanged" id="aGK-De-dL9"/>
                                             </connections>
                                         </switch>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="If the switch is &quot;on&quot;, the report will be anonymous" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="281" translatesAutoresizingMaskIntoConstraints="NO" id="WQU-EY-uaB">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="report_anonymous_details" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="281" translatesAutoresizingMaskIntoConstraints="NO" id="WQU-EY-uaB">
                                             <rect key="frame" x="20" y="32" width="281" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="19" id="Syb-hv-30M"/>
@@ -381,7 +381,7 @@
                                             <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Report anonymously:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXB-ci-WPH">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="report_anonymous_header" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXB-ci-WPH">
                                             <rect key="frame" x="20" y="7" width="187" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="Bql-BT-TeR"/>
@@ -402,6 +402,8 @@
                                     <constraint firstItem="WQU-EY-uaB" firstAttribute="leading" secondItem="VE4-KD-nnc" secondAttribute="leading" constant="20" id="xXW-rJ-qfI"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="anonymousDetails" destination="WQU-EY-uaB" id="Mna-tR-u3P"/>
+                                    <outlet property="anonymousHeader" destination="XXB-ci-WPH" id="zh5-Az-thC"/>
                                     <outlet property="anonymousSwitch" destination="nc0-yF-Zlj" id="i4a-aW-8Zl"/>
                                 </connections>
                             </tableViewCell>
@@ -422,6 +424,7 @@
                     <connections>
                         <outlet property="headerView" destination="0uA-tk-FfP" id="cQg-LO-Pk0"/>
                         <outlet property="headerViewLabel" destination="abY-AN-nHU" id="I8t-Al-Ig8"/>
+                        <outlet property="sendButton" destination="I0u-mQ-pPn" id="gHI-iQ-a2T"/>
                         <outlet property="tableView" destination="deA-Rh-GoN" id="1SJ-4F-SzN"/>
                         <segue destination="wGZ-Nb-Ktg" kind="unwind" identifier="UnwindSegueFromReportToHome" unwindAction="didReturnAfterSendingReport:" id="HSs-Ct-Fo3"/>
                     </connections>
@@ -909,7 +912,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2C4-H9-jJL">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2C4-H9-jJL">
                                                     <rect key="frame" x="65" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="L1b-b8-bqU"/>
@@ -957,7 +960,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="url" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jh-GZ-bcO">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="url" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Jh-GZ-bcO">
                                                     <rect key="frame" x="65" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="1hg-tK-dtt"/>
@@ -1004,7 +1007,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="jurisdiction_id" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxg-jm-lPw">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="jurisdiction_id" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bxg-jm-lPw">
                                                     <rect key="frame" x="65" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="cIs-YN-h6G"/>
@@ -1050,7 +1053,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="api_key" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br9-it-sks">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="api_key" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br9-it-sks">
                                                     <rect key="frame" x="65" y="11" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="k2g-ub-mUw"/>
@@ -1097,10 +1100,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="supports_media" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46n-bQ-vuJ">
-                                                    <rect key="frame" x="56" y="10" width="110" height="24"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="supports_media" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46n-bQ-vuJ">
+                                                    <rect key="frame" x="56" y="10" width="184" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="110" id="css-h2-PVL"/>
+                                                        <constraint firstAttribute="width" constant="184" id="css-h2-PVL"/>
                                                         <constraint firstAttribute="height" constant="24" id="uWv-tD-nVe"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="14"/>
@@ -1108,7 +1111,7 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TZv-DZ-WgN">
-                                                    <rect key="frame" x="248" y="3" width="51" height="31"/>
+                                                    <rect key="frame" x="332" y="3" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -1116,7 +1119,7 @@
                                             <constraint firstItem="46n-bQ-vuJ" firstAttribute="centerY" secondItem="WfF-KB-gLb" secondAttribute="centerY" id="Phx-77-yJW"/>
                                             <constraint firstItem="46n-bQ-vuJ" firstAttribute="leading" secondItem="WfF-KB-gLb" secondAttribute="leading" constant="56" id="co9-VF-pXE"/>
                                             <constraint firstItem="46n-bQ-vuJ" firstAttribute="bottom" secondItem="TZv-DZ-WgN" secondAttribute="bottom" id="rQZ-hZ-wWg"/>
-                                            <constraint firstItem="TZv-DZ-WgN" firstAttribute="leading" secondItem="WfF-KB-gLb" secondAttribute="leading" constant="248" id="wWb-jR-LDv"/>
+                                            <constraint firstItem="TZv-DZ-WgN" firstAttribute="leading" secondItem="WfF-KB-gLb" secondAttribute="leading" constant="332" id="wWb-jR-LDv"/>
                                         </constraints>
                                     </tableViewCell>
                                 </cells>
@@ -1467,7 +1470,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="first_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fT2-Nh-3Cp">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="first_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fT2-Nh-3Cp">
                                                     <rect key="frame" x="65" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="67" id="Wz1-9b-Ycw"/>
@@ -1518,7 +1521,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="last_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msS-hP-feL">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="last_name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="msS-hP-feL">
                                                     <rect key="frame" x="65" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="67" id="7gc-DH-46D"/>
@@ -1568,7 +1571,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkN-oP-ec6">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hkN-oP-ec6">
                                                     <rect key="frame" x="65" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Ys6-Rq-C6l"/>
@@ -1618,7 +1621,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="phone" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsk-M5-xWU">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="phone" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vsk-M5-xWU">
                                                     <rect key="frame" x="65" y="11" width="67" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="eA8-7k-i8t"/>

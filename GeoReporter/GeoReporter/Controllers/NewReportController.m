@@ -73,6 +73,8 @@ CLLocationCoordinate2D currentLocation;
 {
 	[super viewDidLoad];
 	
+	[self.sendButton setTitle:NSLocalizedString(kUI_Submit, nil)];
+	
 	//make view controller start below navigation bar; this works in iOS 7
 	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
 		self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -199,6 +201,8 @@ CLLocationCoordinate2D currentLocation;
     if (indexPath.row == [fields count]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kFooterCell forIndexPath:indexPath];
 		FooterCell* footerCell = (FooterCell*) cell;
+		footerCell.anonymousHeader.text = NSLocalizedString(kUI_ReportAnonymousHeader, nil);
+		footerCell.anonymousDetails.text = NSLocalizedString(kUI_ReportAnonymousDetails, nil);
 		
 		return footerCell;
 	}
@@ -287,7 +291,7 @@ CLLocationCoordinate2D currentLocation;
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReportMediaCell forIndexPath:indexPath];
 		MediaCell* mediaCell = (MediaCell*) cell;
 		
-		mediaCell.header.text = @"Add image";
+		mediaCell.header.text = NSLocalizedString(kUI_AddPhoto, nil);
 		NSURL *url = _report.postData[kOpen311_Media];
 		if (url != nil) {
 			// When the user-selected mediaUrl changes, we need to load a fresh thumbnail image
@@ -305,7 +309,7 @@ CLLocationCoordinate2D currentLocation;
 			}
 			if (mediaThumbnail != nil) {
 				[mediaCell.image setImage:mediaThumbnail];
-				mediaCell.header.text = @"Change image";
+				mediaCell.header.text = NSLocalizedString(kUI_ChangePhoto, nil);
 				mediaCell.closeImage.hidden = NO;
 			}
 		}
@@ -483,7 +487,7 @@ CLLocationCoordinate2D currentLocation;
 - (IBAction)send:(id)sender {
 	
 	[self.tableView endEditing:YES];
-	[SVProgressHUD showWithStatus:@"Sending" maskType:SVProgressHUDMaskTypeClear];
+	[SVProgressHUD showWithStatus:NSLocalizedString(kUI_HudSendingMessage, nil) maskType:SVProgressHUDMaskTypeClear];
 	
 	Open311 *open311 = [Open311 sharedInstance];
 	
@@ -496,7 +500,7 @@ CLLocationCoordinate2D currentLocation;
 
 - (void)postSucceeded
 {
-	[SVProgressHUD showSuccessWithStatus:@"Report sent"];
+	[SVProgressHUD showSuccessWithStatus:NSLocalizedString(kUI_HudSuccessMessage, nil)];
 	
 	// Remove the report so they cannot post this report again,
 	// without starting the process from scratch.

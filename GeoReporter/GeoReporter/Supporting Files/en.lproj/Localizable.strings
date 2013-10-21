@@ -46,3 +46,15 @@
 "wrong_url"="The provided URL is not responding";
 "servername_error_title"="Server name error";
 "servername_error_message"="Please insert a name for the new server";
+"loading_message"="Loading";
+"anonymous"="Anonymous";
+"change_photo"="Change photo";
+"sending"="Sending";
+"send_success"="Report sent";
+"servers_controller_header"="Select the server to which the issues are reported. \"Available Servers\" contains the official endpoints. \"Custom Servers\" may contain other custom Open311 servers";
+"available_servers"="Available Servers";
+"custom_servers"="Custom Servers";
+"report_anonymously_header"="Report anonymously:";
+"report_anonymously_details"="If the switch is \"on\", the report will be anonymous";
+"map_button_hybrid" = "Hybrid";
+

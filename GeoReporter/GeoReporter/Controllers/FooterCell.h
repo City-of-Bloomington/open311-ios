@@ -17,5 +17,7 @@
 @interface FooterCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UISwitch *anonymousSwitch;
 - (IBAction)didChangeSwitchValue:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *anonymousHeader;
+@property (weak, nonatomic) IBOutlet UILabel *anonymousDetails;
 
 @end

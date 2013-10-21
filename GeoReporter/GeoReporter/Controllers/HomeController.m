@@ -73,7 +73,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 		[self.navigationController.view addSubview:HUD];
 		HUD.delegate = self;
-		HUD.labelText = @"Loading";
+		HUD.labelText = NSLocalizedString(kUI_HudLoadingMessage, nil);
 		[HUD show:YES];
 		Open311 *open311 = [Open311 sharedInstance];
 		[open311 loadServer:currentServer withCompletion:^() {
@@ -95,7 +95,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 		text = [text stringByAppendingFormat:@"%@ %@", firstname, lastname];
 	}
 	if ([text length] == 0) {
-		text = @"anonymous";
+		text = NSLocalizedString(kUI_AnonymousName, nil);
 	}
 	
 	self.personalInfoLabel.text = text;

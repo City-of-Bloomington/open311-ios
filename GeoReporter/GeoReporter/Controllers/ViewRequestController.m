@@ -185,7 +185,7 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 			// description cell
 			ViewReportCell* reportCell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
 			
-			reportCell.titleLabel.text = kUI_DescriptionOfProblem;
+			reportCell.titleLabel.text = NSLocalizedString(kUI_ReportDescription, nil);
 			[reportCell.descriptionLabel setLineBreakMode:NSLineBreakByWordWrapping];
 			[reportCell.descriptionLabel setNumberOfLines:0];
 			reportCell.descriptionLabel.text = [self getReportDescription];
