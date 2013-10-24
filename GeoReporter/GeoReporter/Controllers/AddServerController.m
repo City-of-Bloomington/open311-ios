@@ -60,10 +60,10 @@
 {
 	Preferences *prefs = [Preferences sharedInstance];
 	[prefs addCustomServer:@{
-							 kOpen311_Name         : self.textFieldName.text,
-							 kOpen311_Url          : self.textFieldUrl.text,
-							 kOpen311_Jurisdiction : self.textFieldJurisdiction.text,
-							 kOpen311_ApiKey       : self.textFieldApiKey.text,
+                             kOpen311_Name         : [self getTextFromTextField:self.textFieldName],
+                             kOpen311_Url          : [self getTextFromTextField:self.textFieldUrl],
+                             kOpen311_Jurisdiction : [self getTextFromTextField:self.textFieldJurisdiction],
+                             kOpen311_ApiKey       : [self getTextFromTextField:self.textFieldApiKey],
 							 kOpen311_SupportsMedia: [NSNumber numberWithBool:self.switchSupportsMedia.on]
 							 }];
 	
@@ -133,6 +133,12 @@
     else if (textField == _textFieldJurisdiction) { [_textFieldApiKey       becomeFirstResponder]; }
     else { [textField resignFirstResponder]; }
     return TRUE;
+}
+
+#pragma mark - additional methods
+
+- (NSString *)getTextFromTextField:(UITextField *)textField {
+    return textField.text.length ? textField.text : @"";
 }
 
 @end
