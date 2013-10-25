@@ -1,56 +1,46 @@
-/**
- * @copyright 2013 City of Bloomington, Indiana. All Rights Reserved
- * @author Marius Constantinescu <constantinescu.marius@gmail.com>
- * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- */
+//
+//  AppDelegate.m
+//  GeoReporter
+//
+//  Created by Cliff Ingham on 10/22/13.
+//  Copyright (c) 2013 City of Bloomington. All rights reserved.
+//
 
 #import "AppDelegate.h"
-#import <UIKit/UIKit.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	// Override point for customization after application launch.
-	
-	if (isRunningiOS7()) {
-		[self applyTheme];
-	}
-	return YES;
+    // Override point for customization after application launch.
+    return YES;
 }
-
-
-// Determine if it's running on iOS 7 or not
-// @return YES if it's iOS7
-static BOOL isRunningiOS7() {
-#if defined(__IPHONE_7_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0)
-	// compiled with >= iOS 7 SDK
-	return (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0);
-#else
-	// compiled with < iOS 7 SDK
-	return NO;
-#endif
-}
-
-
-// Changes the text color of the navigation bar buttons to orange
--(void)applyTheme
+							
+- (void)applicationWillResignActive:(UIApplication *)application
 {
-	NSDictionary *barButtonTitleTextAttributes = @{
-												   UITextAttributeFont:[UIFont systemFontOfSize:13.f],
-												   UITextAttributeTextColor: [UIColor orangeColor],
-												   UITextAttributeTextShadowColor: [UIColor colorWithWhite:0.0f alpha:0.5f],
-												   UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0.0f, 0.0f)]
-												   };
-	UIBarButtonItem *barButton = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
-	[barButton setTitleTextAttributes:barButtonTitleTextAttributes forState:UIControlStateNormal];
-	
-	[barButton setTitleTextAttributes:barButtonTitleTextAttributes forState:UIControlStateHighlighted];
+    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 @end

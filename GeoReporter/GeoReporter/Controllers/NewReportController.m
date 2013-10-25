@@ -73,13 +73,6 @@ CLLocationCoordinate2D currentLocation;
 {
 	[super viewDidLoad];
 	
-	[self.sendButton setTitle:NSLocalizedString(kUI_Submit, nil)];
-	
-	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
-	
 	locationManager = [[CLLocationManager alloc] init];
 	locationManager.delegate = self;
 	locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
@@ -201,8 +194,6 @@ CLLocationCoordinate2D currentLocation;
     if (indexPath.row == [fields count]) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kFooterCell forIndexPath:indexPath];
 		FooterCell* footerCell = (FooterCell*) cell;
-		footerCell.anonymousHeader.text = NSLocalizedString(kUI_ReportAnonymousHeader, nil);
-		footerCell.anonymousDetails.text = NSLocalizedString(kUI_ReportAnonymousDetails, nil);
 		
 		return footerCell;
 	}

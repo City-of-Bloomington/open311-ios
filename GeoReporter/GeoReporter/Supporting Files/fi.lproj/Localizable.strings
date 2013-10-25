@@ -27,6 +27,7 @@
 "location"="Sijainti";
 "map_button_standard"="Standardi";
 "map_button_satellite"="Satelliitti";
+"map_button_hybrid" = "Hybrid";
 "report_status"="Tila";
 "report_attributes"="Lisätiedot";
 "report_description"="Palautteen kuvaus";
@@ -43,3 +44,16 @@
 "failure_loading_services"="Palvelun tietojen hakemisessa tapahtui virhe";
 "failure_posting_service"="Palautteen lähetys ei onnistunut";
 "error_403"="Sovelluksella ei ole oikeuksia lähettää palautetta valitulle palvelimelle";
+"wrong_url"="The provided URL is not responding";
+"servername_error_title"="Missing server name";
+"servername_error_message"="Please give a name for the new server";
+"loading_message"="Loading";
+"anonymous"="Anonymous";
+"change_photo"="Change photo";
+"sending"="Sending";
+"send_success"="Report sent";
+"servers_controller_header"="Select the server to which the issues are reported. \"Available Servers\" contains the official endpoints. \"Custom Servers\" may contain other custom Open311 servers";
+"available_servers"="Available Servers";
+"custom_servers"="Custom Servers";
+"report_anonymously_header"="Report anonymously:";
+"report_anonymously_details"="If the switch is \"on\", the report will be anonymous";

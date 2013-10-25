@@ -17,10 +17,11 @@
 #import "Open311.h"
 #import "Strings.h"
 #import "Preferences.h"
-#import <AFNetworking/AFHTTPClient.h>
-#import <AFNetworking/AFJSONRequestOperation.h>
+#import "AFHTTPClient.h"
+#import "AFJSONRequestOperation.h"
 #import "Media.h"
-#import <MBProgressHUD.h>
+#import "MBProgressHUD.h"
+#import "AddServerController.h"
 
 NSString * const kNotification_PostSucceeded    = @"postSucceeded";
 NSString * const kNotification_PostFailed       = @"postFailed";
@@ -73,7 +74,7 @@ SHARED_SINGLETON(Open311);
  * Handles displaying the failure alert if there's a problem.
  *
  */
-- (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender
+- (void)checkServerValidity:(NSString *)serverURL fromSender:(id)sender
 {
 	_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:serverURL]];
 	
@@ -81,9 +82,9 @@ SHARED_SINGLETON(Open311);
 			  parameters:_endpointParameters
 				 success:^(AFHTTPRequestOperation *operation, id responseObject) {
 					 NSError *error;
-					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
 					 if (!error) {
-						 [sender performSelector:@selector(didFinishSaving)];
+                         [sender performSelector:@selector(didFinishSaving)];
 					 }
 					 else {
 						 [self loadFailedWithError:error];
@@ -101,7 +102,7 @@ SHARED_SINGLETON(Open311);
 			  parameters:_endpointParameters
 				 success:^(AFHTTPRequestOperation *operation, id responseObject) {
 					 NSError *error;
-					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
 					 if (!error) {
 						 [self loadGroups];
 					 }
@@ -146,7 +147,7 @@ SHARED_SINGLETON(Open311);
                   parameters:_endpointParameters
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                          NSError *error;
-                         _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+                         _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
                          if (error) {
                              [self loadFailedWithError:error];
                          }
@@ -204,7 +205,7 @@ SHARED_SINGLETON(Open311);
         NSData *responseData = [operation responseData];
         if (responseData) {
             NSError *e;
-            NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseData options:nil error:&e];
+            NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&e];
             NSInteger statusCode = [[operation response] statusCode];
             if (!e) {
                 NSDictionary *sr = serviceRequests[0];
@@ -310,7 +311,7 @@ SHARED_SINGLETON(Open311);
 														 NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
 														 
 														 NSError *error;
-														 NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+														 NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
 														 if (!error) {
 															 NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:serviceRequests[0]];
 															 if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {

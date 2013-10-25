@@ -16,31 +16,6 @@
 
 @implementation AddServerController
 
-- (void)viewDidLoad
-{
-	[super viewDidLoad];
-	
-	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
-	
-	self.navigationItem.title = NSLocalizedString(kUI_ButtonAddServer, nil);
-	
-	self.labelName         .text = NSLocalizedString(kUI_Name,           nil);
-	self.labelUrl          .text = NSLocalizedString(kUI_Url,            nil);
-	self.labelJurisdiction .text = NSLocalizedString(kUI_JurisdictionId, nil);
-	self.labelApiKey       .text = NSLocalizedString(kUI_ApiKey,         nil);
-	self.labelSupportsMedia.text = NSLocalizedString(kUI_SupportsMedia,  nil);
-	
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-	[self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-}
-
-
 - (IBAction)save:(id)sender
 {
 	if ([self.textFieldName.text isEqualToString:@""]) {
@@ -71,39 +46,6 @@
 }
 
 #pragma mark - Table view handlers
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return NSLocalizedString(kUI_ButtonAddServer, nil);
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	
-	NSString *sectionTitle = NSLocalizedString(kUI_ButtonAddServer, nil);
-	
-	UILabel *label = [[UILabel alloc] init];
-	CGRect frame = CGRectMake(20, 8, 320, 20);
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later.
-		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-		
-		if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-			// The iPad is orientated Landscape
-			frame = CGRectMake(120, 8, 320, 20);
-		}
-	}
-	
-	label.frame = frame;
-	label.backgroundColor = [UIColor clearColor];
-	label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
-	label.font = [UIFont fontWithName:@"Heiti SC" size:15];
-	label.text = sectionTitle;
-	
-	UIView *view = [[UIView alloc] init];
-	[view addSubview:label];
-	
-	return view;
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

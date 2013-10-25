@@ -1,0 +1,15 @@
+
+/* Class = "IBUILabel"; text = "reporting_as"; ObjectID = "3yM-1Y-amn"; */
+"3yM-1Y-amn.text" = "reporting_as";
+
+/* Class = "IBUILabel"; text = "archive"; ObjectID = "CUT-WA-Lc5"; */
+"CUT-WA-Lc5.text" = "archive";
+
+/* Class = "IBUILabel"; text = "New Report"; ObjectID = "MbL-BD-aNz"; */
+"MbL-BD-aNz.text" = "New Report";
+
+/* Class = "IBUILabel"; text = "servers"; ObjectID = "XiB-U2-3LI"; */
+"XiB-U2-3LI.text" = "servers";
+
+/* Class = "IBUILabel"; text = "anonymous"; ObjectID = "jcs-bk-gIg"; */
+"jcs-bk-gIg.text" = "anonymous";

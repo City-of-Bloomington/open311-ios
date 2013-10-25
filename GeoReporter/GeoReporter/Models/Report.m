@@ -10,7 +10,7 @@
 #import "Preferences.h"
 #import "Strings.h"
 #import "Open311.h"
-#import <AFNetworking/AFJSONRequestOperation.h>
+#import "AFJSONRequestOperation.h"
 
 @implementation Report
 
@@ -154,7 +154,7 @@ NSString * const kPostData          = @"postData";
 		 parameters:[self getEndpointParameters]
 			success:^(AFHTTPRequestOperation *operation, id responseObject) {
 				NSError *error;
-				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
 				if (!error) {
 					[delegate didReceiveServiceRequest:serviceRequests[0]];
 				}
@@ -177,7 +177,7 @@ NSString * const kPostData          = @"postData";
 		 parameters:[self getEndpointParameters]
 			success:^(AFHTTPRequestOperation *operation, id responseObject) {
 				NSError *error;
-				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
 				NSString *serviceRequestId = serviceRequests[0][kOpen311_ServiceRequestId];
 				if (!error) {
 					if (serviceRequestId) {
