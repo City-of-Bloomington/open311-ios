@@ -37,7 +37,7 @@ SHARED_SINGLETON(Open311);
  * This server becomes the CurrentServer, which caches all metadata
  * from this server, so we don't have to request it again.
  */
-- (void)loadServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion
+- (void)loadServer:(NSDictionary *)server withCompletion:(void(^)(void))completion
 {
 	_currentServer = server;
 	
