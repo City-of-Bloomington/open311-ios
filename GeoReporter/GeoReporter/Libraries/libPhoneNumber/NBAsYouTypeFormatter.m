@@ -347,7 +347,7 @@
     // When there are multiple available formats, the formatter uses the first
     // format where a formatting template could be created.
     /** @type {number} */
-    int possibleFormatsLength = [self.possibleFormats_ count];
+    unsigned int possibleFormatsLength = (unsigned int)[self.possibleFormats_ count];
     for (int i = 0; i < possibleFormatsLength; ++i)
     {
         /** @type {i18n.phonenumbers.NumberFormat} */
@@ -394,7 +394,7 @@
     NSMutableArray *formatList = isIntlNumberFormats ? self.currentMetaData_.intlNumberFormats : self.currentMetaData_.numberFormats;
     
     /** @type {number} */
-    int formatListLength = formatList.count;
+    unsigned int formatListLength = (unsigned int)formatList.count;
     
     for (int i = 0; i < formatListLength; ++i)
     {
@@ -438,9 +438,9 @@
     /** @type {Array.<i18n.phonenumbers.NumberFormat>} */
     NSMutableArray *possibleFormats = [[NSMutableArray alloc] init];
     /** @type {number} */
-    int indexOfLeadingDigitsPattern = leadingDigits.length - self.MIN_LEADING_DIGITS_LENGTH_;
+    unsigned int indexOfLeadingDigitsPattern = (unsigned int)leadingDigits.length - self.MIN_LEADING_DIGITS_LENGTH_;
     /** @type {number} */
-    int possibleFormatsLength = self.possibleFormats_.count;
+    unsigned int possibleFormatsLength = (unsigned int)self.possibleFormats_.count;
     for (int i = 0; i < possibleFormatsLength; ++i)
     {
         /** @type {i18n.phonenumbers.NumberFormat} */
@@ -741,7 +741,7 @@
         NSString *prefixBeforeNationalNumberStr = [NSString stringWithString:self.prefixBeforeNationalNumber_];
         NSRange lastRange = [prefixBeforeNationalNumberStr rangeOfString:self.nationalPrefixExtracted_ options:NSBackwardsSearch];
         /** @type {number} */
-        int indexOfPreviousNdd = lastRange.location;
+        unsigned int indexOfPreviousNdd = (unsigned int)lastRange.location;
         self.prefixBeforeNationalNumber_ = [NSMutableString stringWithString:@""];
         [self.prefixBeforeNationalNumber_ appendString:[prefixBeforeNationalNumberStr substringWithRange:NSMakeRange(0, indexOfPreviousNdd)]];
     }
@@ -780,7 +780,7 @@
     NSString *nationalNumber = [NSString stringWithString:self.nationalNumber_];
     
     /** @type {number} */
-    int possibleFormatsLength = self.possibleFormats_.count;
+    unsigned int possibleFormatsLength = (unsigned int)self.possibleFormats_.count;
     for (int i = 0; i < possibleFormatsLength; ++i)
     {
         /** @type {i18n.phonenumbers.NumberFormat} */
@@ -822,7 +822,7 @@
 - (NSString*)appendNationalNumber_:(NSString*)nationalNumber
 {
     /** @type {number} */
-    int prefixBeforeNationalNumberLength = self.prefixBeforeNationalNumber_.length;
+    unsigned int prefixBeforeNationalNumberLength = (unsigned int)self.prefixBeforeNationalNumber_.length;
     unichar blank_char = [self.SEPARATOR_BEFORE_NATIONAL_NUMBER_ characterAtIndex:0];
     if (self.shouldAddSpaceAfterNationalPrefix_ && prefixBeforeNationalNumberLength > 0 &&
         [self.prefixBeforeNationalNumber_ characterAtIndex:prefixBeforeNationalNumberLength - 1] != blank_char)
@@ -906,7 +906,7 @@
     /** @type {string} */
     NSString *nationalNumber = [self.nationalNumber_ copy];
     /** @type {number} */
-    int lengthOfNationalNumber = nationalNumber.length;
+    unsigned int lengthOfNationalNumber = (unsigned int)nationalNumber.length;
     if (lengthOfNationalNumber > 0) {
         /** @type {string} */
         NSString *tempNationalNumber = @"";
@@ -954,7 +954,7 @@
     /** @type {string} */
     NSString *nationalNumber = [self.nationalNumber_ copy];
     /** @type {number} */
-    int startOfNationalNumber = 0;
+    unsigned int startOfNationalNumber = 0;
     
     if ([self isNanpaNumberWithNationalPrefix_]) {
         startOfNationalNumber = 1;
@@ -974,7 +974,7 @@
             // rules instead of national ones, because national formatting rules could
             // contain local formatting rules for numbers entered without area code.
             self.isCompleteNumber_ = YES;
-            startOfNationalNumber = firstString.length;
+            startOfNationalNumber = (unsigned int)firstString.length;
             [self.prefixBeforeNationalNumber_ appendString:[nationalNumber substringWithRange:NSMakeRange(0, startOfNationalNumber)]];
         }
     }
@@ -1007,7 +1007,7 @@
     if (m != nil && firstString != nil && firstString.length > 0) {
         self.isCompleteNumber_ = YES;
         /** @type {number} */
-        int startOfCountryCallingCode = firstString.length;
+        unsigned int startOfCountryCallingCode = (unsigned int)firstString.length;
         self.nationalNumber_ = [NSMutableString stringWithString:@""];
         [self.nationalNumber_ appendString:[accruedInputWithoutFormatting substringFromIndex:startOfCountryCallingCode]];
         self.prefixBeforeNationalNumber_ = [NSMutableString stringWithString:@""];

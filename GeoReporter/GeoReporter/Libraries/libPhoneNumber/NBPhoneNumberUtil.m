@@ -201,7 +201,7 @@ static NSMutableDictionary *regexPatternCache;
     if (matches.count > 0)
     {
         NSTextCheckingResult *match = [matches objectAtIndex:0];
-        return match.range.location;
+        return (int)match.range.location;
     }
     
     return foundPosition;
@@ -213,7 +213,7 @@ static NSMutableDictionary *regexPatternCache;
     NSRange finded = [sourceString rangeOfString:targetString];
     if (finded.location != NSNotFound)
     {
-        return finded.location;
+        return (int)finded.location;
     }
     
     return -1;
@@ -378,7 +378,7 @@ static NSMutableDictionary *regexPatternCache;
         return nil;
     }
     
-    id res = [self.mapCN2CCode objectForKey:[NSString stringWithFormat:@"%ld", countryCodeNumber]];
+    id res = [self.mapCN2CCode objectForKey:[NSString stringWithFormat:@"%u", (unsigned int)countryCodeNumber]];
     
     if (res && [res isKindOfClass:[NSArray class]] && [((NSArray*)res) count] > 0)
     {
@@ -1040,10 +1040,10 @@ static NSMutableDictionary *regexPatternCache;
         //
         // TODO: Investigate the possibility of better modeling the metadata to make
         // it easier to obtain the NDC.
-        return ((NSString*)[numberGroups objectAtIndex:2]).length + 1;
+        return (int)((NSString*)[numberGroups objectAtIndex:2]).length + 1;
     }
     
-    return ((NSString*)[numberGroups objectAtIndex:1]).length;
+    return (int)((NSString*)[numberGroups objectAtIndex:1]).length;
 }
 
 
@@ -1068,7 +1068,7 @@ static NSMutableDictionary *regexPatternCache;
     NSMutableString *normalizedNumber = [[NSMutableString alloc] init];
     unichar character = 0;
     NSString *newDigit = @"";
-    int numberLength = sourceString.length;
+    unsigned int numberLength = (unsigned int)sourceString.length;
     
     for (int i = 0; i<numberLength; ++i)
     {
@@ -1623,7 +1623,7 @@ static NSMutableDictionary *regexPatternCache;
         {
             // For NANPA regions, return the national format for these regions but
             // prefix it with the country calling code.
-            return [NSString stringWithFormat:@"%lu %@", countryCallingCode, [self format:number numberFormat:NBEPhoneNumberFormatNATIONAL]];
+            return [NSString stringWithFormat:@"%u %@", (unsigned int)countryCallingCode, [self format:number numberFormat:NBEPhoneNumberFormatNATIONAL]];
         }
     }
     else if (countryCallingCode == [self getCountryCodeForValidRegion:regionCallingFrom])
@@ -1662,7 +1662,7 @@ static NSMutableDictionary *regexPatternCache;
                                       phoneNumberFormat:NBEPhoneNumberFormatINTERNATIONAL carrierCode:nil];
     NSString *formattedExtension = [self maybeGetFormattedExtension:number metadata:metadataForRegion numberFormat:NBEPhoneNumberFormatINTERNATIONAL];
     
-    NSString *hasLenth = [NSString stringWithFormat:@"%@ %lu %@%@", internationalPrefixForFormatting, countryCallingCode, formattedNationalNumber, formattedExtension];
+    NSString *hasLenth = [NSString stringWithFormat:@"%@ %u %@%@", internationalPrefixForFormatting, (unsigned int)countryCallingCode, formattedNationalNumber, formattedExtension];
     NSString *hasNotLength = [self prefixNumberWithCountryCallingCode:countryCallingCode phoneNumberFormat:NBEPhoneNumberFormatINTERNATIONAL
                                               formattedNationalNumber:formattedNationalNumber formattedExtension:formattedExtension];
     
@@ -1688,11 +1688,11 @@ static NSMutableDictionary *regexPatternCache;
     switch (numberFormat)
     {
         case NBEPhoneNumberFormatE164:
-            return [NSString stringWithFormat:@"+%ld%@%@", countryCallingCode, formattedNationalNumber, formattedExtension];
+            return [NSString stringWithFormat:@"+%u%@%@", (unsigned int)countryCallingCode, formattedNationalNumber, formattedExtension];
         case NBEPhoneNumberFormatINTERNATIONAL:
-            return [NSString stringWithFormat:@"+%ld %@%@", countryCallingCode, formattedNationalNumber, formattedExtension];
+            return [NSString stringWithFormat:@"+%u %@%@", (unsigned int)countryCallingCode, formattedNationalNumber, formattedExtension];
         case NBEPhoneNumberFormatRFC3966:
-            return [NSString stringWithFormat:@"%@+%ld-%@%@", RFC3966_PREFIX, countryCallingCode, formattedNationalNumber, formattedExtension];
+            return [NSString stringWithFormat:@"%@+%u-%@%@", RFC3966_PREFIX, (unsigned int)countryCallingCode, formattedNationalNumber, formattedExtension];
         case NBEPhoneNumberFormatNATIONAL:
         default:
             return [NSString stringWithFormat:@"%@%@", formattedNationalNumber, formattedExtension];
@@ -2004,7 +2004,7 @@ static NSMutableDictionary *regexPatternCache;
     {
         if ([self isNANPACountry:regionCallingFrom])
         {
-            return [NSString stringWithFormat:@"%lu %@", countryCode, rawInput];
+            return [NSString stringWithFormat:@"%u %@", (unsigned int)countryCode, rawInput];
         }
     }
     else if (metadataForRegionCallingFrom != nil && countryCode == [self getCountryCodeForValidRegion:regionCallingFrom])
@@ -2051,7 +2051,7 @@ static NSMutableDictionary *regexPatternCache;
     NSString *formattedExtension = [self maybeGetFormattedExtension:number metadata:metadataForRegion numberFormat:NBEPhoneNumberFormatINTERNATIONAL];
     if (internationalPrefixForFormatting.length > 0)
     {
-        return [NSString stringWithFormat:@"%@ %lu %@%@", internationalPrefixForFormatting, countryCode, rawInput, formattedExtension];
+        return [NSString stringWithFormat:@"%@ %u %@%@", internationalPrefixForFormatting, (unsigned int)countryCode, rawInput, formattedExtension];
     }
     else
     {
@@ -2108,7 +2108,7 @@ static NSMutableDictionary *regexPatternCache;
 {
     for (NBNumberFormat *numFormat in availableFormats)
     {
-        int size = [numFormat.leadingDigitsPatterns count];
+        unsigned int size = (unsigned int)[numFormat.leadingDigitsPatterns count];
         // We always use the last leading_digits_pattern, as it is the most detailed.
         if (size == 0 || [self stringPositionByRegex:nationalNumber regex:[numFormat.leadingDigitsPatterns lastObject]] == 0)
         {
@@ -2298,7 +2298,7 @@ static NSMutableDictionary *regexPatternCache;
         @try {
             if ([self hasValue:desc.exampleNumber])
             {
-                NSString *callCode = [NSString stringWithFormat:@"+%lu%@", countryCallingCode, desc.exampleNumber];
+                NSString *callCode = [NSString stringWithFormat:@"+%u%@", (unsigned int)countryCallingCode, desc.exampleNumber];
                 return [self parse:callCode defaultRegion:UNKNOWN_REGION_];
             }
         }
@@ -2537,7 +2537,7 @@ static NSMutableDictionary *regexPatternCache;
  */
 - (NBPhoneMetaData*)getMetadataForNonGeographicalRegion:(UInt32)countryCallingCode
 {
-    NSString *countryCallingCodeStr = [NSString stringWithFormat:@"%ld", countryCallingCode];
+    NSString *countryCallingCodeStr = [NSString stringWithFormat:@"%u", (unsigned int)countryCallingCode];
     return [self getMetadataForRegion:countryCallingCodeStr];
 }
 
@@ -2623,7 +2623,7 @@ static NSMutableDictionary *regexPatternCache;
     // significant number.
     if ([self hasValue:generalNumDesc.nationalNumberPattern] == NO)
     {
-        int numberLength = nationalSignificantNumber.length;
+        unsigned int numberLength = (unsigned int)nationalSignificantNumber.length;
         return numberLength > MIN_LENGTH_FOR_NSN_ && numberLength <= MAX_LENGTH_FOR_NSN_;
     }
     
@@ -2674,7 +2674,7 @@ static NSMutableDictionary *regexPatternCache;
 - (NSString*)getRegionCodeForNumberFromRegionList:(NBPhoneNumber*)phoneNumber regionCodes:(NSArray*)regionCodes
 {
     NSString *nationalNumber = [self getNationalSignificantNumber:phoneNumber];
-    int regionCodesCount = [regionCodes count];
+    unsigned int regionCodesCount = (unsigned int)[regionCodes count];
     
     for (int i = 0; i<regionCodesCount; i++)
     {
@@ -3033,7 +3033,7 @@ static NSMutableDictionary *regexPatternCache;
     // Handling case of numbers with no metadata.
     if ([self hasValue:generalNumDesc.nationalNumberPattern] == NO)
     {
-        int numberLength = nationalNumber.length;
+        unsigned int numberLength = (unsigned int)nationalNumber.length;
         
         if (numberLength < MIN_LENGTH_FOR_NSN_)
         {
@@ -3175,12 +3175,12 @@ static NSMutableDictionary *regexPatternCache;
         return 0;
     }
     
-    int numberLength = fullNumber.length;
+    unsigned int numberLength = (unsigned int)fullNumber.length;
     
     for (int i = 1; i <= MAX_LENGTH_COUNTRY_CODE_ && i <= numberLength; ++i)
     {
         NSString *subNumber = [fullNumber substringWithRange:NSMakeRange(0, i)];
-        UInt32 potentialCountryCode = [[NSNumber numberWithInteger:[subNumber integerValue]] unsignedLongValue];
+        UInt32 potentialCountryCode = (UInt32)[[NSNumber numberWithInteger:[subNumber integerValue]] unsignedLongValue];
         
         NSArray *regionCodes = [self regionCodeFromCountryCode:potentialCountryCode];
         if (regionCodes != nil && regionCodes.count > 0)
@@ -3314,7 +3314,7 @@ static NSMutableDictionary *regexPatternCache;
         // If this fails, they must be using a strange country calling code that we
         // don't recognize, or that doesn't exist.
         @throw [NSException exceptionWithName:@"INVALID_COUNTRY_CODE"
-                                       reason:[NSString stringWithFormat:@"INVALID_COUNTRY_CODE:%lu", potentialCountryCode]
+                                       reason:[NSString stringWithFormat:@"INVALID_COUNTRY_CODE:%u", (unsigned int)potentialCountryCode]
                                      userInfo:nil];
     }
     else if (defaultRegionMetadata != nil)
@@ -3323,7 +3323,7 @@ static NSMutableDictionary *regexPatternCache;
         // default region. If so, we remove the country calling code, and do some
         // checks on the validity of the number before and after.
         UInt32 defaultCountryCode = defaultRegionMetadata.countryCode;
-        NSString *defaultCountryCodeString = [NSString stringWithFormat:@"%lu", defaultCountryCode];
+        NSString *defaultCountryCodeString = [NSString stringWithFormat:@"%u", (unsigned int)defaultCountryCode];
         NSString *normalizedNumber = [fullNumber copy];
         
         if ([normalizedNumber hasPrefix:defaultCountryCodeString])
@@ -3384,7 +3384,7 @@ static NSMutableDictionary *regexPatternCache;
     {
         NSTextCheckingResult *matched = [[self matchesByRegex:numberStr regex:iddPattern] objectAtIndex:0];
         NSString *matchedString = [numberStr substringWithRange:matched.range];
-        int matchEnd = matchedString.length;
+        unsigned int matchEnd = (unsigned int)matchedString.length;
         NSString *remainString = [numberStr substringFromIndex:matchEnd];
         
         NSRegularExpression *currentPattern = CAPTURING_DIGIT_PATTERN;
@@ -3508,7 +3508,7 @@ static NSMutableDictionary *regexPatternCache;
     }
     
     NSString *numberStr = [(*number) copy];
-    int numberLength = numberStr.length;
+    unsigned int numberLength = (unsigned int)numberStr.length;
     NSString *possibleNationalPrefix = metadata.nationalPrefixForParsing;
     
     if (numberLength == 0 || [self hasValue:possibleNationalPrefix] == NO)
@@ -3532,7 +3532,7 @@ static NSMutableDictionary *regexPatternCache;
         // prefixMatcher[numOfGroups] == null implies nothing was captured by the
         // capturing groups in possibleNationalPrefix; therefore, no transformation
         // is necessary, and we just remove the national prefix.
-        int numOfGroups = firstMatch.numberOfRanges - 1;
+        unsigned int numOfGroups = (unsigned int)firstMatch.numberOfRanges - 1;
         NSString *transformRule = metadata.nationalPrefixTransformRule;
         NSString *transformedNumber = @"";
         NSRange firstRange = [firstMatch rangeAtIndex:numOfGroups];
@@ -3602,7 +3602,7 @@ static NSMutableDictionary *regexPatternCache;
     {
         // The numbers are captured into groups in the regular expression.
         NSTextCheckingResult *firstMatch = [self matcheFirstByRegex:numberStr regex:EXTN_PATTERN];
-        int matchedGroupsLength = [firstMatch numberOfRanges];
+        unsigned int matchedGroupsLength = (unsigned int)[firstMatch numberOfRanges];
         for (int i=1; i<matchedGroupsLength; i++)
         {
             NSRange curRange = [firstMatch rangeAtIndex:i];
@@ -3939,7 +3939,7 @@ static NSMutableDictionary *regexPatternCache;
     
     NSString *normalizedNationalNumberStr = [normalizedNationalNumber copy];
     
-    int lengthOfNationalNumber = normalizedNationalNumberStr.length;
+    unsigned int lengthOfNationalNumber = (unsigned int)normalizedNationalNumberStr.length;
     if (lengthOfNationalNumber < MIN_LENGTH_FOR_NSN_)
     {
         @throw [NSException exceptionWithName:@"TOO_SHORT_NSN"
@@ -3984,7 +3984,7 @@ static NSMutableDictionary *regexPatternCache;
     int indexOfPhoneContext = [self indexOfStringByString:numberToParse target:RFC3966_PHONE_CONTEXT];
     if (indexOfPhoneContext > 0)
     {
-        int phoneContextStart = indexOfPhoneContext + RFC3966_PHONE_CONTEXT.length;
+        unsigned int phoneContextStart = indexOfPhoneContext + (unsigned int)RFC3966_PHONE_CONTEXT.length;
         // If the phone context contains a phone number prefix, we need to capture
         // it, whereas domains will be ignored.
         if ([numberToParse characterAtIndex:phoneContextStart] == '+')
@@ -4007,7 +4007,7 @@ static NSMutableDictionary *regexPatternCache;
         // Now append everything between the "tel:" prefix and the phone-context.
         // This should include the national number, an optional extension or
         // isdn-subaddress component.
-        int rfc3966Start = [self indexOfStringByString:numberToParse target:RFC3966_PREFIX] + RFC3966_PREFIX.length;
+        unsigned int rfc3966Start = [self indexOfStringByString:numberToParse target:RFC3966_PREFIX] + (unsigned int)RFC3966_PREFIX.length;
         NSString *subString = [numberToParse substringWithRange:NSMakeRange(rfc3966Start, indexOfPhoneContext - rfc3966Start)];
         (*nationalNumber) = [(*nationalNumber) stringByAppendingString:subString];
     }
