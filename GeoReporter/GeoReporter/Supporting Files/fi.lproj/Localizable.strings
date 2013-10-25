@@ -27,6 +27,7 @@
 "location"="Sijainti";
 "map_button_standard"="Standardi";
 "map_button_satellite"="Satelliitti";
+"map_button_hybrid" = "Hybrid";
 "report_status"="Tila";
 "report_attributes"="Lisätiedot";
 "report_description"="Palautteen kuvaus";
@@ -43,3 +44,16 @@
 "failure_loading_services"="Palvelun tietojen hakemisessa tapahtui virhe";
 "failure_posting_service"="Palautteen lähetys ei onnistunut";
 "error_403"="Sovelluksella ei ole oikeuksia lähettää palautetta valitulle palvelimelle";
+"wrong_url"="Jos URL ei vastaa";
+"servername_error_title"="Puuttuvat palvelimen nimi";
+"servername_error_message"="Antakaa nimi uudelle palvelimelle";
+"loading_message"="Hakee";
+"anonymous"="Anonyymi";
+"change_photo"="Vaihda kuva";
+"sending"="lähettäminen";
+"send_success"="Palaute oli onnistunut";
+"servers_controller_header"="Valitse palvelin, johon asioista kerrotaan. Saatavilla Palvelimet sisältää virallisen päätepisteet. Custom-palvelimet voivat sisältää muita mukautettuja Open311 palvelimet";
+"available_servers"="Saatavilla Palvelimet";
+"custom_servers"="Custom-palvelimet";
+"report_anonymously_header"="Lähetä palautetta nimettömänä";
+"report_anonymously_details"="Jos kytkin on päällä, palaute on nimetön";

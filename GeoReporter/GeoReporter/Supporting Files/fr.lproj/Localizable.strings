@@ -27,6 +27,7 @@
 "location"="Localisation";
 "map_button_standard"="Norme";
 "map_button_satellite"="Satellite";
+"map_button_hybrid" = "Hybrid";
 "report_status"="Status";
 "report_attributes"="Attributs";
 "report_description"="Description du problème";
@@ -43,3 +44,16 @@
 "failure_loading_services"="Erreur changement du service information";
 "failure_posting_service"="Erreur transmission rapport";
 "error_403"="Cette application n'est pas autorisée";
+"wrong_url"="L'URL fournie ne répond pas";
+"servername_error_title"="Missing server name";
+"servername_error_message"="Manquant nom du serveur";
+"loading_message"="Chargement";
+"anonymous"="Anonyme";
+"change_photo"="Changer la photo";
+"sending"="Envoi";
+"send_success"="Demande envoyée";
+"servers_controller_header"="Sélectionnez le serveur sur lequel les problèmes sont signalés. Serveurs disponibles contient les critères officiels. Serveurs personnalisés peuvent contenir d'autres serveurs Open311 personnalisés";
+"available_servers"="Serveurs disponibles";
+"custom_servers"="Serveurs personnalisés";
+"report_anonymously_header"="Demander anonyme";
+"report_anonymously_details"="Si l'interrupteur est sur​​, la demande par anonyme";

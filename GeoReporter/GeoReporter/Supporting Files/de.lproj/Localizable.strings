@@ -27,6 +27,7 @@
 "location"="Ortsangabe";
 "map_button_standard"="Standard";
 "map_button_satellite"="Satellit";
+"map_button_hybrid" = "Hybrid";
 "report_status"="Status";
 "report_attributes"="Hinweis-Attribute";
 "report_description"="Beschreibung des Anliegens";
@@ -43,3 +44,16 @@
 "failure_loading_services"="Die Service-Informationen konnten nicht geladen werden";
 "failure_posting_service"="Der Hinweis konnte nicht gespeichert werden";
 "error_403"="Diese App scheint nicht berechtigt zu sein";
+"wrong_url"="Die angegebene URL ist nicht reagiert";
+"servername_error_title"="Fehlende Server-Namen";
+"servername_error_message"="Bitte geben Sie einen Namen für den neuen Server";
+"loading_message"="Laden";
+"anonymous"="Anonymous";
+"change_photo"="ändere Foto";
+"sending"="Senden";
+"send_success"="Hinweis wird übertragen";
+"servers_controller_header"="Wählen Sie den Server, mit dem die Probleme berichtet. \"Verfügbare Servern\" enthält die offiziellen Endpunkte. \"Benutzerdefinierten Servern\" können weitere benutzerdefinierte Open311 Servern";
+"available_servers"="Verfügbare Servern";
+"custom_servers"="Benutzerdefinierten Servern";
+"report_anonymously_header"="Berichten anonym";
+"report_anonymously_details"="Wenn der Schalter eingeschaltet ist, wird der Bericht anonym sein";
