@@ -188,7 +188,7 @@
             <objects>
                 <viewController id="Top-Lm-gf7" customClass="AboutController" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="GZM-e1-99Z">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
@@ -196,6 +196,7 @@
                             <outlet property="delegate" destination="Top-Lm-gf7" id="5fH-j5-6Da"/>
                         </connections>
                     </webView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="About" id="Yt0-dj-Ume"/>
                     <connections>
                         <outlet property="webView" destination="GZM-e1-99Z" id="w6R-ho-fTP"/>
@@ -759,12 +760,12 @@
             <objects>
                 <tableViewController id="A1F-zX-2aa" customClass="ChooseGroupController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fPr-c8-shz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="group_cell" textLabel="anc-vF-7KW" detailTextLabel="Fa4-Tc-Zfv" style="IBUITableViewCellStyleSubtitle" id="ZjI-7W-gWg">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZjI-7W-gWg" id="tCi-eQ-Bhf">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -785,7 +786,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="vTp-pE-Kv8" kind="push" identifier="SegueToChooseService" id="OcR-xy-nFZ"/>
+                                    <segue destination="vTp-pE-Kv8" kind="push" identifier="SegueToChooseService" id="fsu-iQ-mrg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -794,6 +795,7 @@
                             <outlet property="delegate" destination="A1F-zX-2aa" id="bFE-vU-mPj"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="New Report" id="bcm-LD-ryu"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kAt-3H-eCS" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -64,7 +64,7 @@ SHARED_SINGLETON(Preferences);
 		NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:kOpen311_Name];
 		if (![name isEqualToString:@""]) {
 			NSArray *servers = [Preferences getAvailableServers];
-			int count = [servers count];
+			unsigned int count = (unsigned int)[servers count];
 			for (int i=0; i<count; i++) {
 				if ([servers[i][kOpen311_Name] isEqualToString:name]) {
 					_currentServer = servers[i];

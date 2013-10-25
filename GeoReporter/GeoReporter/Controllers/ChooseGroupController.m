@@ -28,25 +28,6 @@ static NSString * const kSegueToChooseService = @"SegueToChooseService";
 	[self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	if ([_open311.groups count] == 1) {
-		[self performSegueWithIdentifier:kSegueToChooseService sender:self];
-	}
-	else {
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			// The device is an iPad running iOS 3.2 or later.
-			//we don't deselect the row, because we want it to still be shown when we go back form new report
-		}
-		else {
-			// The device is an iPhone or iPod touch.
-			[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
-			//TODO: why reload data every time?
-			//[self.tableView reloadData];
-		}
-	}
-}
-
 - (IBAction)cancel:(id)sender
 {
 	[self.navigationController popToRootViewControllerAnimated:YES];

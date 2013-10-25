@@ -58,7 +58,6 @@ SHARED_SINGLETON(Open311);
 
 - (void)loadFailedWithError:(NSError *)error
 {
-	DLog(@"ERROR:\t%@", [error localizedDescription]);
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_FailureLoadingServices, nil)
 													message:NSLocalizedString(kUI_URLError, nil)
 												   delegate:self
@@ -121,7 +120,7 @@ SHARED_SINGLETON(Open311);
 // Loads unique |groups| from the |serviceList|
 - (void)loadGroups
 {
-	int count = [_serviceList count];
+	unsigned int count = (unsigned int)[_serviceList count];
 	for (int i=0; i<count; i++) {
 		NSDictionary *service = [_serviceList objectAtIndex:i];
 		
