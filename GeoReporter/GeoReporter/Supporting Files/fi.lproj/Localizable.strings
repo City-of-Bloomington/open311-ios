@@ -57,3 +57,5 @@
 "custom_servers"="Custom-palvelimet";
 "report_anonymously_header"="Lähetä palautetta nimettömänä";
 "report_anonymously_details"="Jos kytkin on päällä, palaute on nimetön";
+"serverURL_error_title"="Virheellinen URL";
+"serverURL_error_message"="Kirjoita voimassa url";
