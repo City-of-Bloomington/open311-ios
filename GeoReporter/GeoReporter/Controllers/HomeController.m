@@ -73,17 +73,12 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 - (void)refreshPersonalInfo
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *text = @"";
 	NSString *firstname = [defaults stringForKey:kOpen311_FirstName];
 	NSString *lastname  = [defaults stringForKey:kOpen311_LastName];
 	if ([firstname length] > 0 || [lastname length] > 0) {
-		text = [text stringByAppendingFormat:@"%@ %@", firstname, lastname];
-	}
-	if ([text length] == 0) {
-		text = NSLocalizedString(kUI_AnonymousName, nil);
+        self.personalInfoLabel.text = [NSString stringWithFormat:@"%@ %@", firstname, lastname];
 	}
 	
-	self.personalInfoLabel.text = text;
 	[self.tableView reloadData];
 }
 

@@ -10,53 +10,17 @@
  */
 
 #import <Foundation/Foundation.h>
-// Tab indexes
-extern NSInteger const kTab_Home;
-extern NSInteger const kTab_Report;
-extern NSInteger const kTab_Archive;
-extern NSInteger const kTab_Servers;
-
 // Keys to the Localized String file
-extern NSString * const kUI_Settings;
-extern NSString * const kUI_Report;
-extern NSString * const kUI_Archive;
-extern NSString * const kUI_About;
-extern NSString * const kUI_TitleHome;
-extern NSString * const kUI_PersonalInfo;
-extern NSString * const kUI_Servers;
-extern NSString * const kUI_ButtonAddServer;
-extern NSString * const kUI_ButtonAcceptError;
-extern NSString * const kUI_ReportingAs;
-extern NSString * const kUI_FirstName;
-extern NSString * const kUI_LastName;
-extern NSString * const kUI_Email;
-extern NSString * const kUI_Phone;
-extern NSString * const kUI_Name;
-extern NSString * const kUI_Url;
-extern NSString * const kUI_JurisdictionId;
-extern NSString * const kUI_ApiKey;
-extern NSString * const kUI_Format;
-extern NSString * const kUI_SupportsMedia;
-extern NSString * const kUI_DialogLoadingServices;
-extern NSString * const kUI_DialogPostingService;
 extern NSString * const kUI_AddPhoto;
 extern NSString * const kUI_ChooseMediaSource;
 extern NSString * const kUI_Camera;
 extern NSString * const kUI_Gallery;
 extern NSString * const kUI_Location;
-extern NSString * const kUI_Standard;
-extern NSString * const kUI_Satellite;
 extern NSString * const kUI_ReportStatus;
-extern NSString * const kUI_ReportAttributes;
 extern NSString * const kUI_ReportDescription;
-extern NSString * const kUI_DescriptionOfProblem;
 extern NSString * const kUI_ReportDate;
-extern NSString * const kUI_Submit;
 extern NSString * const kUI_Cancel;
-extern NSString * const kUI_Save;
 extern NSString * const kUI_Pending;
-extern NSString * const kUI_Yes;
-extern NSString * const kUI_No;
 extern NSString * const kUI_Uncategorized;
 extern NSString * const kUI_FailureLoadingServices;
 extern NSString * const kUI_FailurePostingService;
@@ -67,16 +31,9 @@ extern NSString * const kUI_ServerNameErrorMessage;
 extern NSString * const kUI_ServerURLError;
 extern NSString * const kUI_ServerURLErrorMessage;
 extern NSString * const kUI_HudLoadingMessage;
-extern NSString * const kUI_AnonymousName;
 extern NSString * const kUI_ChangePhoto;
 extern NSString * const kUI_HudSendingMessage;
 extern NSString * const kUI_HudSuccessMessage;
-extern NSString * const kUI_ServersControllerHeader;
-extern NSString * const kUI_AvailableServers;
-extern NSString * const kUI_CustomServers;
-extern NSString * const kUI_ReportAnonymousHeader;
-extern NSString * const kUI_ReportAnonymousDetails;
-extern NSString * const kUI_Hybrid;
 
 
 // Open311 Key Strings
