@@ -57,3 +57,5 @@
 "custom_servers"="Custom Servers";
 "report_anonymously_header"="Report anonymously:";
 "report_anonymously_details"="If the switch is \"on\", the report will be anonymous";
+"serverURL_error_title"="Invalid URL";
+"serverURL_error_message"="Please enter a valid url";

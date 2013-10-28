@@ -64,6 +64,8 @@ extern NSString * const kUI_Error403;
 extern NSString * const kUI_URLError;
 extern NSString * const kUI_ServerNameError;
 extern NSString * const kUI_ServerNameErrorMessage;
+extern NSString * const kUI_ServerURLError;
+extern NSString * const kUI_ServerURLErrorMessage;
 extern NSString * const kUI_HudLoadingMessage;
 extern NSString * const kUI_AnonymousName;
 extern NSString * const kUI_ChangePhoto;

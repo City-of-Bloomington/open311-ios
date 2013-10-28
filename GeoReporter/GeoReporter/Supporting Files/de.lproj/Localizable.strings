@@ -57,3 +57,5 @@
 "custom_servers"="Benutzerdefinierten Servern";
 "report_anonymously_header"="Berichten anonym";
 "report_anonymously_details"="Wenn der Schalter eingeschaltet ist, wird der Bericht anonym sein";
+"serverURL_error_title"="Ungültige URL";
+"serverURL_error_message"="Bitte geben Sie eine gültige url";

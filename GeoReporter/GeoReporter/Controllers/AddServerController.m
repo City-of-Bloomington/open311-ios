@@ -18,9 +18,19 @@
 
 - (IBAction)save:(id)sender
 {
+	//check if server has no name
 	if ([self.textFieldName.text isEqualToString:@""]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_ServerNameError, nil)
 														message:NSLocalizedString(kUI_ServerNameErrorMessage, nil)
+													   delegate:self
+											  cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
+											  otherButtonTitles:nil];
+		[alert show];
+	}
+	//else check if url is valid
+	else if ([NSURL URLWithString:self.textFieldUrl.text] == nil) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_ServerURLError, nil)
+														message:NSLocalizedString(kUI_ServerURLErrorMessage, nil)
 													   delegate:self
 											  cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
 											  otherButtonTitles:nil];
