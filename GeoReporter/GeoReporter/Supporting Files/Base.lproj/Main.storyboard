@@ -1292,14 +1292,14 @@
                                 <rect key="frame" x="0.0" y="392" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem image="iconLocation.png" id="H7p-l6-Q0R">
+                                    <barButtonItem image="location.png" id="H7p-l6-Q0R">
                                         <connections>
                                             <action selector="centerOnLocation:" destination="6Vc-zX-0HD" id="WK6-MN-jVC"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="SDW-hg-Aag">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="KzL-SQ-EuI">
-                                            <rect key="frame" x="46" y="7" width="255" height="31"/>
+                                            <rect key="frame" x="48" y="7" width="255" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Standard"/>
@@ -1572,8 +1572,8 @@
         <image name="checkbox_unselected.png" width="32" height="32"/>
         <image name="close.png" width="20" height="20"/>
         <image name="cross-hairs-small-black-cropped.png" width="70" height="70"/>
-        <image name="iconLocation.png" width="20" height="20"/>
         <image name="listTableCell.png" width="40" height="40"/>
+        <image name="location.png" width="22" height="22"/>
         <image name="open311.png" width="320" height="140"/>
         <image name="radio_unselected.png" width="32" height="32"/>
         <image name="serverTableCell.png" width="40" height="40"/>

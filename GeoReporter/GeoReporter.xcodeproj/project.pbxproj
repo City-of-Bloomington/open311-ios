@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		697ED6FB181FF75B006FD738 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 697ED6F9181FF75B006FD738 /* location.png */; };
+		697ED6FC181FF75B006FD738 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697ED6FA181FF75B006FD738 /* location@2x.png */; };
 		69B27AC8181966D0005C5FBF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69B27AC6181966D0005C5FBF /* Localizable.strings */; };
 		69CBB4371816C1F100F9DB01 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CBB4361816C1F100F9DB01 /* Foundation.framework */; };
 		69CBB4391816C1F100F9DB01 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CBB4381816C1F100F9DB01 /* CoreGraphics.framework */; };
@@ -75,7 +77,6 @@
 		69CBB56F1816D33A00F9DB01 /* cross-hairs-small-black-cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB5461816D33A00F9DB01 /* cross-hairs-small-black-cropped.png */; };
 		69CBB5701816D33A00F9DB01 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB5471816D33A00F9DB01 /* home.png */; };
 		69CBB5711816D33A00F9DB01 /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB5481816D33A00F9DB01 /* home@2x.png */; };
-		69CBB5721816D33A00F9DB01 /* iconLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB5491816D33A00F9DB01 /* iconLocation.png */; };
 		69CBB5731816D33A00F9DB01 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB54A1816D33A00F9DB01 /* list.png */; };
 		69CBB5741816D33A00F9DB01 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB54B1816D33A00F9DB01 /* list@2x.png */; };
 		69CBB5751816D33A00F9DB01 /* listTableCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB54C1816D33A00F9DB01 /* listTableCell.png */; };
@@ -129,6 +130,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		697ED6F9181FF75B006FD738 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
+		697ED6FA181FF75B006FD738 /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		69B27AC7181966D0005C5FBF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69B27AC9181966E5005C5FBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69B27ACA181966ED005C5FBF /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -235,7 +238,6 @@
 		69CBB5461816D33A00F9DB01 /* cross-hairs-small-black-cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross-hairs-small-black-cropped.png"; sourceTree = "<group>"; };
 		69CBB5471816D33A00F9DB01 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		69CBB5481816D33A00F9DB01 /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
-		69CBB5491816D33A00F9DB01 /* iconLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLocation.png; sourceTree = "<group>"; };
 		69CBB54A1816D33A00F9DB01 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		69CBB54B1816D33A00F9DB01 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
 		69CBB54C1816D33A00F9DB01 /* listTableCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listTableCell.png; sourceTree = "<group>"; };
@@ -520,6 +522,8 @@
 		69CBB52B1816D33A00F9DB01 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				697ED6F9181FF75B006FD738 /* location.png */,
+				697ED6FA181FF75B006FD738 /* location@2x.png */,
 				69CBB52C1816D33A00F9DB01 /* accountTableCell.png */,
 				69CBB52D1816D33A00F9DB01 /* accountTableCell@2x.png */,
 				69CBB52E1816D33A00F9DB01 /* camera.png */,
@@ -537,7 +541,6 @@
 				69CBB5461816D33A00F9DB01 /* cross-hairs-small-black-cropped.png */,
 				69CBB5471816D33A00F9DB01 /* home.png */,
 				69CBB5481816D33A00F9DB01 /* home@2x.png */,
-				69CBB5491816D33A00F9DB01 /* iconLocation.png */,
 				69CBB54A1816D33A00F9DB01 /* list.png */,
 				69CBB54B1816D33A00F9DB01 /* list@2x.png */,
 				69CBB54C1816D33A00F9DB01 /* listTableCell.png */,
@@ -738,7 +741,6 @@
 				69CBB5631816D33A00F9DB01 /* bonn.png in Resources */,
 				69CBB55D1816D33A00F9DB01 /* checkbox_selected.png in Resources */,
 				69CBB57E1816D33A00F9DB01 /* serverTableCell@2x.png in Resources */,
-				69CBB5721816D33A00F9DB01 /* iconLocation.png in Resources */,
 				69CBB59E1816F84E00F9DB01 /* NBPhoneNumberMetadata.plist in Resources */,
 				69CBB5561816D33A00F9DB01 /* accountTableCell.png in Resources */,
 				69B27AC8181966D0005C5FBF /* Localizable.strings in Resources */,
@@ -758,6 +760,7 @@
 				69CBB5741816D33A00F9DB01 /* list@2x.png in Resources */,
 				69CBB56F1816D33A00F9DB01 /* cross-hairs-small-black-cropped.png in Resources */,
 				69CBB5771816D33A00F9DB01 /* megaphone.png in Resources */,
+				697ED6FC181FF75B006FD738 /* location@2x.png in Resources */,
 				69CBB56B1816D33A00F9DB01 /* open311.png in Resources */,
 				69CBB56E1816D33A00F9DB01 /* close@2x.png in Resources */,
 				69CBB5661816D33A00F9DB01 /* boston@2x.png in Resources */,
@@ -773,6 +776,7 @@
 				69CBB5691816D33A00F9DB01 /* columbus.png in Resources */,
 				69CBB57D1816D33A00F9DB01 /* serverTableCell.png in Resources */,
 				69CBB44A1816C1F100F9DB01 /* Main.storyboard in Resources */,
+				697ED6FB181FF75B006FD738 /* location.png in Resources */,
 				69CBB5651816D33A00F9DB01 /* boston.png in Resources */,
 				69CBB5701816D33A00F9DB01 /* home.png in Resources */,
 				69CBB5611816D33A00F9DB01 /* bloomington.png in Resources */,
