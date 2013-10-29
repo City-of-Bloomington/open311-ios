@@ -1187,7 +1187,7 @@
                                                 <action selector="didChangeSwitchValue:" destination="GKu-2Q-F58" eventType="valueChanged" id="Q8u-ZL-jQG"/>
                                             </connections>
                                         </switch>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="If the switch is &quot;on&quot;, the report will be anonymous" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="tQq-Eh-jYw">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="If the switch is &quot;on&quot;, the report will be anonymous" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="6" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="tQq-Eh-jYw">
                                             <rect key="frame" x="20" y="32" width="320" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="19" id="64C-eu-1NL"/>
@@ -1196,7 +1196,7 @@
                                             <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Report anonymously" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucv-m2-iWs">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Report anonymously" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Ucv-m2-iWs">
                                             <rect key="frame" x="20" y="9" width="187" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="187" id="D6w-jU-4L7"/>
