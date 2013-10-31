@@ -658,9 +658,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		69CBB4321816C1F100F9DB01 /* GeoReporter */ = {
+		69CBB4321816C1F100F9DB01 /* BloomingtonApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 69CBB4651816C1F100F9DB01 /* Build configuration list for PBXNativeTarget "GeoReporter" */;
+			buildConfigurationList = 69CBB4651816C1F100F9DB01 /* Build configuration list for PBXNativeTarget "BloomingtonApp" */;
 			buildPhases = (
 				69CBB42F1816C1F100F9DB01 /* Sources */,
 				69CBB4301816C1F100F9DB01 /* Frameworks */,
@@ -670,7 +670,7 @@
 			);
 			dependencies = (
 			);
-			name = GeoReporter;
+			name = BloomingtonApp;
 			productName = GeoReporter;
 			productReference = 69CBB4331816C1F100F9DB01 /* GeoReporter.app */;
 			productType = "com.apple.product-type.application";
@@ -723,7 +723,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				69CBB4321816C1F100F9DB01 /* GeoReporter */,
+				69CBB4321816C1F100F9DB01 /* BloomingtonApp */,
 				69CBB4531816C1F100F9DB01 /* GeoReporterTests */,
 			);
 		};
@@ -864,7 +864,7 @@
 /* Begin PBXTargetDependency section */
 		69CBB45A1816C1F100F9DB01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 69CBB4321816C1F100F9DB01 /* GeoReporter */;
+			target = 69CBB4321816C1F100F9DB01 /* BloomingtonApp */;
 			targetProxy = 69CBB4591816C1F100F9DB01 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1067,7 +1067,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		69CBB4651816C1F100F9DB01 /* Build configuration list for PBXNativeTarget "GeoReporter" */ = {
+		69CBB4651816C1F100F9DB01 /* Build configuration list for PBXNativeTarget "BloomingtonApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				69CBB4661816C1F100F9DB01 /* Debug */,

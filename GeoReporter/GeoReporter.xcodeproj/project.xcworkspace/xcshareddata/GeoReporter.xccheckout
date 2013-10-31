@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>ED71AB34-14C1-4AB1-AF3A-1B8EEE021375</string>
+	<string>D2047A06-8244-4A7B-8930-17ACE7A16FF6</string>
 	<key>IDESourceControlProjectName</key>
 	<string>GeoReporter</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CBABF7C8-D84D-4E47-9593-E42CE00E7ECA</key>
-		<string>ssh://github.com/City-of-Bloomington/open311-mobile.git</string>
+		<key>EBA3DE3D-3F0D-47C1-A96C-DAD0B59E9C53</key>
+		<string>ssh://github.com/City-of-Bloomington/myBloomington.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>GeoReporter/GeoReporter.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CBABF7C8-D84D-4E47-9593-E42CE00E7ECA</key>
+		<key>EBA3DE3D-3F0D-47C1-A96C-DAD0B59E9C53</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/City-of-Bloomington/open311-mobile.git</string>
+	<string>ssh://github.com/City-of-Bloomington/myBloomington.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CBABF7C8-D84D-4E47-9593-E42CE00E7ECA</string>
+	<string>EBA3DE3D-3F0D-47C1-A96C-DAD0B59E9C53</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CBABF7C8-D84D-4E47-9593-E42CE00E7ECA</string>
+			<string>EBA3DE3D-3F0D-47C1-A96C-DAD0B59E9C53</string>
 			<key>IDESourceControlWCCName</key>
-			<string>open311-mobile</string>
+			<string>myBloomington</string>
 		</dict>
 	</array>
 </dict>
