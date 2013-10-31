@@ -2,31 +2,33 @@
 //  GeoReporterTests.m
 //  GeoReporterTests
 //
-//  Created by Cliff Ingham on 1/25/13.
+//  Created by Cliff Ingham on 10/22/13.
 //  Copyright (c) 2013 City of Bloomington. All rights reserved.
 //
 
-#import "GeoReporterTests.h"
+#import <XCTest/XCTest.h>
+
+@interface GeoReporterTests : XCTestCase
+
+@end
 
 @implementation GeoReporterTests
 
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
+    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown
 {
-    // Tear-down code here.
-    
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in GeoReporterTests");
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

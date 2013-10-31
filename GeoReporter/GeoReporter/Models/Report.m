@@ -10,7 +10,7 @@
 #import "Preferences.h"
 #import "Strings.h"
 #import "Open311.h"
-#import <AFNetworking/AFJSONRequestOperation.h>
+#import "AFJSONRequestOperation.h"
 
 @implementation Report
 
@@ -25,15 +25,14 @@ NSString * const kPostData          = @"postData";
 // This does not load any user-submitted data and should only
 // be used for initial startup.  Subsequent loads should be done
 // using the String version
-- (id)initWithService:(NSDictionary *)service
+- (id)initWithService:(NSDictionary *)service serviceDefinition:(NSDictionary *)serviceDefinition
 {
 	self = [super init];
 	if (self) {
 		_service  = service;
 		
-		if ([_service[kOpen311_Metadata] boolValue]) {
-			Open311 *open311 = [Open311 sharedInstance];
-			_serviceDefinition = open311.serviceDefinitions[_service[kOpen311_ServiceCode]];
+		if ([_service[kOpen311_Metadata] boolValue] && serviceDefinition) {
+            _serviceDefinition = serviceDefinition;
 		}
 		
 		_postData = [[NSMutableDictionary alloc] init];
@@ -68,7 +67,7 @@ NSString * const kPostData          = @"postData";
 	return self;
 }
 
-- (void) checkAnonymousReporting
+- (void)checkAnonymousReporting
 {
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	NSString *firstname = @"";
@@ -155,16 +154,18 @@ NSString * const kPostData          = @"postData";
 		 parameters:[self getEndpointParameters]
 			success:^(AFHTTPRequestOperation *operation, id responseObject) {
 				NSError *error;
-				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
 				if (!error) {
 					[delegate didReceiveServiceRequest:serviceRequests[0]];
 				}
 				else {
-					[open311 loadFailedWithError:error];
+                    // We received a response from the server.
+                    // However, it was not in the expected format.
+                    [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 				}
 			}
 			failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-				[open311 loadFailedWithError:error];
+                [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 			}];
 }
 
@@ -178,7 +179,7 @@ NSString * const kPostData          = @"postData";
 		 parameters:[self getEndpointParameters]
 			success:^(AFHTTPRequestOperation *operation, id responseObject) {
 				NSError *error;
-				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:nil error:&error];
+				NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
 				NSString *serviceRequestId = serviceRequests[0][kOpen311_ServiceRequestId];
 				if (!error) {
 					if (serviceRequestId) {
@@ -189,11 +190,15 @@ NSString * const kPostData          = @"postData";
 					// We just don't need to call our delegate, since we don't have an id yet.
 				}
 				else {
-					[open311 loadFailedWithError:error];
+                    // We received a response from the server.
+                    // However, it was not in the expected format.
+                    [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 				}
 			}
 			failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-				[open311 loadFailedWithError:error];
+                // Check for an Open311 formatted error response.
+                // Display the error to the user, if there is one.
+                [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 			}];
 }
 

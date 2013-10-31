@@ -16,12 +16,7 @@
     MBProgressHUD *HUD;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *splashImage;
-@property (weak, nonatomic) IBOutlet UILabel *reportLabel;
-@property (weak, nonatomic) IBOutlet UILabel *archiveLabel;
-@property (weak, nonatomic) IBOutlet UILabel *reportingAsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *personalInfoLabel;
-@property (weak, nonatomic) IBOutlet UILabel *serversLabel;
 
-- (IBAction)tapAboutButton:(id)sender;
 - (void)refreshPersonalInfo;
 @end

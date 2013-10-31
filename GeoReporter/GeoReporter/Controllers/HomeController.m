@@ -13,7 +13,7 @@
 #import "Strings.h"
 #import "Preferences.h"
 #import "Open311.h"
-#import <AFNetworking/AFJSONRequestOperation.h>
+#import "AFJSONRequestOperation.h"
 
 static NSString * const kSegueToSettings = @"SegueToSettings";
 static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
@@ -30,21 +30,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 {
 	[super viewDidLoad];
 	
-	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-		self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
-	}
-	
 	[self loadServer];
-	self.reportLabel     .text = NSLocalizedString(kUI_Report,  nil);
-	self.archiveLabel    .text = NSLocalizedString(kUI_Archive, nil);
-	self.reportingAsLabel.text = NSLocalizedString(kUI_ReportingAs, nil);
-	self.serversLabel.text = NSLocalizedString(kUI_Servers, nil);
-	
-//	UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
-//	
-//	[[self navigationItem] setBackBarButtonItem: newBackButton];
 }
 
 /**
@@ -58,12 +44,7 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 	[self refreshPersonalInfo];
 }
 
-- (IBAction)tapAboutButton:(id)sender
-{
-	[self performSegueWithIdentifier:kSegueToAbout sender:self];
-}
-
-- (void) loadServer
+- (void)loadServer
 {
 	Preferences *preferences = [Preferences sharedInstance];
 	
@@ -77,10 +58,12 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 		HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 		[self.navigationController.view addSubview:HUD];
 		HUD.delegate = self;
-		HUD.labelText = @"Loading";
+		HUD.labelText = NSLocalizedString(kUI_HudLoadingMessage, nil);
 		[HUD show:YES];
 		Open311 *open311 = [Open311 sharedInstance];
-		[open311 loadAllMetadataForServer:currentServer withCompletion:^() { [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES]; }];
+		[open311 loadServer:currentServer withCompletion:^() {
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        }];
 		NSString *filename = currentServer[kOpen311_SplashImage];
 		if (!filename) { filename = @"open311"; }
 		[self.splashImage setImage:[UIImage imageNamed:filename]];
@@ -90,61 +73,16 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 - (void)refreshPersonalInfo
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *text = @"";
 	NSString *firstname = [defaults stringForKey:kOpen311_FirstName];
 	NSString *lastname  = [defaults stringForKey:kOpen311_LastName];
 	if ([firstname length] > 0 || [lastname length] > 0) {
-		text = [text stringByAppendingFormat:@"%@ %@", firstname, lastname];
-	}
-	if ([text length] == 0) {
-		text = @"anonymous";
+        self.personalInfoLabel.text = [NSString stringWithFormat:@"%@ %@", firstname, lastname];
 	}
 	
-	self.personalInfoLabel.text = text;
 	[self.tableView reloadData];
 }
 
 #pragma mark - Table Handler Methods
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	if (indexPath.section == 1 && indexPath.row == 0) {
-		
-		CGSize size = [self.personalInfoLabel.text sizeWithFont:self.personalInfoLabel.font
-											  constrainedToSize:CGSizeMake(300, 140)
-												  lineBreakMode:self.personalInfoLabel.lineBreakMode];
-		NSInteger height = size.height + 28;
-		return (CGFloat)height;
-	}
-	return [super tableView:tableView heightForRowAtIndexPath:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	[tableView deselectRowAtIndexPath:indexPath animated:NO];
-	
-	if (indexPath.section == 0) {
-		if (indexPath.row == 0) {
-			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-				// The device is an iPad running iOS 3.2 or later.
-				[self performSegueWithIdentifier:kSegueToContainerView sender:self];
-			}
-			else {
-				// The device is an iPhone or iPod touch.
-				[self performSegueWithIdentifier:kSegueToChooseGroup sender:self];
-			}
-		} else if (indexPath.row == 1) {
-			[self performSegueWithIdentifier:kSegueToArchive sender:self];
-		}
-	} else if (indexPath.section == 1) {
-		if (indexPath.row == 0) {
-			[self performSegueWithIdentifier:kSegueToSettings sender:self];
-		} else if (indexPath.row == 1) {
-			[self performSegueWithIdentifier:kSegueToServers sender:self];
-		}
-	}
-}
-
 
 #pragma mark -unwind segue
 -(IBAction) didReturnFromServersController:(UIStoryboardSegue *)sender

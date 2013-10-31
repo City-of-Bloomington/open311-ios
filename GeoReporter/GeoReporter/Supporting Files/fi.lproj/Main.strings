@@ -1,0 +1,163 @@
+/* Class = "IBUILabel"; text = "New Report"; ObjectID = "MbL-BD-aNz"; */
+"MbL-BD-aNz.text" = "Uusi Palaute";
+
+/* Class = "IBUINavigationItem"; title = "My Reports"; ObjectID = "Wbe-Z7-YVc"; */
+"Wbe-Z7-YVc.title" = "Omat palautteet";
+
+/* Class = "IBUILabel"; text = "My Reports"; ObjectID = "CUT-WA-Lc5"; */
+"CUT-WA-Lc5.text" = "Omat palautteet";
+
+/* Class = "IBUILabel"; text = "Report To"; ObjectID = "XiB-U2-3LI"; */
+"XiB-U2-3LI.text" = "Palvelimet";
+
+/* Class = "IBUINavigationItem"; title = "About"; ObjectID = "Yt0-dj-Ume"; */
+"Yt0-dj-Ume.title" = "Lisätietoja";
+
+/* Class = "IBUILabel"; text = "Reporting As"; ObjectID = "3yM-1Y-amn"; */
+"3yM-1Y-amn.text" = "Lähetä tunnuksella";
+
+/* Class = "IBUINavigationItem"; title = "Personal Info"; ObjectID = "4GO-wg-MsP"; */
+"4GO-wg-MsP.title" = "Omat tiedot";
+
+/* Class = "IBUILabel"; text = "First name"; ObjectID = "MO3-NJ-jUg"; */
+"MO3-NJ-jUg.text" = "Etunimi";
+
+/* Class = "IBUILabel"; text = "Last name"; ObjectID = "VQ3-iH-Grp"; */
+"VQ3-iH-Grp.text" = "Sukunimi";
+
+/* Class = "IBUILabel"; text = "Email"; ObjectID = "p1v-qY-oHB"; */
+"p1v-qY-oHB.text" = "Sähköposti";
+
+/* Class = "IBUILabel"; text = "Phone"; ObjectID = "NW5-5P-8cu"; */
+"NW5-5P-8cu.text" = "Puhelin";
+
+/* Class = "IBUILabel"; text = "Report anonymously"; ObjectID = "Ucv-m2-iWs"; */
+"Ucv-m2-iWs.text" = "Lähetä palautetta nimettömänä";
+
+/* Class = "IBUINavigationItem"; title = "Report To"; ObjectID = "eDB-7c-95X"; */
+"eDB-7c-95X.title" = "Palvelimet";
+
+/* Class = "IBUILabel"; text = "Select the server to which the issues are reported."; ObjectID = "Cuc-Ur-s0Z"; */
+"Cuc-Ur-s0Z.text" = "Valitse palvelin, johon asioista kerrotaan.";
+
+/* Class = "IBUINavigationItem"; title = "Add Server"; ObjectID = "x28-E6-mlK"; */
+"x28-E6-mlK.title" = "Lisää palvelin";
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "bwz-sz-gT3"; */
+"bwz-sz-gT3.text" = "Nimi";
+
+/* Class = "IBUILabel"; text = "URL"; ObjectID = "BZk-Kv-Jc3"; */
+"BZk-Kv-Jc3.text" = "URL";
+
+/* Class = "IBUILabel"; text = "Jurisdiction ID"; ObjectID = "1aw-oe-edr"; */
+"1aw-oe-edr.text" = "Hallintoalueen tunniste";
+
+/* Class = "IBUILabel"; text = "API Key"; ObjectID = "tFw-Xk-lnI"; */
+"tFw-Xk-lnI.text" = "API-avain";
+
+/* Class = "IBUILabel"; text = "Supports Media"; ObjectID = "aVt-Ry-tzL"; */
+"aVt-Ry-tzL.text" = "Kuvien tuki";
+
+/* Class = "IBUINavigationItem"; title = "New Report"; ObjectID = "bcm-LD-ryu"; */
+"bcm-LD-ryu.title" = "Uusi Palaute";
+
+/* Class = "IBUIBarButtonItem"; title = "Submit"; ObjectID = "397-hK-pMa"; */
+"397-hK-pMa.title" = "Lähetä";
+
+/* Class = "IBUISegmentedControl"; KzL-SQ-EuI.segmentTitles[0] = "Standard"; ObjectID = "KzL-SQ-EuI"; */
+"KzL-SQ-EuI.segmentTitles[0]" = "Standardi";
+
+/* Class = "IBUISegmentedControl"; KzL-SQ-EuI.segmentTitles[1] = "Satellite"; ObjectID = "KzL-SQ-EuI"; */
+"KzL-SQ-EuI.segmentTitles[1]" = "Satelliitti";
+
+/* Class = "IBUISegmentedControl"; KzL-SQ-EuI.segmentTitles[2] = "Hybrid"; ObjectID = "KzL-SQ-EuI"; */
+"KzL-SQ-EuI.segmentTitles[2]" = "Hybrid";
+
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "bz5-ul-mAJ"; */
+"bz5-ul-mAJ.text" = "Palautteen kuvaus";
+
+/* Class = "IBUILabel"; text = "Location"; ObjectID = "dYr-Yr-UxE"; */
+"dYr-Yr-UxE.text" = "Sijainti";
+
+/* Class = "IBUILabel"; text = "anonymous"; ObjectID = "jcs-bk-gIg"; */
+"jcs-bk-gIg.text" = "anonyymi";
+
+/* Class = "IBUILabel"; text = "If the switch is \"on\", the report will be anonymous"; ObjectID = "tQq-Eh-jYw"; */
+"tQq-Eh-jYw.text" = "Jos kytkin on päällä, palaute on nimetön";
+
+/**
+ * Placeholder text
+ * The rest of these strings do not need to be translated.
+ * They are only placeholders shown when we are editing the Storyboard.
+ */
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "tTa-Wu-YH6"; */
+"tTa-Wu-YH6.text" = "Title";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "vCG-It-bwp"; */
+"vCG-It-bwp.text" = "Title";
+
+/* Class = "IBUITextField"; text = "TextField"; ObjectID = "vHW-m6-j23"; */
+"vHW-m6-j23.text" = "TextField";
+
+/* Class = "IBUITextField"; text = "TextField"; ObjectID = "0K4-vQ-6ML"; */
+"0K4-vQ-6ML.text" = "TextField";
+
+/* Class = "IBUITextField"; text = "TextField"; ObjectID = "1bh-If-HIB"; */
+"1bh-If-HIB.text" = "TextField";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "8ui-Z8-dGX"; */
+"8ui-Z8-dGX.text" = "Title";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "A4a-Q9-S62"; */
+"A4a-Q9-S62.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "Fa4-Tc-Zfv"; */
+"Fa4-Tc-Zfv.text" = "Subtitle";
+
+/* Class = "IBUILabel"; text = "Image"; ObjectID = "Hxb-LG-nUx"; */
+"Hxb-LG-nUx.text" = "Image";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "Tsr-QA-kxt"; */
+"Tsr-QA-kxt.text" = "Title";
+
+/* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "U0m-g8-WJ8"; */
+"U0m-g8-WJ8.text" = "Subtitle";
+
+/* Class = "IBUILabel"; text = "ImageCellHeader"; ObjectID = "d9Q-to-NNA"; */
+"d9Q-to-NNA.text" = "ImageCellHeader";
+
+/* Class = "IBUILabel"; text = "TextCellHeader"; ObjectID = "fnR-R9-auk"; */
+"fnR-R9-auk.text" = "TextCellHeader";
+
+/* Class = "IBUILabel"; text = "StringCellHeader"; ObjectID = "bbG-wf-lP5"; */
+"bbG-wf-lP5.text" = "StringCellHeader";
+
+/* Class = "IBUILabel"; text = "LocationCellHeader"; ObjectID = "XQA-eb-dh0"; */
+"XQA-eb-dh0.text" = "LocationCellHeader";
+
+/* Class = "IBUILabel"; text = "SingleValueListCellHeader"; ObjectID = "Pkt-pE-ltD"; */
+"Pkt-pE-ltD.text" = "SingleValueListCellHeader";
+
+/* Class = "IBUILabel"; text = "MultiValueListCellHeader"; ObjectID = "IUX-Df-RdG"; */
+"IUX-Df-RdG.text" = "MultiValueListCellHeader";
+
+/* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "WVU-BW-pQo"; */
+"WVU-BW-pQo.text" = "Subtitle";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "ggD-qN-Bwe"; */
+"ggD-qN-Bwe.text" = "Title";
+
+/* Class = "IBUITextField"; text = "TextField"; ObjectID = "jJL-3P-hMz"; */
+"jJL-3P-hMz.text" = "TextField";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "anc-vF-7KW"; */
+"anc-vF-7KW.text" = "Title";
+
+/* Class = "IBUILabel"; text = "description"; ObjectID = "gKt-BG-AOn"; */
+"gKt-BG-AOn.text" = "description";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "nK7-7p-JOD"; */
+"nK7-7p-JOD.text" = "Title";
+
+/* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "smv-6v-qCi"; */
+"smv-6v-qCi.text" = "Subtitle";

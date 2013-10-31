@@ -18,18 +18,6 @@
 {
 	[super viewDidLoad];
 	
-	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
-	
-	self.navigationItem.title = NSLocalizedString(kUI_PersonalInfo, nil);
-	
-	self.labelFirstName.text = NSLocalizedString(kUI_FirstName, nil);
-	self.labelLastName .text = NSLocalizedString(kUI_LastName,  nil);
-	self.labelEmail    .text = NSLocalizedString(kUI_Email,     nil);
-	self.labelPhone    .text = NSLocalizedString(kUI_Phone,     nil);
-	
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	
 	self.textFieldFirstName.text = [preferences stringForKey:kOpen311_FirstName];
@@ -55,34 +43,6 @@
 }
 
 #pragma mark - Table view handlers
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-	NSString *sectionTitle = NSLocalizedString(kUI_PersonalInfo, nil);
-	
-	UILabel *label = [[UILabel alloc] init];
-	CGRect frame = CGRectMake(20, 8, 320, 20);
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later.
-		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-		
-		if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-			// The iPad is orientated Landscape
-			frame = CGRectMake(120, 8, 320, 20);
-		}
-	}
-	
-	label.frame = frame;
-	label.backgroundColor = [UIColor clearColor];
-	label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
-	label.font = [UIFont fontWithName:@"Heiti SC" size:15];
-	label.text = sectionTitle;
-	
-	UIView *view = [[UIView alloc] init];
-	[view addSubview:label];
-	
-	return view;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

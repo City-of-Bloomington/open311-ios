@@ -21,36 +21,8 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 {
 	[super viewDidLoad];
 	
-	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
-	
-	self.navigationItem.title = NSLocalizedString(kUI_Servers, nil);
-	
 	_availableServers = [Preferences getAvailableServers];
 	_prefs = [Preferences sharedInstance];
-	
-	UILabel *label = [[UILabel alloc] init];
-	label.numberOfLines = 0;
-	label.lineBreakMode = NSLineBreakByWordWrapping;
-	
-	NSString* tableHeaderText;
-	tableHeaderText = @"Select the server to which the issues are reported. \"Available Servers\" contains the official endpoints. \"Custom Servers\" may contain other custom Open311 servers.";
-	float headerWidth;
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later.
-		headerWidth = 728;
-	}
-	else {
-		// The device is an iPhone or iPod touch.
-		headerWidth = 280;
-	}
-	
-	CGSize headerSize = [tableHeaderText sizeWithFont:[UIFont fontWithName:@"Heiti SC" size:13] constrainedToSize:CGSizeMake(headerWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-	
-	self.label.text = tableHeaderText;
-	self.headerView.frame = CGRectMake(20, 4, headerWidth, headerSize.height + 8 + 5);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,8 +70,6 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 	}
 }
 
-
-
 #pragma mark - Table View Handlers
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -117,47 +87,6 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 	return [_customServers count];
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	if (section == 0) return @"Available Servers";
-	return @"Custom Servers";
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	
-	NSString *sectionTitle;
-	if (section == 0) {
-		sectionTitle = @"Available Servers";
-	}
-	else {
-		sectionTitle = @"Custom Servers";
-	}
-	
-	UILabel *label = [[UILabel alloc] init];
-	CGRect frame = CGRectMake(20, 8, 320, 20);
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later.
-		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-		
-		if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-			// The iPad is orientated Landscape
-			frame = CGRectMake(120, 8, 320, 20);
-		}
-	}
-	
-	label.frame = frame;
-	label.backgroundColor = [UIColor clearColor];
-	label.textColor = [UIColor colorWithRed:78/255.0f green:84/255.0f blue:102/255.0f alpha:1];
-	label.font = [UIFont fontWithName:@"Heiti SC" size:15];
-	label.text = sectionTitle;
-	
-	UIView *view = [[UIView alloc] init];
-	[view addSubview:label];
-	
-	return view;
-	
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
@@ -171,8 +100,6 @@ static NSString * const kUnwindSegueFromServersToHome = @"UnwindSegueFromServers
 	else {
 		server = [self getTargetServer:(indexPath.row + [_availableServers count])];
 	}
-	
-	
 	
 	cell.textLabel      .text = server[kOpen311_Name];
 	cell.detailTextLabel.text = server[kOpen311_Url];

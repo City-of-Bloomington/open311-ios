@@ -16,18 +16,14 @@
 
 @implementation ChooseServiceController
 
-static NSString * const kCellIdentifier = @"service_cell";
+static NSString * const kCellIdentifier   = @"service_cell";
 static NSString * const kSegueToNewReport = @"SegueToNewReport";
+
+Report *report;
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	
-	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
-	
 	
 	_open311 = [Open311 sharedInstance];
 	_currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
@@ -68,62 +64,32 @@ static NSString * const kSegueToNewReport = @"SegueToNewReport";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later.
-		[self.delegate didSelectService:_services[tableView.indexPathForSelectedRow.row]];
-	}
-	else {
-		// The device is an iPhone or iPod touch.
-		NSDictionary* service =_services[[[self.tableView indexPathForSelectedRow] row]];
-		if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
-			HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-			[self.navigationController.view addSubview:HUD];
-			HUD.delegate = self;
-			HUD.labelText = @"Loading";
-			[HUD show:YES];
-			[_open311 getMetadataForService:_services[[[self.tableView indexPathForSelectedRow] row]] WithCompletion:^() {
-				[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-				[self performSegueWithIdentifier:kSegueToNewReport sender:self];
-			}];
-		}
-		else {
-			[self performSegueWithIdentifier:kSegueToNewReport sender:self];
-		}
-		
-	}
+    NSDictionary* service =_services[[[self.tableView indexPathForSelectedRow] row]];
+    if ([[service objectForKey:kOpen311_Metadata] boolValue]) {
+        HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
+        HUD.delegate = self;
+        HUD.labelText = NSLocalizedString(kUI_HudLoadingMessage, nil);
+        [HUD show:YES];
+        
+        [_open311 getServiceDefinition:service withCompletion:^(NSDictionary * serviceDefinition) {
+            report = [[Report alloc] initWithService:service serviceDefinition:serviceDefinition];
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+        }];
+    }
+    else {
+        report = [[Report alloc] initWithService:service serviceDefinition:nil];
+        [self performSegueWithIdentifier:kSegueToNewReport sender:self];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 # pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later.
-	}
-	else {
-		// The device is an iPhone or iPod touch.
-		NewReportController *report = [segue destinationViewController];
-		report.service = _services[[[self.tableView indexPathForSelectedRow] row]];
-		
-	}
-}
-
-- (void)setGroup:(NSString *)group
-{
-	_group = group;
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		// The device is an iPad running iOS 3.2 or later.
-		_open311 = [Open311 sharedInstance];
-		
-		_currentServerName = [[Preferences sharedInstance] getCurrentServer][kOpen311_Name];
-		
-		_services = [_open311 getServicesForGroup:self.group];
-		//self.navigationItem.title = self.group;
-		[self.tableView reloadData];
-	}
-	else {
-		//The device is an iPhone or iPod
-	}
-	
+    NewReportController *controller = [segue destinationViewController];
+    controller.report = report;
 }
 
 #pragma mark MBProgressHUDDelegate methods

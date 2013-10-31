@@ -15,28 +15,21 @@
 #import "Media.h"
 #import "FullImageController.h"
 #import "ViewReportLocationCell.h"
-#import "ViewReportCell.h"
+#import "Maps.h"
 
 @implementation ViewRequestController
 
-static NSString * const kCellIdentifier  = @"request_cell";
-static NSString * const kMediaCell       = @"media_cell";
-static NSString * const kLocationCell       = @"location_cell";
-static NSInteger  const kImageViewTag    = 100;
-static NSInteger  const kLabelTag    = 114;
-static CGFloat    const kMediaCellHeight = 122;
+static NSString * const kCellIdentifier   = @"request_cell";
+static NSString * const kMediaCell        = @"media_cell";
+static NSString * const kLocationCell     = @"location_cell";
+static NSInteger  const kImageViewTag     = 100;
+static NSInteger  const kLabelTag         = 114;
+static CGFloat    const kMediaCellHeight  = 122;
 static NSString * const kSegueToFullImage = @"segueToFullImage";
-
-
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	
-	//make view controller start below navigation bar; this works in iOS 7
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
 	
 	self.navigationItem.title = self.report.service[kOpen311_ServiceName];
 	
@@ -155,26 +148,26 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	NSDictionary *post = _report.postData;
 	if (indexPath.section == 0) {
 		//date, status, responsible
-		ViewReportCell* reportCell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+		UITableViewCell *reportCell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
 		switch (indexPath.row) {
 			case 0:
 				//date
-				reportCell.titleLabel.text = NSLocalizedString(kUI_ReportDate, nil);
-				reportCell.descriptionLabel.text = [_dateFormatterDisplay stringFromDate:[_dateFormatterISO dateFromString:sr[kOpen311_RequestedDatetime]]];
+				reportCell.textLabel.text = NSLocalizedString(kUI_ReportDate, nil);
+				reportCell.detailTextLabel.text = [_dateFormatterDisplay stringFromDate:[_dateFormatterISO dateFromString:sr[kOpen311_RequestedDatetime]]];
 				return reportCell;
 				break;
 				
 			case 1:
 				//status
-				reportCell.titleLabel.text = NSLocalizedString(kUI_ReportStatus, nil);
-				reportCell.descriptionLabel.text = (sr && sr[kOpen311_Status]!=[NSNull null]) ? sr[kOpen311_Status] : kUI_Pending;
+				reportCell.textLabel.text = NSLocalizedString(kUI_ReportStatus, nil);
+				reportCell.detailTextLabel.text = (sr && sr[kOpen311_Status]!=[NSNull null]) ? sr[kOpen311_Status] : kUI_Pending;
 				return reportCell;
 				break;
 				
 			case 2:
 				//responsible
-				reportCell.titleLabel.text = NSLocalizedString(kOpen311_AgencyResponsible, nil);
-				reportCell.descriptionLabel.text = (sr && sr[kOpen311_AgencyResponsible]!=[NSNull null]) ? sr[kOpen311_AgencyResponsible] : @"";
+				reportCell.textLabel.text = NSLocalizedString(kOpen311_AgencyResponsible, nil);
+				reportCell.detailTextLabel.text = (sr && sr[kOpen311_AgencyResponsible]!=[NSNull null]) ? sr[kOpen311_AgencyResponsible] : @"";
 				return reportCell;
 				break;
 				
@@ -185,12 +178,12 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	else {
 		if (indexPath.row == 0) {
 			// description cell
-			ViewReportCell* reportCell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+			UITableViewCell *reportCell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
 			
-			reportCell.titleLabel.text = kUI_DescriptionOfProblem;
-			[reportCell.descriptionLabel setLineBreakMode:NSLineBreakByWordWrapping];
-			[reportCell.descriptionLabel setNumberOfLines:0];
-			reportCell.descriptionLabel.text = [self getReportDescription];
+			reportCell.textLabel.text = NSLocalizedString(kUI_ReportDescription, nil);
+			[reportCell.detailTextLabel setLineBreakMode:NSLineBreakByWordWrapping];
+			[reportCell.detailTextLabel setNumberOfLines:0];
+			reportCell.detailTextLabel.text = [self getReportDescription];
 			return reportCell;
 		}
 		else {
@@ -203,20 +196,10 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 				if (text == nil && post[kOpen311_AddressString] != [NSNull null]) { text = post[kOpen311_AddressString]; }
 				if (text != nil) { locationCell.description.text = text; }
 				
-				MKCoordinateRegion region;
-				region.center.latitude  = [(NSNumber*)_report.postData[kOpen311_Latitude] doubleValue];
-				region.center.longitude = [(NSNumber*)_report.postData[kOpen311_Longitude] doubleValue];
-				MKCoordinateSpan span;
-				span.latitudeDelta  = 0.0025;
-				span.longitudeDelta = 0.0025;
-				region.span = span;
-				[locationCell.mapView setRegion:region animated:YES];
-				
-				MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-				// Set your annotation to point at your coordinate
-				point.coordinate = region.center;
-				//Drop pin on map
-				[locationCell.mapView addAnnotation:point];
+                CLLocationCoordinate2D point;
+				point.latitude  = [(NSNumber*)_report.postData[kOpen311_Latitude ] doubleValue];
+                point.longitude = [(NSNumber*)_report.postData[kOpen311_Longitude] doubleValue];
+                [Maps zoomMap:locationCell.mapView toCoordinate:point withMarker:YES];
 				
 				return locationCell;
 			}
@@ -245,20 +228,28 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	if (_mediaUrl && indexPath.section==1 && indexPath.row==1) {
 		return MEDIA_CELL_HEIGHT;
 	}
-	if ((_report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==2) ||
-		(!_mediaUrl && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil && indexPath.section==1 && indexPath.row==1)) {
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			// The device is an iPad running iOS 3.2 or later.
-			return LOCATION_CELL_HEIGHT_IPAD;
-		}
-		return LOCATION_CELL_HEIGHT;
+	if ((    _report.postData[kOpen311_Latitude ] != nil
+          && _report.postData[kOpen311_Longitude] != nil
+          && indexPath.section==1 && indexPath.row==2)
+        ||
+		(   !_mediaUrl
+         && _report.postData[kOpen311_Latitude ] != nil
+         && _report.postData[kOpen311_Longitude] != nil
+         && indexPath.section==1 && indexPath.row==1)) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            // The device is an iPad running iOS 3.2 or later.
+            return LOCATION_CELL_HEIGHT_IPAD;
+        }
+        return LOCATION_CELL_HEIGHT;
 	}
 	
 	if  ((indexPath.section == 1 && indexPath.row == 1 && !_mediaUrl) ||
 		 (indexPath.section == 1 && indexPath.row == 2 && _mediaUrl)) {
 		CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH, 20000.0f);
 		
-		CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+		CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE]
+                                              constrainedToSize:constraint
+                                                  lineBreakMode:NSLineBreakByWordWrapping];
 		
 		return size.height + 30.f;
 	}
