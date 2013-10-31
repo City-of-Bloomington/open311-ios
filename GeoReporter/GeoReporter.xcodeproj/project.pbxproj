@@ -30,7 +30,6 @@
 		69CBB4D31816D31400F9DB01 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB4CF1816D31400F9DB01 /* Media.m */; };
 		69CBB4D41816D31400F9DB01 /* Strings.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB4D11816D31400F9DB01 /* Strings.m */; };
 		69CBB5111816D32400F9DB01 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB4D71816D32400F9DB01 /* AboutController.m */; };
-		69CBB5121816D32400F9DB01 /* AddServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB4D91816D32400F9DB01 /* AddServerController.m */; };
 		69CBB5131816D32400F9DB01 /* ArchiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB4DB1816D32400F9DB01 /* ArchiveController.m */; };
 		69CBB5141816D32400F9DB01 /* ChooseGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB4DD1816D32400F9DB01 /* ChooseGroupController.m */; };
 		69CBB5151816D32400F9DB01 /* ChooseServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB4DF1816D32400F9DB01 /* ChooseServiceController.m */; };
@@ -47,7 +46,6 @@
 		69CBB5261816D32400F9DB01 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB5081816D32400F9DB01 /* LocationController.m */; };
 		69CBB5271816D32400F9DB01 /* NewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB50A1816D32400F9DB01 /* NewReportController.m */; };
 		69CBB5281816D32400F9DB01 /* PersonalInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB50C1816D32400F9DB01 /* PersonalInfoController.m */; };
-		69CBB5291816D32400F9DB01 /* ServersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB50E1816D32400F9DB01 /* ServersController.m */; };
 		69CBB52A1816D32400F9DB01 /* ViewRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB5101816D32400F9DB01 /* ViewRequestController.m */; };
 		69CBB5561816D33A00F9DB01 /* accountTableCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB52C1816D33A00F9DB01 /* accountTableCell.png */; };
 		69CBB5571816D33A00F9DB01 /* accountTableCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CBB52D1816D33A00F9DB01 /* accountTableCell@2x.png */; };
@@ -168,8 +166,6 @@
 		69CBB4D11816D31400F9DB01 /* Strings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Strings.m; sourceTree = "<group>"; };
 		69CBB4D61816D32400F9DB01 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		69CBB4D71816D32400F9DB01 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
-		69CBB4D81816D32400F9DB01 /* AddServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddServerController.h; sourceTree = "<group>"; };
-		69CBB4D91816D32400F9DB01 /* AddServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddServerController.m; sourceTree = "<group>"; };
 		69CBB4DA1816D32400F9DB01 /* ArchiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveController.h; sourceTree = "<group>"; };
 		69CBB4DB1816D32400F9DB01 /* ArchiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveController.m; sourceTree = "<group>"; };
 		69CBB4DC1816D32400F9DB01 /* ChooseGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseGroupController.h; sourceTree = "<group>"; };
@@ -206,8 +202,6 @@
 		69CBB50A1816D32400F9DB01 /* NewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewReportController.m; sourceTree = "<group>"; };
 		69CBB50B1816D32400F9DB01 /* PersonalInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoController.h; sourceTree = "<group>"; };
 		69CBB50C1816D32400F9DB01 /* PersonalInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoController.m; sourceTree = "<group>"; };
-		69CBB50D1816D32400F9DB01 /* ServersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServersController.h; sourceTree = "<group>"; };
-		69CBB50E1816D32400F9DB01 /* ServersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServersController.m; sourceTree = "<group>"; };
 		69CBB50F1816D32400F9DB01 /* ViewRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewRequestController.h; sourceTree = "<group>"; };
 		69CBB5101816D32400F9DB01 /* ViewRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewRequestController.m; sourceTree = "<group>"; };
 		69CBB52C1816D33A00F9DB01 /* accountTableCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = accountTableCell.png; sourceTree = "<group>"; };
@@ -449,8 +443,6 @@
 			children = (
 				69CBB4D61816D32400F9DB01 /* AboutController.h */,
 				69CBB4D71816D32400F9DB01 /* AboutController.m */,
-				69CBB4D81816D32400F9DB01 /* AddServerController.h */,
-				69CBB4D91816D32400F9DB01 /* AddServerController.m */,
 				69CBB4DA1816D32400F9DB01 /* ArchiveController.h */,
 				69CBB4DB1816D32400F9DB01 /* ArchiveController.m */,
 				69CBB4DC1816D32400F9DB01 /* ChooseGroupController.h */,
@@ -469,8 +461,6 @@
 				69CBB50A1816D32400F9DB01 /* NewReportController.m */,
 				69CBB50B1816D32400F9DB01 /* PersonalInfoController.h */,
 				69CBB50C1816D32400F9DB01 /* PersonalInfoController.m */,
-				69CBB50D1816D32400F9DB01 /* ServersController.h */,
-				69CBB50E1816D32400F9DB01 /* ServersController.m */,
 				69CBB50F1816D32400F9DB01 /* ViewRequestController.h */,
 				69CBB5101816D32400F9DB01 /* ViewRequestController.m */,
 			);
@@ -824,7 +814,6 @@
 				69CBB5A01816F84E00F9DB01 /* NBPhoneNumberUtil.m in Sources */,
 				69CBB4431816C1F100F9DB01 /* main.m in Sources */,
 				69CBB5DA1817004C00F9DB01 /* AFHTTPRequestOperation.m in Sources */,
-				69CBB5291816D32400F9DB01 /* ServersController.m in Sources */,
 				69CBB5241816D32400F9DB01 /* FullImageController.m in Sources */,
 				69CBB5DC1817004C00F9DB01 /* AFJSONRequestOperation.m in Sources */,
 				69CBB5DE1817004C00F9DB01 /* AFPropertyListRequestOperation.m in Sources */,
@@ -834,7 +823,6 @@
 				69CBB5111816D32400F9DB01 /* AboutController.m in Sources */,
 				69CBB4CA1816D30100F9DB01 /* Report.m in Sources */,
 				69CBB59D1816F84E00F9DB01 /* NBPhoneNumberDesc.m in Sources */,
-				69CBB5121816D32400F9DB01 /* AddServerController.m in Sources */,
 				69CBB5261816D32400F9DB01 /* LocationController.m in Sources */,
 				69CBB59C1816F84E00F9DB01 /* NBPhoneNumber.m in Sources */,
 				69CBB5271816D32400F9DB01 /* NewReportController.m in Sources */,

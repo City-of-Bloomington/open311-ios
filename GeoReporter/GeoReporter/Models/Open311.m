@@ -21,7 +21,6 @@
 #import "AFJSONRequestOperation.h"
 #import "Media.h"
 #import "MBProgressHUD.h"
-#import "AddServerController.h"
 
 NSString * const kNotification_PostSucceeded    = @"postSucceeded";
 NSString * const kNotification_PostFailed       = @"postFailed";
@@ -93,34 +92,6 @@ SHARED_SINGLETON(Open311);
 										  cancelButtonTitle:NSLocalizedString(kUI_Cancel, nil)
 										  otherButtonTitles:nil];
 	[alert show];
-}
-
-/**
- * Checks if an Open311 endpoint is reachable
- *
- * Tries to load the services for the given Open311 endpoint.
- * Handles displaying the failure alert if there's a problem.
- *
- */
-- (void)checkServerValidity:(NSString *)serverURL fromSender:(id)sender
-{
-	_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:serverURL]];
-	
-	[_httpClient getPath:@"services.json"
-			  parameters:_endpointParameters
-				 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-					 NSError *error;
-					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-					 if (!error) {
-                         [sender performSelector:@selector(didFinishSaving)];
-					 }
-					 else {
-                         [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
-					 }
-				 }
-				 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
-				 }];
 }
 
 #pragma mark - GET Service List

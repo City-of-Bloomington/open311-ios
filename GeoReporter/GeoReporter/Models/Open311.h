@@ -26,8 +26,6 @@ extern NSString * const kNotification_PostFailed;
 - (void)loadServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion;
 - (void)operationFailed:(AFHTTPRequestOperation *)operation withError:(NSError *)error titleForAlert:(NSString *)title;
 
-- (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender;
-
 - (void)loadServiceListWithCompletion:(void(^)(void)) completion;
 - (void)loadGroups;
 - (NSArray *)getServicesForGroup:(NSString *)group;

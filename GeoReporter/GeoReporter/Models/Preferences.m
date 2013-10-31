@@ -61,16 +61,9 @@ SHARED_SINGLETON(Preferences);
 - (NSDictionary *)getCurrentServer
 {
 	if (_currentServer == nil) {
-		NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:kOpen311_Name];
-		if (![name isEqualToString:@""]) {
-			NSArray *servers = [Preferences getAvailableServers];
-			unsigned int count = (unsigned int)[servers count];
-			for (int i=0; i<count; i++) {
-				if ([servers[i][kOpen311_Name] isEqualToString:name]) {
-					_currentServer = servers[i];
-				}
-			}
-		}
+        // For the single-city version, always return the first server
+        NSArray *servers = [Preferences getAvailableServers];
+        _currentServer = servers[0];
 	}
 	return _currentServer;
 }
