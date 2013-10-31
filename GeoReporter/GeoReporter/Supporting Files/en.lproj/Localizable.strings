@@ -12,6 +12,7 @@
 "uncategorized"="Uncategorized";
 "failure_loading_services"="Failed to load service information";
 "failure_posting_service"="Posting report failed";
+"failure_loading_request"="Failed to load report";
 "error_403"="This app does not have permission";
 "wrong_url"="The provded URL is not responding";
 "servername_error_title"="Missing server name";

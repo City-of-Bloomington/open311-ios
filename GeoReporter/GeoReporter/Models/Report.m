@@ -159,11 +159,13 @@ NSString * const kPostData          = @"postData";
 					[delegate didReceiveServiceRequest:serviceRequests[0]];
 				}
 				else {
-					[open311 loadFailedWithError:error];
+                    // We received a response from the server.
+                    // However, it was not in the expected format.
+                    [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 				}
 			}
 			failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-				[open311 loadFailedWithError:error];
+                [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 			}];
 }
 
@@ -188,11 +190,15 @@ NSString * const kPostData          = @"postData";
 					// We just don't need to call our delegate, since we don't have an id yet.
 				}
 				else {
-					[open311 loadFailedWithError:error];
+                    // We received a response from the server.
+                    // However, it was not in the expected format.
+                    [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 				}
 			}
 			failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-				[open311 loadFailedWithError:error];
+                // Check for an Open311 formatted error response.
+                // Display the error to the user, if there is one.
+                [open311 operationFailed:operation withError:error titleForAlert:kUI_FailureLoadingRequest];
 			}];
 }
 

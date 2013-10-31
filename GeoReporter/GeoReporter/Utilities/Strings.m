@@ -24,6 +24,7 @@ NSString * const kUI_Pending                = @"pending";
 NSString * const kUI_Uncategorized          = @"uncategorized";
 NSString * const kUI_FailureLoadingServices = @"failure_loading_services";
 NSString * const kUI_FailurePostingService  = @"failure_posting_service";
+NSString * const kUI_FailureLoadingRequest  = @"failure_loading_request";
 NSString * const kUI_Error403               = @"error_403";
 NSString * const kUI_URLError               = @"wrong_url";
 NSString * const kUI_ServerNameError        = @"servername_error_title";

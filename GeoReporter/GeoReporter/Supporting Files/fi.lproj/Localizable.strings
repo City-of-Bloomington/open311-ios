@@ -12,6 +12,7 @@
 "uncategorized"="Ei luokiteltu";
 "failure_loading_services"="Palvelun tietojen hakemisessa tapahtui virhe";
 "failure_posting_service"="Palautteen lähetys ei onnistunut";
+"failure_loading_request"="Lataaminen epäonnistui palautetta";
 "error_403"="Sovelluksella ei ole oikeuksia lähettää palautetta valitulle palvelimelle";
 "wrong_url"="Jos URL ei vastaa";
 "servername_error_title"="Puuttuvat palvelimen nimi";

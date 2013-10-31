@@ -12,6 +12,7 @@
 "uncategorized"="Nicht kategorisiert";
 "failure_loading_services"="Die Service-Informationen konnten nicht geladen werden";
 "failure_posting_service"="Der Hinweis konnte nicht gespeichert werden";
+"failure_loading_request"="Bericht konnte nicht geladen werden";
 "error_403"="Diese App scheint nicht berechtigt zu sein";
 "wrong_url"="Die angegebene URL ist nicht reagiert";
 "servername_error_title"="Fehlende Server-Namen";

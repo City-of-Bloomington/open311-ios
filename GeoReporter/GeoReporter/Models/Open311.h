@@ -24,7 +24,7 @@ extern NSString * const kNotification_PostFailed;
 + (id)sharedInstance;
 
 - (void)loadServer:(NSDictionary *)server withCompletion:(void(^)(void)) completion;
-- (void)loadFailedWithError:(NSError *)error;
+- (void)operationFailed:(AFHTTPRequestOperation *)operation withError:(NSError *)error titleForAlert:(NSString *)title;
 
 - (void)checkServerValidity:(NSString *) serverURL fromSender:(id)sender;
 

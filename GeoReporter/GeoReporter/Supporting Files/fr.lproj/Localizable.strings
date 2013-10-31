@@ -12,6 +12,7 @@
 "uncategorized"="Sans catègorie";
 "failure_loading_services"="Erreur changement du service information";
 "failure_posting_service"="Erreur transmission rapport";
+"failure_loading_request"="Rapport erreur de chargement";
 "error_403"="Cette application n'est pas autorisée";
 "wrong_url"="L'URL fournie ne répond pas";
 "servername_error_title"="Missing server name";

@@ -24,6 +24,7 @@ extern NSString * const kUI_Pending;
 extern NSString * const kUI_Uncategorized;
 extern NSString * const kUI_FailureLoadingServices;
 extern NSString * const kUI_FailurePostingService;
+extern NSString * const kUI_FailureLoadingRequest;
 extern NSString * const kUI_Error403;
 extern NSString * const kUI_URLError;
 extern NSString * const kUI_ServerNameError;
