@@ -141,6 +141,7 @@ SHARED_SINGLETON(Open311);
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
+              completion();
           }
     ];
 }
