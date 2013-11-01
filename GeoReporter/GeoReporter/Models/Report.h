@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPClient.h"
 
 @protocol ServiceRequestDelegate <NSObject>
 @required
@@ -21,7 +20,6 @@
 @property NSDictionary *serviceDefinition;
 @property NSMutableDictionary *serviceRequest;
 @property NSMutableDictionary *postData;
-@property AFHTTPClient *httpClient;
 @property NSMutableDictionary *parameters;
 
 - (id)initWithService:(NSDictionary *)service serviceDefinition:(NSDictionary *)definition;
@@ -30,7 +28,6 @@
 - (NSString *)attributeValueForKey:(NSString *)key atIndex:(NSInteger)index;
 - (NSDictionary *)asDictionary;
 
-- (AFHTTPClient *)getHttpClient;
 - (NSMutableDictionary *)getEndpointParameters;
 - (void)startLoadingServiceRequest:(NSString *)serviceRequestId  delegate:(id<ServiceRequestDelegate>)delegate;
 - (void)startLoadingServiceRequestIdFromToken:(NSString *)token  delegate:(id<ServiceRequestDelegate>)delegate;
