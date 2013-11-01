@@ -1,24 +1,25 @@
-//
-//  Open311.m
-//  GeoReporter
-//
-//  Created by Cliff Ingham on 1/30/13.
-//  Copyright (c) 2013 City of Bloomington. All rights reserved.
-//
-// Class for handling all Open311 network operations
-//
-// To avoid long loading times in the beginning, we first load
-// the groups and the services. Then, whenever the user chooses
-// a service, we load the metadata for that service.
-//
-// You must call |loadAllMetadataForServer:WithCompletion:|
-// before doing any other Open311 stuff in the app.
-
+/**
+ * Class for handling all Open311 network operations
+ *
+ * To avoid long loading times in the beginning, we first load
+ * the groups and the services. Then, whenever the user chooses
+ * a service, we load the metadata for that service.
+ *
+ * You must call |loadAllMetadataForServer:WithCompletion:|
+ * before doing any other Open311 stuff in the app.
+ *
+ * @copyright 2013 City of Bloomington, Indiana. All Rights Reserved
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @license http://www.gnu.org/licenses/gpl.txt GNU/GPLv3, see LICENSE.txt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
 #import "Open311.h"
 #import "Strings.h"
 #import "Preferences.h"
-#import "AFHTTPClient.h"
-#import "AFJSONRequestOperation.h"
 #import "Media.h"
 #import "MBProgressHUD.h"
 
@@ -27,6 +28,15 @@ NSString * const kNotification_PostFailed       = @"postFailed";
 
 @implementation Open311
 SHARED_SINGLETON(Open311);
+
+- (AFHTTPRequestOperationManager *)getReqestManager
+{
+    if (!_manager) {
+        _manager = [AFHTTPRequestOperationManager manager];
+        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    }
+    return _manager;
+}
 
 /**
  * Loads the service list from the given server
@@ -51,7 +61,6 @@ SHARED_SINGLETON(Open311);
     if (_groups             == nil) { _groups             = [[NSMutableArray      alloc] init]; } else { [_groups             removeAllObjects]; }
 	if (_serviceDefinitions == nil) { _serviceDefinitions = [[NSMutableDictionary alloc] init]; } else { [_serviceDefinitions removeAllObjects]; }
 	
-	_httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:[server objectForKey:kOpen311_Url]]];
 	[self loadServiceListWithCompletion:completion];
 }
 
@@ -97,22 +106,20 @@ SHARED_SINGLETON(Open311);
 #pragma mark - GET Service List
 - (void)loadServiceListWithCompletion:(void(^)(void))completion
 {
-	[_httpClient getPath:@"services.json"
-			  parameters:_endpointParameters
-				 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-					 NSError *error;
-					 _serviceList = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-					 if (!error) {
-						 [self loadGroups];
-					 }
-					 else {
-                         [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
-					 }
-					 completion();
-				 }
-				 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
-				 }];
+    AFHTTPRequestOperationManager *manager = [self getReqestManager];
+    
+    [manager GET:[NSString stringWithFormat:@"%@/services.json", _currentServer[kOpen311_Url]]
+       parameters:_endpointParameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              _serviceList = responseObject;
+              [self loadGroups];
+              completion();
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
+              completion();
+          }
+    ];
 }
 
 // |serviceList| must already be loaded before calling this method.
@@ -142,20 +149,17 @@ SHARED_SINGLETON(Open311);
 	__block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
     
     if (![_serviceDefinitions objectForKey:serviceCode] && [[service objectForKey:kOpen311_Metadata] boolValue]) {
-        [_httpClient getPath:[NSString stringWithFormat:@"services/%@.json", serviceCode]
-                  parameters:_endpointParameters
-                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                         NSError *error;
-                         _serviceDefinitions[serviceCode] = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-                         if (error) {
-                             [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
-                         }
-                         completion(_serviceDefinitions[serviceCode]);
-                     }
-                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
-                     }
-         ];
+        AFHTTPRequestOperationManager *manager = [self getReqestManager];
+        [manager GET:[NSString stringWithFormat:@"%@/services/%@.json", _currentServer[kOpen311_Url], serviceCode]
+          parameters:_endpointParameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 _serviceDefinitions[serviceCode] = responseObject;
+                 completion(_serviceDefinitions[serviceCode]);
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 [self operationFailed:operation withError:error titleForAlert:NSLocalizedString(kUI_FailureLoadingServices, nil)];
+             }
+        ];
     }
     else {
         // There is no definition for this service.
@@ -199,40 +203,6 @@ SHARED_SINGLETON(Open311);
 }
 
 /**
- * Creates a POST request
- *
- * The POST will be either a regular POST or multipart/form-data,
- * depending on whether the service request has media or not.
- */
-- (NSMutableURLRequest *)preparePostForReport:(Report *)report withMedia:(UIImage *)media
-{
-	NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:_endpointParameters];
-	[report.postData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		if (!parameters[key]) {
-			parameters[key] = obj;
-		}
-	}];
-	
-	NSMutableURLRequest *post;
-	if (media) {
-		[parameters removeObjectForKey:kOpen311_Media];
-		post = [_httpClient multipartFormRequestWithMethod:@"POST"
-													  path:@"requests.json"
-												parameters:parameters
-								 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-									 [formData appendPartWithFileData:UIImagePNGRepresentation(media)
-																 name:kOpen311_Media
-															 fileName:@"media.png"
-															 mimeType:@"image/png"];
-								 }];
-	}
-	else {
-		post = [_httpClient requestWithMethod:@"POST" path:@"requests.json" parameters:parameters];
-	}
-	return post;
-}
-
-/**
  * Kicks off the report posting process
  *
  * Loading media from the asset library is an async call.
@@ -253,16 +223,14 @@ SHARED_SINGLETON(Open311);
 					 UIImage *original = [UIImage imageWithCGImage:[rep fullScreenImage]];
 					 UIImage *media = [Media resizeImage:original toBoundingBox:800];
 					 
-					 NSMutableURLRequest *post = [self preparePostForReport:report withMedia:media];
-					 [self postReport:report withPost:post];
+					 [self postReport:report withMedia:media];
 				 }
 				failureBlock:^(NSError *error) {
 					[self postFailedWithError:error forOperation:nil];
 				}];
 	}
 	else {
-		NSMutableURLRequest *post = [self preparePostForReport:report withMedia:nil];
-		[self postReport:report withPost:post];
+		[self postReport:report withMedia:nil];
 	}
 }
 
@@ -273,47 +241,68 @@ SHARED_SINGLETON(Open311);
  * The Open311 object will send out notifications when the call is finished.
  * PostSucceeded or PostFailed
  */
-- (void)postReport:(Report *)report withPost:(NSMutableURLRequest *)post
+- (void)postReport:(Report *)report withMedia:(UIImage *)media
 {
-	AFHTTPRequestOperation *operation;
-	operation = [_httpClient HTTPRequestOperationWithRequest:post
-													 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-														 NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
-														 
-														 NSError *error;
-														 NSArray *serviceRequests = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-														 if (!error) {
-															 NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:serviceRequests[0]];
-															 if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
-                                                                 // Set a status of pending. This will be updated later,
-                                                                 // when we load fresh data from the server
-                                                                 sr[kOpen311_Status] = kUI_Pending;
-                                                                 
-																 if (!sr[kOpen311_RequestedDatetime]) {
-																	 NSDateFormatter *df = [[NSDateFormatter alloc] init];
-																	 [df setDateFormat:kDate_ISO8601];
-																	 sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
-																 }
-																 report.server         = _currentServer;
-																 report.serviceRequest = sr;
-																 [[Preferences sharedInstance] saveReport:report forIndex:-1];
-																 [notifications postNotificationName:kNotification_PostSucceeded object:self];
-															 }
-															 else {
-																 // We got a 200 response back in the correct format
-																 // However, it did not include a token or a service_request_id
-																 [notifications postNotificationName:kNotification_PostFailed object:self];
-															 }
-														 }
-														 else {
-															 // We got a 200 response, but it was not valid JSON
-                                                             [self postFailedWithError:error forOperation:operation];
-														 }
-													 }
-													 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-														 [self postFailedWithError:error forOperation:operation];
-													 }];
-	[operation start];
+    /**
+     * Success block called when the request completes
+     */
+    void (^success)(AFHTTPRequestOperation*, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
+        
+        NSArray *serviceRequests = responseObject;
+        NSMutableDictionary *sr = [NSMutableDictionary dictionaryWithDictionary:serviceRequests[0]];
+        if (sr[kOpen311_ServiceRequestId] || sr[kOpen311_Token]) {
+            // Set a status of pending. This will be updated later,
+            // when we load fresh data from the server
+            sr[kOpen311_Status] = kUI_Pending;
+            
+            if (!sr[kOpen311_RequestedDatetime]) {
+                NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                [df setDateFormat:kDate_ISO8601];
+                sr[kOpen311_RequestedDatetime] = [df stringFromDate:[NSDate date]];
+            }
+            report.server         = _currentServer;
+            report.serviceRequest = sr;
+            [[Preferences sharedInstance] saveReport:report forIndex:-1];
+            [notifications postNotificationName:kNotification_PostSucceeded object:self];
+        }
+        else {
+            // We got a 200 response back in the correct format
+            // However, it did not include a token or a service_request_id
+            [notifications postNotificationName:kNotification_PostFailed object:self];
+        }
+    };
+    
+    /**
+     * Failure block called when the request completes
+     */
+    void (^failure)(AFHTTPRequestOperation*, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self postFailedWithError:error forOperation:operation];
+    };
+    
+    
+    // Read all the report fields into a Dictionary for posting
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:_endpointParameters];
+    [report.postData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if (!parameters[key]) { parameters[key] = obj; }
+    }];
+    
+    AFHTTPRequestOperationManager *manager = [self getReqestManager];
+    NSString *url = [NSString stringWithFormat:@"%@/requests.json", _currentServer[kOpen311_Url]];
+    if (media) {
+        [manager POST:url
+            parameters:parameters
+            constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                NSData *raw = UIImagePNGRepresentation(media);
+                [formData appendPartWithFileData:raw name:kOpen311_Media fileName:@"media.png" mimeType:@"image/png"];
+            }
+            success:success
+            failure:failure
+        ];
+    }
+    else {
+        [manager POST:url parameters:parameters success:success failure:failure];
+    }
 }
 
 @end

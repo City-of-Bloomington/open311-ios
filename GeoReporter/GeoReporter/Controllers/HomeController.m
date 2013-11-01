@@ -13,7 +13,6 @@
 #import "Strings.h"
 #import "Preferences.h"
 #import "Open311.h"
-#import "AFJSONRequestOperation.h"
 
 static NSString * const kSegueToSettings = @"SegueToSettings";
 static NSString * const kSegueToChooseGroup = @"SegueToChooseGroup";
@@ -87,13 +86,13 @@ static NSString * const kSegueToAbout = @"SegueToAbout";
 #pragma mark -unwind segue
 -(IBAction) didReturnFromServersController:(UIStoryboardSegue *)sender
 {
-	if ([sender.identifier isEqualToString:kUnwindSegueFromServersToHome])
+	if ([sender.identifier isEqualToString:kUnwindSegueFromServersToHome]) {
 		[self loadServer];
+    }
 }
 
 -(IBAction) didReturnAfterSendingReport:(UIStoryboardSegue *)sender
 {
-	
 	//    if ([sender.identifier isEqualToString:kUnwindSegueFromReportToHome])
 	//      TODO: do something if it should open the Archive
 }
