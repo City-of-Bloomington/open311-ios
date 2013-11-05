@@ -223,36 +223,40 @@ static NSString * const kSegueToFullImage = @"segueToFullImage";
 	return cell;
 }
 
+/**
+ * There are two sections.
+ * All of the row heights in section 0 are defined in the storyboard.
+ * All of the row heights in section 1 are variable, depending on the content of the cell.
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (_mediaUrl && indexPath.section==1 && indexPath.row==1) {
-		return MEDIA_CELL_HEIGHT;
-	}
-	if ((    _report.postData[kOpen311_Latitude ] != nil
-          && _report.postData[kOpen311_Longitude] != nil
-          && indexPath.section==1 && indexPath.row==2)
-        ||
-		(   !_mediaUrl
-         && _report.postData[kOpen311_Latitude ] != nil
-         && _report.postData[kOpen311_Longitude] != nil
-         && indexPath.section==1 && indexPath.row==1)) {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            // The device is an iPad running iOS 3.2 or later.
-            return LOCATION_CELL_HEIGHT_IPAD;
+    if (indexPath.section == 1) {
+        // Description cell
+        if (indexPath.row == 0) {
+            CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH, 20000.0f);
+            
+            CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE]
+                                                  constrainedToSize:constraint
+                                                      lineBreakMode:NSLineBreakByWordWrapping];
+            
+            return size.height + 30.f;
         }
-        return LOCATION_CELL_HEIGHT;
-	}
-	
-	if  ((indexPath.section == 1 && indexPath.row == 1 && !_mediaUrl) ||
-		 (indexPath.section == 1 && indexPath.row == 2 && _mediaUrl)) {
-		CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH, 20000.0f);
-		
-		CGSize size = [[self getReportDescription] sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE]
-                                              constrainedToSize:constraint
-                                                  lineBreakMode:NSLineBreakByWordWrapping];
-		
-		return size.height + 30.f;
-	}
+        else {
+            // Location cell
+			if (indexPath.row == 1 && _report.postData[kOpen311_Latitude] != nil && _report.postData[kOpen311_Longitude] != nil) {
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    // The device is an iPad running iOS 3.2 or later.
+                    return LOCATION_CELL_HEIGHT_IPAD;
+                }
+                return LOCATION_CELL_HEIGHT;
+            }
+            // Media cell
+            else {
+                return MEDIA_CELL_HEIGHT;
+            }
+        }
+    }
+    // All the rows in the first section are the same height
 	return UITableViewAutomaticDimension;
 }
 
