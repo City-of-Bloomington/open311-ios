@@ -34,6 +34,7 @@ SHARED_SINGLETON(Open311);
     if (!_manager) {
         _manager = [AFHTTPRequestOperationManager manager];
         _manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        _manager.responseSerializer.acceptableContentTypes = [_manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     }
     return _manager;
 }
