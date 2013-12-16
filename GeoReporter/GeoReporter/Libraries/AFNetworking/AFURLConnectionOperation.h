@@ -312,25 +312,6 @@
 ///----------------
 
 /**
- ## SSL Pinning Options
-
- The following constants are provided by `AFURLConnectionOperation` as possible SSL Pinning options.
-
- enum {
- AFSSLPinningModeNone,
- AFSSLPinningModePublicKey,
- AFSSLPinningModeCertificate,
- }
- 
- `AFSSLPinningModeNone`
- Do not pin SSL connections
-
- `AFSSLPinningModePublicKey`
- Pin SSL connections to certificate public key (SPKI).
-
- `AFSSLPinningModeCertificate`
- Pin SSL connections to exact certificate. This may cause problems when your certificate expires and needs re-issuance.
-
  ## User info dictionary keys
 
  These keys may exist in the user info dictionary, in addition to those defined for NSError.
