@@ -138,7 +138,7 @@ NSString * const kPostData          = @"postData";
 - (void)startLoadingServiceRequest:(NSString *)serviceRequestId delegate:(id<ServiceRequestDelegate>)delegate
 {
 	Open311 *open311 = [Open311 sharedInstance];
-    AFHTTPRequestOperationManager *manager = [open311 getReqestManager];
+    AFHTTPRequestOperationManager *manager = [open311 getRequestManager];
     
     [manager GET:[NSString stringWithFormat:@"%@/requests/%@.json", _server[kOpen311_Url], serviceRequestId]
       parameters:[self getEndpointParameters]
@@ -155,7 +155,7 @@ NSString * const kPostData          = @"postData";
 - (void)startLoadingServiceRequestIdFromToken:(NSString *)token delegate:(id<ServiceRequestDelegate>)delegate
 {
 	Open311 *open311 = [Open311 sharedInstance];
-    AFHTTPRequestOperationManager *manager = [open311 getReqestManager];
+    AFHTTPRequestOperationManager *manager = [open311 getRequestManager];
     [manager GET:[NSString stringWithFormat:@"%@/tokens/%@.json", _server[kOpen311_Url], token]
       parameters:[self getEndpointParameters]
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
