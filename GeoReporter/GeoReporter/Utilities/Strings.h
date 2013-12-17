@@ -19,6 +19,7 @@ extern NSString * const kUI_Location;
 extern NSString * const kUI_ReportStatus;
 extern NSString * const kUI_ReportDescription;
 extern NSString * const kUI_ReportDate;
+extern NSString * const kUI_Okay;
 extern NSString * const kUI_Cancel;
 extern NSString * const kUI_Pending;
 extern NSString * const kUI_Uncategorized;
@@ -35,7 +36,8 @@ extern NSString * const kUI_HudLoadingMessage;
 extern NSString * const kUI_ChangePhoto;
 extern NSString * const kUI_HudSendingMessage;
 extern NSString * const kUI_HudSuccessMessage;
-
+extern NSString * const kUI_PermissionDenied;
+extern NSString * const kUI_ChangePrivacySettings;
 
 // Open311 Key Strings
 // Global required fields

@@ -7,6 +7,7 @@
 "report_description"="Beschreibung des Anliegens";
 "report_date"="Datum";
 "agency_responsible"="Zuständige Abteilung";
+"okay"="OK";
 "cancel"="Abbrechen";
 "pending"="Warten";
 "uncategorized"="Nicht kategorisiert";
@@ -23,3 +24,5 @@
 "send_success"="Hinweis wird übertragen";
 "serverURL_error_title"="Ungültige URL";
 "serverURL_error_message"="Bitte geben Sie eine gültige url";
+"permission_denied"="Zugriff verweigert";
+"change_privacy_settings"="Bitte gehen Sie auf Einstellungen > Datenschutz > Fotos, damit GeoReporter, um Ihre Fotos in der Bibliothek speichern.";

@@ -115,6 +115,8 @@
 		69CBB5E91817021700F9DB01 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CBB5E81817021700F9DB01 /* CoreLocation.framework */; };
 		69CBB5EB1817022B00F9DB01 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CBB5EA1817022B00F9DB01 /* AssetsLibrary.framework */; };
 		69CBB5EF1817086F00F9DB01 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBB5EE1817086F00F9DB01 /* SVProgressHUD.m */; };
+		69F903DC185A02BF00C2DA24 /* peoria.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F903DA185A02BF00C2DA24 /* peoria.png */; };
+		69F903DD185A02BF00C2DA24 /* peoria@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F903DB185A02BF00C2DA24 /* peoria@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,6 +297,8 @@
 		69CBB5EA1817022B00F9DB01 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		69CBB5ED1817086F00F9DB01 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		69CBB5EE1817086F00F9DB01 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		69F903DA185A02BF00C2DA24 /* peoria.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peoria.png; sourceTree = "<group>"; };
+		69F903DB185A02BF00C2DA24 /* peoria@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "peoria@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -550,6 +554,8 @@
 		69CBB5371816D33A00F9DB01 /* Cities */ = {
 			isa = PBXGroup;
 			children = (
+				69F903DA185A02BF00C2DA24 /* peoria.png */,
+				69F903DB185A02BF00C2DA24 /* peoria@2x.png */,
 				69CBB5381816D33A00F9DB01 /* bloomington.png */,
 				69CBB5391816D33A00F9DB01 /* bloomington@2x.png */,
 				69CBB53A1816D33A00F9DB01 /* bonn.png */,
@@ -746,6 +752,7 @@
 				69CBB59F1816F84E00F9DB01 /* NBPhoneNumberMetadataForTesting.plist in Resources */,
 				69CBB5621816D33A00F9DB01 /* bloomington@2x.png in Resources */,
 				69CBB55B1816D33A00F9DB01 /* chatTableCell.png in Resources */,
+				69F903DC185A02BF00C2DA24 /* peoria.png in Resources */,
 				69CBB5571816D33A00F9DB01 /* accountTableCell@2x.png in Resources */,
 				69CBB5741816D33A00F9DB01 /* list@2x.png in Resources */,
 				69CBB56F1816D33A00F9DB01 /* cross-hairs-small-black-cropped.png in Resources */,
@@ -757,6 +764,7 @@
 				69CBB5751816D33A00F9DB01 /* listTableCell.png in Resources */,
 				69CBB5731816D33A00F9DB01 /* list.png in Resources */,
 				69CBB5681816D33A00F9DB01 /* chicago@2x.png in Resources */,
+				69F903DD185A02BF00C2DA24 /* peoria@2x.png in Resources */,
 				69CBB56A1816D33A00F9DB01 /* columbus@2x.png in Resources */,
 				69CBB55E1816D33A00F9DB01 /* checkbox_selected@2x.png in Resources */,
 				69CBB55C1816D33A00F9DB01 /* chatTableCell@2x.png in Resources */,

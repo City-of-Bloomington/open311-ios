@@ -28,5 +28,6 @@
 @property IBOutlet UITextView *currentTextEntry;
 @property Report *report;
 
+- (void)openAddMediaActionSheet;
 - (IBAction)send:(id)sender;
 @end

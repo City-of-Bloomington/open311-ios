@@ -19,6 +19,7 @@ NSString * const kUI_Location               = @"location";
 NSString * const kUI_ReportStatus           = @"report_status";
 NSString * const kUI_ReportDescription      = @"report_description";
 NSString * const kUI_ReportDate             = @"report_date";
+NSString * const kUI_Okay                   = @"okay";
 NSString * const kUI_Cancel                 = @"cancel";
 NSString * const kUI_Pending                = @"pending";
 NSString * const kUI_Uncategorized          = @"uncategorized";
@@ -35,6 +36,8 @@ NSString * const kUI_HudLoadingMessage		= @"loading_message";
 NSString * const kUI_ChangePhoto			= @"change_photo";
 NSString * const kUI_HudSendingMessage		= @"sending";
 NSString * const kUI_HudSuccessMessage		= @"send_success";
+NSString * const kUI_PermissionDenied       = @"permission_denied";
+NSString * const kUI_ChangePrivacySettings  = @"change_privacy_settings";
 
 // Open311 Key Strings
 // Global required fields

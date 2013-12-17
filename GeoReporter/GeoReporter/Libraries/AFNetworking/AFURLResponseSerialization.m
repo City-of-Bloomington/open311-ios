@@ -398,7 +398,12 @@ extern NSString * const AFNetworkingOperationFailingURLResponseErrorKey;
         }
     }
 
-    return [NSPropertyListSerialization propertyListWithData:data options:self.readOptions format:NULL error:error];
+    id responseObject;
+    if (data) {
+        responseObject = [NSPropertyListSerialization propertyListWithData:data options:self.readOptions format:NULL error:error];
+    }
+
+    return responseObject;
 }
 
 #pragma mark - NSCoding
@@ -459,8 +464,8 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
         imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, true, kCGRenderingIntentDefault);
     }
 
+    UIImage *image = AFImageWithDataAtScale(data, scale);
     if (!imageRef) {
-        UIImage *image = AFImageWithDataAtScale(data, scale);
         if (image.images) {
             CGDataProviderRelease(dataProvider);
 
@@ -516,7 +521,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     CGImageRef inflatedImageRef = CGBitmapContextCreateImage(context);
     CGContextRelease(context);
 
-    UIImage *inflatedImage = [[UIImage alloc] initWithCGImage:inflatedImageRef scale:scale orientation:UIImageOrientationUp];
+    UIImage *inflatedImage = [[UIImage alloc] initWithCGImage:inflatedImageRef scale:scale orientation:image.imageOrientation];
     CGImageRelease(inflatedImageRef);
     CGImageRelease(imageRef);
 
@@ -592,7 +597,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     }
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-    self.imageScale = [decoder decodeFloatForKey:NSStringFromSelector(@selector(imageScale))];
+    self.imageScale = [[decoder decodeObjectForKey:NSStringFromSelector(@selector(imageScale))] floatValue];
     self.automaticallyInflatesResponseImage = [decoder decodeBoolForKey:NSStringFromSelector(@selector(automaticallyInflatesResponseImage))];
 #endif
 
@@ -603,7 +608,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     [super encodeWithCoder:coder];
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-    [coder encodeFloat:self.imageScale forKey:NSStringFromSelector(@selector(imageScale))];
+    [coder encodeObject:@(self.imageScale) forKey:NSStringFromSelector(@selector(imageScale))];
     [coder encodeBool:self.automaticallyInflatesResponseImage forKey:NSStringFromSelector(@selector(automaticallyInflatesResponseImage))];
 #endif
 }

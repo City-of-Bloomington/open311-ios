@@ -318,17 +318,24 @@ CLLocationCoordinate2D currentLocation;
     
     if ([type isEqualToString:kOpen311_Media]) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES) {
-            UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
+            [library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                // On the very first time, this call will trigger a prompt to the user,
+                // requesting access to their photo library.  All times after, it will
+                // silently honor whatever choice the user has made.
+                //
+                // If they have denied us access, the failureBlock will be called, instead.
+                if ([group numberOfAssets] >= 0) {
+                    [self openAddMediaActionSheet];
+                }
+            } failureBlock:^(NSError *error) {
+                // We do not have permission
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kUI_PermissionDenied, nil)
+                                                                message:NSLocalizedString(kUI_ChangePrivacySettings, nil)
                                                                delegate:self
-                                                      cancelButtonTitle:nil
-                                                 destructiveButtonTitle:nil
-                                                      otherButtonTitles:nil, nil];
-            popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-            [popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
-            [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
-            [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
-            [popup setCancelButtonIndex:2];
-            [popup showInView:self.view];
+                                                      cancelButtonTitle:NSLocalizedString(kUI_Okay, nil)
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }];
         }
     }
     
@@ -419,6 +426,22 @@ CLLocationCoordinate2D currentLocation;
 }
 
 #pragma mark - Image choosing handlers
+- (void)openAddMediaActionSheet
+{
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(kUI_ChooseMediaSource, nil)
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:nil, nil];
+    popup.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [popup addButtonWithTitle:NSLocalizedString(kUI_Camera,  nil)];
+    [popup addButtonWithTitle:NSLocalizedString(kUI_Gallery, nil)];
+    [popup addButtonWithTitle:NSLocalizedString(kUI_Cancel,  nil)];
+    [popup setCancelButtonIndex:2];
+    [popup showInView:self.view];
+    
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex != 2) {
@@ -442,8 +465,12 @@ CLLocationCoordinate2D currentLocation;
 		[library writeImageToSavedPhotosAlbum:[image CGImage]
 									 metadata:info[UIImagePickerControllerMediaMetadata]
 							  completionBlock:^(NSURL *assetURL, NSError *error) {
-								  _report.postData[kOpen311_Media] = assetURL;
-								  [self refreshMediaThumbnail];
+                                  // If we do not have permission to access the photo library,
+                                  // assetURL will be null.
+                                  if (assetURL) {
+                                      _report.postData[kOpen311_Media] = assetURL;
+                                      [self refreshMediaThumbnail];
+                                  }
 							  }];
 	}
 	else {

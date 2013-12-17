@@ -29,10 +29,13 @@ NSString * const kNotification_PostFailed       = @"postFailed";
 @implementation Open311
 SHARED_SINGLETON(Open311);
 
-- (AFHTTPRequestOperationManager *)getReqestManager
+- (AFHTTPRequestOperationManager *)getRequestManager
 {
     if (!_manager) {
+        NSString *userAgent = [NSString stringWithFormat:@"GeoReporter/%@ (iOS/%@)", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"], [[UIDevice currentDevice] systemVersion]];
+        
         _manager = [AFHTTPRequestOperationManager manager];
+        [_manager.requestSerializer setValue:userAgent forHTTPHeaderField:@"User-Agent"];
         _manager.responseSerializer = [AFJSONResponseSerializer serializer];
         _manager.responseSerializer.acceptableContentTypes = [_manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     }
@@ -107,9 +110,10 @@ SHARED_SINGLETON(Open311);
 #pragma mark - GET Service List
 - (void)loadServiceListWithCompletion:(void(^)(void))completion
 {
-    AFHTTPRequestOperationManager *manager = [self getReqestManager];
+    AFHTTPRequestOperationManager *manager = [self getRequestManager];
+    NSString *url = [NSString stringWithFormat:@"%@/services.json", _currentServer[kOpen311_Url]];
     
-    [manager GET:[NSString stringWithFormat:@"%@/services.json", _currentServer[kOpen311_Url]]
+    [manager GET:url
        parameters:_endpointParameters
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               _serviceList = responseObject;
@@ -150,7 +154,7 @@ SHARED_SINGLETON(Open311);
 	__block NSString *serviceCode = [service objectForKey:kOpen311_ServiceCode];
     
     if (![_serviceDefinitions objectForKey:serviceCode] && [[service objectForKey:kOpen311_Metadata] boolValue]) {
-        AFHTTPRequestOperationManager *manager = [self getReqestManager];
+        AFHTTPRequestOperationManager *manager = [self getRequestManager];
         [manager GET:[NSString stringWithFormat:@"%@/services/%@.json", _currentServer[kOpen311_Url], serviceCode]
           parameters:_endpointParameters
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -288,7 +292,7 @@ SHARED_SINGLETON(Open311);
         if (!parameters[key]) { parameters[key] = obj; }
     }];
     
-    AFHTTPRequestOperationManager *manager = [self getReqestManager];
+    AFHTTPRequestOperationManager *manager = [self getRequestManager];
     NSString *url = [NSString stringWithFormat:@"%@/requests.json", _currentServer[kOpen311_Url]];
     if (media) {
         [manager POST:url
