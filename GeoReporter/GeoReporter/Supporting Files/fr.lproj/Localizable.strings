@@ -7,6 +7,7 @@
 "report_description"="Description du problème";
 "report_date"="Date soumise";
 "agency_responsible"="Responsable de Département";
+"okay"="OK";
 "cancel"="Annuler";
 "pending"="En attente";
 "uncategorized"="Sans catègorie";
@@ -23,3 +24,5 @@
 "send_success"="Demande envoyée";
 "serverURL_error_title"="URL invalide";
 "serverURL_error_message"="S'il vous plaît entrer une URL valide";
+"permission_denied"="Permission denied";
+"change_privacy_settings"="S'il vous plaît allez dans Réglages > Confidentialité > Photos, pour permettre GeoReport pour enregistrer des photos à votre bibliothèque.";
