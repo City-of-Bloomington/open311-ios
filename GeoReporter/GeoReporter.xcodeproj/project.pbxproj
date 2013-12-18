@@ -150,7 +150,7 @@
 		69B27AC9181966E5005C5FBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69B27ACA181966ED005C5FBF /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69B27ACB181966F5005C5FBF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		69CBB4331816C1F100F9DB01 /* GeoReporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoReporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69CBB4331816C1F100F9DB01 /* BloomingtonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloomingtonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69CBB4361816C1F100F9DB01 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		69CBB4381816C1F100F9DB01 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		69CBB43A1816C1F100F9DB01 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -344,7 +344,7 @@
 		69CBB4341816C1F100F9DB01 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				69CBB4331816C1F100F9DB01 /* GeoReporter.app */,
+				69CBB4331816C1F100F9DB01 /* BloomingtonApp.app */,
 				69CBB4541816C1F100F9DB01 /* GeoReporterTests.xctest */,
 			);
 			name = Products;
@@ -668,7 +668,7 @@
 			);
 			name = BloomingtonApp;
 			productName = GeoReporter;
-			productReference = 69CBB4331816C1F100F9DB01 /* GeoReporter.app */;
+			productReference = 69CBB4331816C1F100F9DB01 /* BloomingtonApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		69CBB4531816C1F100F9DB01 /* GeoReporterTests */ = {
