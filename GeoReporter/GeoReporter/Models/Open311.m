@@ -119,7 +119,7 @@ SHARED_SINGLETON(Open311);
 {
     AFHTTPRequestOperationManager *manager = [self getRequestManager];
     
-    [manager GET:[NSString stringWithFormat:@"%@/services.json", _currentServer[kOpen311_Url]]
+    [manager GET:[NSString stringWithFormat:@"%@/services.json", serverURL]
       parameters:_endpointParameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              _serviceList = responseObject;
